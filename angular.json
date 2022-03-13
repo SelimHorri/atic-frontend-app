@@ -36,6 +36,22 @@
             "scripts": []
           },
           "configurations": {
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
+            },
+            "preprod": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.preprod.ts"
+                }
+              ]
+            },
             "production": {
               "budgets": [
                 {
@@ -76,6 +92,12 @@
             },
             "development": {
               "browserTarget": "cita-frontend-app:build:development"
+            },
+            "staging": {
+              "browserTarget": "cita-frontend-app:build:staging"
+            },
+            "preprod": {
+              "browserTarget": "cita-frontend-app:build:preprod"
             }
           },
           "defaultConfiguration": "development"

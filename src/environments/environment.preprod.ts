@@ -4,8 +4,8 @@ const API_URL_CONTEXT_V0: string = "/api/v0";
 
 export const environment = {
   staging: false,
-  preprod: false,
-  production: true,
+  preprod: true,
+  production: false,
   API_URL: HOST_URL + API_URL_CONTEXT_V0,
 };
 
