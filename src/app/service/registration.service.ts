@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RegisterRequest } from '../model/request/register-request';
 import { ApiPayloadRegisterResponse } from '../model/response/api/api-payload-register-response';
-import { RegisterResponse } from '../model/response/register-response';
 
 @Injectable({
   providedIn: 'root'

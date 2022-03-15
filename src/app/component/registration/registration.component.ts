@@ -31,22 +31,21 @@ export class RegistrationComponent implements OnInit {
   
   public register(registerRequest: RegisterRequest): void {
     this.registrationService.register(registerRequest)
-        .subscribe(
-          (payload: ApiPayloadRegisterResponse) => {
+        .subscribe({
+          next: (payload: ApiPayloadRegisterResponse) => {
             alert(payload.responseBody.isSuccess + ": " + payload.responseBody.msg);
           },
-          (errorResponse: HttpErrorResponse) => {
+          error: (errorResponse: HttpErrorResponse) => {
             const apiPayloadDExceptionMsg: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
             console.log(JSON.stringify(apiPayloadDExceptionMsg));
             alert(apiPayloadDExceptionMsg?.responseBody?.errorMsg);
           }
-    );
+        });
   }
   
   
   
 }
-
 
 
 
