@@ -1,4 +1,6 @@
 
+import { UserRoleBasedAuthority } from "../user-role-based-authority";
+
 export class RegisterRequest {
   
   constructor(
@@ -10,8 +12,7 @@ export class RegisterRequest {
     public username: string,
     public password: string,
     public confirmPassword: string,
-    public role: string) {
-    
+    public role: UserRoleBasedAuthority) {
   }
   
   

@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './component/home/home.component';
 import { AuthenticationComponent } from './component/authentication/authentication.component';
 import { RegistrationComponent } from './component/registration/registration.component';
+import { AuthenticationService } from './service/authentication.service';
+import { RegistrationService } from './service/registration.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { RegistrationComponent } from './component/registration/registration.com
     HttpClientModule,
   ],
   providers: [
-    
+    AuthenticationService,
+    RegistrationService,
   ],
   bootstrap: [AppComponent]
 })

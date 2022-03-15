@@ -13,24 +13,23 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 })
 export class AuthenticationComponent implements OnInit {
   
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService) {}
   
   ngOnInit(): void {
     this.authenticate(new LoginRequest("seliimhorrii000000", "0000"));
   }
   
   public authenticate(loginRequest: LoginRequest): void {
-    this.authenticationService.authenticate(loginRequest)
-      .subscribe({
-        next: (apiPayloadLoginResponse: ApiPayloadLoginResponse) => {
-          alert(apiPayloadLoginResponse.responseBody.username + ": " + apiPayloadLoginResponse.responseBody.jwtToken);
-        },
-        error: (errorResponse: HttpErrorResponse) => {
-          const apiPayloadDExceptionMsg: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
-          console.log(JSON.stringify(apiPayloadDExceptionMsg));
-          alert(apiPayloadDExceptionMsg?.responseBody?.errorMsg);
-        }
-      });
+    this.authenticationService.authenticate(loginRequest).subscribe({
+      next: (apiPayloadLoginResponse: ApiPayloadLoginResponse) => {
+        alert(apiPayloadLoginResponse.responseBody.username + ": " + apiPayloadLoginResponse.responseBody.jwtToken);
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        const apiPayloadDExceptionMsg: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
+        console.log(JSON.stringify(apiPayloadDExceptionMsg));
+        alert(apiPayloadDExceptionMsg?.responseBody?.errorMsg);
+      }
+    });
   }
   
   
