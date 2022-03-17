@@ -20,19 +20,14 @@ export class HomeComponent implements OnInit {
     button.style.display = "none";
     button.setAttribute("data-toggle", "modal");
     
-    if (action === "login") {
+    if (action === "login")
       button.setAttribute("data-target", "#login");
-      console.log("login target");
-    }
-    if (action === "register") {
+    else if (action === "register")
       button.setAttribute("data-target", "#register");
-      console.log("register target");
-    }
      
     const mainContainer = document.getElementById("main-container");
     mainContainer?.appendChild(button);
     button.click();
-    console.log("button clicked");
   }
   
   

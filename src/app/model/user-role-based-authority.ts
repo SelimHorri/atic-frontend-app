@@ -1,10 +1,10 @@
 
 export enum UserRoleBasedAuthority {
   
-  CUSTOMER,
-  WORKER,
-  MANAGER,
-  OWNER
+  CUSTOMER = "CUSTOMER",
+  WORKER = "WORKER",
+  MANAGER = "MANAGER",
+  OWNER = "OWNER"
   
 }
 
