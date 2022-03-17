@@ -11,13 +11,15 @@ import { AuthenticationComponent } from './component/authentication/authenticati
 import { RegistrationComponent } from './component/registration/registration.component';
 import { AuthenticationService } from './service/authentication.service';
 import { RegistrationService } from './service/registration.service';
+import { Error404Component } from './component/error/error404/error404.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AuthenticationComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,
