@@ -34,7 +34,8 @@
       <div class="col-lg-8">
         <!-- Featured blog post-->
         <div class="card mb-4">
-          <a routerLink=""><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+          <a routerLink=""><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg"
+              alt="..." /></a>
           <div class="card-body">
             <div class="small text-muted">January 1, 2021</div>
             <h2 class="card-title">Featured Post Title</h2>
@@ -103,7 +104,8 @@
         <nav aria-label="Pagination">
           <hr class="my-0" />
           <ul class="pagination justify-content-center my-4">
-            <li class="page-item disabled"><a class="page-link" routerLink="" tabindex="-1" aria-disabled="true">Newer</a>
+            <li class="page-item disabled"><a class="page-link" routerLink="" tabindex="-1"
+                aria-disabled="true">Newer</a>
             </li>
             <li class="page-item active" aria-current="page"><a class="page-link" routerLink="">1</a></li>
             <li class="page-item"><a class="page-link" routerLink="">2</a></li>
@@ -193,7 +195,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" id="login-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button [disabled]="loginForm.invalid"  type="submit" class="btn btn-primary">Login</button>
+              <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary">Login</button>
             </div>
           </form>
 
@@ -201,9 +203,9 @@
       </div>
     </div>
   </div>
-  
-  
-  
+
+
+
   <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -261,9 +263,8 @@
             </div>
             <div class="form-group">
               <label for="role">User role</label>
-              <select ngModel name="role" class="form-select" aria-label="Default select example">
-                <option selected>==> Select your Role <==</option>
-                <option value="CUSTOMER">CUSTOMER</option>
+              <select ngModel name="role" class="form-select" aria-label="Default select example" required>
+                <option selected>==> Select your Role <==</option> <option value="CUSTOMER">CUSTOMER</option>
                 <option value="WORKER">WORKER</option>
                 <option value="MANAGER">MANAGER</option>
                 <option value="OWNER">OWNER</option>
@@ -271,7 +272,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" id="register-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button [disabled]="registerForm.invalid"  type="submit" class="btn btn-primary">Register</button>
+              <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary">Register</button>
             </div>
           </form>
 
@@ -285,7 +286,3 @@
 
 
 
-<!-- Bootstrap core JS-->
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
-<!-- Core theme JS-->
-<!-- <script src="./assets/home/js/scripts.js"></script> -->

@@ -11,7 +11,6 @@ export class HomeComponent implements OnInit {
   constructor() {}
   
   ngOnInit(): void {
-    
   }
   
   public onOpenModal(action: string): void {

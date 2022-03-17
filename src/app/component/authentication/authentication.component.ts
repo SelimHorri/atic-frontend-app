@@ -19,17 +19,15 @@ export class AuthenticationComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  public onLogin(ngForm: NgForm): void {
-    const loginRequest: LoginRequest = ngForm.value;
+  public onLogin(loginRequest: LoginRequest): void {
     this.authenticationService.authenticate(loginRequest).subscribe({
-      next: (apiPayloadLoginResponse: ApiPayloadLoginResponse) => {
-        alert(apiPayloadLoginResponse.responseBody.username + ": " + apiPayloadLoginResponse.responseBody.jwtToken);
-        ngForm.reset();
+      next: (payload: ApiPayloadLoginResponse) => {
+        alert(payload.responseBody.username + ": " + payload.responseBody.jwtToken);
       },
       error: (errorResponse: HttpErrorResponse) => {
-        const apiPayloadDExceptionMsg: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
-        console.log(JSON.stringify(apiPayloadDExceptionMsg));
-        alert(apiPayloadDExceptionMsg?.responseBody?.errorMsg);
+        const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
+        console.log(JSON.stringify(payload));
+        alert(payload?.responseBody?.errorMsg);
       }
     });
   }
