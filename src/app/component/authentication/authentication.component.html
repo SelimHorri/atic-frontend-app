@@ -5,9 +5,9 @@
       <div class="d-table-cell align-middle">
 
         <div class="text-center mt-4">
-          <h1 class="h2">Welcome back, Dey</h1>
+          <h1 class="h2">Welcome</h1>
           <p class="lead">
-            Sign in to your account to continue
+            Login to continue..
           </p>
         </div>
 
@@ -21,8 +21,8 @@
               <form #loginForm="ngForm">
                 <div class="form-group">
                   <label for="username">Username</label>
-                  <input type="text" ngModel name="username" class="form-control" id="username"
-                    placeholder="username.." required>
+                  <input type="text" ngModel name="username" class="form-control" id="username" placeholder="username.."
+                    required>
                 </div>
                 <div class="form-group">
                   <label for="password">Password</label>
@@ -30,9 +30,8 @@
                     placeholder="password.." required>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" id="login-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button [disabled]="loginForm.invalid" (click)="onLogin(loginForm)" type="submit"
-                    class="btn btn-primary">Login</button>
+                  <button [disabled]="loginForm.invalid" (click)="onLogin(loginForm.value)" type="submit"
+                    class="btn btn-info">Login</button>
                 </div>
               </form>
             </div>
@@ -43,7 +42,6 @@
     </div>
   </div>
 </div>
-
 
 
 

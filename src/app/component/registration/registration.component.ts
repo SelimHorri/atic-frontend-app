@@ -27,9 +27,9 @@ export class RegistrationComponent implements OnInit {
         ngForm.reset();
       },
       error: (errorResponse: HttpErrorResponse) => {
-        const apiPayloadDExceptionMsg: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
-        console.log(JSON.stringify(apiPayloadDExceptionMsg));
-        alert(apiPayloadDExceptionMsg?.responseBody?.errorMsg);
+        const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
+        console.log(JSON.stringify(payload));
+        alert(payload?.responseBody?.errorMsg);
       }
     });
   }
