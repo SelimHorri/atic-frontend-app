@@ -17,6 +17,7 @@ export class RegistrationComponent implements OnInit {
   constructor(private registrationService: RegistrationService) {}
   
   ngOnInit(): void {
+    
   }
   
   public onRegister(ngForm: NgForm): void {
