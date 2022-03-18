@@ -12,6 +12,9 @@ import { RegistrationComponent } from './component/registration/registration.com
 import { AuthenticationService } from './service/authentication.service';
 import { RegistrationService } from './service/registration.service';
 import { Error404Component } from './component/error/error404/error404.component';
+import { NavbarComponent } from './component/navbar/navbar.component';
+import { ContactComponent } from './component/contact/contact.component';
+import { AboutComponent } from './component/about/about.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { Error404Component } from './component/error/error404/error404.component
     HomeComponent,
     AuthenticationComponent,
     RegistrationComponent,
-    Error404Component
+    Error404Component,
+    NavbarComponent,
+    ContactComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
