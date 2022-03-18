@@ -14,9 +14,20 @@ import { RegistrationService } from 'src/app/service/registration.service';
 })
 export class RegistrationComponent implements OnInit {
   
+  public randomImgUrl!: string;
+  
   constructor(private registrationService: RegistrationService) {}
   
   ngOnInit(): void {
+    this.randomImgUrl = this.generateRandomImageUrl();
+  }
+  
+  public generateRandomImageUrl(): string {
+    const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+    let randomNumber: number = Math.floor(Math.random() * numbers.length);
+    if (randomNumber === 0)
+      ++randomNumber;
+    return `https://bootdey.com/img/Content/avatar/avatar${randomNumber}.png`;
   }
   
   public onRegister(ngForm: NgForm): void {
