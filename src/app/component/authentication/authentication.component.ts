@@ -14,9 +14,20 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 })
 export class AuthenticationComponent implements OnInit {
   
+  public randomImgUrl!: string;
+  
   constructor(private authenticationService: AuthenticationService) {}
   
   ngOnInit(): void {
+    this.randomImgUrl = this.generateRandomImageUrl();
+  }
+  
+  public generateRandomImageUrl(): string {
+    const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+    let randomNumber: number = Math.floor(Math.random() * numbers.length);
+    if (randomNumber === 0)
+      ++randomNumber;
+    return `https://bootdey.com/img/Content/avatar/avatar${randomNumber}.png`;
   }
   
   public onLogin(loginRequest: LoginRequest): void {
