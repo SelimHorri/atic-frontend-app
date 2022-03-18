@@ -15,6 +15,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 export class AuthenticationComponent implements OnInit {
   
   public randomImgUrl!: string;
+  public errorMsg!: string;
   
   constructor(private authenticationService: AuthenticationService) {}
   
@@ -30,6 +31,20 @@ export class AuthenticationComponent implements OnInit {
     return `https://bootdey.com/img/Content/avatar/avatar${randomNumber}.png`;
   }
   
+  public onOpenModal(action: string): void {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.style.display = "none";
+    button.setAttribute("data-bs-toggle", "modal");
+    
+    if (action === "login")
+      button.setAttribute("data-bs-target", "#login");
+    
+    const mainContainer = document.getElementById("main-container");
+    mainContainer?.appendChild(button);
+    button.click();
+  }
+  
   public onLogin(loginRequest: LoginRequest): void {
     this.authenticationService.authenticate(loginRequest).subscribe({
       next: (payload: ApiPayloadLoginResponse) => {
@@ -38,7 +53,8 @@ export class AuthenticationComponent implements OnInit {
       error: (errorResponse: HttpErrorResponse) => {
         const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
         console.log(JSON.stringify(payload));
-        alert(payload?.responseBody?.errorMsg);
+        this.errorMsg = payload?.responseBody?.errorMsg;
+        this.onOpenModal('login');
       }
     });
   }

@@ -15,6 +15,7 @@ import { RegistrationService } from 'src/app/service/registration.service';
 export class RegistrationComponent implements OnInit {
   
   public randomImgUrl!: string;
+  public errorMsg!: string;
   
   constructor(private registrationService: RegistrationService) {}
   
@@ -30,6 +31,20 @@ export class RegistrationComponent implements OnInit {
     return `https://bootdey.com/img/Content/avatar/avatar${randomNumber}.png`;
   }
   
+  public onOpenModal(action: string): void {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.style.display = "none";
+    button.setAttribute("data-bs-toggle", "modal");
+
+    if (action === "register")
+      button.setAttribute("data-bs-target", "#register");
+
+    const mainContainer = document.getElementById("main-container");
+    mainContainer?.appendChild(button);
+    button.click();
+  }
+  
   public onRegister(ngForm: NgForm): void {
     const registerRequest: RegisterRequest = ngForm.value;
     this.registrationService.register(registerRequest).subscribe({
@@ -40,7 +55,8 @@ export class RegistrationComponent implements OnInit {
       error: (errorResponse: HttpErrorResponse) => {
         const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
         console.log(JSON.stringify(payload));
-        alert(payload?.responseBody?.errorMsg);
+        this.errorMsg = payload?.responseBody?.errorMsg;
+        this.onOpenModal('register');
       }
     });
   }
