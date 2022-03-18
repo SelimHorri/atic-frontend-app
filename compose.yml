@@ -1,0 +1,20 @@
+
+version: '3.9'
+services:
+  cita-frontend-app:
+    image: selimhorri/cita-frontend-app
+    container_name: cita-frontend-app
+    ports:
+      - 4200:80
+    restart: always
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge
+
+
+
+
+
