@@ -13,6 +13,7 @@ import { TagService } from 'src/app/service/tag.service';
 })
 export class HomeComponent implements OnInit {
   
+  public errorMsg!: string;
   public tags!: Tag[];
   
   constructor(private tagService: TagService) {}
@@ -27,10 +28,8 @@ export class HomeComponent implements OnInit {
     button.style.display = "none";
     button.setAttribute("data-toggle", "modal");
     
-    if (action === "login")
-      button.setAttribute("data-target", "#login");
-    else if (action === "register")
-      button.setAttribute("data-target", "#register");
+    if (action === "findAllTagsError")
+      button.setAttribute("data-target", "#findAllTagsError");
      
     const mainContainer = document.getElementById("main-container");
     mainContainer?.appendChild(button);
@@ -46,7 +45,8 @@ export class HomeComponent implements OnInit {
       error: (errorResponse: HttpErrorResponse) => {
         const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
         console.log(JSON.stringify(payload));
-        alert(payload?.responseBody?.errorMsg);
+        this.errorMsg = payload?.responseBody?.errorMsg;
+        this.onOpenModal('findAllTagsError');
       }
     });
   }

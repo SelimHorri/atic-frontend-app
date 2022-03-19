@@ -138,6 +138,42 @@
 
 
 
+  
+  <div class="modal fade" id="findAllTagsError" tabindex="-1" role="dialog" aria-labelledby="findAllTagsErrorModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><strong>Pay attention!</strong></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <p>
+            <span *ngIf="errorMsg == null"><span class="text-danger">Error
+                fetching
+                available tags!
+                will be resolved later..</span>
+            </span>
+            <span *ngIf="errorMsg != null">
+              <span class="text-danger">{{ errorMsg }}</span>
+            </span>
+          </p>
+        
+          <div class="modal-footer">
+            <button type="button" id="find-all-tags-error-form"
+              onclick="<script>document.getElementById('findAllTagsError').modal('hide')</script>"
+              class="btn btn-primary"
+              data-dismiss="modal">Got it!</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
 
