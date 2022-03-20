@@ -16,7 +16,7 @@ import { RegistrationService } from 'src/app/service/registration.service';
 export class RegistrationComponent implements OnInit {
   
   public randomImgUrl!: string;
-  public errorMsg!: string;
+  public msg!: string;
   
   constructor(private registrationService: RegistrationService,
     private router: Router) {}
@@ -51,14 +51,14 @@ export class RegistrationComponent implements OnInit {
     const registerRequest: RegisterRequest = ngForm.value;
     this.registrationService.register(registerRequest).subscribe({
       next: (payload: ApiPayloadRegisterResponse) => {
-        alert(payload.responseBody.isSuccess + ": " + payload.responseBody.msg);
+        alert(payload?.responseBody?.isSuccess + ": " + payload?.responseBody?.msg);
         ngForm.reset();
         this.router.navigateByUrl(`/authenticate?username=${registerRequest.username.toLowerCase()}`);
       },
       error: (errorResponse: HttpErrorResponse) => {
         const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
         console.log(JSON.stringify(payload));
-        this.errorMsg = payload?.responseBody?.errorMsg;
+        this.msg = payload?.responseBody?.errorMsg;
         this.onOpenModal('register');
       }
     });

@@ -16,7 +16,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 export class AuthenticationComponent implements OnInit {
   
   public randomImgUrl!: string;
-  public errorMsg!: string;
+  public msg!: string;
   public registeredUsername!: string;
   
   constructor(private authenticationService: AuthenticationService,
@@ -63,7 +63,7 @@ export class AuthenticationComponent implements OnInit {
       error: (errorResponse: HttpErrorResponse) => {
         const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
         console.log(JSON.stringify(payload));
-        this.errorMsg = payload?.responseBody?.errorMsg;
+        this.msg = payload?.responseBody?.errorMsg;
         this.onOpenModal('login');
       }
     });

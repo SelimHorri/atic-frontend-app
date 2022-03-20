@@ -1,4 +1,3 @@
-
 <app-navbar></app-navbar>
 
 <div id="main-container">
@@ -18,9 +17,8 @@
       <div class="col-lg-8">
         <!-- Featured blog post-->
         <div class="card mb-4">
-          <a routerLink=""><img class="card-img-top" width="850" height="350" 
-            src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg"
-              alt="..." /></a>
+          <a routerLink=""><img class="card-img-top" width="850" height="350"
+              src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
           <div class="card-body">
             <div class="small text-muted">January 1, 2021</div>
             <h2 class="card-title">Featured Post Title</h2>
@@ -36,8 +34,7 @@
             <!-- Blog post-->
             <div class="card mb-4">
               <a routerLink=""><img class="card-img-top" width="700" height="200"
-                  src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-                  alt="..." /></a>
+                  src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
               <div class="card-body">
                 <div class="small text-muted">January 1, 2021</div>
                 <h2 class="card-title h4">Post Title</h2>
@@ -49,8 +46,7 @@
             <!-- Blog post-->
             <div class="card mb-4">
               <a routerLink=""><img class="card-img-top" width="700" height="200"
-                  src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-                  alt="..." /></a>
+                  src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
               <div class="card-body">
                 <div class="small text-muted">January 1, 2021</div>
                 <h2 class="card-title h4">Post Title</h2>
@@ -64,8 +60,7 @@
             <!-- Blog post-->
             <div class="card mb-4">
               <a routerLink=""><img class="card-img-top" width="700" height="200"
-                  src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-                  alt="..." /></a>
+                  src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
               <div class="card-body">
                 <div class="small text-muted">January 1, 2021</div>
                 <h2 class="card-title h4">Post Title</h2>
@@ -77,8 +72,7 @@
             <!-- Blog post-->
             <div class="card mb-4">
               <a routerLink=""><img class="card-img-top" width="700" height="200"
-                  src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-                  alt="..." /></a>
+                  src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
               <div class="card-body">
                 <div class="small text-muted">January 1, 2021</div>
                 <h2 class="card-title h4">Post Title</h2>
@@ -143,7 +137,7 @@
 
 
 
-  
+
   <div class="modal fade" id="findAllTagsError" tabindex="-1" role="dialog" aria-labelledby="findAllTagsErrorModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -157,21 +151,20 @@
         <div class="modal-body">
 
           <p>
-            <span *ngIf="errorMsg == null"><span class="text-danger">Error
+            <span *ngIf="msg == null"><span class="text-danger">Error
                 fetching
                 available tags!
                 will be resolved later..</span>
             </span>
-            <span *ngIf="errorMsg != null">
-              <span class="text-danger">{{ errorMsg }}</span>
+            <span *ngIf="msg != null">
+              <span class="text-danger">{{ msg }}</span>
             </span>
           </p>
-        
+
           <div class="modal-footer">
             <button type="button" id="find-all-tags-error-form"
               onclick="<script>document.getElementById('findAllTagsError').modal('hide')</script>"
-              class="btn btn-primary"
-              data-dismiss="modal">Got it!</button>
+              class="btn btn-primary" data-dismiss="modal">Got it!</button>
           </div>
 
         </div>
@@ -298,7 +291,3 @@
   </div>
 
 </div>
-
-
-
-
