@@ -12,7 +12,10 @@ services:
 
 networks:
   net:
-    driver: bridge
+    #driver: bridge
+    #name: cita-net
+    external:
+      name: cita-net
 
 
 
