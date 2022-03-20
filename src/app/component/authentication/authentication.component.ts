@@ -2,6 +2,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { LoginRequest } from 'src/app/model/request/login-request';
 import { ApiPayloadDExceptionMsg } from 'src/app/model/response/api/api-payload-d-exception-msg';
 import { ApiPayloadLoginResponse } from 'src/app/model/response/api/api-payload-login-response';
@@ -16,14 +17,23 @@ export class AuthenticationComponent implements OnInit {
   
   public randomImgUrl!: string;
   public errorMsg!: string;
+  public registeredUsername!: string;
   
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private authenticationService: AuthenticationService,
+    private  activatedRoute: ActivatedRoute) {}
   
   ngOnInit(): void {
     this.randomImgUrl = this.generateRandomImageUrl();
+    this.writeRegisteredUsernameToForm();
   }
   
-  public generateRandomImageUrl(): string {
+  private writeRegisteredUsernameToForm(): void {
+    this.activatedRoute.queryParams.subscribe({
+      next: (p: any) => this.registeredUsername = p.username
+    });
+  }
+  
+  private generateRandomImageUrl(): string {
     const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
     let randomNumber: number = Math.floor(Math.random() * numbers.length);
     if (randomNumber === 0)

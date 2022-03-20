@@ -23,7 +23,8 @@
               <form #loginForm="ngForm">
                 <div class="form-group">
                   <label for="username">Username</label>
-                  <input type="text" ngModel name="username" class="form-control" id="username" placeholder="username.."
+                  <input type="text" ngModel name="username" ngModel="{{ registeredUsername }}" class="form-control"
+                    id="username" placeholder="username.."
                     required>
                 </div>
                 <div class="form-group">
