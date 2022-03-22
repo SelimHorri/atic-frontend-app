@@ -15,10 +15,11 @@ const routes: Routes = [
     children: [
       
       { path: "", component: HomeComponent },
+      { path: "home", redirectTo: "" },
+      { path: "about", component: AboutComponent },
+      { path: "contact", component: ContactComponent },
       { path: "authenticate", component: AuthenticationComponent },
       { path: "register", component: RegistrationComponent },
-      { path: "about", component: AboutComponent},
-      { path: "contact", component: ContactComponent },
       
     ]
   },
