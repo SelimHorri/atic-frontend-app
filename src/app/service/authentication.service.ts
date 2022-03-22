@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginRequest } from '../model/request/login-request';
 import { ApiPayloadLoginResponse } from '../model/response/api/api-payload-login-response';
-import { LoginResponse } from '../model/response/login-response';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +20,6 @@ export class AuthenticationService {
   public authenticate(loginRequest: LoginRequest): Observable<ApiPayloadLoginResponse> {
     return this.http.post<ApiPayloadLoginResponse>(`${this.apiUrl}`, loginRequest);
   }
-  
-  
   
 }
 
