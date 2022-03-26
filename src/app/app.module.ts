@@ -15,6 +15,7 @@ import { Error404Component } from './component/error/error404/error404.component
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { ContactComponent } from './component/contact/contact.component';
 import { AboutComponent } from './component/about/about.component';
+import { TagService } from './service/tag.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AboutComponent } from './component/about/about.component';
   providers: [
     AuthenticationService,
     RegistrationService,
+    TagService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 
-const HOST_URL: string = "http://cita-backend-app:8400";
+const HOST_URL: string = "http://localhost:8400";
 const API_URL_CONTEXT_V0: string = "/api/v0";
 
 export const environment = {
