@@ -7,13 +7,15 @@ services:
     ports:
       - 4200:80
     restart: always
+#    depends_on:
+#      - cita-backend-app
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
     networks:
       - net
 
 networks:
   net:
-    #driver: bridge
-    #name: cita-net
     external:
       name: cita-net
 
