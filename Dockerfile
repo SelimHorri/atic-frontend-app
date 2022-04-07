@@ -4,7 +4,7 @@ FROM node as node
 RUN mkdir -p /home/app
 WORKDIR /home/app
 COPY . .
-ARG PROFILE=staging
+ENV PROFILE=staging
 RUN npm i
 RUN npm run build --configuration=${PROFILE}
 
