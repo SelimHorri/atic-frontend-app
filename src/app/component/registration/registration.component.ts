@@ -51,7 +51,7 @@ export class RegistrationComponent implements OnInit {
     const registerRequest: RegisterRequest = ngForm.value;
     this.registrationService.register(registerRequest).subscribe({
       next: (payload: ApiPayloadRegisterResponse) => {
-        alert(payload?.responseBody?.isSuccess + ": " + payload?.responseBody?.msg);
+        alert(payload?.responseBody?.msg);
         ngForm.reset();
         this.router.navigateByUrl(`/authenticate?username=${registerRequest.username.toLowerCase()}`);
       },
