@@ -1,6 +1,7 @@
 
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, LOCALE_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RegisterRequest } from '../model/request/register-request';
@@ -18,6 +19,7 @@ export class RegistrationService {
   }
   
   public register(registerRequest: RegisterRequest): Observable<ApiPayloadRegisterResponse> {
+    registerRequest.birthdate = formatDate(registerRequest.birthdate, 'dd-MM-yyyy', 'en-US');
     return this.http.post<ApiPayloadRegisterResponse>(`${this.apiUrl}`, registerRequest);
   }
   
