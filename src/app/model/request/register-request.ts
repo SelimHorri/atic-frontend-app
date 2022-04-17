@@ -8,7 +8,7 @@ export class RegisterRequest {
     public lastname: string,
     public email: string,
     public phone: string,
-    public birthdate: Date,
+    public birthdate: string,
     public username: string,
     public password: string,
     public confirmPassword: string,
