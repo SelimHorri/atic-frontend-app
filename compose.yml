@@ -6,6 +6,8 @@ services:
     container_name: cita-frontend-app
     ports:
       - 4200:80
+    environment:
+      - PROFILE={PROFILE:development}
     restart: always
 #    depends_on:
 #      - cita-backend-app
