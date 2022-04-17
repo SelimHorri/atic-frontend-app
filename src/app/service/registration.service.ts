@@ -19,7 +19,8 @@ export class RegistrationService {
   }
   
   public register(registerRequest: RegisterRequest): Observable<ApiPayloadRegisterResponse> {
-    registerRequest.birthdate = formatDate(registerRequest.birthdate, 'dd-MM-yyyy', 'en-US');
+    if (registerRequest.birthdate !== null && registerRequest.birthdate !== '')
+      registerRequest.birthdate = formatDate(registerRequest.birthdate, 'dd-MM-yyyy', 'en-US');
     return this.http.post<ApiPayloadRegisterResponse>(`${this.apiUrl}`, registerRequest);
   }
   
