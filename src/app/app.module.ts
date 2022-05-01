@@ -16,6 +16,9 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { ContactComponent } from './component/contact/contact.component';
 import { AboutComponent } from './component/about/about.component';
 import { TagService } from './service/tag.service';
+import { IndexComponent } from './workspace/customer/index/index.component';
+import { SidebarComponent } from './workspace/customer/sidebar/sidebar.component';
+import { TopbarComponent } from './workspace/customer/topbar/topbar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { TagService } from './service/tag.service';
     Error404Component,
     NavbarComponent,
     ContactComponent,
-    AboutComponent
+    AboutComponent,
+    IndexComponent,
+    SidebarComponent,
+    TopbarComponent,
   ],
   imports: [
     BrowserModule,

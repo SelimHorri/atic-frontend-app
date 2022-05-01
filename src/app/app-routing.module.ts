@@ -7,6 +7,7 @@ import { ContactComponent } from './component/contact/contact.component';
 import { Error404Component } from './component/error/error404/error404.component';
 import { HomeComponent } from './component/home/home.component';
 import { RegistrationComponent } from './component/registration/registration.component';
+import { IndexComponent } from './workspace/customer/index/index.component';
 
 const routes: Routes = [
   
@@ -20,7 +21,15 @@ const routes: Routes = [
       { path: "contact", component: ContactComponent },
       { path: "authenticate", component: AuthenticationComponent },
       { path: "register", component: RegistrationComponent },
-      
+
+      {
+        path: "workspace/customer",
+        children: [
+          { path: "", component: IndexComponent },
+          { path: "index", redirectTo: "" },
+        ]
+      },
+
     ]
   },
   
