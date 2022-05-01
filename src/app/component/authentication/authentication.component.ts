@@ -20,7 +20,8 @@ export class AuthenticationComponent implements OnInit {
   public registeredUsername!: string;
   
   constructor(private authenticationService: AuthenticationService,
-    private  activatedRoute: ActivatedRoute) {}
+    private  activatedRoute: ActivatedRoute,
+    private router: Router) {}
   
   ngOnInit(): void {
     this.randomImgUrl = this.generateRandomImageUrl();
@@ -59,6 +60,12 @@ export class AuthenticationComponent implements OnInit {
     this.authenticationService.authenticate(loginRequest).subscribe({
       next: (payload: ApiPayloadLoginResponse) => {
         alert(payload.responseBody.username + ": " + payload.responseBody.jwtToken);
+        // sessionStorage.setItem("username", payload.responseBody.username);
+        sessionStorage.setItem("jwtToken", payload.responseBody.jwtToken);
+        
+        // if customer/manager/..
+        this.router.navigateByUrl("/workspace/customer");
+        
       },
       error: (errorResponse: HttpErrorResponse) => {
         const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);

@@ -6,6 +6,7 @@ import { AuthenticationComponent } from './component/authentication/authenticati
 import { ContactComponent } from './component/contact/contact.component';
 import { Error404Component } from './component/error/error404/error404.component';
 import { HomeComponent } from './component/home/home.component';
+import { LogoutComponent } from './component/logout/logout.component';
 import { RegistrationComponent } from './component/registration/registration.component';
 import { IndexComponent } from './workspace/customer/index/index.component';
 import { ProfileComponent } from './workspace/customer/profile/profile.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: "home", redirectTo: "" },
       { path: "about", component: AboutComponent },
       { path: "contact", component: ContactComponent },
+      { path: "logout", component: LogoutComponent },
       { path: "authenticate", component: AuthenticationComponent },
       { path: "register", component: RegistrationComponent },
 

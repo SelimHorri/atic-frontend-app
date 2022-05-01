@@ -20,6 +20,7 @@ import { IndexComponent } from './workspace/customer/index/index.component';
 import { SidebarComponent } from './workspace/customer/sidebar/sidebar.component';
 import { TopbarComponent } from './workspace/customer/topbar/topbar.component';
 import { ProfileComponent } from './workspace/customer/profile/profile.component';
+import { LogoutComponent } from './component/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ProfileComponent } from './workspace/customer/profile/profile.component
     SidebarComponent,
     TopbarComponent,
     ProfileComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

@@ -21,6 +21,18 @@ export class AuthenticationService {
     return this.http.post<ApiPayloadLoginResponse>(`${this.apiUrl}`, loginRequest);
   }
   
+  public isLoggedIn(): boolean {
+    return !(sessionStorage.getItem("jwtToken") === null);
+  }
+
+  public logout(): boolean {
+    if (sessionStorage.getItem("jwtToken") !== null) {
+      sessionStorage.clear();
+      return true;
+    }
+    return false;
+  }
+  
   
   
 }
