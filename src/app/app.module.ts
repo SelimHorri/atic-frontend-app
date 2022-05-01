@@ -19,6 +19,7 @@ import { TagService } from './service/tag.service';
 import { IndexComponent } from './workspace/customer/index/index.component';
 import { SidebarComponent } from './workspace/customer/sidebar/sidebar.component';
 import { TopbarComponent } from './workspace/customer/topbar/topbar.component';
+import { ProfileComponent } from './workspace/customer/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { TopbarComponent } from './workspace/customer/topbar/topbar.component';
     IndexComponent,
     SidebarComponent,
     TopbarComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

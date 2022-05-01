@@ -8,7 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   
-  public items: string[] = ["Dashboard", "Favourites", "Reservations", "Ratings"];
+  public items: any[] = [
+    { 
+      name: "Dashboard",
+      link: "",
+      subItem: [] 
+    },
+    {
+      name: "Favourites",
+      link: "favourites",
+      subItem: []
+    },
+    {
+      name: "Reservations",
+      link: "reservations",
+      subItem: []
+    },
+    {
+      name: "Ratings",
+      link: "ratings",
+      subItem: []
+    },
+  ]; // = ["Dashboard", "Favourites", "Reservations", "Ratings"];
   
   constructor() {}
   

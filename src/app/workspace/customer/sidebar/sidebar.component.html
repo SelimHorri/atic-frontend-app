@@ -2,7 +2,8 @@
   <div class="sidebar-heading border-bottom bg-light"><a class="navbar-brand" routerLink="/">ATIC</a></div>
   <div class="list-group list-group-flush">
     <div *ngFor="let i of items">
-      <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="">{{ i }}</a>
+      <a class="list-group-item list-group-item-action list-group-item-light p-3"
+        routerLink="/workspace/customer/{{ i.link }}">{{ i.name }}</a>
     </div>
   </div>
 </div>
