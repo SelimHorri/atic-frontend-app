@@ -21,6 +21,7 @@ import { SidebarComponent } from './workspace/customer/sidebar/sidebar.component
 import { TopbarComponent } from './workspace/customer/topbar/topbar.component';
 import { ProfileComponent } from './workspace/customer/profile/profile.component';
 import { LogoutComponent } from './component/logout/logout.component';
+import { CredentialService } from './service/credential.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { LogoutComponent } from './component/logout/logout.component';
     AuthenticationService,
     RegistrationService,
     TagService,
+    CredentialService,
   ],
   bootstrap: [AppComponent]
 })

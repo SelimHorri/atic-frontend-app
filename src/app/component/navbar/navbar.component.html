@@ -11,6 +11,8 @@
         <li class="nav-item"><a class="nav-link" routerLink="/about">About</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/contact">Contact</a></li>
         <li class="nav-item"><a class="nav-link active" aria-current="page" *ngIf="isLoggedIn()"
+            routerLink="/workspace/{{ accountUrl }}">Account</a></li>
+        <li class="nav-item"><a class="nav-link active" aria-current="page" *ngIf="isLoggedIn()"
             routerLink="/logout">Logout</a></li>
         <li class="nav-item"><a class="nav-link active" aria-current="page" *ngIf="!isLoggedIn()"
             routerLink="/authenticate">Login</a></li>

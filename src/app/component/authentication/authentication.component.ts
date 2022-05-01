@@ -4,9 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { LoginRequest } from 'src/app/model/request/login-request';
+import { ApiPayloadCredential } from 'src/app/model/response/api/api-payload-credential';
 import { ApiPayloadDExceptionMsg } from 'src/app/model/response/api/api-payload-d-exception-msg';
 import { ApiPayloadLoginResponse } from 'src/app/model/response/api/api-payload-login-response';
+import { UserRoleBasedAuthority } from 'src/app/model/user-role-based-authority';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { CredentialService } from 'src/app/service/credential.service';
 
 @Component({
   selector: 'app-authentication',
@@ -20,6 +23,7 @@ export class AuthenticationComponent implements OnInit {
   public registeredUsername!: string;
   
   constructor(private authenticationService: AuthenticationService,
+    private credentialService: CredentialService,
     private  activatedRoute: ActivatedRoute,
     private router: Router) {}
   
@@ -59,12 +63,31 @@ export class AuthenticationComponent implements OnInit {
   public onLogin(loginRequest: LoginRequest): void {
     this.authenticationService.authenticate(loginRequest).subscribe({
       next: (payload: ApiPayloadLoginResponse) => {
-        alert(payload.responseBody.username + ": " + payload.responseBody.jwtToken);
-        // sessionStorage.setItem("username", payload.responseBody.username);
+        // alert(payload.responseBody.username + ": " + payload.responseBody.jwtToken);
+        sessionStorage.setItem("username", payload.responseBody.username);
         sessionStorage.setItem("jwtToken", payload.responseBody.jwtToken);
         
+        
+        
+        
+        
+        this.credentialService.findByUsername(payload.responseBody.username).subscribe({
+          next: (credentialPayload: ApiPayloadCredential) => {
+            this.router.navigateByUrl("/workspace/" + this.credentialService
+                .getUserRole(credentialPayload.responseBody.userRoleBasedAuthority));
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            const errorCredentialPayload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
+            console.log(JSON.stringify(errorCredentialPayload));
+          }
+        });
+        
+        
+        
+        
+        
         // if customer/manager/..
-        this.router.navigateByUrl("/workspace/customer");
+        // this.router.navigateByUrl("/workspace/customer");
         
       },
       error: (errorResponse: HttpErrorResponse) => {
