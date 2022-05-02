@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit {
     
     if (this.authenticationService.isLoggedIn()) { // this check prevent jwt irrelevant exception on backend
       const username: string = `${sessionStorage.getItem("username")}`;
-
+      
       this.credentialService.findByUsername(username).subscribe({
         next: (credentialPayload: ApiPayloadCredential) =>
           this.accountUrl = this.credentialService

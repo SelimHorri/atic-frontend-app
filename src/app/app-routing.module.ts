@@ -20,6 +20,10 @@ import { ProfileComponent as ManagerProfileComponent } from './workspace/manager
 
 import { IndexComponent as OwnerIndexComponent } from './workspace/owner/index/index.component';
 import { ProfileComponent as OwnerProfileComponent } from './workspace/owner/profile/profile.component';
+import { CustomerGuard } from './guard/customer.guard';
+import { WorkerGuard } from './guard/worker.guard';
+import { ManagerGuard } from './guard/manager.guard';
+import { OwnerGuard } from './guard/owner.guard';
 
 const routes: Routes = [
   
@@ -37,6 +41,7 @@ const routes: Routes = [
 
       {
         path: "workspace/customer",
+        canActivateChild: [CustomerGuard],
         children: [
           { path: "", component: CustomerIndexComponent },
           { path: "index", redirectTo: "" },
@@ -45,6 +50,7 @@ const routes: Routes = [
       },
       {
         path: "workspace/worker",
+        canActivateChild: [CustomerGuard, WorkerGuard],
         children: [
           { path: "", component: WorkerIndexComponent },
           { path: "index", redirectTo: "" },
@@ -53,6 +59,7 @@ const routes: Routes = [
       },
       {
         path: "workspace/manager",
+        canActivateChild: [CustomerGuard, WorkerGuard, ManagerGuard],
         children: [
           { path: "", component: ManagerIndexComponent },
           { path: "index", redirectTo: "" },
@@ -61,6 +68,7 @@ const routes: Routes = [
       },
       {
         path: "workspace/owner",
+        canActivateChild: [CustomerGuard, WorkerGuard, ManagerGuard, OwnerGuard],
         children: [
           { path: "", component: OwnerIndexComponent },
           { path: "index", redirectTo: "" },

@@ -67,27 +67,19 @@ export class AuthenticationComponent implements OnInit {
         sessionStorage.setItem("username", payload.responseBody.username);
         sessionStorage.setItem("jwtToken", payload.responseBody.jwtToken);
         
-        
-        
-        
-        
         this.credentialService.findByUsername(payload.responseBody.username).subscribe({
           next: (credentialPayload: ApiPayloadCredential) => {
-            this.router.navigateByUrl("/workspace/" + this.credentialService
-                .getUserRole(credentialPayload.responseBody.userRoleBasedAuthority));
+            
+            const userRole: string = this.credentialService.getUserRole(credentialPayload.responseBody.userRoleBasedAuthority);
+            sessionStorage.setItem("userRole", userRole.toUpperCase());
+            
+            this.router.navigateByUrl(`/workspace/${userRole}`);
           },
           error: (errorResponse: HttpErrorResponse) => {
             const errorCredentialPayload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
             console.log(JSON.stringify(errorCredentialPayload));
           }
         });
-        
-        
-        
-        
-        
-        // if customer/manager/..
-        // this.router.navigateByUrl("/workspace/customer");
         
       },
       error: (errorResponse: HttpErrorResponse) => {
