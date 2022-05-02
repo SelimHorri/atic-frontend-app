@@ -4,9 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { LoginRequest } from 'src/app/model/request/login-request';
+import { ApiPayloadCredential } from 'src/app/model/response/api/api-payload-credential';
 import { ApiPayloadDExceptionMsg } from 'src/app/model/response/api/api-payload-d-exception-msg';
 import { ApiPayloadLoginResponse } from 'src/app/model/response/api/api-payload-login-response';
+import { UserRoleBasedAuthority } from 'src/app/model/user-role-based-authority';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { CredentialService } from 'src/app/service/credential.service';
 
 @Component({
   selector: 'app-authentication',
@@ -20,7 +23,9 @@ export class AuthenticationComponent implements OnInit {
   public registeredUsername!: string;
   
   constructor(private authenticationService: AuthenticationService,
-    private  activatedRoute: ActivatedRoute) {}
+    private credentialService: CredentialService,
+    private  activatedRoute: ActivatedRoute,
+    private router: Router) {}
   
   ngOnInit(): void {
     this.randomImgUrl = this.generateRandomImageUrl();
@@ -58,7 +63,24 @@ export class AuthenticationComponent implements OnInit {
   public onLogin(loginRequest: LoginRequest): void {
     this.authenticationService.authenticate(loginRequest).subscribe({
       next: (payload: ApiPayloadLoginResponse) => {
-        alert(payload.responseBody.username + ": " + payload.responseBody.jwtToken);
+        // alert(payload.responseBody.username + ": " + payload.responseBody.jwtToken);
+        sessionStorage.setItem("username", payload.responseBody.username);
+        sessionStorage.setItem("jwtToken", payload.responseBody.jwtToken);
+        
+        this.credentialService.findByUsername(payload.responseBody.username).subscribe({
+          next: (credentialPayload: ApiPayloadCredential) => {
+            
+            const userRole: string = this.credentialService.getUserRole(credentialPayload.responseBody.userRoleBasedAuthority);
+            sessionStorage.setItem("userRole", userRole.toUpperCase());
+            
+            this.router.navigateByUrl(`/workspace/${userRole}`);
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            const errorCredentialPayload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
+            console.log(JSON.stringify(errorCredentialPayload));
+          }
+        });
+        
       },
       error: (errorResponse: HttpErrorResponse) => {
         const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
