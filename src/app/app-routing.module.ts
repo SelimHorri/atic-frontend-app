@@ -24,6 +24,8 @@ import { CustomerGuard } from './guard/customer.guard';
 import { WorkerGuard } from './guard/worker.guard';
 import { ManagerGuard } from './guard/manager.guard';
 import { OwnerGuard } from './guard/owner.guard';
+import { AuthenticationGuard } from './guard/authentication.guard';
+import { RegistrationGuard } from './guard/registration.guard';
 
 const routes: Routes = [
   
@@ -36,8 +38,9 @@ const routes: Routes = [
       { path: "about", component: AboutComponent },
       { path: "contact", component: ContactComponent },
       { path: "logout", component: LogoutComponent },
-      { path: "authenticate", component: AuthenticationComponent },
-      { path: "register", component: RegistrationComponent },
+      { path: "authenticate", component: AuthenticationComponent, canActivate: [AuthenticationGuard] },
+      { path: "login", redirectTo: "authenticate" },
+      { path: "register", component: RegistrationComponent, canActivate: [RegistrationGuard] },
 
       {
         path: "workspace/customer",
