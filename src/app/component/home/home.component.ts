@@ -1,9 +1,11 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ExceptionMsg } from 'src/app/model/exception-msg';
 import { ApiPayloadDExceptionMsg } from 'src/app/model/response/api/api-payload-d-exception-msg';
 import { ApiPayloadTag } from 'src/app/model/response/api/api-payload-tag';
 import { Tag } from 'src/app/model/tag';
+import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { TagService } from 'src/app/service/tag.service';
 
 @Component({
@@ -16,7 +18,8 @@ export class HomeComponent implements OnInit {
   public msg!: string;
   public tags!: Tag[];
 
-  constructor(private tagService: TagService) {}
+  constructor(private tagService: TagService,
+    private errorHandlerService: ErrorHandlerService) {}
 
   ngOnInit(): void {
     this.findAllTags(1);
@@ -43,9 +46,8 @@ export class HomeComponent implements OnInit {
         console.log(JSON.stringify(this.tags));
       },
       error: (errorResponse: HttpErrorResponse) => {
-        const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
-        console.log(JSON.stringify(payload));
-        this.msg = payload?.responseBody?.errorMsg;
+        const exceptionMsg: ExceptionMsg = this.errorHandlerService.extractExceptionMsg(errorResponse);
+        this.msg = exceptionMsg?.errorMsg;
         this.onOpenModal('findAllTagsError');
       }
     });

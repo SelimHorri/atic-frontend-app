@@ -5,6 +5,7 @@ import { ApiPayloadCredential } from 'src/app/model/response/api/api-payload-cre
 import { ApiPayloadDExceptionMsg } from 'src/app/model/response/api/api-payload-d-exception-msg';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CredentialService } from 'src/app/service/credential.service';
+import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,8 @@ export class NavbarComponent implements OnInit {
   public accountUrl!: string;
   
   constructor(private authenticationService: AuthenticationService,
-    private credentialService: CredentialService) {}
+    private credentialService: CredentialService,
+    private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
     this.getAccountUrl();
@@ -39,10 +41,8 @@ export class NavbarComponent implements OnInit {
         next: (credentialPayload: ApiPayloadCredential) =>
           this.accountUrl = this.credentialService
             .getUserRole(credentialPayload.responseBody.role),
-        error: (errorResponse: HttpErrorResponse) => {
-          const errorCredentialPayload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
-          console.log(JSON.stringify(errorCredentialPayload));
-        }
+        error: (errorResponse: HttpErrorResponse) =>
+            this.errorHandlerService.extractExceptionMsg(errorResponse)
       });
     }
     

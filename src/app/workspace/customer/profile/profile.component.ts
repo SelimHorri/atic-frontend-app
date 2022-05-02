@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ApiPayloadDExceptionMsg } from 'src/app/model/response/api/api-payload-d-exception-msg';
 import { CustomerService } from 'src/app/service/customer.service';
+import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +12,8 @@ import { CustomerService } from 'src/app/service/customer.service';
 })
 export class ProfileComponent implements OnInit {
   
-  constructor(private customerService: CustomerService) {}
+  constructor(private customerService: CustomerService,
+    private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
     
@@ -22,10 +24,8 @@ export class ProfileComponent implements OnInit {
       next: (responsePayload: any) => {
         
       },
-      error: (errorResponse: HttpErrorResponse) => {
-        const errorCredentialPayload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
-        console.log(JSON.stringify(errorCredentialPayload));
-      }
+      error: (errorResponse: HttpErrorResponse) => 
+          this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
   }
   

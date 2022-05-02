@@ -10,6 +10,7 @@ import { ApiPayloadLoginResponse } from 'src/app/model/response/api/api-payload-
 import { UserRoleBasedAuthority } from 'src/app/model/user-role-based-authority';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CredentialService } from 'src/app/service/credential.service';
+import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 
 @Component({
   selector: 'app-authentication',
@@ -25,7 +26,8 @@ export class AuthenticationComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,
     private credentialService: CredentialService,
     private  activatedRoute: ActivatedRoute,
-    private router: Router) {}
+    private router: Router,
+    private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
     this.randomImgUrl = this.generateRandomImageUrl();
@@ -63,29 +65,25 @@ export class AuthenticationComponent implements OnInit {
   public onLogin(loginRequest: LoginRequest): void {
     this.authenticationService.authenticate(loginRequest).subscribe({
       next: (payload: ApiPayloadLoginResponse) => {
-        // alert(payload.responseBody.username + ": " + payload.responseBody.jwtToken);
-        sessionStorage.setItem("username", payload.responseBody.username);
-        sessionStorage.setItem("jwtToken", payload.responseBody.jwtToken);
+        sessionStorage.setItem("username", payload?.responseBody?.username);
+        sessionStorage.setItem("jwtToken", payload?.responseBody?.jwtToken);
         
         this.credentialService.findByUsername(payload.responseBody.username).subscribe({
           next: (credentialPayload: ApiPayloadCredential) => {
             
-            const userRole: string = this.credentialService.getUserRole(credentialPayload.responseBody.role);
+            const userRole: string = this.credentialService.getUserRole(credentialPayload?.responseBody?.role);
             sessionStorage.setItem("userRole", userRole.toUpperCase());
             
             this.router.navigateByUrl(`/workspace/${userRole}`);
           },
-          error: (errorResponse: HttpErrorResponse) => {
-            const errorCredentialPayload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
-            console.log(JSON.stringify(errorCredentialPayload));
-          }
+          error: (errorResponse: HttpErrorResponse) => 
+              this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
         
       },
       error: (errorResponse: HttpErrorResponse) => {
-        const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
-        console.log(JSON.stringify(payload));
-        this.msg = payload?.responseBody?.errorMsg;
+        const exceptionMsg = this.errorHandlerService.extractExceptionMsg(errorResponse);
+        this.msg = exceptionMsg?.errorMsg;
         this.onOpenModal('login');
       }
     });

@@ -3,9 +3,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ExceptionMsg } from 'src/app/model/exception-msg';
 import { RegisterRequest } from 'src/app/model/request/register-request';
 import { ApiPayloadDExceptionMsg } from 'src/app/model/response/api/api-payload-d-exception-msg';
 import { ApiPayloadRegisterResponse } from 'src/app/model/response/api/api-payload-register-response';
+import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { RegistrationService } from 'src/app/service/registration.service';
 
 @Component({
@@ -19,7 +21,8 @@ export class RegistrationComponent implements OnInit {
   public msg!: string;
   
   constructor(private registrationService: RegistrationService,
-    private router: Router) {}
+    private router: Router,
+    private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
     this.randomImgUrl = this.generateRandomImageUrl();
@@ -56,9 +59,8 @@ export class RegistrationComponent implements OnInit {
         this.router.navigateByUrl(`/authenticate?username=${registerRequest.username.toLowerCase()}`);
       },
       error: (errorResponse: HttpErrorResponse) => {
-        const payload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
-        console.log(JSON.stringify(payload));
-        this.msg = payload?.responseBody?.errorMsg;
+        const exceptionMsg: ExceptionMsg = this.errorHandlerService.extractExceptionMsg(errorResponse);
+        this.msg = exceptionMsg?.errorMsg;
         this.onOpenModal('register');
       }
     });
