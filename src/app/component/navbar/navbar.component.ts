@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
       this.credentialService.findByUsername(username).subscribe({
         next: (credentialPayload: ApiPayloadCredential) =>
           this.accountUrl = this.credentialService
-            .getUserRole(credentialPayload.responseBody.userRoleBasedAuthority),
+            .getUserRole(credentialPayload.responseBody.role),
         error: (errorResponse: HttpErrorResponse) => {
           const errorCredentialPayload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
           console.log(JSON.stringify(errorCredentialPayload));
