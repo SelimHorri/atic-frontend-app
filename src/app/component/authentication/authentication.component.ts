@@ -70,7 +70,7 @@ export class AuthenticationComponent implements OnInit {
         this.credentialService.findByUsername(payload.responseBody.username).subscribe({
           next: (credentialPayload: ApiPayloadCredential) => {
             
-            const userRole: string = this.credentialService.getUserRole(credentialPayload.responseBody.userRoleBasedAuthority);
+            const userRole: string = this.credentialService.getUserRole(credentialPayload.responseBody.role);
             sessionStorage.setItem("userRole", userRole.toUpperCase());
             
             this.router.navigateByUrl(`/workspace/${userRole}`);
