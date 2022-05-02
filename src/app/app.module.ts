@@ -16,6 +16,12 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { ContactComponent } from './component/contact/contact.component';
 import { AboutComponent } from './component/about/about.component';
 import { TagService } from './service/tag.service';
+import { IndexComponent } from './workspace/customer/index/index.component';
+import { SidebarComponent } from './workspace/customer/sidebar/sidebar.component';
+import { TopbarComponent } from './workspace/customer/topbar/topbar.component';
+import { ProfileComponent } from './workspace/customer/profile/profile.component';
+import { LogoutComponent } from './component/logout/logout.component';
+import { CredentialService } from './service/credential.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,12 @@ import { TagService } from './service/tag.service';
     Error404Component,
     NavbarComponent,
     ContactComponent,
-    AboutComponent
+    AboutComponent,
+    IndexComponent,
+    SidebarComponent,
+    TopbarComponent,
+    ProfileComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +49,7 @@ import { TagService } from './service/tag.service';
     AuthenticationService,
     RegistrationService,
     TagService,
+    CredentialService,
   ],
   bootstrap: [AppComponent]
 })
