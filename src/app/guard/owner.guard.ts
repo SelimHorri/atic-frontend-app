@@ -12,9 +12,7 @@ export class OwnerGuard implements CanActivateChild {
   
   constructor(private authenticationService: AuthenticationService) { }
   
-  canActivateChild(
-    childRoute: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
     const isUserLoggedIn: boolean = this.authenticationService.isLoggedIn();
     

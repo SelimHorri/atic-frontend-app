@@ -53,7 +53,7 @@ const routes: Routes = [
       },
       {
         path: "workspace/worker",
-        canActivateChild: [CustomerGuard, WorkerGuard],
+        canActivateChild: [WorkerGuard],
         children: [
           { path: "", component: WorkerIndexComponent },
           { path: "index", redirectTo: "" },
@@ -62,7 +62,7 @@ const routes: Routes = [
       },
       {
         path: "workspace/manager",
-        canActivateChild: [CustomerGuard, WorkerGuard, ManagerGuard],
+        canActivateChild: [WorkerGuard, ManagerGuard],
         children: [
           { path: "", component: ManagerIndexComponent },
           { path: "index", redirectTo: "" },
@@ -71,7 +71,7 @@ const routes: Routes = [
       },
       {
         path: "workspace/owner",
-        canActivateChild: [CustomerGuard, WorkerGuard, ManagerGuard, OwnerGuard],
+        canActivateChild: [WorkerGuard, ManagerGuard, OwnerGuard],
         children: [
           { path: "", component: OwnerIndexComponent },
           { path: "index", redirectTo: "" },

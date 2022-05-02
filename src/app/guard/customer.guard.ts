@@ -12,18 +12,14 @@ export class CustomerGuard implements CanActivateChild {
   
   constructor(private authenticationService: AuthenticationService) {}
   
-  canActivateChild(route: ActivatedRouteSnapshot, 
-    state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
       
     const isUserLoggedIn: boolean = this.authenticationService.isLoggedIn();
     
     if (isUserLoggedIn) {
       const userRole: string = `${sessionStorage.getItem(`userRole`)}`;
       console.log(`Herrreee is from guard: userRole => ${userRole}`);
-      return userRole === UserRoleBasedAuthority.CUSTOMER
-        || userRole === UserRoleBasedAuthority.WORKER
-        || userRole === UserRoleBasedAuthority.MANAGER
-        || userRole === UserRoleBasedAuthority.OWNER;
+      return userRole === UserRoleBasedAuthority.CUSTOMER;
     }
     else
       return false;
