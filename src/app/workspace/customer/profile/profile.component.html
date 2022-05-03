@@ -21,7 +21,10 @@
                 <div class="user-box">
                   <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user avatar">
                 </div>
-                <h5 class="mb-1 text-white">Jhon Doe</h5>
+                <h5 class="mb-1 text-white">
+                  {{ customerProfileResponse?.customer?.firstname?.charAt(0) | uppercase}}{{ customerProfileResponse?.customer?.firstname?.substring(1) | lowercase}}
+                  {{ customerProfileResponse?.customer?.lastname | uppercase}}
+                </h5>
                 <h6 class="text-light">UI/UX Engineer</h6>
               </div>
               <div class="card-body">
@@ -31,7 +34,7 @@
                       <i class="fa fa-phone-square"></i>
                     </div>
                     <div class="list-details">
-                      <span>9910XXXXXX</span>
+                      <span>{{ customerProfileResponse?.customer?.phone }}</span>
                       <small>Mobile Number</small>
                     </div>
                   </li>
@@ -40,7 +43,7 @@
                       <i class="fa fa-envelope"></i>
                     </div>
                     <div class="list-details">
-                      <span>info@example.com</span>
+                      <span>{{ customerProfileResponse?.customer?.email }}</span>
                       <small>Email Address</small>
                     </div>
                   </li>
@@ -56,16 +59,16 @@
                 </ul>
                 <div class="row text-center mt-4">
                   <div class="col p-2">
-                    <h4 class="mb-1 line-height-5">154</h4>
-                    <small class="mb-0 font-weight-bold">Projects</small>
+                    <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.reservations?.length }}</h4>
+                    <small class="mb-0 font-weight-bold">Reservations</small>
                   </div>
                   <div class="col p-2">
-                    <h4 class="mb-1 line-height-5">2.2k</h4>
-                    <small class="mb-0 font-weight-bold">Followers</small>
+                    <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.favourites?.length }}</h4>
+                    <small class="mb-0 font-weight-bold">Followings</small>
                   </div>
                   <div class="col p-2">
-                    <h4 class="mb-1 line-height-5">9.1k</h4>
-                    <small class="mb-0 font-weight-bold">Views</small>
+                    <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.ratings?.length }}</h4>
+                    <small class="mb-0 font-weight-bold">Ratings</small>
                   </div>
                 </div>
               </div>

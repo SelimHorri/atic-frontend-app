@@ -1,4 +1,6 @@
 
+import { Customer } from "./customer";
+
 export class Credential {
   
   constructor(
@@ -9,8 +11,8 @@ export class Credential {
     public isEnabled: boolean,
     public isAccountNonExpired: boolean,
     public isAccountNonLocked: boolean,
-    public isCredentialsNonExpired: boolean) {
-    
+    public isCredentialsNonExpired: boolean,
+    public customer: Customer) {
   }
   
   
