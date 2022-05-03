@@ -10,6 +10,9 @@ export class Customer {
     public email: string,
     public phone: string,
     public birthdate: string,
+    public facebookUrl: string,
+    public instagramUrl: string,
+    public linkedinUrl: string,
     public credential: Credential) {
   }
   

@@ -169,7 +169,7 @@
           </div>
         </div>
         <!-- Tags widget-->
-        <div class="card mb-4">
+        <div class="card mb-4" *ngIf="tags !== null && tags?.length !== 0">
           <div class="card-header">Tags you might be interested in</div>
           <div class="card-body">
             <div class="row">
@@ -207,12 +207,12 @@
         <div class="modal-body">
 
           <p>
-            <span *ngIf="msg == null"><span class="text-danger">Error
+            <span *ngIf="msg === null"><span class="text-danger">Error
                 fetching
                 available tags!
                 will be resolved later..</span>
             </span>
-            <span *ngIf="msg != null">
+            <span *ngIf="msg !== null">
               <span class="text-danger">{{ msg }}</span>
             </span>
           </p>

@@ -16,7 +16,7 @@ import { TagService } from 'src/app/service/tag.service';
 export class HomeComponent implements OnInit {
 
   public msg!: string;
-  public tags!: Tag[];
+  public tags: Tag[] = [];
 
   constructor(private tagService: TagService,
     private errorHandlerService: ErrorHandlerService) {}

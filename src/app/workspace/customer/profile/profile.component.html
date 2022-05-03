@@ -73,14 +73,15 @@
                 </div>
               </div>
               <div class="card-footer text-center">
-                <a href="javascript:void()" class="btn-social btn-facebook waves-effect waves-light m-1"><i
+                <a href="{{ customerProfileResponse?.customer?.facebookUrl }}"
+                  class="btn-social btn-facebook waves-effect waves-light m-2"><i
                     class="fa fa-facebook"></i></a>
-                <a href="javascript:void()" class="btn-social btn-google-plus waves-effect waves-light m-1"><i
-                    class="fa fa-google-plus"></i></a>
-                <a href="javascript:void()" class="list-inline-item btn-social btn-behance waves-effect waves-light"><i
-                    class="fa fa-behance"></i></a>
-                <a href="javascript:void()" class="list-inline-item btn-social btn-dribbble waves-effect waves-light"><i
-                    class="fa fa-dribbble"></i></a>
+                <a href="{{ customerProfileResponse?.customer?.instagramUrl }}"
+                  class="btn-social btn-instagram waves-effect waves-light m-2"><i
+                    class="fa fa-instagram"></i></a>
+                <a href="{{ customerProfileResponse?.customer?.linkedinUrl }}"
+                  class="btn-social btn-linkedin waves-effect waves-light m-2"><i
+                    class="fa fa-linkedin"></i></a>
               </div>
             </div>
           </div>
