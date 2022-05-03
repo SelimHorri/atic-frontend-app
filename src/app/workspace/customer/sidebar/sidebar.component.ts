@@ -11,23 +11,29 @@ export class SidebarComponent implements OnInit {
   public items: any[] = [
     { 
       name: "Dashboard",
-      link: "",
-      subItem: [] 
-    },
-    {
-      name: "Favourites",
-      link: "favourites",
-      subItem: []
+      link: "index",
+      subItems: [] 
     },
     {
       name: "Reservations",
       link: "reservations",
-      subItem: []
+      subItems: [
+        {
+          name: "Appointments",
+          link: "reservations",
+          subItems: []
+        },
+      ]
+    },
+    {
+      name: "Favourites",
+      link: "favourites",
+      subItems: []
     },
     {
       name: "Ratings",
       link: "ratings",
-      subItem: []
+      subItems: []
     },
   ]; // = ["Dashboard", "Favourites", "Reservations", "Ratings"];
   

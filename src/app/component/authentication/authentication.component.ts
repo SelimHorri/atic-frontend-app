@@ -74,7 +74,7 @@ export class AuthenticationComponent implements OnInit {
             const userRole: string = this.credentialService.getUserRole(credentialPayload?.responseBody?.role);
             sessionStorage.setItem("userRole", userRole.toUpperCase());
             
-            this.router.navigateByUrl(`/workspace/${userRole}`);
+            this.router.navigateByUrl(`/workspace/${userRole}/index`);
           },
           error: (errorResponse: HttpErrorResponse) => 
               this.errorHandlerService.extractExceptionMsg(errorResponse)
