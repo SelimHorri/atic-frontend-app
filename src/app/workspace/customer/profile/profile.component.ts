@@ -20,11 +20,11 @@ export class ProfileComponent implements OnInit {
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
-    this.findByUsername(`${sessionStorage.getItem(`username`)}`);
+    this.getCustomerProfileByUsername(`${sessionStorage.getItem(`username`)}`);
   }
   
-  public findByUsername(username: string): void {
-    this.customerService.findByUsername(username).subscribe({
+  public getCustomerProfileByUsername(username: string): void {
+    this.customerService.getCustomerProfileByUsername(username).subscribe({
       next: (responsePayload: ApiPayloadCustomerProfileResponse) => {
         this.customerProfileResponse = responsePayload?.responseBody;
         console.log(JSON.stringify(this.customerProfileResponse));

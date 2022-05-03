@@ -16,7 +16,7 @@ export class CustomerService {
     this.API_URL = `${this.API_URL}/customers`;
   }
   
-  public findByUsername(username: string): Observable<ApiPayloadCustomerProfileResponse> {
+  public getCustomerProfileByUsername(username: string): Observable<ApiPayloadCustomerProfileResponse> {
     return this.http.get<ApiPayloadCustomerProfileResponse>(`${this.API_URL}/profile/username/${username}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`
