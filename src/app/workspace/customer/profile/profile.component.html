@@ -10,8 +10,8 @@
 
     <br><br>
 
-    
-    
+
+
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-3">
@@ -25,7 +25,7 @@
                   {{ customerProfileResponse?.customer?.firstname?.charAt(0) | uppercase}}{{ customerProfileResponse?.customer?.firstname?.substring(1) | lowercase}}
                   {{ customerProfileResponse?.customer?.lastname | uppercase}}
                 </h5>
-                <h6 class="text-light">UI/UX Engineer</h6>
+                <h6 class="text-light"><i>Customer</i></h6>
               </div>
               <div class="card-body">
                 <ul class="list-group shadow-none">
@@ -47,13 +47,13 @@
                       <small>Email Address</small>
                     </div>
                   </li>
-                  <li class="list-group-item">
+                  <li class="list-group-item" *ngIf="customerProfileResponse?.customer?.birthdate !== null">
                     <div class="list-icon">
                       <i class="fa fa-globe"></i>
                     </div>
                     <div class="list-details">
-                      <span>www.example.com</span>
-                      <small>Website Address</small>
+                      <span>{{ customerProfileResponse?.customer?.birthdate }}</span>
+                      <small>Birthdate</small>
                     </div>
                   </li>
                 </ul>
@@ -73,15 +73,18 @@
                 </div>
               </div>
               <div class="card-footer text-center">
-                <a href="{{ customerProfileResponse?.customer?.facebookUrl }}"
-                  class="btn-social btn-facebook waves-effect waves-light m-2"><i
-                    class="fa fa-facebook"></i></a>
-                <a href="{{ customerProfileResponse?.customer?.instagramUrl }}"
-                  class="btn-social btn-instagram waves-effect waves-light m-2"><i
-                    class="fa fa-instagram"></i></a>
-                <a href="{{ customerProfileResponse?.customer?.linkedinUrl }}"
-                  class="btn-social btn-linkedin waves-effect waves-light m-2"><i
-                    class="fa fa-linkedin"></i></a>
+                <span *ngIf="customerProfileResponse?.customer?.facebookUrl !== null">
+                  <a href="{{ customerProfileResponse?.customer?.facebookUrl }}"
+                    class="btn-social btn-facebook waves-effect waves-light m-2"><i class="fa fa-facebook"></i></a>
+                </span>
+                <span *ngIf="customerProfileResponse?.customer?.instagramUrl !== null">
+                  <a href="{{ customerProfileResponse?.customer?.instagramUrl }}"
+                    class="btn-social btn-instagram waves-effect waves-light m-2"><i class="fa fa-instagram"></i></a>
+                </span>
+                <span *ngIf="customerProfileResponse?.customer?.linkedinUrl !== null">
+                  <a href="{{ customerProfileResponse?.customer?.linkedinUrl }}"
+                    class="btn-social btn-linkedin waves-effect waves-light m-2"><i class="fa fa-linkedin"></i></a>
+                </span>
               </div>
             </div>
           </div>
@@ -91,12 +94,8 @@
             <div class="card-body">
               <ul class="nav nav-pills nav-pills-primary nav-justified">
                 <li class="nav-item">
-                  <a href="javascript:void();" data-bs-target="#profile" data-bs-toggle="pill" class="nav-link active show"><i
-                      class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
-                </li>
-                <li class="nav-item">
-                  <a href="javascript:void();" data-bs-target="#edit" data-bs-toggle="pill" class="nav-link"><i
-                      class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
+                  <a href="javascript:void();" data-bs-target="#profile" data-bs-toggle="pill"
+                    class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
                 </li>
                 <!--
                 <li class="nav-item">
@@ -107,6 +106,7 @@
               </ul>
               <div class="tab-content p-4">
                 <div class="tab-pane active show" id="profile">
+                  <!---->
                   <h5 class="mb-3">User Profile</h5>
                   <div class="row">
                     <div class="col-md-6">
@@ -119,22 +119,137 @@
                         Indie music, skiing and hiking. I love the great outdoors.
                       </p>
                     </div>
-                    <div class="col-md-6">
-                      <h6>Recent badges</h6>
-                      <a href="javascript:void();" class="badge badge-dark badge-pill">html5</a>
-                      <a href="javascript:void();" class="badge badge-dark badge-pill">react</a>
-                      <a href="javascript:void();" class="badge badge-dark badge-pill">codeply</a>
-                      <a href="javascript:void();" class="badge badge-dark badge-pill">angularjs</a>
-                      <a href="javascript:void();" class="badge badge-dark badge-pill">css3</a>
-                      <a href="javascript:void();" class="badge badge-dark badge-pill">jquery</a>
-                      <a href="javascript:void();" class="badge badge-dark badge-pill">bootstrap</a>
-                      <a href="javascript:void();" class="badge badge-dark badge-pill">responsive-design</a>
+                    <div class="col-md-6" *ngIf="customerProfileResponse?.favourites?.length !== 0">
+                      <h6>Recent Facilities</h6>
+                      <div *ngFor="let s of customerProfileResponse?.favourites">
+                        <a href="javascript:void();" class="badge badge-dark badge-pill">{{ s?.saloon?.name }}</a>
+                      </div>
                       <hr>
-                      <span class="badge badge-primary"><i class="fa fa-user"></i> 900 Followers</span>
-                      <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Forks</span>
-                      <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Views</span>
+                      <!--
+                        <span class="badge badge-primary"><i class="fa fa-user"></i> 900 Followers</span>
+                        <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Forks</span>
+                        <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Views</span>
+                      -->
                     </div>
+                    
+                    <hr>
+                    
+                    
                     <div class="col-md-12">
+
+
+                      <form #userForm="ngForm" class="">
+                        <div class="form-group row">
+                          
+                          <label class="col-lg-3 col-form-label form-control-label">First name <span
+                              class="text-danger">*</span></label>
+                          <div class="col-lg-9">
+                            <input ngModel name="firstname" value="{{ customerProfileResponse?.customer?.firstname }}"
+                              class="form-control" type="text" placeholder="Mark" required>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label form-control-label">Last name <span
+                              class="text-danger">*</span></label>
+                          <div class="col-lg-9">
+                            <input ngModel name="lastname" value="{{ customerProfileResponse?.customer?.lastname }}"
+                              class="form-control" type="text" placeholder="Jhonsan" required>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label form-control-label">Email <span
+                              class="text-danger">*</span></label>
+                          <div class="col-lg-9">
+                            <input ngModel name="email" value="{{ customerProfileResponse?.customer?.email }}"
+                              class="form-control" type="email"
+                              placeholder="mark@example.com" required>
+                          </div>
+                        </div>
+                        <!--
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Change profile</label>
+                      <div class="col-lg-9">
+                        <input class="form-control" type="file">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Website</label>
+                      <div class="col-lg-9">
+                        <input class="form-control" type="url" placeholder="">
+                      </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Address</label>
+                      <div class="col-lg-9">
+                        <input class="form-control" type="text" value="" placeholder="Street">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label"></label>
+                      <div class="col-lg-6">
+                        <input class="form-control" type="text" value="" placeholder="City">
+                      </div>
+                      <div class="col-lg-3">
+                        <input class="form-control" type="text" value="" placeholder="State">
+                      </div>
+                    </div>
+                    -->
+
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label form-control-label">Phone <span
+                              class="text-danger">*</span></label>
+                          <div class="col-lg-9">
+                            <input ngModel name="phone" value="{{ customerProfileResponse?.customer?.phone }}"
+                              class="form-control" type="text" placeholder="22125144" required>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label form-control-label">Birthdate</label>
+                          <div class="col-lg-9">
+                            <input ngModel name="birthdate" value="{{ customerProfileResponse?.customer?.birthdate }}"
+                              class="form-control" type="date">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label form-control-label">Username <span
+                              class="text-danger">*</span></label>
+                          <div class="col-lg-9">
+                            <input ngModel name="username" value="{{ customerProfileResponse?.credential?.username }}"
+                              class="form-control" type="text" placeholder="jhonsanmark"
+                              required>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label form-control-label">Password <span
+                              class="text-danger">*</span></label>
+                          <div class="col-lg-9">
+                            <input ngModel name="password" class="form-control" type="password" placeholder="..."
+                              required>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label form-control-label">Confirm password <span
+                              class="text-danger">*</span></label>
+                          <div class="col-lg-9">
+                            <input ngModel name="confirmPassword" class="form-control" type="password" placeholder="..."
+                              required>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label form-control-label"></label>
+                          <div class="col-lg-9">
+                            <input type="reset" class="btn btn-secondary" value="Cancel">
+                            <input type="submit" [disabled]="userForm.invalid" class="btn btn-primary"
+                              value="Save Changes">
+                          </div>
+                        </div>
+                      </form>
+
+                      <br><hr><br>
+                      
+                      <!---->
                       <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Recent Activity
                       </h5>
                       <table class="table table-hover table-striped">
@@ -169,157 +284,27 @@
                       </table>
                     </div>
                   </div>
-                  <!--/row-->
-                </div>
-                <div class="tab-pane" id="messages">
-                  <div class="alert alert-info alert-dismissible" role="alert">
-                    <button type="button" class="close" data-bs-dismiss="alert">×</button>
-                    <div class="alert-icon">
-                      <i class="icon-info"></i>
+                  -->
+                      <!--/row-->
                     </div>
-                    <div class="alert-message">
-                      <span><strong>Info!</strong> Lorem Ipsum is simply dummy text.</span>
+
+                    <div class="tab-pane" id="edit">
+
                     </div>
                   </div>
-                  <table class="table table-hover table-striped">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <span class="float-right font-weight-bold">3 hrs ago</span> Here is your a link to the latest
-                          summary report from the..
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span class="float-right font-weight-bold">Yesterday</span> There has been a request on your
-                          account since that was..
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span class="float-right font-weight-bold">9/10</span> Porttitor vitae ultrices quis, dapibus
-                          id dolor. Morbi venenatis lacinia rhoncus.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span class="float-right font-weight-bold">9/4</span> Vestibulum tincidunt ullamcorper eros
-                          eget luctus.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span class="float-right font-weight-bold">9/4</span> Maxamillion ais the fix for tibulum
-                          tincidunt ullamcorper eros.
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tab-pane" id="edit">
-                  <form class="">
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">First name</label>
-                      <div class="col-lg-9">
-                        <input class="form-control" type="text" placeholder="Mark">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                      <div class="col-lg-9">
-                        <input class="form-control" type="text" placeholder="Jhonsan">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                      <div class="col-lg-9">
-                        <input class="form-control" type="email" placeholder="mark@example.com">
-                      </div>
-                    </div>
-                    <!--
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Change profile</label>
-                      <div class="col-lg-9">
-                        <input class="form-control" type="file">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Website</label>
-                      <div class="col-lg-9">
-                        <input class="form-control" type="url" placeholder="">
-                      </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Address</label>
-                      <div class="col-lg-9">
-                        <input class="form-control" type="text" value="" placeholder="Street">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label"></label>
-                      <div class="col-lg-6">
-                        <input class="form-control" type="text" value="" placeholder="City">
-                      </div>
-                      <div class="col-lg-3">
-                        <input class="form-control" type="text" value="" placeholder="State">
-                      </div>
-                    </div>
-                    -->
-                    
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Phone</label>
-                      <div class="col-lg-9">
-                        <input class="form-control" type="text" placeholder="22125144">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Birthdate</label>
-                      <div class="col-lg-9">
-                        <input class="form-control" type="date">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Username</label>
-                      <div class="col-lg-9">
-                        <input class="form-control" type="text" placeholder="jhonsanmark">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                      <div class="col-lg-9">
-                        <input class="form-control" type="password" placeholder="...">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
-                      <div class="col-lg-9">
-                        <input class="form-control" type="password" placeholder="...">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label"></label>
-                      <div class="col-lg-9">
-                        <input type="reset" class="btn btn-secondary" value="Cancel">
-                        <input type="button" class="btn btn-primary" value="Save Changes">
-                      </div>
-                    </div>
-                  </form>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
 
+
+
+
+
+
       </div>
     </div>
-    
-    
-    
-
-
-
-  </div>
-</div>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>

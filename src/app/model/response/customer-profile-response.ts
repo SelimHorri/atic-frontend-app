@@ -1,4 +1,5 @@
 
+import { Credential } from "../credential";
 import { Customer } from "../customer";
 import { Favourite } from "../favourite";
 import { Rating } from "../rating";
