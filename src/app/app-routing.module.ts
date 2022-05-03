@@ -26,6 +26,7 @@ import { ManagerGuard } from './guard/manager.guard';
 import { OwnerGuard } from './guard/owner.guard';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { RegistrationGuard } from './guard/registration.guard';
+import { FavouriteComponent as CustomerFavouriteComponent } from './workspace/customer/favourite/favourite.component';
 
 const routes: Routes = [
   
@@ -49,6 +50,7 @@ const routes: Routes = [
           { path: "", component: CustomerIndexComponent },
           { path: "index", redirectTo: "" },
           { path: "profile", component: CustomerProfileComponent },
+          { path: "favourites", component: CustomerFavouriteComponent },
         ]
       },
       {

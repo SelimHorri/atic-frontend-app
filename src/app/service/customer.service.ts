@@ -16,10 +16,20 @@ export class CustomerService {
     this.API_URL = `${this.API_URL}/customers`;
   }
   
-  public getCustomerProfileByUsername(username: string): Observable<ApiPayloadCustomerProfileResponse> {
-    return this.http.get<ApiPayloadCustomerProfileResponse>(`${this.API_URL}/profile/username/${username}`, {
+  public getProfile(): Observable<ApiPayloadCustomerProfileResponse> {
+    return this.http.get<ApiPayloadCustomerProfileResponse>(`${this.API_URL}/profile`, {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    });
+  }
+  
+  public getFavourites(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/favourites`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
     });
   }

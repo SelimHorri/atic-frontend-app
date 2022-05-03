@@ -24,6 +24,7 @@ import { LogoutComponent } from './component/logout/logout.component';
 import { CredentialService } from './service/credential.service';
 import { ErrorHandlerService } from './service/error-handler.service';
 import { CustomerService } from './service/customer.service';
+import { FavouriteComponent } from './workspace/customer/favourite/favourite.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { CustomerService } from './service/customer.service';
     TopbarComponent,
     ProfileComponent,
     LogoutComponent,
+    FavouriteComponent,
   ],
   imports: [
     BrowserModule,
