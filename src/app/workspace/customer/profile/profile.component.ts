@@ -2,7 +2,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ApiPayloadCustomerProfileResponse } from 'src/app/model/response/api/api-payload-customer-profile-response';
-import { ApiPayloadDExceptionMsg } from 'src/app/model/response/api/api-payload-d-exception-msg';
 import { CustomerProfileResponse } from 'src/app/model/response/customer-profile-response';
 import { CustomerService } from 'src/app/service/customer.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
