@@ -10,10 +10,24 @@
         <li class="nav-item"><a class="nav-link" routerLink="/home">Home</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/about">About</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/contact">Contact</a></li>
+        <!--
         <li class="nav-item"><a class="nav-link active" aria-current="page" *ngIf="isLoggedIn()"
-            routerLink="/workspace/{{ accountUrl }}">Account</a></li>
+            routerLink="/workspace/{{ accountUrl }}"><strong>{{ authenticatedUsername }}</strong></a></li>
+        -->
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+          <a class="nav-link active dropdown-toggle" id="navbarDropdown" href="" role="button" data-bs-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"><strong>{{ authenticatedUsername }}</strong></a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/workspace/{{ accountUrl }}/index">Workspace</a>
+            <a class="dropdown-item" routerLink="/workspace/{{ accountUrl }}/profile">Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['/', 'logout']">Logout</a>
+          </div>
+        </li>
+        <!--
         <li class="nav-item"><a class="nav-link active" aria-current="page" *ngIf="isLoggedIn()"
             routerLink="/logout">Logout</a></li>
+        -->
         <li class="nav-item"><a class="nav-link active" aria-current="page" *ngIf="!isLoggedIn()"
             routerLink="/authenticate">Login</a></li>
         <li class="nav-item"><a class="nav-link active" aria-current="page" *ngIf="!isLoggedIn()"

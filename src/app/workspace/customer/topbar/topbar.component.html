@@ -10,12 +10,12 @@
         <!-- <li class="nav-item"><a class="nav-link" routerLink="#!">Link</a></li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" href="" role="button" data-bs-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">Account</a>
+            aria-haspopup="true" aria-expanded="false"><strong>{{ authenticatedUsername }}</strong></a>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/workspace/customer/index">Workspace</a>
             <a class="dropdown-item" routerLink="/workspace/customer/profile">Profile</a>
-            <a class="dropdown-item" routerLink="">Another action</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" routerLink="/logout">Logout</a>
+            <a class="dropdown-item" [routerLink]="['/', 'logout']">Logout</a>
           </div>
         </li>
       </ul>

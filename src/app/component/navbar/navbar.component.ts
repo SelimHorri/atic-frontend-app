@@ -15,6 +15,7 @@ import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 export class NavbarComponent implements OnInit {
   
   public accountUrl!: string;
+  public authenticatedUsername: string = `${sessionStorage.getItem(`username`)}`;
   
   constructor(private authenticationService: AuthenticationService,
     private credentialService: CredentialService,

@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopbarComponent implements OnInit {
   
+  public authenticatedUsername: string = `${sessionStorage.getItem(`username`)}`;
+  
   constructor() {}
   
   ngOnInit(): void {

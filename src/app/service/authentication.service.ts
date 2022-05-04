@@ -1,7 +1,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginRequest } from '../model/request/login-request';
 import { ApiPayloadLoginResponse } from '../model/response/api/api-payload-login-response';
@@ -18,7 +18,8 @@ export class AuthenticationService {
   }
   
   public authenticate(loginRequest: LoginRequest): Observable<ApiPayloadLoginResponse> {
-    return this.http.post<ApiPayloadLoginResponse>(`${this.apiUrl}`, loginRequest);
+    return this.http
+        .post<ApiPayloadLoginResponse>(`${this.apiUrl}`, loginRequest);
   }
   
   public isLoggedIn(): boolean {

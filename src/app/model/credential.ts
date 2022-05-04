@@ -1,5 +1,5 @@
 
-import { Customer } from "./customer";
+import { UserRoleBasedAuthority } from "./user-role-based-authority";
 
 export class Credential {
   
@@ -7,12 +7,12 @@ export class Credential {
     public id: number,
     public username: string,
     public password: string,
-    public role: string,
+    public role: UserRoleBasedAuthority | string,
     public isEnabled: boolean,
     public isAccountNonExpired: boolean,
     public isAccountNonLocked: boolean,
     public isCredentialsNonExpired: boolean,
-    public customer: Customer) {
+    public customerId: number) {
   }
   
   

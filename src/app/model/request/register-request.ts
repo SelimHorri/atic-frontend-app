@@ -8,11 +8,11 @@ export class RegisterRequest {
     public lastname: string,
     public email: string,
     public phone: string,
-    public birthdate: string,
+    public birthdate: Date | string,
     public username: string,
     public password: string,
     public confirmPassword: string,
-    public role: UserRoleBasedAuthority) {
+    public role: UserRoleBasedAuthority | string) {
   }
   
   
