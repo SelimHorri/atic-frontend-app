@@ -21,6 +21,10 @@
             <a class="dropdown-item" routerLink="/workspace/{{ accountUrl }}/index">Workspace</a>
             <a class="dropdown-item" routerLink="/workspace/{{ accountUrl }}/profile">Profile</a>
             <div class="dropdown-divider"></div>
+            <div *ngFor="let i of items">
+              <a class="dropdown-item" routerLink="/workspace/{{ accountUrl }}/{{ i.link }}">{{ i.name }}</a>
+            </div>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" [routerLink]="['/', 'logout']">Logout</a>
           </div>
         </li>

@@ -1,125 +1,111 @@
-
-<div class="d-flex" id="wrapper">
-  <!-- Sidebar-->
-  <app-sidebar></app-sidebar>
-  <!-- Page content wrapper-->
-  <div id="page-content-wrapper">
-    <!-- Top navigation-->
-    <app-topbar></app-topbar>
-    <!-- Page content-->
-
-    <br><br>
-
-
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-3">
-          <div class="profile-card-4 z-depth-3">
-            <div class="card">
-              <div class="card-body text-center bg-primary rounded-top">
-                <div class="user-box">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user avatar">
+<div class="container container-fluid">
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="profile-card-4 z-depth-3">
+        <div class="card">
+          <div class="card-body text-center bg-primary rounded-top">
+            <div class="user-box">
+              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user avatar">
+            </div>
+            <h5 class="mb-1 text-white">
+              {{ customerProfileResponse?.customer?.firstname?.charAt(0) | uppercase}}{{ customerProfileResponse?.customer?.firstname?.substring(1) | lowercase}}
+              {{ customerProfileResponse?.customer?.lastname | uppercase}}
+            </h5>
+            <h6 class="text-light"><i>{{ customerProfileResponse?.credential?.role }}</i></h6>
+          </div>
+          <div class="card-body">
+            <ul class="list-group shadow-none">
+              <li class="list-group-item">
+                <div class="list-icon">
+                  <i class="fa fa-phone-square"></i>
                 </div>
-                <h5 class="mb-1 text-white">
-                  {{ customerProfileResponse?.customer?.firstname?.charAt(0) | uppercase}}{{ customerProfileResponse?.customer?.firstname?.substring(1) | lowercase}}
-                  {{ customerProfileResponse?.customer?.lastname | uppercase}}
-                </h5>
-                <h6 class="text-light"><i>{{ customerProfileResponse?.credential?.role }}</i></h6>
-              </div>
-              <div class="card-body">
-                <ul class="list-group shadow-none">
-                  <li class="list-group-item">
-                    <div class="list-icon">
-                      <i class="fa fa-phone-square"></i>
-                    </div>
-                    <div class="list-details">
-                      <span>{{ customerProfileResponse?.customer?.phone }}</span>
-                      <small>Mobile Number</small>
-                    </div>
-                  </li>
-                  <li class="list-group-item">
-                    <div class="list-icon">
-                      <i class="fa fa-envelope"></i>
-                    </div>
-                    <div class="list-details">
-                      <span>{{ customerProfileResponse?.customer?.email }}</span>
-                      <small>Email Address</small>
-                    </div>
-                  </li>
-                  <li class="list-group-item" *ngIf="customerProfileResponse?.customer?.birthdate !== null">
-                    <div class="list-icon">
-                      <i class="fa fa-globe"></i>
-                    </div>
-                    <div class="list-details">
-                      <span>{{ customerProfileResponse?.customer?.birthdate | date }}</span>
-                      <small>Birthdate</small>
-                    </div>
-                  </li>
-                </ul>
-                <div class="row text-center mt-4">
-                  <div class="col p-2">
-                    <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.reservations?.length }}</h4>
-                    <small class="mb-0 font-weight-bold">Reservations</small>
-                  </div>
-                  <div class="col p-2">
-                    <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.favourites?.length }}</h4>
-                    <small class="mb-0 font-weight-bold">Favourites</small>
-                  </div>
-                  <div class="col p-2">
-                    <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.ratings?.length }}</h4>
-                    <small class="mb-0 font-weight-bold">Ratings</small>
-                  </div>
+                <div class="list-details">
+                  <span>{{ customerProfileResponse?.customer?.phone }}</span>
+                  <small>Mobile Number</small>
                 </div>
+              </li>
+              <li class="list-group-item">
+                <div class="list-icon">
+                  <i class="fa fa-envelope"></i>
+                </div>
+                <div class="list-details">
+                  <span>{{ customerProfileResponse?.customer?.email }}</span>
+                  <small>Email Address</small>
+                </div>
+              </li>
+              <li class="list-group-item" *ngIf="customerProfileResponse?.customer?.birthdate !== null">
+                <div class="list-icon">
+                  <i class="fa fa-globe"></i>
+                </div>
+                <div class="list-details">
+                  <span>{{ customerProfileResponse?.customer?.birthdate | date }}</span>
+                  <small>Birthdate</small>
+                </div>
+              </li>
+            </ul>
+            <div class="row text-center mt-4">
+              <div class="col p-2">
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.reservations?.length }}</h4>
+                <small class="mb-0 font-weight-bold">Reservations</small>
               </div>
-              <div class="card-footer text-center">
-                <span *ngIf="customerProfileResponse?.customer?.facebookUrl !== null">
-                  <a href="{{ customerProfileResponse?.customer?.facebookUrl }}"
-                    class="btn-social btn-facebook waves-effect waves-light m-2"><i class="fa fa-facebook"></i></a>
-                </span>
-                <span *ngIf="customerProfileResponse?.customer?.instagramUrl !== null">
-                  <a href="{{ customerProfileResponse?.customer?.instagramUrl }}"
-                    class="btn-social btn-instagram waves-effect waves-light m-2"><i class="fa fa-instagram"></i></a>
-                </span>
-                <span *ngIf="customerProfileResponse?.customer?.linkedinUrl !== null">
-                  <a href="{{ customerProfileResponse?.customer?.linkedinUrl }}"
-                    class="btn-social btn-linkedin waves-effect waves-light m-2"><i class="fa fa-linkedin"></i></a>
-                </span>
+              <div class="col p-2">
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.favourites?.length }}</h4>
+                <small class="mb-0 font-weight-bold">Favourites</small>
+              </div>
+              <div class="col p-2">
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.ratings?.length }}</h4>
+                <small class="mb-0 font-weight-bold">Ratings</small>
               </div>
             </div>
           </div>
+          <div class="card-footer text-center">
+            <span *ngIf="customerProfileResponse?.customer?.facebookUrl !== null">
+              <a href="{{ customerProfileResponse?.customer?.facebookUrl }}"
+                class="btn-social btn-facebook waves-effect waves-light m-2"><i class="fa fa-facebook"></i></a>
+            </span>
+            <span *ngIf="customerProfileResponse?.customer?.instagramUrl !== null">
+              <a href="{{ customerProfileResponse?.customer?.instagramUrl }}"
+                class="btn-social btn-instagram waves-effect waves-light m-2"><i class="fa fa-instagram"></i></a>
+            </span>
+            <span *ngIf="customerProfileResponse?.customer?.linkedinUrl !== null">
+              <a href="{{ customerProfileResponse?.customer?.linkedinUrl }}"
+                class="btn-social btn-linkedin waves-effect waves-light m-2"><i class="fa fa-linkedin"></i></a>
+            </span>
+          </div>
         </div>
-        <div class="col-lg-8">
-          <div class="card z-depth-3">
-            <div class="card-body">
-              <ul class="nav nav-pills nav-pills-primary nav-justified">
-                <li class="nav-item">
-                  <a href="javascript:void();" data-bs-target="#profile" data-bs-toggle="pill"
-                    class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
-                </li>
-                <!--
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="card z-depth-3">
+        <div class="card-body">
+          <ul class="nav nav-pills nav-pills-primary nav-justified">
+            <li class="nav-item">
+              <a href="javascript:void();" data-bs-target="#profile" data-bs-toggle="pill"
+                class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
+            </li>
+            <!--
                 <li class="nav-item">
                   <a href="javascript:void();" data-bs-target="#edit" data-bs-toggle="pill" class="nav-link"><i
                       class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
                 </li>
                 -->
-              </ul>
-              <div class="tab-content p-4">
-                <div class="tab-pane active show" id="profile">
-                  <!---->
-                  <h5 class="mb-3">User Profile</h5>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <h6>About</h6>
-                      <p>
-                        Web Designer, UI/UX Engineer
-                      </p>
-                      <h6>Hobbies</h6>
-                      <p>
-                        Indie music, skiing and hiking. I love the great outdoors.
-                      </p>
-                    </div>
-                    <!--
+          </ul>
+          <div class="tab-content p-4">
+            <div class="tab-pane active show" id="profile">
+              <!---->
+              <h5 class="mb-3">User Profile</h5>
+              <div class="row">
+                <div class="col-md-6">
+                  <h6>About</h6>
+                  <p>
+                    Web Designer, UI/UX Engineer
+                  </p>
+                  <h6>Hobbies</h6>
+                  <p>
+                    Indie music, skiing and hiking. I love the great outdoors.
+                  </p>
+                </div>
+                <!--
                     <div class="col-md-6" *ngIf="customerProfileResponse?.favourites?.length !== 0">
                       <h6>Recent Facilities</h6>
                       <div *ngFor="let s of customerProfileResponse?.favourites">
@@ -128,41 +114,40 @@
                       <hr>
                     </div>
                     -->
-                    
-                    <hr>
-                    
-                    
-                    <div class="col-md-12">
+
+                <hr>
 
 
-                      <form #userForm="ngForm" class="">
-                        <div class="form-group row">
-                          
-                          <label class="col-lg-3 col-form-label form-control-label">First name <span
-                              class="text-danger">*</span></label>
-                          <div class="col-lg-9">
-                            <input ngModel name="firstname" value="{{ customerProfileResponse?.customer?.firstname }}"
-                              class="form-control" type="text" placeholder="Mark">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Last name <span
-                              class="text-danger">*</span></label>
-                          <div class="col-lg-9">
-                            <input ngModel name="lastname" value="{{ customerProfileResponse?.customer?.lastname }}"
-                              class="form-control" type="text" placeholder="Jhonsan">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Email <span
-                              class="text-danger">*</span></label>
-                          <div class="col-lg-9">
-                            <input ngModel name="email" value="{{ customerProfileResponse?.customer?.email }}"
-                              class="form-control" type="email"
-                              placeholder="mark@example.com">
-                          </div>
-                        </div>
-                        <!--
+                <div class="col-md-12">
+
+
+                  <form #userForm="ngForm" class="">
+                    <div class="form-group row">
+
+                      <label class="col-lg-3 col-form-label form-control-label">First name <span
+                          class="text-danger">*</span></label>
+                      <div class="col-lg-9">
+                        <input ngModel name="firstname" value="{{ customerProfileResponse?.customer?.firstname }}"
+                          class="form-control" type="text" placeholder="Mark">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Last name <span
+                          class="text-danger">*</span></label>
+                      <div class="col-lg-9">
+                        <input ngModel name="lastname" value="{{ customerProfileResponse?.customer?.lastname }}"
+                          class="form-control" type="text" placeholder="Jhonsan">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Email <span
+                          class="text-danger">*</span></label>
+                      <div class="col-lg-9">
+                        <input ngModel name="email" value="{{ customerProfileResponse?.customer?.email }}"
+                          class="form-control" type="email" placeholder="mark@example.com">
+                      </div>
+                    </div>
+                    <!--
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">Change profile</label>
                       <div class="col-lg-9">
@@ -193,125 +178,109 @@
                     </div>
                     -->
 
-                        <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Phone <span
-                              class="text-danger">*</span></label>
-                          <div class="col-lg-9">
-                            <input ngModel name="phone" value="{{ customerProfileResponse?.customer?.phone }}"
-                              class="form-control" type="text" placeholder="22125144">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Birthdate</label>
-                          <div class="col-lg-9">
-                            <input ngModel name="birthdate" [value]="customerProfileResponse?.customer?.birthdate"
-                              class="form-control" type="date">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Facebook</label>
-                          <div class="col-lg-9">
-                            <input ngModel name="facebookUrl"
-                              [value]="customerProfileResponse?.customer?.facebookUrl"
-                              class="form-control" type="url" placeholder="url">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Instagram</label>
-                          <div class="col-lg-9">
-                            <input ngModel name="instagramUrl"
-                              value="{{ customerProfileResponse?.customer?.instagramUrl }}" class="form-control"
-                              type="url" placeholder="url">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">LinkedIn</label>
-                          <div class="col-lg-9">
-                            <input ngModel name="linkedinUrl"
-                              value="{{ customerProfileResponse?.customer?.linkedinUrl }}" class="form-control"
-                              type="url" placeholder="url">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Username <span
-                              class="text-danger">*</span></label>
-                          <div class="col-lg-9">
-                            <input ngModel name="username" value="{{ customerProfileResponse?.credential?.username }}"
-                              class="form-control" type="text" placeholder="jhonsanmark">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Password <span
-                              class="text-danger">*</span></label>
-                          <div class="col-lg-9">
-                            <input ngModel name="password" class="form-control" type="password" placeholder="..."
-                              required>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Confirm password <span
-                              class="text-danger">*</span></label>
-                          <div class="col-lg-9">
-                            <input ngModel name="confirmPassword" class="form-control" type="password" placeholder="..."
-                              required>
-                          </div>
-                        </div>
-                        <br>
-                        <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label"></label>
-                          <div class="col-lg-9">
-                            <input type="reset" class="btn btn-secondary" value="Cancel">
-                            <input type="submit" [disabled]="userForm.invalid" class="btn btn-primary"
-                              value="Save Changes">
-                          </div>
-                        </div>
-                      </form>
-
-                      <div *ngIf="customerProfileResponse?.reservations?.length !== 0">
-                        <br>
-                        <hr>
-                        <br>
-
-                        <!---->
-                        <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Some
-                          Reservations
-                          notifs: </h5>
-                        <table *ngFor="let r of customerProfileResponse?.reservations"
-                          class="table table-hover ">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <strong>{{ customerProfileResponse?.customer?.firstname?.charAt(0) | uppercase}}{{ customerProfileResponse?.customer?.firstname?.substring(1) | lowercase}}</strong>
-                                has made
-                                reservation with code: <a href="#"><strong>`{{ r.code }}`</strong></a> at:
-                                <u>{{ r.startDate }}</u>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Phone <span
+                          class="text-danger">*</span></label>
+                      <div class="col-lg-9">
+                        <input ngModel name="phone" value="{{ customerProfileResponse?.customer?.phone }}"
+                          class="form-control" type="text" placeholder="22125144">
                       </div>
                     </div>
-                  </div>
-                      <!--/row-->
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Birthdate</label>
+                      <div class="col-lg-9">
+                        <input ngModel name="birthdate" [value]="customerProfileResponse?.customer?.birthdate"
+                          class="form-control" type="date">
+                      </div>
                     </div>
-
-                    <div class="tab-pane" id="edit">
-
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Facebook</label>
+                      <div class="col-lg-9">
+                        <input ngModel name="facebookUrl" [value]="customerProfileResponse?.customer?.facebookUrl"
+                          class="form-control" type="url" placeholder="url">
+                      </div>
                     </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Instagram</label>
+                      <div class="col-lg-9">
+                        <input ngModel name="instagramUrl" value="{{ customerProfileResponse?.customer?.instagramUrl }}"
+                          class="form-control" type="url" placeholder="url">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">LinkedIn</label>
+                      <div class="col-lg-9">
+                        <input ngModel name="linkedinUrl" value="{{ customerProfileResponse?.customer?.linkedinUrl }}"
+                          class="form-control" type="url" placeholder="url">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Username <span
+                          class="text-danger">*</span></label>
+                      <div class="col-lg-9">
+                        <input ngModel name="username" value="{{ customerProfileResponse?.credential?.username }}"
+                          class="form-control" type="text" placeholder="jhonsanmark">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Password <span
+                          class="text-danger">*</span></label>
+                      <div class="col-lg-9">
+                        <input ngModel name="password" class="form-control" type="password" placeholder="..." required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Confirm password <span
+                          class="text-danger">*</span></label>
+                      <div class="col-lg-9">
+                        <input ngModel name="confirmPassword" class="form-control" type="password" placeholder="..."
+                          required>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label"></label>
+                      <div class="col-lg-9">
+                        <input type="reset" class="btn btn-secondary" value="Cancel">
+                        <input type="submit" [disabled]="userForm.invalid" class="btn btn-primary" value="Save Changes">
+                      </div>
+                    </div>
+                  </form>
+
+                  <div *ngIf="customerProfileResponse?.reservations?.length !== 0">
+                    <br>
+                    <hr>
+                    <br>
+
+                    <!---->
+                    <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Some
+                      Reservations
+                      notifs: </h5>
+                    <table *ngFor="let r of customerProfileResponse?.reservations" class="table table-hover ">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <strong>{{ customerProfileResponse?.customer?.firstname?.charAt(0) | uppercase}}{{ customerProfileResponse?.customer?.firstname?.substring(1) | lowercase}}</strong>
+                            has made
+                            reservation with code: <a href="#"><strong>`{{ r.code }}`</strong></a> at:
+                            <u>{{ r.startDate }}</u>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
+              <!--/row-->
             </div>
 
+            <div class="tab-pane" id="edit">
+
+            </div>
           </div>
         </div>
-
-
-
-
-
-
       </div>
     </div>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+
+  </div>
+</div>
