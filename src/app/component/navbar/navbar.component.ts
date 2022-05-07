@@ -67,11 +67,6 @@ export class NavbarComponent implements OnInit {
   private getCustomerItems(): any[] {
     return [
       {
-        name: "Dashboard",
-        link: "index",
-        subItems: []
-      },
-      {
         name: "Reservations",
         link: "reservations",
         subItems: [
