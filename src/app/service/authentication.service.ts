@@ -18,8 +18,7 @@ export class AuthenticationService {
   }
   
   public authenticate(loginRequest: LoginRequest): Observable<ApiPayloadLoginResponse> {
-    return this.http
-        .post<ApiPayloadLoginResponse>(`${this.apiUrl}`, loginRequest);
+    return this.http.post<ApiPayloadLoginResponse>(`${this.apiUrl}`, loginRequest);
   }
   
   public isLoggedIn(): boolean {

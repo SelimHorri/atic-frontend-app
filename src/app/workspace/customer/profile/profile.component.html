@@ -52,7 +52,7 @@
                       <i class="fa fa-globe"></i>
                     </div>
                     <div class="list-details">
-                      <span>{{ customerProfileResponse?.customer?.birthdate }}</span>
+                      <span>{{ customerProfileResponse?.customer?.birthdate | date }}</span>
                       <small>Birthdate</small>
                     </div>
                   </li>
@@ -204,7 +204,7 @@
                         <div class="form-group row">
                           <label class="col-lg-3 col-form-label form-control-label">Birthdate</label>
                           <div class="col-lg-9">
-                            <input ngModel name="birthdate" value="{{ customerProfileResponse?.customer?.birthdate }}"
+                            <input ngModel name="birthdate" [value]="customerProfileResponse?.customer?.birthdate"
                               class="form-control" type="date">
                           </div>
                         </div>
@@ -212,7 +212,7 @@
                           <label class="col-lg-3 col-form-label form-control-label">Facebook</label>
                           <div class="col-lg-9">
                             <input ngModel name="facebookUrl"
-                              value="{{ customerProfileResponse?.customer?.facebookUrl }}"
+                              [value]="customerProfileResponse?.customer?.facebookUrl"
                               class="form-control" type="url" placeholder="url">
                           </div>
                         </div>
