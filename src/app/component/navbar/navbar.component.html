@@ -20,9 +20,11 @@
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" routerLink="/workspace/{{ accountUrl }}/index">Workspace</a>
             <a class="dropdown-item" routerLink="/workspace/{{ accountUrl }}/profile">Profile</a>
-            <div class="dropdown-divider"></div>
-            <div *ngFor="let i of items">
-              <a class="dropdown-item" routerLink="/workspace/{{ accountUrl }}/{{ i.link }}">{{ i.name }}</a>
+            <div *ngIf="items !== null && items?.length !== 0">
+              <div class="dropdown-divider"></div>
+              <div *ngFor="let i of items">
+                <a class="dropdown-item" routerLink="/workspace/{{ accountUrl }}/{{ i?.link }}">{{ i?.name }}</a>
+              </div>
             </div>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" [routerLink]="['/', 'logout']">Logout</a>
