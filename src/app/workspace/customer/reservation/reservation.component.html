@@ -75,7 +75,7 @@
               </thead>
               <tbody *ngFor="let r of customerReservationResponse?.reservations">
                 <tr>
-                  <td><a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">{{ r?.code }}</a></td>
+                  <td><a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">{{ r?.code?.substring(0, 8) }}</a></td>
                   <td>{{ r?.startDate }}</td>
                   <td>{{ r?.cancelDate }}</td>
                   <td>

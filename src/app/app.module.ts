@@ -31,6 +31,8 @@ import { ReservationService } from './service/reservation.service';
 import { SaloonService } from './service/saloon.service';
 import { DatePipe } from '@angular/common';
 import { TaskService } from './service/task.service';
+import { ReservationDetailsComponent } from './workspace/customer/reservation/reservation-details/reservation-details.component';
+import { AssignedWorkerComponent } from './workspace/customer/reservation/assigned-worker/assigned-worker.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { TaskService } from './service/task.service';
     FavouriteComponent,
     RatingComponent,
     ReservationComponent,
+    ReservationDetailsComponent,
+    AssignedWorkerComponent,
   ],
   imports: [
     BrowserModule,

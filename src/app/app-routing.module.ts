@@ -25,6 +25,8 @@ import { RegistrationGuard } from './guard/registration.guard';
 import { FavouriteComponent as CustomerFavouriteComponent } from './workspace/customer/favourite/favourite.component';
 import { RatingComponent as CustomerRatingComponent } from './workspace/customer/rating/rating.component';
 import { ReservationComponent as CustomerReservationComponent } from './workspace/customer/reservation/reservation.component';
+import { ReservationDetailsComponent as CustomerReservationDetailsComponent } from './workspace/customer/reservation/reservation-details/reservation-details.component';
+import { AssignedWorkerComponent as CustomerAssignedWorkerComponent } from './workspace/customer/reservation/assigned-worker/assigned-worker.component';
 
 const routes: Routes = [
   
@@ -49,6 +51,8 @@ const routes: Routes = [
           { path: "index", redirectTo: "" },
           { path: "profile", component: CustomerProfileComponent },
           { path: "reservations", component: CustomerReservationComponent },
+          { path: "reservations/:reservationId", component: CustomerReservationDetailsComponent },
+          { path: "reservations/assigned/:workerId", component: CustomerAssignedWorkerComponent },
           { path: "favourites", component: CustomerFavouriteComponent },
           { path: "ratings", component: CustomerRatingComponent },
         ]
