@@ -1,4 +1,6 @@
 
+import { ReservationStatus } from "./reservation-status";
+
 export class Reservation {
 
   constructor(
@@ -7,7 +9,7 @@ export class Reservation {
     public description: string | null,
     public startDate: Date | string,
     public cancelDate: Date | string | null,
-    public reservationStatus: string,
+    public status: ReservationStatus | string,
     public customerId: number) {
   }
 

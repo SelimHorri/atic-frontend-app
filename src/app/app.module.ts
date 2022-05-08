@@ -27,6 +27,10 @@ import { CustomerService } from './service/customer.service';
 import { FavouriteComponent } from './workspace/customer/favourite/favourite.component';
 import { RatingComponent } from './workspace/customer/rating/rating.component';
 import { ReservationComponent } from './workspace/customer/reservation/reservation.component';
+import { ReservationService } from './service/reservation.service';
+import { SaloonService } from './service/saloon.service';
+import { DatePipe } from '@angular/common';
+import { TaskService } from './service/task.service';
 
 @NgModule({
   declarations: [
@@ -60,6 +64,10 @@ import { ReservationComponent } from './workspace/customer/reservation/reservati
     CredentialService,
     CustomerService,
     ErrorHandlerService,
+    ReservationService,
+    SaloonService,
+    DatePipe,
+    TaskService,
   ],
   bootstrap: [AppComponent]
 })

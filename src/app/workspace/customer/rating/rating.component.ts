@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rating.component.scss']
 })
 export class RatingComponent implements OnInit {
-
-  constructor() { }
-
+  
+  constructor() {}
+  
   ngOnInit(): void {
+    
   }
-
+  
+  
+  
 }
+
+
+
+
+
+
+
+
+
+
+
+
