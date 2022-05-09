@@ -8,25 +8,25 @@ import { Error404Component } from './component/error/error404/error404.component
 import { HomeComponent } from './component/home/home.component';
 import { LogoutComponent } from './component/logout/logout.component';
 import { RegistrationComponent } from './component/registration/registration.component';
-import { IndexComponent as CustomerIndexComponent } from './workspace/customer/index/index.component';
-import { ProfileComponent as CustomerProfileComponent } from './workspace/customer/profile/profile.component';
-import { IndexComponent as WorkerIndexComponent } from './workspace/worker/index/index.component';
-import { ProfileComponent as WorkerProfileComponent } from './workspace/worker/profile/profile.component';
-import { IndexComponent as ManagerIndexComponent } from './workspace/manager/index/index.component';
-import { ProfileComponent as ManagerProfileComponent } from './workspace/manager/profile/profile.component';
-import { IndexComponent as OwnerIndexComponent } from './workspace/owner/index/index.component';
-import { ProfileComponent as OwnerProfileComponent } from './workspace/owner/profile/profile.component';
+import { IndexComponent as CustomerIndexComponent } from './component/workspace/customer/index/index.component';
+import { ProfileComponent as CustomerProfileComponent } from './component/workspace/customer/profile/profile.component';
+import { IndexComponent as WorkerIndexComponent } from './component/workspace/worker/index/index.component';
+import { ProfileComponent as WorkerProfileComponent } from './component/workspace/worker/profile/profile.component';
+import { IndexComponent as ManagerIndexComponent } from './component/workspace/manager/index/index.component';
+import { ProfileComponent as ManagerProfileComponent } from './component/workspace/manager/profile/profile.component';
+import { IndexComponent as OwnerIndexComponent } from './component/workspace/owner/index/index.component';
+import { ProfileComponent as OwnerProfileComponent } from './component/workspace/owner/profile/profile.component';
 import { CustomerGuard } from './guard/customer.guard';
 import { WorkerGuard } from './guard/worker.guard';
 import { ManagerGuard } from './guard/manager.guard';
 import { OwnerGuard } from './guard/owner.guard';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { RegistrationGuard } from './guard/registration.guard';
-import { FavouriteComponent as CustomerFavouriteComponent } from './workspace/customer/favourite/favourite.component';
-import { RatingComponent as CustomerRatingComponent } from './workspace/customer/rating/rating.component';
-import { ReservationComponent as CustomerReservationComponent } from './workspace/customer/reservation/reservation.component';
-import { ReservationDetailsComponent as CustomerReservationDetailsComponent } from './workspace/customer/reservation/reservation-details/reservation-details.component';
-import { AssignedWorkerComponent as CustomerAssignedWorkerComponent } from './workspace/customer/reservation/assigned-worker/assigned-worker.component';
+import { FavouriteComponent as CustomerFavouriteComponent } from './component/workspace/customer/favourite/favourite.component';
+import { RatingComponent as CustomerRatingComponent } from './component/workspace/customer/rating/rating.component';
+import { ReservationComponent as CustomerReservationComponent } from './component/workspace/customer/reservation/reservation.component';
+import { ReservationDetailsComponent as CustomerReservationDetailsComponent } from './component/workspace/customer/reservation/reservation-details/reservation-details.component';
+import { AssignedWorkerComponent as CustomerAssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
 
 const routes: Routes = [
   
