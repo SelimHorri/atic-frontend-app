@@ -25,6 +25,7 @@ export class ReservationComponent implements OnInit {
   public completedReservations!: Reservation[];
   public pendingReservations!: Reservation[];
   public tasks!: Task[];
+  public reservations!: Reservation[];
   
   constructor(private customerService: CustomerService,
     private credentialService: CredentialService,
@@ -73,6 +74,32 @@ export class ReservationComponent implements OnInit {
   
   public getAssignedWorkers(reservationId: number): Task[] {
     return [];
+  }
+  
+  public searchBy(key: string): void {
+    
+    const res: Reservation[] = [];
+    
+    this.reservations = this.customerReservationResponse?.reservations
+    
+    this.reservations.forEach(r => {
+      
+      if ( r.code.toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || r.startDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || r.cancelDate?.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || r.status.toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || r.description?.toLowerCase().indexOf(key.toLowerCase()) !== -1 )
+      { res.push(r);}
+      
+    });
+    
+    this.customerReservationResponse.reservations = res;
+    
+    this.customerReservationResponse.reservations.forEach(r => console.log(r?.code))
+    
+    
+    if (res.length === 0 || !key)
+      this.getReservations();
   }
   
   

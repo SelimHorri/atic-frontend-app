@@ -45,6 +45,10 @@ export class ReservationService {
         || r?.status === ReservationStatus.IN_PROGRESS);
   }
   
+  public search(key: string): Reservation[] {
+    return [];
+  }
+  
   
   
 }

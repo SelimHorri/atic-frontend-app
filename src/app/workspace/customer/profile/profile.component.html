@@ -262,8 +262,8 @@
                           <td>
                             <strong>{{ customerProfileResponse?.customer?.firstname?.charAt(0) | uppercase}}{{ customerProfileResponse?.customer?.firstname?.substring(1) | lowercase}}</strong>
                             has made
-                            reservation with code: <a href="#"><strong>`{{ r.code }}`</strong></a> at:
-                            <u>{{ r.startDate }}</u>
+                            reservation with code: <a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}"><strong>`{{ r?.code?.substring(0, 8) }}`</strong></a> at:
+                            <u>{{ r?.startDate }}</u>
                           </td>
                         </tr>
                       </tbody>

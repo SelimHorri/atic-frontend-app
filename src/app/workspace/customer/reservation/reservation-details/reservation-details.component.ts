@@ -26,7 +26,6 @@ export class ReservationDetailsComponent implements OnInit {
   }
   
   public getReservationDetails(): void {
-    
     this.activatedRoute.params.subscribe({
       next: (p: any) =>
         this.customerService.getReservationDetails(p.reservationId).subscribe({
