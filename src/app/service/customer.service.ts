@@ -7,7 +7,6 @@ import { DateBackendFormat } from '../model/date-backend-format';
 import { ApiPayloadCustomerFavouriteResponse } from '../model/response/api/api-payload-customer-favourite-response';
 import { ApiPayloadCustomerProfileResponse } from '../model/response/api/api-payload-customer-profile-response';
 import { ApiPayloadCustomerReservationResponse } from '../model/response/api/api-payload-customer-reservation-response';
-import { ApiPayloadReservationContainerResponse } from '../model/response/api/api-payload-reservation-container-response';
 
 @Injectable({
   providedIn: 'root'
@@ -57,15 +56,6 @@ export class CustomerService {
       
       return payload;
     }));
-  }
-  
-  public getReservationDetails(reservationId: number): Observable<ApiPayloadReservationContainerResponse> {
-    return this.http.get<ApiPayloadReservationContainerResponse>(`${this.apiUrl}/reservations/${reservationId}`, {
-      headers: {
-        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
-        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
-      }
-    });
   }
   
   

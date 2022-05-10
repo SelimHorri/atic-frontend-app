@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Reservation } from '../model/reservation';
 import { ReservationStatus } from '../model/reservation-status';
 import { ApiPayloadReservation } from '../model/response/api/api-payload-reservation';
+import { ApiPayloadReservationContainerResponse } from '../model/response/api/api-payload-reservation-container-response';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,15 @@ export class ReservationService {
   
   public search(key: string): Reservation[] {
     return [];
+  }
+  
+  public getReservationDetails(reservationId: number): Observable<ApiPayloadReservationContainerResponse> {
+    return this.http.get<ApiPayloadReservationContainerResponse>(`${this.apiUrl}/details/${reservationId}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    });
   }
   
   
