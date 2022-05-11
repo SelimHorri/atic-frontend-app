@@ -19,7 +19,7 @@ export class LogoutComponent implements OnInit {
   
   public logout(): boolean {
     const isLoggedOut = this.authenticationService.logout();
-    this.router.navigateByUrl("/home");
+    this.router.navigateByUrl("/login");
     return isLoggedOut;
   }
   

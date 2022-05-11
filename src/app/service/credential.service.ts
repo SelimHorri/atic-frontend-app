@@ -20,7 +20,8 @@ export class CredentialService {
   public findByUsername(username: string): Observable<ApiPayloadCredential> {
     return this.http.get<ApiPayloadCredential>(`${this.API_URL}/${username}`, {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
     });
   }
