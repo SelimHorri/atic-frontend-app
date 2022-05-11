@@ -53,6 +53,7 @@ export class ReservationComponent implements OnInit {
         this.reservations.forEach(r => {
           // this.findAllByReservationId(r?.id);
           this.tasks = this.getAssignedWorkers(r?.id);
+          // return;
         });
         
       },
