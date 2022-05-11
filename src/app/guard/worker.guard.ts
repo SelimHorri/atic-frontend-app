@@ -12,8 +12,7 @@ export class WorkerGuard implements CanActivateChild {
   
   constructor(private authenticationService: AuthenticationService) { }
   
-  canActivateChild(childRoute: ActivatedRouteSnapshot, 
-    state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
       
     const isUserLoggedIn: boolean = this.authenticationService.isLoggedIn();
 

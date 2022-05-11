@@ -1,8 +1,6 @@
 
-<app-navbar></app-navbar>
-
 <div id="main-container">
-  <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <div id="carouselExampleDark" class="carousel carousel-light slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
         aria-current="true" aria-label="Slide 1"></button>
@@ -10,7 +8,7 @@
       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner ">
-      <div class="carousel-item active" data-bs-interval="10000">
+      <div class="carousel-item active" data-bs-interval="5000">
         <img height="700" src="../../../assets/home/images/1.jpg"
           class="d-block w-100" alt="...">
         <!--
@@ -20,7 +18,7 @@
         </div>
         -->
       </div>
-      <div class="carousel-item" data-bs-interval="10000">
+      <div class="carousel-item" data-bs-interval="5000">
         <img height="700"
           src="../../../assets/home/images/2.jpg"
           class="d-block w-100"
@@ -32,7 +30,7 @@
         </div>
         -->
       </div>
-      <div class="carousel-item" data-bs-interval="10000">
+      <div class="carousel-item" data-bs-interval="5000">
         <img height="700"
           src="../../../assets/home/images/4.jpg"
           class="d-block w-100"
@@ -72,33 +70,48 @@
       <!-- Blog entries-->
       <div class="col-lg-8">
         <!-- Featured blog post-->
-        <div class="card mb-4">
-          <a routerLink=""><img class="card-img-top" width="850" height="350"
-              src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
-          <div class="card-body">
-            <div class="small text-muted">January 1, 2021</div>
-            <h2 class="card-title">Featured Post Title</h2>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque,
-              nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus
-              possimus, veniam magni quis!</p>
-            <a class="btn btn-primary" routerLink="">Read more →</a>
+        <!--
+          <div class="card mb-4">
+            <a routerLink=""><img class="card-img-top" width="850" height="350"
+                src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+            <div class="card-body">
+              <div class="small text-muted">January 1, 2021</div>
+              <h2 class="card-title">Featured Post Title</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque,
+                nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus
+                possimus, veniam magni quis!</p>
+              <a class="btn btn-primary" routerLink="">More infos →</a>
+            </div>
           </div>
-        </div>
+        -->
         <!-- Nested row for non-featured blog posts-->
         <div class="row">
           <div class="col-lg-6">
             <!-- Blog post-->
-            <div class="card mb-4">
+            <div class="card mb-4" *ngFor="let s of saloons">
               <a routerLink=""><img class="card-img-top" width="700" height="200"
                   src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
               <div class="card-body">
-                <div class="small text-muted">January 1, 2021</div>
-                <h2 class="card-title h4">Post Title</h2>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque,
-                  nulla.</p>
-                <a class="btn btn-primary" routerLink="">Read more →</a>
+                <div class="small text-muted">{{ s?.openingDate }}</div>
+                <h2 class="card-title h4">{{ s?.name | uppercase }}</h2>
+                <p class="card-text">{{ s?.fullAdr }}</p>
+                <a class="btn btn-primary" routerLink="">More infos →</a>
               </div>
             </div>
+            <!--
+              <div class="card mb-4">
+                <a routerLink=""><img class="card-img-top" width="700" height="200"
+                    src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                <div class="card-body">
+                  <div class="small text-muted">January 1, 2021</div>
+                  <h2 class="card-title h4">Post Title</h2>
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid
+                    atque,
+                    nulla.</p>
+                  <a class="btn btn-primary" routerLink="">More infos →</a>
+                </div>
+              </div>
+            -->
             <!-- Blog post-->
             <div class="card mb-4">
               <a routerLink=""><img class="card-img-top" width="700" height="200"
@@ -108,12 +121,24 @@
                 <h2 class="card-title h4">Post Title</h2>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque,
                   nulla.</p>
-                <a class="btn btn-primary" routerLink="">Read more →</a>
+                <a class="btn btn-primary" routerLink="">More infos →</a>
               </div>
             </div>
           </div>
           <div class="col-lg-6">
             <!-- Blog post-->
+            
+            <div class="card mb-4" *ngFor="let s of saloons">
+              <a routerLink=""><img class="card-img-top" width="700" height="200"
+                  src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+              <div class="card-body">
+                <div class="small text-muted">{{ s?.openingDate }}</div>
+                <h2 class="card-title h4">{{ s?.name | uppercase }}</h2>
+                <p class="card-text">{{ s?.fullAdr }}</p>
+                <a class="btn btn-primary" routerLink="">More infos →</a>
+              </div>
+            </div>
+            
             <div class="card mb-4">
               <a routerLink=""><img class="card-img-top" width="700" height="200"
                   src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
@@ -122,7 +147,7 @@
                 <h2 class="card-title h4">Post Title</h2>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque,
                   nulla.</p>
-                <a class="btn btn-primary" routerLink="">Read more →</a>
+                <a class="btn btn-primary" routerLink="">More infos →</a>
               </div>
             </div>
             <!-- Blog post-->
@@ -134,7 +159,7 @@
                 <h2 class="card-title h4">Post Title</h2>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque,
                   nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                <a class="btn btn-primary" routerLink="">Read more →</a>
+                <a class="btn btn-primary" routerLink="">More infos →</a>
               </div>
             </div>
           </div>
@@ -142,16 +167,19 @@
         <!-- Pagination-->
         <nav aria-label="Pagination">
           <hr class="my-0" />
-          <ul class="pagination justify-content-center my-4">
-            <li class="page-item disabled"><a class="page-link" routerLink="" tabindex="-1"
-                aria-disabled="true">Newer</a>
-            </li>
-            <li class="page-item active" aria-current="page"><a class="page-link" routerLink="">1</a></li>
+          <ul class="pagination justify-content-center my-4" >
             <li class="page-item"><a class="page-link" routerLink="">2</a></li>
-            <li class="page-item"><a class="page-link" routerLink="">3</a></li>
-            <li class="page-item disabled"><a class="page-link" routerLink="">...</a></li>
-            <li class="page-item"><a class="page-link" routerLink="">15</a></li>
-            <li class="page-item"><a class="page-link" routerLink="">Older</a></li>
+            <!--
+              <li class="page-item disabled"><a class="page-link" routerLink="" tabindex="-1"
+                  aria-disabled="true">Newer</a>
+              </li>
+              <li class="page-item active" aria-current="page"><a class="page-link" routerLink="">1</a></li>
+              <li class="page-item"><a class="page-link" routerLink="">2</a></li>
+              <li class="page-item"><a class="page-link" routerLink="">3</a></li>
+              <li class="page-item disabled"><a class="page-link" routerLink="">...</a></li>
+              <li class="page-item"><a class="page-link" routerLink="">15</a></li>
+              <li class="page-item"><a class="page-link" routerLink="">Older</a></li>
+            -->
           </ul>
         </nav>
       </div>
@@ -169,7 +197,7 @@
           </div>
         </div>
         <!-- Tags widget-->
-        <div class="card mb-4">
+        <div class="card mb-4" *ngIf="tags !== null && tags?.length !== 0">
           <div class="card-header">Tags you might be interested in</div>
           <div class="card-body">
             <div class="row">
@@ -196,7 +224,7 @@
 
   <div class="modal fade" id="findAllTagsError" tabindex="-1" role="dialog" aria-labelledby="findAllTagsErrorModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog " role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel"><strong>Pay attention!</strong></h5>
@@ -207,20 +235,21 @@
         <div class="modal-body">
 
           <p>
-            <span *ngIf="msg == null"><span class="text-danger">Error
+            <span *ngIf="msg !== null"><span class="text-danger">Error
                 fetching
                 available tags!
                 will be resolved later..</span>
             </span>
-            <span *ngIf="msg != null">
+            <span *ngIf="msg !== null">
               <span class="text-danger">{{ msg }}</span>
             </span>
           </p>
 
           <div class="modal-footer">
-            <button type="button" id="find-all-tags-error-form"
-              onclick="<script>document.getElementById('findAllTagsError').modal('hide')</script>"
-              class="btn btn-primary" data-dismiss="modal">Got it!</button>
+            <!--
+              <button type="button" id="find-all-tags-error-form" class="btn btn-primary" data-dismiss="modal"
+                aria-label="Close">Got it! <span aria-hidden="true">&times;</span></button>
+            -->
           </div>
 
         </div>
