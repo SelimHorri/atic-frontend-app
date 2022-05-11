@@ -6,7 +6,7 @@
           <div class="float-right">
             <i class="fa fa-archive text-primary h4 ml-3"></i>
           </div>
-          <h5 class="font-size-20 mt-0 pt-1">{{ customerReservationResponse?.reservations?.length }}</h5>
+          <h5 class="font-size-20 mt-0 pt-1">{{ reservations?.length }}</h5>
           <p class="text-muted mb-0">Total Reservations</p>
         </div>
       </div>
@@ -69,7 +69,7 @@
   </div>
   <!-- end row -->
   
-  <div class="row" *ngIf="customerReservationResponse?.reservations?.length !== 0">
+  <div class="row" *ngIf="reservations?.length !== 0">
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
@@ -87,7 +87,7 @@
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-              <tbody *ngFor="let r of customerReservationResponse?.reservations">
+              <tbody *ngFor="let r of reservations">
                 <tr>
                   <td><a
                       routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>

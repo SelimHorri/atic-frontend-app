@@ -1,11 +1,10 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { Reservation } from 'src/app/model/reservation';
-import { ReservationStatus } from 'src/app/model/reservation-status';
 import { ApiPayloadCustomerReservationResponse } from 'src/app/model/response/api/api-payload-customer-reservation-response';
 import { ApiPayloadTaskList } from 'src/app/model/response/api/api-payload-task-list';
-import { CustomerReservationResponse } from 'src/app/model/response/customer-reservation-response';
 import { Task } from 'src/app/model/task';
 import { CredentialService } from 'src/app/service/credential.service';
 import { CustomerService } from 'src/app/service/customer.service';
@@ -20,12 +19,11 @@ import { TaskService } from 'src/app/service/task.service';
 })
 export class ReservationComponent implements OnInit {
   
-  public customerReservationResponse!: CustomerReservationResponse;
   public accountUrl!: string;
+  public reservations!: Reservation[];
   public completedReservations!: Reservation[];
   public pendingReservations!: Reservation[];
   public tasks!: Task[];
-  public reservations!: Reservation[];
   
   constructor(private customerService: CustomerService,
     private credentialService: CredentialService,
@@ -36,21 +34,26 @@ export class ReservationComponent implements OnInit {
   ngOnInit(): void {
     this.getReservations();
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
+    // this.findAllByReservationId();
   }
   
   public getCompletedReservations(): Reservation[] {
-    return this.reservationService.getCompletedReservations(this.customerReservationResponse?.reservations);
+    return this.reservationService.getCompletedReservations(this.reservations);
   }
   
   public getPendingReservations(): Reservation[] {
-    return this.reservationService.getPendingReservations(this.customerReservationResponse?.reservations);
+    return this.reservationService.getPendingReservations(this.reservations);
   }
   
   public getReservations(): void {
     this.customerService.getReservations().subscribe({
       next: (customerReservationPayload: ApiPayloadCustomerReservationResponse) => {
         
-        this.customerReservationResponse = customerReservationPayload?.responseBody;
+        this.reservations = customerReservationPayload?.responseBody?.reservations;
+        this.reservations.forEach(r => {
+          // this.findAllByReservationId(r?.id);
+          this.tasks = this.getAssignedWorkers(r?.id);
+        });
         
       },
       error: (errorResponse: HttpErrorResponse) => {
@@ -73,14 +76,13 @@ export class ReservationComponent implements OnInit {
   }
   
   public getAssignedWorkers(reservationId: number): Task[] {
-    return [];
+    this.findAllByReservationId(reservationId);
+    return this.tasks;
   }
   
   public searchBy(key: string): void {
     
     const res: Reservation[] = [];
-    
-    this.reservations = this.customerReservationResponse?.reservations
     
     this.reservations.forEach(r => {
       
@@ -93,9 +95,9 @@ export class ReservationComponent implements OnInit {
       
     });
     
-    this.customerReservationResponse.reservations = res;
+    this.reservations = res;
     
-    this.customerReservationResponse.reservations.forEach(r => console.log(r?.code))
+    this.reservations.forEach(r => console.log(r?.code))
     
     
     if (res.length === 0 || !key)
