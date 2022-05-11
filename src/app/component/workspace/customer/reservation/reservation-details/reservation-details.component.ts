@@ -6,6 +6,7 @@ import { ApiPayloadReservationContainerResponse } from 'src/app/model/response/a
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { ReservationService } from 'src/app/service/reservation.service';
+import { ServiceDetailService } from 'src/app/service/service-detail.service';
 
 @Component({
   selector: 'app-reservation-details',
@@ -17,6 +18,7 @@ export class ReservationDetailsComponent implements OnInit {
   public reservationDetails!: ReservationContainerResponse;
   
   constructor(private reservationService: ReservationService,
+    private serviceDetailService: ServiceDetailService,
     private errorHandlerService: ErrorHandlerService,
     private activatedRoute: ActivatedRoute) {}
   
