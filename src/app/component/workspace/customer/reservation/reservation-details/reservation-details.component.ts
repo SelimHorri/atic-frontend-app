@@ -44,6 +44,16 @@ export class ReservationDetailsComponent implements OnInit {
     return amout;
   }
   
+  public calculateTotalDuration(): number {
+
+    let totalDuration: number = 0;
+    this.orderedServiceDetails?.serviceDetails?.map(s => {
+      totalDuration += s?.duration;
+    });
+
+    return totalDuration;
+  }
+  
   public getReservationDetails(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) =>

@@ -23,7 +23,7 @@
                             <th scope="col">Service</th>
                             <th scope="col">Description</th>
                             <th scope="col">isAvailable?</th>
-                            <th scope="col">Expected duration</th>
+                            <th scope="col">Duration</th>
                             <!-- <th scope="col">Ordered at</th> -->
                             <th scope="col">Price</th>
                             <!-- <th scope="col">Category</th> -->
@@ -87,9 +87,15 @@
                                 <td>Requested time :</td>
                                 <td>{{ reservationDetails?.reservation?.startDate }}</td>
                               </tr>
+                              <!--
+                                <tr>
+                                  <td>Ends at (estimated) :</td>
+                                  <td>{{ reservationDetails?.reservation?.startDate }}</td>
+                                </tr>
+                              -->
                               <tr>
-                                <td>Ends at (estimated) :</td>
-                                <td>{{ reservationDetails?.reservation?.startDate }}</td>
+                                <td>Expected duration :</td>
+                                <td>{{ calculateTotalDuration() }} min</td>
                               </tr>
                               <tr>
                                 <td>Status :</td>
