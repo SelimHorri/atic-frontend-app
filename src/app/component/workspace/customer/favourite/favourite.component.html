@@ -92,416 +92,42 @@
                 <div class="result-body">
                   <div class="table-responsive">
                     <table class="table widget-26">
-                      <tbody>
+                      <thead>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Code</th>
+                        <th>isPrimary?</th>
+                        <th>Opened at</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <!-- <th>Location</th> -->
+                        <th>Action</th>
+                      </thead>
+                      <tbody *ngFor="let s of saloons">
                         <tr>
-                          <td>
-                            <div class="widget-26-job-emp-img">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
-                            </div>
-                          </td>
+                          <td>#</td>
                           <td>
                             <div class="widget-26-job-title">
-                              <a href="#">Senior Software Engineer / Developer</a>
-                              <p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span
-                                  class="text-muted time">1 days ago</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-info">
-                              <p class="type m-0">Full-Time</p>
-                              <p class="text-muted m-0">in <span class="location">London, UK</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-salary">$ 50/hr</div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-category bg-soft-base">
-                              <i class="indicator bg-base"></i>
-                              <span>Software Development</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-starred">
-                              <a href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="feather feather-star">
-                                  <polygon
-                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                  </polygon>
-                                </svg>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="widget-26-job-emp-img">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Company" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-title">
-                              <a href="#">Marketing &amp; Communication Supervisor</a>
-                              <p class="m-0"><a href="#" class="employer-name">AxiomUI Llc.</a> <span
-                                  class="text-muted time">2 days ago</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-info">
-                              <p class="type m-0">Part-Time</p>
-                              <p class="text-muted m-0">in <span class="location">New York, US</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-salary">$ 60/hr</div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-category bg-soft-warning">
-                              <i class="indicator bg-warning"></i>
-                              <span>Marketing</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-starred">
-                              <a href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="feather feather-star">
-                                  <polygon
-                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                  </polygon>
-                                </svg>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="widget-26-job-emp-img">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Company" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-title">
-                              <a href="#">Senior Data Analyst / Scientist</a>
-                              <p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span
-                                  class="text-muted time">4 days ago</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-info">
-                              <p class="type m-0">Part-Time</p>
-                              <p class="text-muted m-0">in <span class="location">New York, US</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-salary">$ 60/hr</div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-category bg-soft-success">
-                              <i class="indicator bg-success"></i>
-                              <span>Artificial Intelligence</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-starred">
-                              <a href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="feather feather-star">
-                                  <polygon
-                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                  </polygon>
-                                </svg>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="widget-26-job-emp-img">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Company" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-title">
-                              <a href="#">UX Designer &amp; UI Developer</a>
-                              <p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span
-                                  class="text-muted time">5 days ago</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-info">
-                              <p class="type m-0">Part-Time</p>
-                              <p class="text-muted m-0">in <span class="location">Toronto, CAN</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-salary">$ 35/hr</div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-category bg-soft-danger">
-                              <i class="indicator bg-danger"></i>
-                              <span>Design</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-starred">
-                              <a href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="feather feather-star">
-                                  <polygon
-                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                  </polygon>
-                                </svg>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="widget-26-job-emp-img">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-title">
-                              <a href="#">Information Security Analyst / Expert</a>
+                              <a href="#">{{ s?.name | uppercase }}</a>
                               <p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span
                                   class="text-muted time">6 days ago</span></p>
                             </div>
                           </td>
                           <td>
-                            <div class="widget-26-job-info">
-                              <p class="type m-0">Part-Time</p>
-                              <p class="text-muted m-0">in <span class="location">Mumbai, IN</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-salary">$ 70/hr</div>
-                          </td>
-                          <td>
                             <div class="widget-26-job-category bg-soft-info">
                               <i class="indicator bg-info"></i>
-                              <span>Infra Supervision</span>
+                              <span>{{ s?.code?.substring(0, 8) }}</span>
                             </div>
                           </td>
                           <td>
-                            <div class="widget-26-job-starred">
-                              <a href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="feather feather-star starred">
-                                  <polygon
-                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                  </polygon>
-                                </svg>
-                              </a>
-                            </div>
+                            {{ s?.isPrimary }}
                           </td>
-                        </tr>
-                        <tr>
+                          <td>{{ s?.openingDate }}</td>
+                          <td>{{ s?.email | lowercase }}</td>
+                          <td>{{ s?.fullAdr }}</td>
                           <td>
-                            <div class="widget-26-job-emp-img">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Company" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-title">
-                              <a href="#">Senior Software Engineer / Developer</a>
-                              <p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span
-                                  class="text-muted time">1 days ago</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-info">
-                              <p class="type m-0">Full-Time</p>
-                              <p class="text-muted m-0">in <span class="location">London, UK</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-salary">$ 50/hr</div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-category bg-soft-base">
-                              <i class="indicator bg-base"></i>
-                              <span>Software Development</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-starred">
-                              <a href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="feather feather-star">
-                                  <polygon
-                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                  </polygon>
-                                </svg>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="widget-26-job-emp-img">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Company" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-title">
-                              <a href="#">Marketing &amp; Communication Supervisor</a>
-                              <p class="m-0"><a href="#" class="employer-name">AxiomUI Llc.</a> <span
-                                  class="text-muted time">2 days ago</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-info">
-                              <p class="type m-0">Part-Time</p>
-                              <p class="text-muted m-0">in <span class="location">New York, US</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-salary">$ 60/hr</div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-category bg-soft-warning">
-                              <i class="indicator bg-warning"></i>
-                              <span>Marketing</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-starred">
-                              <a href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="feather feather-star">
-                                  <polygon
-                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                  </polygon>
-                                </svg>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="widget-26-job-emp-img">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Company" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-title">
-                              <a href="#">Senior Data Analyst / Scientist</a>
-                              <p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span
-                                  class="text-muted time">4 days ago</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-info">
-                              <p class="type m-0">Part-Time</p>
-                              <p class="text-muted m-0">in <span class="location">New York, US</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-salary">$ 60/hr</div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-category bg-soft-success">
-                              <i class="indicator bg-success"></i>
-                              <span>Artificial Intelligence</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-starred">
-                              <a href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="feather feather-star">
-                                  <polygon
-                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                  </polygon>
-                                </svg>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="widget-26-job-emp-img">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Company" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-title">
-                              <a href="#">UX Designer &amp; UI Developer</a>
-                              <p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span
-                                  class="text-muted time">5 days ago</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-info">
-                              <p class="type m-0">Part-Time</p>
-                              <p class="text-muted m-0">in <span class="location">Toronto, CAN</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-salary">$ 35/hr</div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-category bg-soft-danger">
-                              <i class="indicator bg-danger"></i>
-                              <span>Design</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-starred">
-                              <a href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="feather feather-star">
-                                  <polygon
-                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                  </polygon>
-                                </svg>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="widget-26-job-emp-img">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Company" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-title">
-                              <a href="#">Information Security Analyst / Expert</a>
-                              <p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span
-                                  class="text-muted time">6 days ago</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-info">
-                              <p class="type m-0">Part-Time</p>
-                              <p class="text-muted m-0">in <span class="location">Mumbai, IN</span></p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-salary">$ 70/hr</div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-category bg-soft-info">
-                              <i class="indicator bg-info"></i>
-                              <span>Infra Supervision</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="widget-26-job-starred">
-                              <a href="#">
+                            <div class="text-center widget-26-job-starred">
+                              <a href="javascript:void();" (click)="removeFavourite(s.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                   stroke-linejoin="round" class="feather feather-star starred">
@@ -514,6 +140,430 @@
                           </td>
                         </tr>
                       </tbody>
+                      <!--
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="widget-26-job-emp-img">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-title">
+                                <a href="#">Senior Software Engineer / Developer</a>
+                                <p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span
+                                    class="text-muted time">1 days ago</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-info">
+                                <p class="type m-0">Full-Time</p>
+                                <p class="text-muted m-0">in <span class="location">London, UK</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-salary">$ 50/hr</div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-category bg-soft-base">
+                                <i class="indicator bg-base"></i>
+                                <span>Software Development</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-starred">
+                                <a href="#">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star">
+                                    <polygon
+                                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                  </svg>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="widget-26-job-emp-img">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Company" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-title">
+                                <a href="#">Marketing &amp; Communication Supervisor</a>
+                                <p class="m-0"><a href="#" class="employer-name">AxiomUI Llc.</a> <span
+                                    class="text-muted time">2 days ago</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-info">
+                                <p class="type m-0">Part-Time</p>
+                                <p class="text-muted m-0">in <span class="location">New York, US</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-salary">$ 60/hr</div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-category bg-soft-warning">
+                                <i class="indicator bg-warning"></i>
+                                <span>Marketing</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-starred">
+                                <a href="#">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star">
+                                    <polygon
+                                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                  </svg>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="widget-26-job-emp-img">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Company" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-title">
+                                <a href="#">Senior Data Analyst / Scientist</a>
+                                <p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span
+                                    class="text-muted time">4 days ago</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-info">
+                                <p class="type m-0">Part-Time</p>
+                                <p class="text-muted m-0">in <span class="location">New York, US</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-salary">$ 60/hr</div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-category bg-soft-success">
+                                <i class="indicator bg-success"></i>
+                                <span>Artificial Intelligence</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-starred">
+                                <a href="#">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star">
+                                    <polygon
+                                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                  </svg>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="widget-26-job-emp-img">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Company" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-title">
+                                <a href="#">UX Designer &amp; UI Developer</a>
+                                <p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span
+                                    class="text-muted time">5 days ago</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-info">
+                                <p class="type m-0">Part-Time</p>
+                                <p class="text-muted m-0">in <span class="location">Toronto, CAN</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-salary">$ 35/hr</div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-category bg-soft-danger">
+                                <i class="indicator bg-danger"></i>
+                                <span>Design</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-starred">
+                                <a href="#">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star">
+                                    <polygon
+                                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                  </svg>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="widget-26-job-emp-img">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-title">
+                                <a href="#">Information Security Analyst / Expert</a>
+                                <p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span
+                                    class="text-muted time">6 days ago</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-info">
+                                <p class="type m-0">Part-Time</p>
+                                <p class="text-muted m-0">in <span class="location">Mumbai, IN</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-salary">$ 70/hr</div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-category bg-soft-info">
+                                <i class="indicator bg-info"></i>
+                                <span>Infra Supervision</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-starred">
+                                <a href="#">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star starred">
+                                    <polygon
+                                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                  </svg>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="widget-26-job-emp-img">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Company" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-title">
+                                <a href="#">Senior Software Engineer / Developer</a>
+                                <p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span
+                                    class="text-muted time">1 days ago</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-info">
+                                <p class="type m-0">Full-Time</p>
+                                <p class="text-muted m-0">in <span class="location">London, UK</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-salary">$ 50/hr</div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-category bg-soft-base">
+                                <i class="indicator bg-base"></i>
+                                <span>Software Development</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-starred">
+                                <a href="#">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star">
+                                    <polygon
+                                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                  </svg>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="widget-26-job-emp-img">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Company" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-title">
+                                <a href="#">Marketing &amp; Communication Supervisor</a>
+                                <p class="m-0"><a href="#" class="employer-name">AxiomUI Llc.</a> <span
+                                    class="text-muted time">2 days ago</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-info">
+                                <p class="type m-0">Part-Time</p>
+                                <p class="text-muted m-0">in <span class="location">New York, US</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-salary">$ 60/hr</div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-category bg-soft-warning">
+                                <i class="indicator bg-warning"></i>
+                                <span>Marketing</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-starred">
+                                <a href="#">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star">
+                                    <polygon
+                                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                  </svg>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="widget-26-job-emp-img">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Company" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-title">
+                                <a href="#">Senior Data Analyst / Scientist</a>
+                                <p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span
+                                    class="text-muted time">4 days ago</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-info">
+                                <p class="type m-0">Part-Time</p>
+                                <p class="text-muted m-0">in <span class="location">New York, US</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-salary">$ 60/hr</div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-category bg-soft-success">
+                                <i class="indicator bg-success"></i>
+                                <span>Artificial Intelligence</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-starred">
+                                <a href="#">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star">
+                                    <polygon
+                                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                  </svg>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="widget-26-job-emp-img">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Company" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-title">
+                                <a href="#">UX Designer &amp; UI Developer</a>
+                                <p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span
+                                    class="text-muted time">5 days ago</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-info">
+                                <p class="type m-0">Part-Time</p>
+                                <p class="text-muted m-0">in <span class="location">Toronto, CAN</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-salary">$ 35/hr</div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-category bg-soft-danger">
+                                <i class="indicator bg-danger"></i>
+                                <span>Design</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-starred">
+                                <a href="#">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star">
+                                    <polygon
+                                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                  </svg>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="widget-26-job-emp-img">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Company" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-title">
+                                <a href="#">Information Security Analyst / Expert</a>
+                                <p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span
+                                    class="text-muted time">6 days ago</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-info">
+                                <p class="type m-0">Part-Time</p>
+                                <p class="text-muted m-0">in <span class="location">Mumbai, IN</span></p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-salary">$ 70/hr</div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-category bg-soft-info">
+                                <i class="indicator bg-info"></i>
+                                <span>Infra Supervision</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="widget-26-job-starred">
+                                <a href="#">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star starred">
+                                    <polygon
+                                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                  </svg>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      -->
                     </table>
                   </div>
                 </div>
