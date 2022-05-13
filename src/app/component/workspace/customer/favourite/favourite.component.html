@@ -47,7 +47,7 @@
             <div class="col-lg-12">
               <div class="search-result">
                 <div class="result-header">
-                  <div class="row">
+                  <div class="row" *ngIf="customerFavouriteResponse?.favourites?.length !== 0">
                     <div class="col-lg-6">
                       <div class="records">Showing: <b>1-20</b> of <b>200</b> result</div>
                     </div>
@@ -89,7 +89,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="result-body">
+                <div class="result-body" *ngIf="customerFavouriteResponse?.favourites?.length !== 0">
                   <div class="table-responsive">
                     <table class="table widget-26">
                       <thead>
@@ -570,7 +570,7 @@
               </div>
             </div>
           </div>
-          <nav class="d-flex justify-content-center">
+          <nav class="d-flex justify-content-center" *ngIf="customerFavouriteResponse?.favourites?.length !== 0">
             <ul class="pagination pagination-base pagination-boxed pagination-square mb-0">
               <li class="page-item">
                 <a class="page-link no-border" href="#">
