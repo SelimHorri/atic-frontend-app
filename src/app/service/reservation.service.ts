@@ -1,8 +1,10 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import * as moment from 'moment';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { DateBackendFormat } from '../model/date-backend-format';
 import { Reservation } from '../model/reservation';
 import { ReservationStatus } from '../model/reservation-status';
 import { ApiPayloadReservation } from '../model/response/api/api-payload-reservation';
@@ -56,7 +58,16 @@ export class ReservationService {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
-    });
+    })
+    .pipe(map(payload => {
+      payload?.responseBody?.orderedDetails?.map(o => 
+            o.orderedDate = moment(o?.orderedDate, DateBackendFormat.LOCAL_DATE_TIME).toDate());
+      payload.responseBody.reservation.startDate = moment(payload?.responseBody?.reservation?.startDate, 
+            DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.cancelDate = moment(payload?.responseBody?.reservation?.cancelDate,
+            DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      return payload;
+    }));
   }
   
   

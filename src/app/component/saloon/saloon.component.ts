@@ -28,9 +28,6 @@ export class SaloonComponent implements OnInit {
   public findAll(): void {
     this.activatedRoute.queryParams.subscribe({
       next: (p: any) => {
-        
-        const offset: number = p?.offset as number;
-        
         if (p?.offset === undefined || p?.offset === null || p?.offset as number < 1)
           this.router.navigateByUrl("/saloon?offset=1");
         else {
@@ -45,7 +42,6 @@ export class SaloonComponent implements OnInit {
           });
           
         }
-        
       }
     });
   }

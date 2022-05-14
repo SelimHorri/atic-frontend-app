@@ -1,6 +1,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DateBackendFormat } from '../model/date-backend-format';
@@ -41,7 +42,13 @@ export class CustomerService {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
-    });
+    })
+    .pipe(map(res => {
+      res.responseBody.customer.birthdate = new Date(res?.responseBody?.customer?.birthdate);
+      res?.responseBody?.favourites?.map(f => 
+            f.favouriteDate = moment(f?.favouriteDate, DateBackendFormat.LOCAL_DATE_TIME).toDate());
+      return res;
+    }));
   }
   
   public getReservations(): Observable<ApiPayloadCustomerReservationResponse> {
@@ -51,10 +58,11 @@ export class CustomerService {
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
     }).pipe(map((payload: ApiPayloadCustomerReservationResponse) => {
-      
+      payload.responseBody.customer.birthdate = new Date(payload?.responseBody?.customer?.birthdate);
       payload?.responseBody?.reservations?.map(r => {
+        r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       });
-      
       return payload;
     }));
   }

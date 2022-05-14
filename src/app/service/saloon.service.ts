@@ -18,19 +18,25 @@ export class SaloonService {
   }
   
   public findAllWithOffset(offset: number): Observable<ApiPayloadSaloonList> {
-    return this.http.get<ApiPayloadSaloonList>(`${this.apiUrl}/offset/${offset}`);
+    return this.http.get<ApiPayloadSaloonList>(`${this.apiUrl}/offset/${offset}`)
+        .pipe(map(payload => {
+          payload?.responseBody?.forEach(s => s.openingDate = new Date(s?.openingDate));
+          return payload;
+        }));
   }
   
   public findById(id: number): Observable<ApiPayloadSaloon> {
     return this.http.get<ApiPayloadSaloon>(`${this.apiUrl}/${id}`)
-        .pipe(map((res: ApiPayloadSaloon) => {
+        .pipe(map(res => {
+          res.responseBody.openingDate = new Date(res?.responseBody?.openingDate);
           return res;
     }));
   }
   
   public findAllByCode(code: string): Observable<ApiPayloadSaloonList> {
     return this.http.get<ApiPayloadSaloonList>(`${this.apiUrl}/code/${code}`)
-        .pipe(map((res: ApiPayloadSaloonList) => {
+        .pipe(map(res => {
+          res?.responseBody?.forEach(s => s.openingDate = new Date(s?.openingDate));
           return res;
     }));
   }

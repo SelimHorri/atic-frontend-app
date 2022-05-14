@@ -2,6 +2,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 import { ApiPayloadReservationContainerResponse } from 'src/app/model/response/api/api-payload-reservation-container-response';
 import { ApiPayloadServiceDetailsReservationContainerResponse } from 'src/app/model/response/api/api-payload-service-details-reservation-container-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
@@ -32,6 +33,7 @@ export class ReservationDetailsComponent implements OnInit {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
     this.getReservationDetails();
     this.getOrderedServiceDetails();
+    // this.calculateReservationEndDate();
   }
   
   public calculateTotalAmount(): number {
@@ -75,6 +77,12 @@ export class ReservationDetailsComponent implements OnInit {
         });
       }
     });
+  }
+  
+  public calculateReservationEndDate(): Date {
+    return moment(this.reservationDetails?.reservation?.startDate)
+        .add(moment.duration(this.calculateTotalDuration()).asMinutes())
+        .toDate();
   }
   
   public removeServiceDetail(serviceDetailId: number): void {

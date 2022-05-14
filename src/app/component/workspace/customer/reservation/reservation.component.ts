@@ -21,8 +21,6 @@ export class ReservationComponent implements OnInit {
   
   public accountUrl!: string;
   public reservations!: Reservation[];
-  public completedReservations!: Reservation[];
-  public pendingReservations!: Reservation[];
   public tasks!: Task[];
   
   constructor(private customerService: CustomerService,

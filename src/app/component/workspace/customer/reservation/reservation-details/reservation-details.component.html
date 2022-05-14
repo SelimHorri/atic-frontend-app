@@ -85,8 +85,14 @@
                               </tr>
                               <tr>
                                 <td>Requested time :</td>
-                                <td>{{ reservationDetails?.reservation?.startDate }}</td>
+                                <td>{{ reservationDetails?.reservation?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
                               </tr>
+                              <!--
+                                <tr>
+                                  <td>Expected end time :</td>
+                                  <td>{{ calculateReservationEndDate() | date: "dd-MM-yyyy HH:mm" }}</td>
+                                </tr>
+                              -->
                               <!--
                                 <tr>
                                   <td>Ends at (estimated) :</td>

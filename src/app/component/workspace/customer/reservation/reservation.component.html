@@ -100,8 +100,8 @@
                   <td><a
                       routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>
                   </td>
-                  <td>{{ r?.startDate }}</td>
-                  <td>{{ r?.cancelDate }}</td>
+                  <td>{{ r?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
+                  <td>{{ r?.cancelDate | date: "dd-MM-yyyy HH:mm" }}</td>
                   <td>
                     <span *ngIf="r?.status === 'NOT_STARTED'" class="text-danger font-12"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>

@@ -1,3 +1,4 @@
+
 <div class="container">
   <div class="row ng-scope">
     <div class="col-md-3 col-md-push-9">
@@ -37,31 +38,27 @@
                 <div class="col-sm-3 text-align-center">
                   <!-- <p class="value3 mt-sm">$9, 700</p> -->
                   <p class="fs-mini text-muted">DAILY</p>
-                  <a class="btn btn-info btn-sm" href="#">More details</a>
+                  <a class="btn btn-info btn-sm" routerLink="/saloon/{{ s?.id }}">More details</a>
                 </div>
               </div>
             </div>
           </section>
           <hr>
         </div>
-        <div class="text-align-center">
-          <ul class="pagination pagination-sm">
-            <li class="disabled"><a href="#">Prev</a>
+        <!-- Pagination-->
+        <nav aria-label="Pagination">
+          <ul class="pagination justify-content-center my-4">
+            <li class="page-item disabled"><a class="page-link" routerLink="" tabindex="-1"
+                aria-disabled="true">Newer</a>
             </li>
-            <li class="active"><a href="#">1</a>
-            </li>
-            <li><a href="#">2</a>
-            </li>
-            <li><a href="#">3</a>
-            </li>
-            <li><a href="#">4</a>
-            </li>
-            <li><a href="#">5</a>
-            </li>
-            <li><a href="#">Next</a>
-            </li>
+            <li class="page-item active" aria-current="page"><a class="page-link" routerLink="">1</a></li>
+            <li class="page-item"><a class="page-link" routerLink="">2</a></li>
+            <li class="page-item"><a class="page-link" routerLink="">3</a></li>
+            <li class="page-item disabled"><a class="page-link" routerLink="">...</a></li>
+            <li class="page-item"><a class="page-link" routerLink="">15</a></li>
+            <li class="page-item"><a class="page-link" routerLink="">Older</a></li>
           </ul>
-        </div>
+        </nav>
       </div>
       <!--
         <div class="container-fluid">
