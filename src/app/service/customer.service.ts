@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DateBackendFormat } from '../model/date-backend-format';
+import { Reservation } from '../model/reservation';
 import { ApiPayloadCustomerFavouriteResponse } from '../model/response/api/api-payload-customer-favourite-response';
 import { ApiPayloadCustomerProfileResponse } from '../model/response/api/api-payload-customer-profile-response';
 import { ApiPayloadCustomerReservationResponse } from '../model/response/api/api-payload-customer-reservation-response';
@@ -56,6 +57,15 @@ export class CustomerService {
       
       return payload;
     }));
+  }
+  
+  public addReservation(reservationRequest: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/reservations`, reservationRequest, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    });
   }
   
   

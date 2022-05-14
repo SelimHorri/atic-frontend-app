@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
           this.onOpenModal(this.HEALTH);
       },
       error: (errorResponse: HttpErrorResponse) => {
-        this.errorHandlerService.extractExceptionMsg(errorResponse);
+        this.msg = this.errorHandlerService.extractExceptionMsg(errorResponse)?.errorMsg;
         this.onOpenModal(this.HEALTH);
       }
     });
