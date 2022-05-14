@@ -33,6 +33,9 @@ import { DatePipe } from '@angular/common';
 import { TaskService } from './service/task.service';
 import { ReservationDetailsComponent } from './component/workspace/customer/reservation/reservation-details/reservation-details.component';
 import { AssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
+import { ServiceDetailService } from './service/service-detail.service';
+import { OrderedDetailService } from './service/ordered-detail.service';
+import { HealthLivenessService } from './service/health-liveness.service';
 
 @NgModule({
   declarations: [
@@ -72,6 +75,9 @@ import { AssignedWorkerComponent } from './component/workspace/customer/reservat
     SaloonService,
     DatePipe,
     TaskService,
+    ServiceDetailService,
+    OrderedDetailService,
+    HealthLivenessService,
   ],
   bootstrap: [AppComponent]
 })
