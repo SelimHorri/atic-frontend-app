@@ -27,6 +27,7 @@ import { RatingComponent as CustomerRatingComponent } from './component/workspac
 import { ReservationComponent as CustomerReservationComponent } from './component/workspace/customer/reservation/reservation.component';
 import { ReservationDetailsComponent as CustomerReservationDetailsComponent } from './component/workspace/customer/reservation/reservation-details/reservation-details.component';
 import { AssignedWorkerComponent as CustomerAssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
+import { SaloonComponent } from './component/saloon/saloon.component';
 
 const routes: Routes = [
   
@@ -38,6 +39,7 @@ const routes: Routes = [
       { path: "home", redirectTo: "" },
       { path: "about", component: AboutComponent },
       { path: "contact", component: ContactComponent },
+      { path: "saloon", component: SaloonComponent },
       { path: "logout", component: LogoutComponent },
       { path: "authenticate", component: AuthenticationComponent, canActivate: [AuthenticationGuard] },
       { path: "login", redirectTo: "authenticate" },

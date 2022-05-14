@@ -18,10 +18,7 @@ export class SaloonService {
   }
   
   public findAllWithOffset(offset: number): Observable<ApiPayloadSaloonList> {
-    return this.http.get<ApiPayloadSaloonList>(`${this.apiUrl}/offset/${offset}`)
-        .pipe(map((res: ApiPayloadSaloonList) => {
-          return res;
-    }));
+    return this.http.get<ApiPayloadSaloonList>(`${this.apiUrl}/offset/${offset}`);
   }
   
   public findById(id: number): Observable<ApiPayloadSaloon> {

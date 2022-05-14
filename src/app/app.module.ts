@@ -36,6 +36,7 @@ import { AssignedWorkerComponent } from './component/workspace/customer/reservat
 import { ServiceDetailService } from './service/service-detail.service';
 import { OrderedDetailService } from './service/ordered-detail.service';
 import { HealthLivenessService } from './service/health-liveness.service';
+import { SaloonComponent } from './component/saloon/saloon.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { HealthLivenessService } from './service/health-liveness.service';
     ReservationComponent,
     ReservationDetailsComponent,
     AssignedWorkerComponent,
+    SaloonComponent,
   ],
   imports: [
     BrowserModule,
