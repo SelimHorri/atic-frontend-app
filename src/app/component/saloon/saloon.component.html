@@ -4,13 +4,31 @@
     <div class="col-md-3 col-md-push-9">
       <h4>Results <span class="fw-semi-bold">Filtering</span></h4>
       <p class="text-muted fs-mini">Listed content is categorized by the following group of location cities:</p>
-      <ul *ngFor="let l of locations" class="nav nav-pills nav-stacked search-result-categories mt">
-        <li><a href="/locations/{{ l?.id }}">{{ l?.city| uppercase }}</a>&nbsp;&nbsp;</li>
-        <!-- <li><a href="#">Globals <span class="badge">18</span></a></li> -->
-      </ul>
+      <div *ngIf="locations?.length === 0" >
+        <div class="col-lg-12 col-md-12 col-xl-12">
+          <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">NO DATA!</h4>
+            <p>No locations were found.</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="locations?.length !== 0" >
+        <ul *ngFor="let l of locations" class="nav nav-pills nav-stacked search-result-categories mt">
+          <li><a href="/locations/{{ l?.id }}">{{ l?.city| uppercase }}</a>&nbsp;&nbsp;</li>
+          <!-- <li><a href="#">Globals <span class="badge">18</span></a></li> -->
+        </ul>
+      </div>
     </div>
     <div class="col-md-9 col-md-pull-3">
-      <div class="container-fluid">
+      <div class="container-fluid" *ngIf="saloons?.length === 0" >
+        <div class="col-lg-12 col-md-12 col-xl-12">
+          <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">NO DATA!</h4>
+            <p>No Facilities were found.</p>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid" *ngIf="saloons?.length !== 0">
         <p class="search-results-count">About {{ saloons?.length }} (0.0039 sec.) results</p>
         <div *ngFor="let s of saloons">
           <section class="search-result-item">
