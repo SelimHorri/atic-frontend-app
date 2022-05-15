@@ -26,12 +26,13 @@ export class SaloonComponent implements OnInit {
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
-    this.findAll();
+    this.findAllByLocationState();
   }
   
-  public findAll(): void {
+  private findAll(): void {
     this.activatedRoute.queryParams.subscribe({
       next: (p: any) => {
+        
         if (p?.offset === undefined || p?.offset === null || p?.offset as number < 1)
           this.router.navigateByUrl("/saloons?offset=1");
         else {
@@ -55,6 +56,46 @@ export class SaloonComponent implements OnInit {
           });
           
         }
+      }
+    });
+  }
+  
+  public findAllByLocationState(): void {
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        this.activatedRoute.queryParams.subscribe({
+          next: (q: any) => {
+            
+            if (p?.state === undefined || p?.state === null)
+              this.findAll();
+            else if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1)
+              this.router.navigateByUrl(`/locations/${p?.state}/saloons?offset=1`);
+            else {
+              
+              this.locationService.findAll(q?.offset).subscribe({
+                next: (locationsPayload: any) => {
+                  this.locations = locationsPayload?.responseBody;
+                },
+                error: (errorResponse: HttpErrorResponse) => {
+                  this.errorHandlerService.extractExceptionMsg(errorResponse);
+                }
+              });
+              
+              this.saloonService.findAllByLocationState(p?.state, q?.offset).subscribe({
+                next: (saloonsPayload: ApiPayloadSaloonList) => {
+                  this.saloons = saloonsPayload?.responseBody;
+                },
+                error: (errorResponse: HttpErrorResponse) => {
+                  this.errorHandlerService.extractExceptionMsg(errorResponse);
+                }
+              });
+              
+            }
+            
+            // this.state = p?.state;
+            
+          }
+        });
       }
     });
   }

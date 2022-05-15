@@ -41,9 +41,12 @@ const routes: Routes = [
       { path: "about", component: AboutComponent },
       { path: "contact", component: ContactComponent },
       { path: "locations", component: LocationComponent },
-      // { path: "locations/:id", component: LocationComponent },
+      
+      { path: "locations/:state/saloons", component: SaloonComponent },
+      
       { path: "saloons", component: SaloonComponent },
-      { path: "saloons/code/:code", component: SaloonComponent },
+      // { path: "saloons/all", redirectTo: "saloons" },
+      
       { path: "logout", component: LogoutComponent },
       { path: "authenticate", component: AuthenticationComponent, canActivate: [AuthenticationGuard] },
       { path: "login", redirectTo: "authenticate" },
