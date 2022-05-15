@@ -27,17 +27,14 @@ export class SaloonComponent implements OnInit {
   
   ngOnInit(): void {
     this.findAllSaloons();
-    // this.getAllByCode();
   }
   
   private findAll(): void {
     this.activatedRoute.queryParams.subscribe({
       next: (p: any) => {
-        
         if (p?.offset === undefined || p?.offset === null || p?.offset as number < 1)
           this.router.navigateByUrl("/saloons?offset=1");
         else {
-          
           this.locationService.findAll(p?.offset).subscribe({
             next: (locationsPayload: any) => {
               this.locations = locationsPayload?.responseBody;
@@ -46,7 +43,6 @@ export class SaloonComponent implements OnInit {
               this.errorHandlerService.extractExceptionMsg(errorResponse);
             }
           });
-          
           this.saloonService.findAllWithOffset(p?.offset).subscribe({
             next: (saloonsPayload: ApiPayloadSaloonList) => {
               this.saloons = saloonsPayload?.responseBody;
@@ -55,7 +51,6 @@ export class SaloonComponent implements OnInit {
               this.errorHandlerService.extractExceptionMsg(errorResponse);
             }
           });
-          
         }
       }
     });
@@ -66,13 +61,11 @@ export class SaloonComponent implements OnInit {
       next: (p: any) => {
         this.activatedRoute.queryParams.subscribe({
           next: (q: any) => {
-            
             if (p?.state === undefined || p?.state === null)
               this.findAll();
             else if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1)
               this.router.navigateByUrl(`/locations/${p?.state}/saloons?offset=1`);
             else {
-              
               this.locationService.findAll(q?.offset).subscribe({
                 next: (locationsPayload: any) => {
                   this.locations = locationsPayload?.responseBody;
@@ -81,7 +74,6 @@ export class SaloonComponent implements OnInit {
                   this.errorHandlerService.extractExceptionMsg(errorResponse);
                 }
               });
-              
               this.saloonService.findAllByLocationState(p?.state, q?.offset).subscribe({
                 next: (saloonsPayload: ApiPayloadSaloonList) => {
                   this.saloons = saloonsPayload?.responseBody;
@@ -90,11 +82,7 @@ export class SaloonComponent implements OnInit {
                   this.errorHandlerService.extractExceptionMsg(errorResponse);
                 }
               });
-              
             }
-            
-            // this.state = p?.state;
-            
           }
         });
       }
@@ -110,26 +98,6 @@ export class SaloonComponent implements OnInit {
         this.errorHandlerService.extractExceptionMsg(errorResponse);
       }
     });
-    /*
-    this.activatedRoute.params.subscribe({
-      next: (p: any) => {
-        
-        if (p?.code === undefined || p?.code === null)
-          this.router.navigateByUrl(`/saloons`);
-        else {
-          this.saloonService.findAllByCode(p?.code as string).subscribe({
-            next: (saloonsPayload: any) => {
-              this.saloons = saloonsPayload?.responseBody;
-            },
-            error: (errorResponse: HttpErrorResponse) => {
-              this.errorHandlerService.extractExceptionMsg(errorResponse);
-            }
-          });
-        }
-        
-      }
-    });
-    */
   }
   
   
