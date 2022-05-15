@@ -39,7 +39,12 @@ const routes: Routes = [
       { path: "home", redirectTo: "" },
       { path: "about", component: AboutComponent },
       { path: "contact", component: ContactComponent },
-      { path: "saloon", component: SaloonComponent },
+      { path: "saloons", component: SaloonComponent },
+      { path: "saloons/code/:code", component: SaloonComponent },
+      /*
+      { path: "locations", component: SaloonComponent },
+      { path: "locations/:id", component: SaloonComponent },
+      */
       { path: "logout", component: LogoutComponent },
       { path: "authenticate", component: AuthenticationComponent, canActivate: [AuthenticationGuard] },
       { path: "login", redirectTo: "authenticate" },
