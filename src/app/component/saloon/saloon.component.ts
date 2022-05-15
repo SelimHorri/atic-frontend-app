@@ -26,7 +26,7 @@ export class SaloonComponent implements OnInit {
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
-    this.findAllByLocationState();
+    this.findAllSaloons();
   }
   
   private findAll(): void {
@@ -60,7 +60,7 @@ export class SaloonComponent implements OnInit {
     });
   }
   
-  public findAllByLocationState(): void {
+  public findAllSaloons(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
         this.activatedRoute.queryParams.subscribe({
