@@ -1,10 +1,9 @@
-
 <div class="container">
   <div class="row ng-scope">
     <div class="col-md-3 col-md-push-9">
       <h4>Results <span class="fw-semi-bold">Filtering</span></h4>
       <p class="text-muted fs-mini">Listed content is categorized by the following group of location cities:</p>
-      <div *ngIf="locations?.length === 0" >
+      <div *ngIf="locations?.length === 0">
         <div class="col-lg-12 col-md-12 col-xl-12">
           <div class="alert alert-info" role="alert">
             <h4 class="alert-heading">NO DATA!</h4>
@@ -12,7 +11,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="locations?.length !== 0" >
+      <div *ngIf="locations?.length !== 0">
         <ul *ngFor="let l of locations" class="nav nav-pills nav-stacked search-result-categories mt">
           <li><a href="/locations/{{ l?.id }}">{{ l?.city| uppercase }}</a>&nbsp;&nbsp;</li>
           <!-- <li><a href="#">Globals <span class="badge">18</span></a></li> -->
@@ -20,7 +19,7 @@
       </div>
     </div>
     <div class="col-md-9 col-md-pull-3">
-      <div class="container-fluid" *ngIf="saloons?.length === 0" >
+      <div class="container-fluid" *ngIf="saloons?.length === 0">
         <div class="col-lg-12 col-md-12 col-xl-12">
           <div class="alert alert-info" role="alert">
             <h4 class="alert-heading">NO DATA!</h4>
@@ -32,14 +31,14 @@
         <p class="search-results-count">About {{ saloons?.length }} (0.0039 sec.) results</p>
         <div *ngFor="let s of saloons">
           <section class="search-result-item">
-            <a class="image-link" routerLink="/saloons/code/{{ s?.code }}"><img class="image"
+            <a class="image-link" href="javascript:void();" (click)="getAllByCode(s.code)"><img class="image"
                 src="https://bootdey.com/img/Content/avatar/avatar1.png">
             </a>
             <div class="search-result-item-body">
               <div class="row">
                 <div class="col-sm-9">
-                  <h4 class="search-result-item-heading"><a
-                      href="javascript:void();" (click)="getAllByCode(s.code)">{{ s?.name | uppercase }}</a></h4>
+                  <h4 class="search-result-item-heading"><a href="javascript:void();"
+                      (click)="getAllByCode(s.code)">{{ s?.name | uppercase }}</a></h4>
                   <!--
                     <h4 class="search-result-item-heading"><a
                         routerLink="/saloons/code/{{ s?.code }}">{{ s?.name | uppercase }}</a></h4>
