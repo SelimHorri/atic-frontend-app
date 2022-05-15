@@ -38,6 +38,7 @@ import { OrderedDetailService } from './service/ordered-detail.service';
 import { HealthLivenessService } from './service/health-liveness.service';
 import { SaloonComponent } from './component/saloon/saloon.component';
 import { LocationComponent } from './component/location/location.component';
+import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-detail.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { LocationComponent } from './component/location/location.component';
     AssignedWorkerComponent,
     SaloonComponent,
     LocationComponent,
+    SaloonDetailComponent,
   ],
   imports: [
     BrowserModule,

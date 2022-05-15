@@ -27,6 +27,7 @@ export class SaloonComponent implements OnInit {
   
   ngOnInit(): void {
     this.findAllSaloons();
+    // this.getAllByCode();
   }
   
   private findAll(): void {
@@ -98,6 +99,37 @@ export class SaloonComponent implements OnInit {
         });
       }
     });
+  }
+  
+  public getAllByCode(code: string): void {
+    this.saloonService.findAllByCode(code as string).subscribe({
+      next: (saloonsPayload: any) => {
+        this.saloons = saloonsPayload?.responseBody;
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        this.errorHandlerService.extractExceptionMsg(errorResponse);
+      }
+    });
+    /*
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        
+        if (p?.code === undefined || p?.code === null)
+          this.router.navigateByUrl(`/saloons`);
+        else {
+          this.saloonService.findAllByCode(p?.code as string).subscribe({
+            next: (saloonsPayload: any) => {
+              this.saloons = saloonsPayload?.responseBody;
+            },
+            error: (errorResponse: HttpErrorResponse) => {
+              this.errorHandlerService.extractExceptionMsg(errorResponse);
+            }
+          });
+        }
+        
+      }
+    });
+    */
   }
   
   

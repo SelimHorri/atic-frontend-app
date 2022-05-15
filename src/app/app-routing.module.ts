@@ -45,7 +45,8 @@ const routes: Routes = [
       { path: "locations/:state/saloons", component: SaloonComponent },
       
       { path: "saloons", component: SaloonComponent },
-      // { path: "saloons/all", redirectTo: "saloons" },
+      { path: "saloons/:id", component: SaloonComponent },
+      { path: "saloons/code/:code", component: SaloonComponent },
       
       { path: "logout", component: LogoutComponent },
       { path: "authenticate", component: AuthenticationComponent, canActivate: [AuthenticationGuard] },
