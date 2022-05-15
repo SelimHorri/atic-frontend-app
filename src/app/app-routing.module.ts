@@ -28,6 +28,7 @@ import { ReservationComponent as CustomerReservationComponent } from './componen
 import { ReservationDetailsComponent as CustomerReservationDetailsComponent } from './component/workspace/customer/reservation/reservation-details/reservation-details.component';
 import { AssignedWorkerComponent as CustomerAssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
 import { SaloonComponent } from './component/saloon/saloon.component';
+import { LocationComponent } from './component/location/location.component';
 
 const routes: Routes = [
   
@@ -39,12 +40,10 @@ const routes: Routes = [
       { path: "home", redirectTo: "" },
       { path: "about", component: AboutComponent },
       { path: "contact", component: ContactComponent },
+      { path: "locations", component: LocationComponent },
+      // { path: "locations/:id", component: LocationComponent },
       { path: "saloons", component: SaloonComponent },
       { path: "saloons/code/:code", component: SaloonComponent },
-      /*
-      { path: "locations", component: SaloonComponent },
-      { path: "locations/:id", component: SaloonComponent },
-      */
       { path: "logout", component: LogoutComponent },
       { path: "authenticate", component: AuthenticationComponent, canActivate: [AuthenticationGuard] },
       { path: "login", redirectTo: "authenticate" },

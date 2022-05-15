@@ -1,0 +1,46 @@
+
+<div class="container" id='main-container'>
+  <div class="row">
+    <div *ngFor="let state of locationStates" class="col-md-4 col-xl-4">
+      <div class="card m-b-30">
+        <div class="card-body row">
+          <div class="col-6">
+            <a routerLink="/locations/{{ state | lowercase }}"><img
+                src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""
+                class="img-fluid rounded-circle w-61"></a>
+          </div>
+          <!-- <br> -->
+          <div class="col-6 card-title align-self-center mb-0">
+            <a routerLink="/locations/{{ state | lowercase }}">
+              <h5 class="text-dark">{{ state | uppercase }}</h5>
+            </a>
+            <!-- <p class="m-0">Job</p> -->
+          </div>
+        </div>
+        <!--
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email : <a href="#">email</a>
+            </li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : phone</li>
+          </ul>
+          <div class="card-body">
+            <div class="float-right btn-group btn-group-sm">
+              <a routerLink="" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip"
+                data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+              <a routerLink="" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip"
+                data-original-title="Delete"><i class="fa fa-times"></i></a>
+            </div>
+            <ul class="social-links list-inline mb-0">
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips"
+                  href="" data-original-title="Facebook"><i class="fa fa-facebook-f"></i></a></li>
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips"
+                  href="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips"
+                  href="" data-original-title="Skype"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
+        -->
+      </div>
+    </div>
+  </div>
+</div>

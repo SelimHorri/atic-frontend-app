@@ -37,6 +37,7 @@ import { ServiceDetailService } from './service/service-detail.service';
 import { OrderedDetailService } from './service/ordered-detail.service';
 import { HealthLivenessService } from './service/health-liveness.service';
 import { SaloonComponent } from './component/saloon/saloon.component';
+import { LocationComponent } from './component/location/location.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { SaloonComponent } from './component/saloon/saloon.component';
     ReservationDetailsComponent,
     AssignedWorkerComponent,
     SaloonComponent,
+    LocationComponent,
   ],
   imports: [
     BrowserModule,

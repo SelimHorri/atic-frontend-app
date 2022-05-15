@@ -23,11 +23,13 @@ export class LocationService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
   
-  /*
-  public findAllByCity(city: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${city}`);
+  public getAllCities(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/cities`);
   }
-  */
+  
+  public getAllStates(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/states`);
+  }
   
   
   
