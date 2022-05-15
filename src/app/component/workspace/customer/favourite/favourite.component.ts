@@ -52,8 +52,11 @@ export class FavouriteComponent implements OnInit {
     });
   }
   
-  public removeFavourite(id: number): void {
-    console.log('clieckeddd');
+  public removeFavourite(saloonId: number): void {
+    this.customerService.deleteFavourite(saloonId).subscribe({
+      next: (payload: any) => (payload?.responseBody) ? window.location.reload() : alert("Unable to delete favourite!"),
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
   }
   
   

@@ -76,6 +76,15 @@ export class CustomerService {
     });
   }
   
+  public deleteFavourite(saloonId: number): Observable<boolean> {
+    return this.http.delete<any>(`${this.apiUrl}/favourites/${saloonId}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    });
+  }
+  
   
   
 }
