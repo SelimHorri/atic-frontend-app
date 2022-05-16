@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-import { OrderedDetail } from 'src/app/model/ordered-detail';
+import { OrderedDetailId } from 'src/app/model/ordered-detail-id';
 import { ApiPayloadReservationContainerResponse } from 'src/app/model/response/api/api-payload-reservation-container-response';
 import { ApiPayloadServiceDetailsReservationContainerResponse } from 'src/app/model/response/api/api-payload-service-details-reservation-container-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
@@ -88,15 +88,11 @@ export class ReservationDetailsComponent implements OnInit {
         .toDate();
   }
   
-  public removeOrderedServiceDetail(reservationId: number, serviceDetailId: number, orderedDate: Date | string): void {
-    /*
-    this.orderedDetailService.deleteOrderedServiceDetail(new OrderedDetail(reservationId, serviceDetailId, orderedDate)).subscribe({
-      next: (responsePayload: any) => {
-        
-      },
+  public removeOrderedServiceDetail(reservationId: number, serviceDetailId: number): void {
+    this.orderedDetailService.deleteOrderedServiceDetail(new OrderedDetailId(reservationId, serviceDetailId)).subscribe({
+      next: (responsePayload: any) => (responsePayload?.responseBody) ? this.getOrderedServiceDetails() : alert("Unable to remove service"),
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
-    */
   }
   
   

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { OrderedDetail } from '../model/ordered-detail';
+import { OrderedDetailId } from '../model/ordered-detail-id';
 
 @Injectable({
   providedIn: 'root'
@@ -16,16 +16,15 @@ export class OrderedDetailService {
     this.apiUrl = `${this.apiUrl}/ordered-details`;
   }
   
-  /*
-  public deleteOrderedServiceDetail(orderedDetail: OrderedDetail): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/`, {
+  public deleteOrderedServiceDetail(orderedDetailId: OrderedDetailId): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}`, {
+      body: orderedDetailId,
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
     });
   }
-  */
   
   
   

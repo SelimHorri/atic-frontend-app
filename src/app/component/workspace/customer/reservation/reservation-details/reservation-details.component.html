@@ -7,8 +7,7 @@
       <div class="col-md-12 col-lg-12 col-xl-12">
         <div class="card m-b-30">
           <div class="card-header">
-            <h5 class="card-title">Reservation: <span
-                class="text-success">
+            <h5 class="card-title">Reservation: <span class="text-success">
                 <u class="text-success">REF-{{ reservationDetails?.reservation?.code?.substring(0, 8) }}</u></span></h5>
           </div>
           <div class="card-body">
@@ -45,10 +44,8 @@
                             <td>{{ s?.priceUnit }} DT</td>
                             <td class="text-right">{{ s?.priceUnit }} DT</td>
                             <td class="text-right"><a href="javascript:void();"
-                                (click)="removeOrderedServiceDetail(reservationDetails.reservation.id, s.id,
-                                reservationDetails.reservation.startDate)"
-                                class="text-danger"><i
-                                  class="ri-delete-bin-3-line"></i></a></td>
+                                (click)="removeOrderedServiceDetail(reservationDetails.reservation.id, s.id)"
+                                class="text-danger"><i class="ri-delete-bin-3-line"></i></a></td>
                           </tr>
                         </tbody>
                       </table>
@@ -127,8 +124,8 @@
                   <div class="cart-footer text-right">
                     <button type="button" class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update
                       Cart</button>
-                    <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout reservations<i
-                        class="ri-arrow-right-line ml-2"></i></a>
+                    <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout
+                      reservations<i class="ri-arrow-right-line ml-2"></i></a>
                   </div>
                 </div>
               </div>
