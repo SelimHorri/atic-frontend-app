@@ -33,6 +33,12 @@ import { DatePipe } from '@angular/common';
 import { TaskService } from './service/task.service';
 import { ReservationDetailsComponent } from './component/workspace/customer/reservation/reservation-details/reservation-details.component';
 import { AssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
+import { ServiceDetailService } from './service/service-detail.service';
+import { OrderedDetailService } from './service/ordered-detail.service';
+import { HealthLivenessService } from './service/health-liveness.service';
+import { SaloonComponent } from './component/saloon/saloon.component';
+import { LocationComponent } from './component/location/location.component';
+import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-detail.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +60,9 @@ import { AssignedWorkerComponent } from './component/workspace/customer/reservat
     ReservationComponent,
     ReservationDetailsComponent,
     AssignedWorkerComponent,
+    SaloonComponent,
+    LocationComponent,
+    SaloonDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +81,9 @@ import { AssignedWorkerComponent } from './component/workspace/customer/reservat
     SaloonService,
     DatePipe,
     TaskService,
+    ServiceDetailService,
+    OrderedDetailService,
+    HealthLivenessService,
   ],
   bootstrap: [AppComponent]
 })

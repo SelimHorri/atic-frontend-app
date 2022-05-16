@@ -2,12 +2,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
+import { OrderedDetailId } from 'src/app/model/ordered-detail-id';
 import { ApiPayloadReservationContainerResponse } from 'src/app/model/response/api/api-payload-reservation-container-response';
 import { ApiPayloadServiceDetailsReservationContainerResponse } from 'src/app/model/response/api/api-payload-service-details-reservation-container-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
 import { ServiceDetailsReservationContainerResponse } from 'src/app/model/response/service-details-reservation-container-response';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
+import { OrderedDetailService } from 'src/app/service/ordered-detail.service';
 import { ReservationService } from 'src/app/service/reservation.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
 
@@ -25,6 +28,7 @@ export class ReservationDetailsComponent implements OnInit {
   constructor(private reservationService: ReservationService,
     private credentialService: CredentialService,
     private serviceDetailService: ServiceDetailService,
+    private orderedDetailService: OrderedDetailService,
     private errorHandlerService: ErrorHandlerService,
     private activatedRoute: ActivatedRoute) {}
   
@@ -32,6 +36,7 @@ export class ReservationDetailsComponent implements OnInit {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
     this.getReservationDetails();
     this.getOrderedServiceDetails();
+    // this.calculateReservationEndDate();
   }
   
   public calculateTotalAmount(): number {
@@ -42,6 +47,16 @@ export class ReservationDetailsComponent implements OnInit {
     });
     
     return amout;
+  }
+  
+  public calculateTotalDuration(): number {
+
+    let totalDuration: number = 0;
+    this.orderedServiceDetails?.serviceDetails?.map(s => {
+      totalDuration += s?.duration;
+    });
+
+    return totalDuration;
   }
   
   public getReservationDetails(): void {
@@ -67,8 +82,17 @@ export class ReservationDetailsComponent implements OnInit {
     });
   }
   
-  public removeServiceDetail(serviceDetailId: number): void {
-    
+  public calculateReservationEndDate(): Date {
+    return moment(this.reservationDetails?.reservation?.startDate)
+        .add(moment.duration(this.calculateTotalDuration()).asMinutes())
+        .toDate();
+  }
+  
+  public removeOrderedServiceDetail(reservationId: number, serviceDetailId: number): void {
+    this.orderedDetailService.deleteOrderedServiceDetail(new OrderedDetailId(reservationId, serviceDetailId)).subscribe({
+      next: (responsePayload: any) => (responsePayload?.responseBody) ? this.getOrderedServiceDetails() : alert("Unable to remove service"),
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
   }
   
   

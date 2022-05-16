@@ -1,0 +1,36 @@
+
+<div class="container" id='main-container'>
+  <div class="row">
+    <div *ngIf="locationStates?.length === 0">
+      <div class="col-lg-12 col-md-12 col-xl-12">
+        <div class="alert alert-info" role="alert">
+          <h4 class="alert-heading">NO DATA!</h4>
+          <p>No Locations were found.</p>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let state of locationStates" class="col-md-4 col-xl-4">
+      <div class="card m-b-30">
+        <div class="card-body row">
+          <div class="col-6">
+            <a routerLink="/locations/{{ state | lowercase }}/saloons"><img
+                src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""
+                class="img-fluid rounded-circle w-61"></a>
+          </div>
+          <!-- <br> -->
+          <div class="col-6 card-title align-self-center mb-0">
+            <a routerLink="/locations/{{ state | lowercase }}/saloons">
+              <h5 class="text-dark">{{ state | uppercase }}</h5>
+            </a>
+            <!-- <p class="m-0">Job</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
