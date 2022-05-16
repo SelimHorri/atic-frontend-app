@@ -81,24 +81,19 @@ export class ReservationComponent implements OnInit {
   
   public searchBy(key: string): void {
     
-    const res: Reservation[] = [];
+    let res: Reservation[] = [];
+    
     
     this.reservations.forEach(r => {
-      
       if ( r.code.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || r.startDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
-          || r.cancelDate?.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
-          || r.status.toLowerCase().indexOf(key.toLowerCase()) !== -1
-          || r.description?.toLowerCase().indexOf(key.toLowerCase()) !== -1 )
-      { res.push(r);}
-      
+          || r.cancelDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
+          // || r.description.toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || r.status.toLowerCase().indexOf(key.toLowerCase()) !== -1 )
+        res.push(r);
     });
     
     this.reservations = res;
-    
-    this.reservations.forEach(r => console.log(r?.code))
-    
-    
     if (res.length === 0 || !key)
       this.getReservations();
   }
