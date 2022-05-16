@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
       error: (errorResponse: HttpErrorResponse) => {
         const exceptionMsg: ExceptionMsg = this.errorHandlerService.extractExceptionMsg(errorResponse);
         this.msg = exceptionMsg?.errorMsg;
-        this.onOpenModal('findAllTagsError');
+        // this.onOpenModal('findAllTagsError');
       }
     });
   }

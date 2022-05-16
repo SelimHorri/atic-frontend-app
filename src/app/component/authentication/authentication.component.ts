@@ -1,13 +1,10 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Params, Route, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { LoginRequest } from 'src/app/model/request/login-request';
 import { ApiPayloadCredential } from 'src/app/model/response/api/api-payload-credential';
-import { ApiPayloadDExceptionMsg } from 'src/app/model/response/api/api-payload-d-exception-msg';
 import { ApiPayloadLoginResponse } from 'src/app/model/response/api/api-payload-login-response';
-import { UserRoleBasedAuthority } from 'src/app/model/user-role-based-authority';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
@@ -26,7 +23,6 @@ export class AuthenticationComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,
     private credentialService: CredentialService,
     private  activatedRoute: ActivatedRoute,
-    private router: Router,
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
@@ -74,7 +70,7 @@ export class AuthenticationComponent implements OnInit {
             const userRole: string = this.credentialService.getUserRole(credentialPayload?.responseBody?.role);
             sessionStorage.setItem("userRole", userRole.toUpperCase());
             
-            this.router.navigateByUrl(`/workspace/${userRole}/index`);
+            window.location.replace(`/workspace/${userRole}/index`);
           },
           error: (errorResponse: HttpErrorResponse) => 
               this.errorHandlerService.extractExceptionMsg(errorResponse)

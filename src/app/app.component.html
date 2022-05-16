@@ -1,14 +1,49 @@
+<div id="main-container">
+  <app-navbar></app-navbar>
 
-<app-navbar></app-navbar>
-
-<br><br>
+  <br><br>
 
   <router-outlet></router-outlet>
 
-<br><br>
-<!-- Footer-->
-<footer class="py-5 bg-dark sticky-bottom">
-  <div class="container">
-    <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+  <div class="modal fade" id="health" tabindex="-1" role="dialog" aria-labelledby="healthModalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><strong class="text-danger">Pay attention!</strong></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <p>
+            <span *ngIf="msg !== null"><span class="text-primary">
+                We're running into an issue 😬 <br>
+                Will be FIXED very soon, stay tunned..🤗</span>
+            </span>
+            <span *ngIf="msg === null">
+              <span class="text-danger">{{ msg }}</span>
+            </span>
+          </p>
+
+          <div class="modal-footer">
+            <!--
+              <button type="button" id="find-all-tags-error-form" class="btn btn-primary" data-dismiss="modal"
+                aria-label="Close">Got it! <span aria-hidden="true">&times;</span></button>
+            -->
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
-</footer>
+
+  <br><br>
+  <!-- Footer-->
+  <footer class="py-5 bg-dark sticky-bottom">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+    </div>
+  </footer>
+
+</div>
