@@ -3,12 +3,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { OrderedDetail } from 'src/app/model/ordered-detail';
 import { ApiPayloadReservationContainerResponse } from 'src/app/model/response/api/api-payload-reservation-container-response';
 import { ApiPayloadServiceDetailsReservationContainerResponse } from 'src/app/model/response/api/api-payload-service-details-reservation-container-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
 import { ServiceDetailsReservationContainerResponse } from 'src/app/model/response/service-details-reservation-container-response';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
+import { OrderedDetailService } from 'src/app/service/ordered-detail.service';
 import { ReservationService } from 'src/app/service/reservation.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
 
@@ -26,6 +28,7 @@ export class ReservationDetailsComponent implements OnInit {
   constructor(private reservationService: ReservationService,
     private credentialService: CredentialService,
     private serviceDetailService: ServiceDetailService,
+    private orderedDetailService: OrderedDetailService,
     private errorHandlerService: ErrorHandlerService,
     private activatedRoute: ActivatedRoute) {}
   
@@ -85,8 +88,15 @@ export class ReservationDetailsComponent implements OnInit {
         .toDate();
   }
   
-  public removeServiceDetail(serviceDetailId: number): void {
-    
+  public removeOrderedServiceDetail(reservationId: number, serviceDetailId: number, orderedDate: Date | string): void {
+    /*
+    this.orderedDetailService.deleteOrderedServiceDetail(new OrderedDetail(reservationId, serviceDetailId, orderedDate)).subscribe({
+      next: (responsePayload: any) => {
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+    */
   }
   
   
