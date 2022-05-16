@@ -90,7 +90,7 @@ export class SaloonComponent implements OnInit {
   }
   
   public getAllByCode(code: string): void {
-    this.saloonService.findAllByCode(code as string).subscribe({
+    this.saloonService.findAllByCode(code).subscribe({
       next: (saloonsPayload: any) => {
         this.saloons = saloonsPayload?.responseBody;
       },
