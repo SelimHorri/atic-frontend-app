@@ -24,7 +24,6 @@
                             <th scope="col">Description</th>
                             <th scope="col">isAvailable?</th>
                             <th scope="col">Duration</th>
-                            <!-- <th scope="col">Ordered at</th> -->
                             <th scope="col">Price</th>
                             <!-- <th scope="col">Category</th> -->
                             <th scope="col" class="text-right">Total</th>
@@ -40,7 +39,6 @@
                                 class="img-fluid" width="35" alt="product"></td>
                             <td>{{ s?.isAvailable }}</td>
                             <td>{{ s?.duration }} min</td>
-                            <!-- <td>{{ s?.duration }} min</td> -->
                             <td>{{ s?.priceUnit }} DT</td>
                             <td class="text-right">{{ s?.priceUnit }} DT</td>
                             <td class="text-right"><a href="javascript:void();"
@@ -56,17 +54,6 @@
                       <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
                         <div class="order-note">
                           <form>
-                            <!--
-                              <div class="form-group">
-                                <div class="input-group">
-                                  <input type="search" class="form-control" placeholder="Coupon Code"
-                                    aria-label="Search" aria-describedby="button-addonTags">
-                                  <div class="input-group-append">
-                                    <button class="input-group-text" type="submit" id="button-addonTags">Apply</button>
-                                  </div>
-                                </div>
-                              </div>
-                            -->
                             <div class="form-group">
                               <label for="specialNotes">Special Note for this reservation:</label>
                               <textarea class="form-control" name="specialNotes" id="specialNotes" rows="6"
@@ -122,8 +109,7 @@
                     </div>
                   </div>
                   <div class="cart-footer text-right">
-                    <button type="button" class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update
-                      Cart</button>
+                    <button type="button" class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>
                     <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout
                       reservations<i class="ri-arrow-right-line ml-2"></i></a>
                   </div>
