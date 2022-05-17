@@ -95,6 +95,10 @@ export class ReservationDetailsComponent implements OnInit {
     });
   }
   
+  public onUpdateReservation(reservationDetails: ReservationContainerResponse): void {
+    
+  }
+  
   
   
 }

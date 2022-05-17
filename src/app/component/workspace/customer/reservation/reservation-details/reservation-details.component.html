@@ -49,69 +49,71 @@
                       </table>
                     </div>
                   </div>
-                  <div class="cart-body">
-                    <div class="row">
-                      <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
-                        <div class="order-note">
-                          <form>
-                            <div class="form-group">
-                              <label for="specialNotes">Special Note for this reservation:</label>
-                              <textarea class="form-control" name="specialNotes" id="specialNotes" rows="6"
-                                placeholder="Comment here..."></textarea>
+                  <div class="row ">
+                    <form #reservationForm="ngForm" >
+                      <div class="cart-body">
+                        <div class="row">
+                          <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
+                            <div class="order-note">
+                              <div class="form-group">
+                                <label for="specialNotes">Special Note for this reservation:</label>
+                                <textarea class="form-control" name="specialNotes" id="specialNotes" rows="6"
+                                  placeholder="Comment here..."></textarea>
+                              </div>
                             </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="col-md-12 order-1 order-lg-2 col-lg-7 col-xl-6">
-                        <div class="order-total table-responsive ">
-                          <table class="table table-borderless text-right">
-                            <tbody>
-                              <tr>
-                                <td>Reference :</td>
-                                <td><u>REF-{{ reservationDetails?.reservation?.code?.substring(0, 8) }}</u></td>
-                              </tr>
-                              <tr>
-                                <td>Requested time :</td>
-                                <td>{{ reservationDetails?.reservation?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
-                              </tr>
-                              <!--
+                          </div>
+                          <div class="col-md-12 order-1 order-lg-2 col-lg-7 col-xl-6">
+                            <div class="order-total table-responsive ">
+                              <table class="table table-borderless text-right">
+                                <tbody>
+                                  <tr>
+                                    <td>Reference :</td>
+                                    <td><u>REF-{{ reservationDetails?.reservation?.code?.substring(0, 8) }}</u></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Requested time :</td>
+                                    <td>{{ reservationDetails?.reservation?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
+                                  </tr>
+                                  <!--
                                 <tr>
                                   <td>Expected end time :</td>
                                   <td>{{ calculateReservationEndDate() | date: "dd-MM-yyyy HH:mm" }}</td>
                                 </tr>
                               -->
-                              <!--
+                                  <!--
                                 <tr>
                                   <td>Ends at (estimated) :</td>
                                   <td>{{ reservationDetails?.reservation?.startDate }}</td>
                                 </tr>
                               -->
-                              <tr>
-                                <td>Expected duration :</td>
-                                <td>{{ calculateTotalDuration() }} min</td>
-                              </tr>
-                              <tr>
-                                <td>Status :</td>
-                                <td>{{ reservationDetails?.reservation?.status | uppercase }}</td>
-                              </tr>
-                              <tr>
-                                <td class="f-w-7 font-18">
-                                  <h4>Amount :</h4>
-                                </td>
-                                <td class="f-w-7 font-18">
-                                  <h4>{{ calculateTotalAmount() }} DT</h4>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                  <tr>
+                                    <td>Expected duration :</td>
+                                    <td>{{ calculateTotalDuration() }} min</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Status :</td>
+                                    <td>{{ reservationDetails?.reservation?.status | uppercase }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="f-w-7 font-18">
+                                      <h4>Amount :</h4>
+                                    </td>
+                                    <td class="f-w-7 font-18">
+                                      <h4>{{ calculateTotalAmount() }} DT</h4>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="cart-footer text-right">
-                    <button type="button" class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>
-                    <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout
-                      reservations<i class="ri-arrow-right-line ml-2"></i></a>
+                      <div class="cart-footer text-right">
+                        <button (click)="onUpdateReservation(reservationDetails)" type="button" class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>
+                        <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout
+                          reservations<i class="ri-arrow-right-line ml-2"></i></a>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
