@@ -90,6 +90,18 @@ export class ReservationComponent implements OnInit {
       this.getReservations();
   }
   
+  public cancelReservation(reservation: Reservation): void {
+    this.reservationService.cancelReservation(reservation).subscribe({
+      next: (reservationPayload: any) => {
+        // window.location.reload()
+        this.getReservations();
+      },
+      error: (errorResponse: HttpErrorResponse) => {
+        this.errorHandlerService.extractExceptionMsg(errorResponse);
+      }
+    });
+  }
+  
   
   
 }

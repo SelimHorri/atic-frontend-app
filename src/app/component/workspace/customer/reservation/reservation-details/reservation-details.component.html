@@ -24,11 +24,12 @@
                             <th scope="col">Description</th>
                             <th scope="col">isAvailable?</th>
                             <th scope="col">Duration</th>
-                            <!-- <th scope="col">Ordered at</th> -->
                             <th scope="col">Price</th>
                             <!-- <th scope="col">Category</th> -->
                             <th scope="col" class="text-right">Total</th>
-                            <th scope="col" class="text-right">Remove</th>
+                            <th
+                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
+                              scope="col" class="text-right">Remove</th>
                           </tr>
                         </thead>
                         <tbody *ngFor="let s of orderedServiceDetails?.serviceDetails">
@@ -40,92 +41,90 @@
                                 class="img-fluid" width="35" alt="product"></td>
                             <td>{{ s?.isAvailable }}</td>
                             <td>{{ s?.duration }} min</td>
-                            <!-- <td>{{ s?.duration }} min</td> -->
                             <td>{{ s?.priceUnit }} DT</td>
                             <td class="text-right">{{ s?.priceUnit }} DT</td>
-                            <td class="text-right"><a href="javascript:void();"
+                            <td
+                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
+                              class="text-right"><a href="javascript:void();"
                                 (click)="removeOrderedServiceDetail(reservationDetails.reservation.id, s.id)"
-                                class="text-danger"><i class="ri-delete-bin-3-line"></i></a></td>
+                                class="text-danger"><i class="ri-delete-bin-3-line"></i></a>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                   </div>
-                  <div class="cart-body">
-                    <div class="row">
-                      <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
-                        <div class="order-note">
-                          <form>
-                            <!--
+                  <div class="row ">
+                    <form #reservationForm="ngForm">
+                      <div class="cart-body">
+                        <div class="row">
+                          <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
+                            <div class="order-note">
                               <div class="form-group">
-                                <div class="input-group">
-                                  <input type="search" class="form-control" placeholder="Coupon Code"
-                                    aria-label="Search" aria-describedby="button-addonTags">
-                                  <div class="input-group-append">
-                                    <button class="input-group-text" type="submit" id="button-addonTags">Apply</button>
-                                  </div>
-                                </div>
+                                <label for="specialNotes">Special Note for this reservation:</label>
+                                <textarea
+                                  [disabled]="reservationDetails?.reservation?.status === 'CANCELLED'.toUpperCase() || reservationDetails?.reservation?.status === 'COMPLETED'.toUpperCase()"
+                                  name="description"
+                                  [ngModel]="reservationDetails?.reservation?.description" class="form-control"
+                                  id="specialNotes" rows="6" placeholder="Comment here..."></textarea>
                               </div>
-                            -->
-                            <div class="form-group">
-                              <label for="specialNotes">Special Note for this reservation:</label>
-                              <textarea class="form-control" name="specialNotes" id="specialNotes" rows="6"
-                                placeholder="Comment here..."></textarea>
                             </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="col-md-12 order-1 order-lg-2 col-lg-7 col-xl-6">
-                        <div class="order-total table-responsive ">
-                          <table class="table table-borderless text-right">
-                            <tbody>
-                              <tr>
-                                <td>Reference :</td>
-                                <td><u>REF-{{ reservationDetails?.reservation?.code?.substring(0, 8) }}</u></td>
-                              </tr>
-                              <tr>
-                                <td>Requested time :</td>
-                                <td>{{ reservationDetails?.reservation?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
-                              </tr>
-                              <!--
+                          </div>
+                          <div class="col-md-12 order-1 order-lg-2 col-lg-7 col-xl-6">
+                            <div class="order-total table-responsive ">
+                              <table class="table table-borderless text-right">
+                                <tbody>
+                                  <tr>
+                                    <td>Reference :</td>
+                                    <td><u>REF-{{ reservationDetails?.reservation?.code?.substring(0, 8) }}</u></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Requested time :</td>
+                                    <td>{{ reservationDetails?.reservation?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
+                                  </tr>
+                                  <!--
                                 <tr>
                                   <td>Expected end time :</td>
                                   <td>{{ calculateReservationEndDate() | date: "dd-MM-yyyy HH:mm" }}</td>
                                 </tr>
                               -->
-                              <!--
+                                  <!--
                                 <tr>
                                   <td>Ends at (estimated) :</td>
                                   <td>{{ reservationDetails?.reservation?.startDate }}</td>
                                 </tr>
                               -->
-                              <tr>
-                                <td>Expected duration :</td>
-                                <td>{{ calculateTotalDuration() }} min</td>
-                              </tr>
-                              <tr>
-                                <td>Status :</td>
-                                <td>{{ reservationDetails?.reservation?.status | uppercase }}</td>
-                              </tr>
-                              <tr>
-                                <td class="f-w-7 font-18">
-                                  <h4>Amount :</h4>
-                                </td>
-                                <td class="f-w-7 font-18">
-                                  <h4>{{ calculateTotalAmount() }} DT</h4>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                  <tr>
+                                    <td>Expected duration :</td>
+                                    <td>{{ calculateTotalDuration() }} min</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Status :</td>
+                                    <td>{{ reservationDetails?.reservation?.status | uppercase }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="f-w-7 font-18">
+                                      <h4>Amount :</h4>
+                                    </td>
+                                    <td class="f-w-7 font-18">
+                                      <h4>{{ calculateTotalAmount() }} DT</h4>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="cart-footer text-right">
-                    <button type="button" class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update
-                      Cart</button>
-                    <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout
-                      reservations<i class="ri-arrow-right-line ml-2"></i></a>
+                      <div class="cart-footer text-right">
+                        <button
+                          *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
+                          (click)="onUpdateReservation(reservationDetails, reservationForm.value)" type="button"
+                          class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>
+                        <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout
+                          reservations<i class="ri-arrow-right-line ml-2"></i></a>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>

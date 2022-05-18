@@ -127,7 +127,7 @@
                       <label class="col-lg-3 col-form-label form-control-label">First name <span
                           class="text-danger">*</span></label>
                       <div class="col-lg-9">
-                        <input ngModel name="firstname" value="{{ customerProfileResponse?.customer?.firstname }}"
+                        <input name="firstname" [ngModel]="customerProfileResponse?.customer?.firstname"
                           class="form-control" type="text" placeholder="Mark">
                       </div>
                     </div>
@@ -135,7 +135,7 @@
                       <label class="col-lg-3 col-form-label form-control-label">Last name <span
                           class="text-danger">*</span></label>
                       <div class="col-lg-9">
-                        <input ngModel name="lastname" value="{{ customerProfileResponse?.customer?.lastname }}"
+                        <input name="lastname" [ngModel]="customerProfileResponse?.customer?.lastname"
                           class="form-control" type="text" placeholder="Jhonsan">
                       </div>
                     </div>
@@ -143,7 +143,7 @@
                       <label class="col-lg-3 col-form-label form-control-label">Email <span
                           class="text-danger">*</span></label>
                       <div class="col-lg-9">
-                        <input ngModel name="email" value="{{ customerProfileResponse?.customer?.email }}"
+                        <input name="email" [ngModel]="customerProfileResponse?.customer?.email"
                           class="form-control" type="email" placeholder="mark@example.com">
                       </div>
                     </div>
@@ -182,35 +182,35 @@
                       <label class="col-lg-3 col-form-label form-control-label">Phone <span
                           class="text-danger">*</span></label>
                       <div class="col-lg-9">
-                        <input ngModel name="phone" value="{{ customerProfileResponse?.customer?.phone }}"
+                        <input name="phone" [ngModel]="customerProfileResponse?.customer?.phone"
                           class="form-control" type="text" placeholder="22125144">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">Birthdate</label>
                       <div class="col-lg-9">
-                        <input ngModel name="birthdate" [value]="customerProfileResponse?.customer?.birthdate"
+                        <input name="birthdate" [ngModel]="customerProfileResponse?.customer?.birthdate | date"
                           class="form-control" type="date">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">Facebook</label>
                       <div class="col-lg-9">
-                        <input ngModel name="facebookUrl" [value]="customerProfileResponse?.customer?.facebookUrl"
+                        <input [ngModel]="customerProfileResponse?.customer?.facebookUrl" name="facebookUrl"
                           class="form-control" type="url" placeholder="url">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">Instagram</label>
                       <div class="col-lg-9">
-                        <input ngModel name="instagramUrl" value="{{ customerProfileResponse?.customer?.instagramUrl }}"
+                        <input [ngModel]="customerProfileResponse?.customer?.instagramUrl" name="instagramUrl"
                           class="form-control" type="url" placeholder="url">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">LinkedIn</label>
                       <div class="col-lg-9">
-                        <input ngModel name="linkedinUrl" value="{{ customerProfileResponse?.customer?.linkedinUrl }}"
+                        <input name="linkedinUrl" [ngModel]="customerProfileResponse?.customer?.linkedinUrl"
                           class="form-control" type="url" placeholder="url">
                       </div>
                     </div>
@@ -218,7 +218,7 @@
                       <label class="col-lg-3 col-form-label form-control-label">Username <span
                           class="text-danger">*</span></label>
                       <div class="col-lg-9">
-                        <input ngModel name="username" value="{{ customerProfileResponse?.credential?.username }}"
+                        <input name="username" [ngModel]="customerProfileResponse?.credential?.username"
                           class="form-control" type="text" placeholder="jhonsanmark">
                       </div>
                     </div>
@@ -241,7 +241,7 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label"></label>
                       <div class="col-lg-9">
-                        <input type="reset" class="btn btn-secondary" value="Cancel">
+                        <input type="reset" class="btn btn-secondary" value="Cancel">&nbsp;
                         <input type="submit" [disabled]="userForm.invalid" class="btn btn-primary" value="Save Changes">
                       </div>
                     </div>
