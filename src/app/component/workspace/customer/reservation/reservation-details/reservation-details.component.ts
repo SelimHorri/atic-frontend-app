@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { OrderedDetailId } from 'src/app/model/ordered-detail-id';
+import { Reservation } from 'src/app/model/reservation';
 import { ApiPayloadReservationContainerResponse } from 'src/app/model/response/api/api-payload-reservation-container-response';
 import { ApiPayloadServiceDetailsReservationContainerResponse } from 'src/app/model/response/api/api-payload-service-details-reservation-container-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
@@ -24,6 +25,7 @@ export class ReservationDetailsComponent implements OnInit {
   public accountUrl!: string;
   public reservationDetails!: ReservationContainerResponse;
   public orderedServiceDetails!: ServiceDetailsReservationContainerResponse;
+  // public description: string | undefined = this.reservationDetails?.reservation?.description;
   
   constructor(private reservationService: ReservationService,
     private credentialService: CredentialService,
@@ -90,13 +92,22 @@ export class ReservationDetailsComponent implements OnInit {
   
   public removeOrderedServiceDetail(reservationId: number, serviceDetailId: number): void {
     this.orderedDetailService.deleteOrderedServiceDetail(new OrderedDetailId(reservationId, serviceDetailId)).subscribe({
-      next: (responsePayload: any) => (responsePayload?.responseBody) ? this.getOrderedServiceDetails() : alert("Unable to remove service"),
+      // next: (responsePayload: any) => (responsePayload?.responseBody) ? this.getOrderedServiceDetails() : alert("Unable to remove service"),
+      next: (responsePayload: any) => (responsePayload?.responseBody) ? window.location.reload() : alert("Unable to remove service"),
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
   }
   
-  public onUpdateReservation(reservationDetails: ReservationContainerResponse): void {
-    
+  public onUpdateReservation(reservationDetailRequest: ReservationContainerResponse, descriptionObj: any): void {
+    reservationDetailRequest.reservation.description = descriptionObj?.description;
+    this.reservationService.updateReservationDetails(reservationDetailRequest).subscribe({
+      next: (reservationDetailPayload: any) => {
+        
+        alert(JSON.stringify(reservationDetailPayload?.responseBody));
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
   }
   
   

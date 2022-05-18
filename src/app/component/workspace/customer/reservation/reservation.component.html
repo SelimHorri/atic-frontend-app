@@ -101,7 +101,8 @@
                       routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>
                   </td>
                   <td>{{ r?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
-                  <td>{{ r?.cancelDate | date: "dd-MM-yyyy HH:mm" }}</td>
+                  <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MM-yyyy HH:mm" }}</td>
+                  <td *ngIf="r?.status !== 'CANCELLED'.toUpperCase()">-</td>
                   <td>
                     <span *ngIf="r?.status === 'NOT_STARTED'" class="text-danger font-12"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>
@@ -112,7 +113,7 @@
                     <span *ngIf="r?.status === 'COMPLETED'" class="text-success font-12"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>
                       {{ r?.status }}</span>
-                    <span *ngIf="r?.status === 'CANCELLED'" class="text-gray font-12"><i
+                    <span *ngIf="r?.status === 'CANCELLED'" class="text-warning font-12"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>
                       {{ r?.status }}</span>
                   </td>
@@ -126,15 +127,19 @@
                       </a>
                     </div>
                   </td>
-                  <td>
+                  <td *ngIf="r?.description !== null && r?.description !== undefined">
                     <p class="mb-0">{{ r?.description }}</p>
                   </td>
-                  
+                  <td *ngIf="r?.description === null || r?.description === undefined">
+                    <p class="mb-0">-</p>
+                  </td>
                   <td>
-                    <div class="action">
-                      <a href="#" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title=""
+                    <div *ngIf="r?.status !== 'COMPLETED'.toUpperCase() && r?.status !== 'CANCELLED'.toUpperCase()"
+                      class="action">
+                      <a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}" class="text-success mr-4"
+                        data-toggle="tooltip" data-placement="top" title=""
                         data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
-                      <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title=""
+                      <a (click)="cancelReservation(r)" href="javascript:void();" class="text-danger" data-toggle="tooltip" data-placement="top" title=""
                         data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
                     </div>
                   </td>

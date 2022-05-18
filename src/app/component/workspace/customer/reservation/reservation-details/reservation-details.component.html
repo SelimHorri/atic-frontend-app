@@ -27,7 +27,9 @@
                             <th scope="col">Price</th>
                             <!-- <th scope="col">Category</th> -->
                             <th scope="col" class="text-right">Total</th>
-                            <th scope="col" class="text-right">Remove</th>
+                            <th
+                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
+                              scope="col" class="text-right">Remove</th>
                           </tr>
                         </thead>
                         <tbody *ngFor="let s of orderedServiceDetails?.serviceDetails">
@@ -41,24 +43,30 @@
                             <td>{{ s?.duration }} min</td>
                             <td>{{ s?.priceUnit }} DT</td>
                             <td class="text-right">{{ s?.priceUnit }} DT</td>
-                            <td class="text-right"><a href="javascript:void();"
+                            <td
+                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
+                              class="text-right"><a href="javascript:void();"
                                 (click)="removeOrderedServiceDetail(reservationDetails.reservation.id, s.id)"
-                                class="text-danger"><i class="ri-delete-bin-3-line"></i></a></td>
+                                class="text-danger"><i class="ri-delete-bin-3-line"></i></a>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                   </div>
                   <div class="row ">
-                    <form #reservationForm="ngForm" >
+                    <form #reservationForm="ngForm">
                       <div class="cart-body">
                         <div class="row">
                           <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
                             <div class="order-note">
                               <div class="form-group">
                                 <label for="specialNotes">Special Note for this reservation:</label>
-                                <textarea class="form-control" name="specialNotes" id="specialNotes" rows="6"
-                                  placeholder="Comment here..."></textarea>
+                                <textarea
+                                  [disabled]="reservationDetails?.reservation?.status === 'CANCELLED'.toUpperCase() || reservationDetails?.reservation?.status === 'COMPLETED'.toUpperCase()"
+                                  name="description"
+                                  [ngModel]="reservationDetails?.reservation?.description" class="form-control"
+                                  id="specialNotes" rows="6" placeholder="Comment here..."></textarea>
                               </div>
                             </div>
                           </div>
@@ -109,7 +117,10 @@
                         </div>
                       </div>
                       <div class="cart-footer text-right">
-                        <button (click)="onUpdateReservation(reservationDetails)" type="button" class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>
+                        <button
+                          *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
+                          (click)="onUpdateReservation(reservationDetails, reservationForm.value)" type="button"
+                          class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>
                         <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout
                           reservations<i class="ri-arrow-right-line ml-2"></i></a>
                       </div>
