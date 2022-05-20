@@ -67,6 +67,15 @@ export class CustomerService {
     }));
   }
   
+  public getRatings(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/ratings`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    });
+  }
+  
   public addReservation(reservationRequest: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/reservations`, reservationRequest, {
       headers: {

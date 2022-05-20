@@ -47,7 +47,7 @@ export class ReservationComponent implements OnInit {
       next: (customerReservationPayload: ApiPayloadCustomerReservationResponse) => {
         this.reservations = customerReservationPayload?.responseBody?.reservations;
         this.reservations.forEach(r => {
-          this.tasks = this.getAssignedWorkers(r?.id);
+          // this.tasks = this.getAssignedWorkers(r?.id);
         });
       },
       error: (errorResponse: HttpErrorResponse) => {
@@ -74,8 +74,7 @@ export class ReservationComponent implements OnInit {
   }
   
   public searchBy(key: string): void {
-    
-    const res: Reservation[] = [];
+    let res: Reservation[] = [];
     this.reservations.forEach(r => {
       if (`REF-${r?.code}`.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || r.startDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
@@ -92,13 +91,8 @@ export class ReservationComponent implements OnInit {
   
   public cancelReservation(reservation: Reservation): void {
     this.reservationService.cancelReservation(reservation).subscribe({
-      next: (reservationPayload: any) => {
-        // window.location.reload()
-        this.getReservations();
-      },
-      error: (errorResponse: HttpErrorResponse) => {
-        this.errorHandlerService.extractExceptionMsg(errorResponse);
-      }
+      next: (reservationPayload: any) => this.getReservations(),
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
   }
   

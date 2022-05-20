@@ -70,19 +70,19 @@
           <div class="table-responsive project-list">
             <table class="table table-hover project-table table-centered table-nowrap">
               <thead>
-                <tr>
+                <tr align="center">
                   <th scope="col">#</th>
                   <th scope="col">Reservation code</th>
                   <th scope="col">Start Date</th>
                   <th scope="col">Cancel Date</th>
                   <th scope="col">Status</th>
-                  <th scope="col">Assigned</th>
+                  <!-- <th scope="col">Assigned</th> -->
                   <th scope="col">Description</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody *ngFor="let r of reservations">
-                <tr>
+                <tr align="center">
                   <td scope="col"><strong>#</strong></td>
                   <td><a
                       routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>
@@ -91,29 +91,31 @@
                   <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MM-yyyy HH:mm" }}</td>
                   <td *ngIf="r?.status !== 'CANCELLED'.toUpperCase()">-</td>
                   <td>
-                    <span *ngIf="r?.status === 'NOT_STARTED'" class="text-danger font-12"><i
+                    <span *ngIf="r?.status === 'NOT_STARTED'" class="badge rounded-pill bg-danger font-25"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>
                       {{ r?.status }}</span>
-                    <span *ngIf="r?.status === 'IN_PROGRESS'" class="text-primary font-12"><i
+                    <span *ngIf="r?.status === 'IN_PROGRESS'" class="badge rounded-pill bg-primary font-25"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>
                       {{ r?.status }}</span>
-                    <span *ngIf="r?.status === 'COMPLETED'" class="text-success font-12"><i
+                    <span *ngIf="r?.status === 'COMPLETED'" class="badge rounded-pill bg-success font-25"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>
                       {{ r?.status }}</span>
-                    <span *ngIf="r?.status === 'CANCELLED'" class="text-warning font-12"><i
+                    <span *ngIf="r?.status === 'CANCELLED'" class="badge rounded-pill bg-warning font-25"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>
                       {{ r?.status }}</span>
                   </td>
-                  <td>
-                    <div class="team" *ngFor="let t of tasks">
-                      <a routerLink="/workspace/{{ accountUrl }}/reservations/assigned/{{ t?.workerId }}"
-                        class="team-member" data-toggle="tooltip" data-placement="top"
-                        title="" data-original-title="Roger Drake">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="rounded-circle avatar-xs"
-                          alt="" />
-                      </a>
-                    </div>
-                  </td>
+                  <!--
+                    <td>
+                      <div class="team" *ngFor="let t of tasks">
+                        <a routerLink="/workspace/{{ accountUrl }}/reservations/assigned/{{ t?.workerId }}"
+                          class="team-member" data-toggle="tooltip" data-placement="top" title=""
+                          data-original-title="Roger Drake">
+                          <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="rounded-circle avatar-xs"
+                            alt="" />
+                        </a>
+                      </div>
+                    </td>
+                  -->
                   <td *ngIf="r?.description !== null && r?.description !== undefined">
                     <p class="mb-0">{{ r?.description }}</p>
                   </td>
