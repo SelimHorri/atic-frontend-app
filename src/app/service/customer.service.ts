@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
 import { DateBackendFormat } from '../model/date-backend-format';
 import { Reservation } from '../model/reservation';
 import { ApiPayloadCustomerFavouriteResponse } from '../model/response/api/api-payload-customer-favourite-response';
-import { ApiPayloadCustomerProfileResponse } from '../model/response/api/api-payload-customer-profile-response';
 import { ApiPayloadCustomerReservationResponse } from '../model/response/api/api-payload-customer-reservation-response';
 
 @Injectable({
@@ -21,15 +20,15 @@ export class CustomerService {
     this.apiUrl = `${this.apiUrl}/customers`;
   }
   
-  public getProfile(): Observable<ApiPayloadCustomerProfileResponse> {
-    return this.http.get<ApiPayloadCustomerProfileResponse>(`${this.apiUrl}/profile`, {
+  public getProfile(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/profile`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
     })
     .pipe(
-      map((res: ApiPayloadCustomerProfileResponse) => {
+      map((res: any) => {
         res.responseBody.customer.birthdate = new Date(res?.responseBody?.customer?.birthdate);
         return res;
       })
@@ -76,7 +75,7 @@ export class CustomerService {
     });
   }
   
-  public addReservation(reservationRequest: any): Observable<any> {
+  public addReservation(reservationRequest: Reservation): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/reservations`, reservationRequest, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

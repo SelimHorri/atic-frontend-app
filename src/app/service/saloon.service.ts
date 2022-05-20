@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ApiPayloadSaloon } from '../model/response/api/api-payload-saloon';
-import { ApiPayloadSaloonList } from '../model/response/api/api-payload-saloon-list';
+import { Saloon } from '../model/saloon';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +17,10 @@ export class SaloonService {
     this.apiUrl = `${this.apiUrl}/saloons`;
   }
   
-  public findAllWithOffset(offset: number): Observable<ApiPayloadSaloonList> {
-    return this.http.get<ApiPayloadSaloonList>(`${this.apiUrl}/offset/${offset}`)
+  public findAllWithOffset(offset: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/offset/${offset}`)
         .pipe(map(payload => {
-          payload?.responseBody?.forEach(s => s.openingDate = new Date(s?.openingDate));
+          payload?.responseBody?.forEach((s: Saloon) => s.openingDate = new Date(s?.openingDate));
           return payload;
         }));
   }
@@ -33,10 +33,10 @@ export class SaloonService {
     }));
   }
   
-  public findAllByCode(code: string): Observable<ApiPayloadSaloonList> {
-    return this.http.get<ApiPayloadSaloonList>(`${this.apiUrl}/code/${code}`)
-        .pipe(map(res => {
-          res?.responseBody?.forEach(s => s.openingDate = new Date(s?.openingDate));
+  public findAllByCode(code: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/code/${code}`)
+        .pipe(map((res: any) => {
+          res?.responseBody?.forEach((s: Saloon) => s.openingDate = new Date(s?.openingDate));
           return res;
     }));
   }

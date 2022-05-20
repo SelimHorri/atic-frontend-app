@@ -33,7 +33,7 @@ export class RatingComponent implements OnInit {
       next: (ratingPayload: any) => {
         this.ratings = ratingPayload?.responseBody?.ratings;
         this.ratings.map(r => {
-          this.employeeService.findById(r?.employeeId).subscribe({
+          this.employeeService.findById(r?.workerId).subscribe({
             next: (employeePayload: any) => {
               
               this.employees.push(employeePayload?.responseBody);
