@@ -52,7 +52,7 @@ export class ReservationComponent implements OnInit {
         this.reservations = customerReservationPayload?.responseBody?.reservations;
         this.reservations.forEach(r => {
           // this.tasks = this.getAssignedWorkers(r?.id);
-          this.findSaloonById(r?.saloonId);
+          // this.findSaloonById(r?.saloon?.id);
         });
       },
       error: (errorResponse: HttpErrorResponse) => {

@@ -1,4 +1,7 @@
 
+import { Employee } from "./employee";
+import { Reservation } from "./reservation";
+
 export class Task {
   
   constructor(
@@ -8,7 +11,9 @@ export class Task {
     public startDate: Date | string,
     public endDate: Date | string,
     public workerDescription: string,
-    public managerDescription: string) {  
+    public managerDescription: string,
+    public worker: Employee,
+    public reservation: Reservation) {  
   }
   
   

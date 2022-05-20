@@ -11,8 +11,7 @@ export class Credential {
     public isEnabled: boolean,
     public isAccountNonExpired: boolean,
     public isAccountNonLocked: boolean,
-    public isCredentialsNonExpired: boolean,
-    public customerId: number) {
+    public isCredentialsNonExpired: boolean) {
   }
   
   

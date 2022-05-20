@@ -1,4 +1,6 @@
 
+import { Location } from "./location";
+
 export class Saloon {
   
   constructor(
@@ -9,7 +11,7 @@ export class Saloon {
     public openingDate: Date | string,
     public fullAdr: string,
     public email: string,
-    public locationId: number) {
+    public location: Location) {
   }
   
   

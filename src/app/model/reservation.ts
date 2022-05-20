@@ -1,5 +1,7 @@
 
+import { Customer } from "./customer";
 import { ReservationStatus } from "./reservation-status";
+import { Saloon } from "./saloon";
 
 export class Reservation {
 
@@ -10,8 +12,8 @@ export class Reservation {
     public startDate: Date | string,
     public cancelDate: Date | string,
     public status: ReservationStatus | string,
-    public customerId: number,
-    public saloonId: number) {
+    public customer: Customer,
+    public saloon: Saloon) {
   }
 
 
