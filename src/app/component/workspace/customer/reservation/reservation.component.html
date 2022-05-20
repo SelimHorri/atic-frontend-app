@@ -73,6 +73,7 @@
                 <tr align="center">
                   <th scope="col">#</th>
                   <th scope="col">Reservation code</th>
+                  <!-- <th scope="col">Saloon</th> -->
                   <th scope="col">Start Date</th>
                   <th scope="col">Cancel Date</th>
                   <th scope="col">Status</th>
@@ -87,6 +88,7 @@
                   <td><a
                       routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>
                   </td>
+                  <!-- <td scope="col"><a href="javascript:void();">{{ relatedSaloon?.name | uppercase }}</a></td> -->
                   <td>{{ r?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
                   <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MM-yyyy HH:mm" }}</td>
                   <td *ngIf="r?.status !== 'CANCELLED'.toUpperCase()">-</td>

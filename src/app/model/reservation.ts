@@ -10,7 +10,8 @@ export class Reservation {
     public startDate: Date | string,
     public cancelDate: Date | string,
     public status: ReservationStatus | string,
-    public customerId: number) {
+    public customerId: number,
+    public saloonId: number) {
   }
 
 

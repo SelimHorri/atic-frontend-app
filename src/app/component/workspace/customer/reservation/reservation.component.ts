@@ -4,11 +4,13 @@ import { Component, OnInit } from '@angular/core';
 import { Reservation } from 'src/app/model/reservation';
 import { ApiPayloadCustomerReservationResponse } from 'src/app/model/response/api/api-payload-customer-reservation-response';
 import { ApiPayloadTaskList } from 'src/app/model/response/api/api-payload-task-list';
+import { Saloon } from 'src/app/model/saloon';
 import { Task } from 'src/app/model/task';
 import { CredentialService } from 'src/app/service/credential.service';
 import { CustomerService } from 'src/app/service/customer.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { ReservationService } from 'src/app/service/reservation.service';
+import { SaloonService } from 'src/app/service/saloon.service';
 import { TaskService } from 'src/app/service/task.service';
 
 @Component({
@@ -21,11 +23,13 @@ export class ReservationComponent implements OnInit {
   public accountUrl!: string;
   public reservations!: Reservation[];
   public tasks!: Task[];
+  public relatedSaloon!: Saloon;
   
   constructor(private customerService: CustomerService,
     private credentialService: CredentialService,
     private reservationService: ReservationService,
     private taskService: TaskService,
+    private saloonService: SaloonService,
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
@@ -48,6 +52,7 @@ export class ReservationComponent implements OnInit {
         this.reservations = customerReservationPayload?.responseBody?.reservations;
         this.reservations.forEach(r => {
           // this.tasks = this.getAssignedWorkers(r?.id);
+          this.findSaloonById(r?.saloonId);
         });
       },
       error: (errorResponse: HttpErrorResponse) => {
@@ -92,6 +97,15 @@ export class ReservationComponent implements OnInit {
   public cancelReservation(reservation: Reservation): void {
     this.reservationService.cancelReservation(reservation).subscribe({
       next: (reservationPayload: any) => this.getReservations(),
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  
+  public findSaloonById(saloonId: number): void {
+    this.saloonService.findById(saloonId).subscribe({
+      next: (saloonPayload: any) => {
+        this.relatedSaloon = saloonPayload?.responseBody;
+      },
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
   }
