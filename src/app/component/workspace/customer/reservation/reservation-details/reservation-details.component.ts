@@ -1,6 +1,7 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { OrderedDetailId } from 'src/app/model/ordered-detail-id';
@@ -9,6 +10,8 @@ import { ApiPayloadReservationContainerResponse } from 'src/app/model/response/a
 import { ApiPayloadServiceDetailsReservationContainerResponse } from 'src/app/model/response/api/api-payload-service-details-reservation-container-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
 import { ServiceDetailsReservationContainerResponse } from 'src/app/model/response/service-details-reservation-container-response';
+import { Saloon } from 'src/app/model/saloon';
+import { ServiceDetail } from 'src/app/model/service-detail';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { OrderedDetailService } from 'src/app/service/ordered-detail.service';
@@ -25,6 +28,7 @@ export class ReservationDetailsComponent implements OnInit {
   public accountUrl!: string;
   public reservationDetails!: ReservationContainerResponse;
   public orderedServiceDetails!: ServiceDetailsReservationContainerResponse;
+  public allServiceDetails: ServiceDetail[] = [];
   // public description: string | undefined = this.reservationDetails?.reservation?.description;
   
   constructor(private reservationService: ReservationService,
@@ -43,12 +47,12 @@ export class ReservationDetailsComponent implements OnInit {
   
   public calculateTotalAmount(): number {
     
-    let amout: number = 0;
+    let amount: number = 0;
     this.orderedServiceDetails?.serviceDetails?.map(s => {
-      amout += s?.priceUnit;
+      amount += s?.priceUnit;
     });
     
-    return amout;
+    return amount;
   }
   
   public calculateTotalDuration(): number {
@@ -108,6 +112,35 @@ export class ReservationDetailsComponent implements OnInit {
       },
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
+  }
+  
+  public onOpenModal(saloon: Saloon, existingServiceDetails: ServiceDetail[], action: string): void {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.style.display = "none";
+    button.setAttribute("data-bs-toggle", "modal");
+
+    if (action === "addServiceDetail")
+      button.setAttribute("data-bs-target", "#addServiceDetail");
+
+    const mainContainer = document.getElementById("main-container");
+    mainContainer?.appendChild(button);
+    button.click();
+    this.findAllServiceDetailsBySaloon(saloon, existingServiceDetails);
+  }
+  
+  private findAllServiceDetailsBySaloon(saloon: Saloon, existingServiceDetails: ServiceDetail[]): void {
+    this.serviceDetailService.findAllByCategorySaloonId(saloon.id).subscribe({
+      next: (serviceDetailsPayload: any) => {
+        this.allServiceDetails = serviceDetailsPayload?.responseBody;
+        existingServiceDetails?.forEach(existing => this.allServiceDetails?.filter(s => s.id === existing.id));
+      },
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  
+  public onAddServiceDetail(ngForm: NgForm): void {
+    
   }
   
   

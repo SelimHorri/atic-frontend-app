@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
-<div class="container">
+<div class="container main-container">
   <div class="contentbar">
     <!-- Start row -->
     <div class="row">
@@ -19,6 +19,14 @@
                       <table class="table table-borderless">
                         <thead>
                           <tr>
+                            <th
+                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()">
+                              <a (click)="onOpenModal(reservationDetails.reservation.saloon, orderedServiceDetails.serviceDetails, 'addServiceDetail')"
+                                href="javascript:void();" class="btn text-primary ">
+                                <i class="ri-shield-cross-fill"></i>
+                                Add
+                              </a>
+                            </th>
                             <th scope="col">#</th>
                             <th scope="col">Service</th>
                             <th scope="col">Description</th>
@@ -34,6 +42,9 @@
                         </thead>
                         <tbody *ngFor="let s of orderedServiceDetails?.serviceDetails">
                           <tr>
+                            <th scope="row"
+                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()">
+                            </th>
                             <th scope="row">#</th>
                             <td>{{ s?.name | uppercase }}</td>
                             <td><img
@@ -51,6 +62,20 @@
                             </td>
                           </tr>
                         </tbody>
+                        <!--
+                          <tbody>
+                            <tr>
+                              <td></td>
+                              <td>
+                                <a (click)="onOpenModal(reservationDetails.reservation.saloon, 'addServiceDetail')"
+                                  href="javascript:void();" class="btn btn-outline-primary ">
+                                  <i class="ri-shield-cross-fill"></i>
+                                  Add
+                                </a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        -->
                       </table>
                     </div>
                   </div>
@@ -135,5 +160,37 @@
       <!-- End col -->
     </div>
     <!-- End row -->
+  </div>
+</div>
+
+<div class="modal fade" id="addServiceDetail" tabindex="-1" role="dialog" aria-labelledby="addServiceDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content card">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Service</h5>
+        <button onclick="document.getElementById('addServiceDetail').click()" type="button" class="close"
+          data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body card-body">
+        <form #addServiceDetailForm="ngForm">
+          <select name="serviceDetail" ngModel class="form-select" aria-label="Default select example">
+            <option selected value="">==> Select a valid service <==</option>
+            <option *ngFor="let s of allServiceDetails" value="{{ s?.id }}">
+              {{ s?.name | uppercase }}
+            </option>
+          </select>
+          <div class="modal-footer">
+            <button type="button" onclick="document.getElementById('addServiceDetail').click()" id="addServiceDetail-form"
+              class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button [disabled]="addServiceDetailForm.invalid"
+              (click)="onAddServiceDetail(addServiceDetailForm)"
+              type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
   </div>
 </div>
