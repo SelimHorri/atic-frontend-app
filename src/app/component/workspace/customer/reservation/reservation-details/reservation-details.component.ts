@@ -4,7 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { OrderedDetail } from 'src/app/model/ordered-detail';
 import { OrderedDetailId } from 'src/app/model/ordered-detail-id';
+import { OrderedDetailRequest } from 'src/app/model/request/ordered-detail-request';
 import { Reservation } from 'src/app/model/reservation';
 import { ApiPayloadReservationContainerResponse } from 'src/app/model/response/api/api-payload-reservation-container-response';
 import { ApiPayloadServiceDetailsReservationContainerResponse } from 'src/app/model/response/api/api-payload-service-details-reservation-container-response';
@@ -106,9 +108,7 @@ export class ReservationDetailsComponent implements OnInit {
     reservationDetailRequest.reservation.description = descriptionObj?.description;
     this.reservationService.updateReservationDetails(reservationDetailRequest).subscribe({
       next: (reservationDetailPayload: any) => {
-        
         alert(JSON.stringify(reservationDetailPayload?.responseBody));
-        
       },
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
@@ -140,7 +140,19 @@ export class ReservationDetailsComponent implements OnInit {
   }
   
   public onAddServiceDetail(ngForm: NgForm): void {
-    
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        ngForm.value.reservationId = p?.reservationId;
+        this.orderedDetailService.save(ngForm.value as OrderedDetailRequest).subscribe({
+          next: (savedOrderedDetails: any) => {
+            console.log(JSON.stringify(savedOrderedDetails?.responseBody));
+            ngForm.reset();
+            document.getElementById("addServiceDetail")?.click();
+          },
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      }
+    });
   }
   
   

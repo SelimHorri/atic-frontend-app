@@ -175,7 +175,8 @@
       </div>
       <div class="modal-body card-body">
         <form #addServiceDetailForm="ngForm">
-          <select name="serviceDetail" ngModel class="form-select" aria-label="Default select example">
+          <!-- <input type="hidden" [ngModel]="reservationDetails?.reservation?.id" name="reservationId" /> -->
+          <select name="serviceDetailId" ngModel class="form-select" aria-label="Default select example">
             <option selected value="">==> Select a valid service <==</option>
             <option *ngFor="let s of allServiceDetails" value="{{ s?.id }}">
               {{ s?.name | uppercase }}
