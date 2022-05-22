@@ -47,9 +47,11 @@
                             </th>
                             <th scope="row">#</th>
                             <td>{{ s?.name | uppercase }}</td>
-                            <td><img
+                            <td>
+                              <img
                                 src="https://themesbox.in/admin-templates/olian/html/light-vertical/assets/images/ecommerce/product_01.svg"
-                                class="img-fluid" width="35" alt="product"></td>
+                                class="img-fluid" width="35" alt="product">
+                            </td>
                             <td>{{ s?.isAvailable }}</td>
                             <td>{{ s?.duration }} min</td>
                             <td>{{ s?.priceUnit }} DT</td>
@@ -86,7 +88,7 @@
                           <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
                             <div class="order-note">
                               <div class="form-group">
-                                <label for="specialNotes">Special Note for this reservation:</label>
+                                <label for="specialNotes">Special Notes (eg..Describe expected duration)</label>
                                 <textarea
                                   [disabled]="reservationDetails?.reservation?.status === 'CANCELLED'.toUpperCase() || reservationDetails?.reservation?.status === 'COMPLETED'.toUpperCase()"
                                   name="description"

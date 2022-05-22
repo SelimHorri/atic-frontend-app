@@ -5,7 +5,6 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ExceptionMsg } from 'src/app/model/exception-msg';
 import { RegisterRequest } from 'src/app/model/request/register-request';
-import { ApiPayloadDExceptionMsg } from 'src/app/model/response/api/api-payload-d-exception-msg';
 import { ApiPayloadRegisterResponse } from 'src/app/model/response/api/api-payload-register-response';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { RegistrationService } from 'src/app/service/registration.service';
