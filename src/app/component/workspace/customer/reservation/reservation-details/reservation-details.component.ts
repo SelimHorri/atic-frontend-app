@@ -5,10 +5,9 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { ExceptionMsg } from 'src/app/model/exception-msg';
-import { OrderedDetail } from 'src/app/model/ordered-detail';
 import { OrderedDetailId } from 'src/app/model/ordered-detail-id';
 import { OrderedDetailRequest } from 'src/app/model/request/ordered-detail-request';
-import { Reservation } from 'src/app/model/reservation';
+import { ReservationDetailRequest } from 'src/app/model/request/reservation-detail-request';
 import { ApiPayloadReservationContainerResponse } from 'src/app/model/response/api/api-payload-reservation-container-response';
 import { ApiPayloadServiceDetailsReservationContainerResponse } from 'src/app/model/response/api/api-payload-service-details-reservation-container-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
@@ -33,7 +32,6 @@ export class ReservationDetailsComponent implements OnInit {
   public orderedServiceDetails!: ServiceDetailsReservationContainerResponse;
   public allServiceDetails: ServiceDetail[] = [];
   public msg: string = "";
-  // public description: string | undefined = this.reservationDetails?.reservation?.description;
   
   constructor(private reservationService: ReservationService,
     private credentialService: CredentialService,
@@ -106,13 +104,17 @@ export class ReservationDetailsComponent implements OnInit {
     });
   }
   
-  public onUpdateReservation(reservationDetailRequest: ReservationContainerResponse, descriptionObj: any): void {
-    reservationDetailRequest.reservation.description = descriptionObj?.description;
-    this.reservationService.updateReservationDetails(reservationDetailRequest).subscribe({
-      next: (reservationDetailPayload: any) => {
-        alert(JSON.stringify(reservationDetailPayload?.responseBody));
-      },
-      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+  public onUpdateReservation(descriptionObj: any): void {
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        this.reservationService.updateReservationDetails(new ReservationDetailRequest(p?.reservationId, 
+            descriptionObj?.description)).subscribe({
+          next: (reservationDetailPayload: any) => {
+            
+          },
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      }
     });
   }
   

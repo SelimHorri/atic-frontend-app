@@ -144,7 +144,7 @@
                       <div class="cart-footer text-right">
                         <button
                           *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
-                          (click)="onUpdateReservation(reservationDetails, reservationForm.value)" type="button"
+                          (click)="onUpdateReservation(reservationForm.value)" type="button"
                           class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>
                         <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout
                           reservations<i class="ri-arrow-right-line ml-2"></i></a>

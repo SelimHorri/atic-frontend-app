@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DateBackendFormat } from '../model/date-backend-format';
+import { ReservationDetailRequest } from '../model/request/reservation-detail-request';
 import { Reservation } from '../model/reservation';
 import { ReservationStatus } from '../model/reservation-status';
 import { ReservationContainerResponse } from '../model/response/reservation-container-response';
@@ -70,9 +71,7 @@ export class ReservationService {
     }));
   }
   
-  public updateReservationDetails(reservationDetailRequest: ReservationContainerResponse): Observable<any> {
-    reservationDetailRequest.reservation.startDate = 
-        formatDate(reservationDetailRequest?.reservation?.startDate, DateBackendFormat.LOCAL_DATE_TIME, "en-US");
+  public updateReservationDetails(reservationDetailRequest: ReservationDetailRequest): Observable<any> {
     console.log(JSON.stringify(reservationDetailRequest));
     return this.http.put<any>(`${this.apiUrl}/details`, reservationDetailRequest, {
       headers: {
