@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { ExceptionMsg } from 'src/app/model/exception-msg';
 import { OrderedDetail } from 'src/app/model/ordered-detail';
 import { OrderedDetailId } from 'src/app/model/ordered-detail-id';
 import { OrderedDetailRequest } from 'src/app/model/request/ordered-detail-request';
@@ -31,6 +32,7 @@ export class ReservationDetailsComponent implements OnInit {
   public reservationDetails!: ReservationContainerResponse;
   public orderedServiceDetails!: ServiceDetailsReservationContainerResponse;
   public allServiceDetails: ServiceDetail[] = [];
+  public msg: string = "";
   // public description: string | undefined = this.reservationDetails?.reservation?.description;
   
   constructor(private reservationService: ReservationService,
@@ -144,12 +146,16 @@ export class ReservationDetailsComponent implements OnInit {
       next: (p: any) => {
         ngForm.value.reservationId = p?.reservationId;
         this.orderedDetailService.save(ngForm.value as OrderedDetailRequest).subscribe({
-          next: (savedOrderedDetails: any) => {
-            console.log(JSON.stringify(savedOrderedDetails?.responseBody));
+          next: (savedOrderedDetail: any) => {
+            // console.log(JSON.stringify(savedOrderedDetail?.responseBody));
+            this.getOrderedServiceDetails();
             ngForm.reset();
             document.getElementById("addServiceDetail")?.click();
           },
-          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+          error: (errorResponse: HttpErrorResponse) => {
+            const exceptionMsg: ExceptionMsg = this.errorHandlerService.extractExceptionMsg(errorResponse);
+            this.msg = exceptionMsg?.errorMsg;
+          }
         });
       }
     });
