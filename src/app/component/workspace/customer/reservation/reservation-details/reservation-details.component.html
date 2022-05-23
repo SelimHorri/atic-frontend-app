@@ -147,7 +147,7 @@
                         <button
                           *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
                           (click)="onUpdateReservation(reservationForm.value)" type="button"
-                          class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>
+                          class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>&nbsp;
                         <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout
                           reservations<i class="ri-arrow-right-line ml-2"></i></a>
                       </div>

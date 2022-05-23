@@ -56,11 +56,21 @@
         <!-- Pagination-->
         <nav aria-label="Pagination">
           <ul class="pagination justify-content-center my-4">
-            <li class="page-item disabled"><a class="page-link" routerLink="" tabindex="-1"
-                aria-disabled="true">Newer</a>
+            <li class="page-item {{ (saloons?.first) ? 'disabled' : '' }}">
+              <a class="page-link" (click)="onNavigatePagination(1)" href="javascript:void();"
+                tabindex="-1" aria-disabled="true">
+                First
+              </a>
             </li>
-            <li *ngFor="let s of saloons?.content; let i = index" class="page-item active" aria-current="page">
-              <a class="page-link" href="/saloons?offset={{ i + 1 }}">{{ i + 1 }}</a>
+            <li class="page-item {{ (saloons?.first && saloons?.number === 0) ? 'disabled' : '' }}">
+              <a class="page-link" (click)="onNavigatePagination(saloons?.number)"
+                href="javascript:void();"
+                tabindex="-1" aria-disabled="true">
+                Previous
+              </a>
+            </li>
+            <li *ngFor="let p of pages; let i = index" class="page-item {{ (saloons?.number === i)? 'active' : '' }}" aria-current="page">
+              <a class="page-link" (click)="onNavigatePagination(i + 1)" href="javascript:void();">{{ i + 1 }}</a>
             </li>
             <!--
               <li class="page-item"><a class="page-link" routerLink="">2</a></li>
@@ -68,7 +78,18 @@
               <li class="page-item disabled"><a class="page-link" routerLink="">...</a></li>
               <li class="page-item"><a class="page-link" routerLink="">15</a></li>
             -->
-            <li class="page-item"><a class="page-link" routerLink="">Older</a></li>
+            <li class="page-item {{ (saloons?.last && saloons.number + 1 === saloons?.totalPages) ? 'disabled' : '' }}">
+              <a class="page-link" (click)="onNavigatePagination(saloons.number + 2)"
+                href="javascript:void();">
+                Next
+              </a>
+            </li>
+            <li class="page-item {{ (saloons?.last) ? 'disabled' : '' }}">
+              <a class="page-link" (click)="onNavigatePagination(saloons?.totalPages)"
+                  href="javascript:void();">
+                Last
+              </a>
+            </li>
           </ul>
         </nav>
       </div>

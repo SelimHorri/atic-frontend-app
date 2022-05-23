@@ -2,9 +2,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from 'src/app/model/location';
 import { PageResponse } from 'src/app/model/response/page/page-response';
-import { Saloon } from 'src/app/model/saloon';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { LocationService } from 'src/app/service/location.service';
 import { SaloonService } from 'src/app/service/saloon.service';
@@ -18,6 +16,7 @@ export class SaloonComponent implements OnInit {
   
   public saloons!: PageResponse;
   public locations!: PageResponse;
+  public pages!: Array<number>;
   
   constructor(private saloonService: SaloonService,
     private locationService: LocationService,
@@ -27,6 +26,10 @@ export class SaloonComponent implements OnInit {
   
   ngOnInit(): void {
     this.findAllSaloons();
+    this.pages = new Array<number>(this.saloons?.totalPages);
+    console.log(JSON.stringify(this.saloons))
+    // console.log(this.saloons?.totalPages)
+    // console.log(this.pages.length)
   }
   
   private findAll(): void {
@@ -46,6 +49,8 @@ export class SaloonComponent implements OnInit {
           this.saloonService.findAllWithOffset(p?.offset).subscribe({
             next: (saloonsPayload: any) => {
               this.saloons = saloonsPayload?.responseBody;
+              console.log(JSON.stringify(this.saloons))
+              this.pages = new Array<number>(this.saloons?.totalPages);
             },
             error: (errorResponse: HttpErrorResponse) => {
               this.errorHandlerService.extractExceptionMsg(errorResponse);
@@ -77,7 +82,7 @@ export class SaloonComponent implements OnInit {
               this.saloonService.findAllByLocationState(p?.state, q?.offset).subscribe({
                 next: (saloonsPayload: any) => {
                   this.saloons = saloonsPayload?.responseBody;
-                  console.log("saloons: " + JSON.stringify(this.saloons))
+                  this.pages = new Array<number>(this.saloons?.totalPages);
                 },
                 error: (errorResponse: HttpErrorResponse) => {
                   this.errorHandlerService.extractExceptionMsg(errorResponse);
@@ -94,11 +99,19 @@ export class SaloonComponent implements OnInit {
     this.saloonService.findAllByCode(code).subscribe({
       next: (saloonsPayload: any) => {
         this.saloons = saloonsPayload?.responseBody;
+        this.pages = new Array<number>(this.saloons?.totalPages);
       },
       error: (errorResponse: HttpErrorResponse) => {
         this.errorHandlerService.extractExceptionMsg(errorResponse);
       }
     });
+  }
+  
+  public onNavigatePagination(offset?: number): string {
+    const url: string = `/saloons?offset=${offset}`;
+    this.router.navigateByUrl(url);
+    // this.pages = new Array<number>(this.saloons?.totalPages);
+    return url;
   }
   
   
