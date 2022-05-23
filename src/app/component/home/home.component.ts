@@ -2,6 +2,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ExceptionMsg } from 'src/app/model/exception-msg';
+import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
 import { Tag } from 'src/app/model/tag';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
@@ -16,8 +17,8 @@ import { TagService } from 'src/app/service/tag.service';
 export class HomeComponent implements OnInit {
 
   public msg!: string;
-  public tags: Tag[] = [];
-  public saloons!: Saloon[];
+  public tags!: PageResponse;
+  public saloons!: PageResponse;
 
   constructor(private tagService: TagService,
     private saloonService: SaloonService,

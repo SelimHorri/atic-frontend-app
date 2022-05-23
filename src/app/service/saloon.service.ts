@@ -19,7 +19,7 @@ export class SaloonService {
   public findAllWithOffset(offset: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/offset/${offset}`)
         .pipe(map(payload => {
-          payload?.responseBody?.forEach((s: Saloon) => s.openingDate = new Date(s?.openingDate));
+          payload?.responseBody?.content?.forEach((s: Saloon) => s.openingDate = new Date(s?.openingDate));
           return payload;
         }));
   }
@@ -35,7 +35,7 @@ export class SaloonService {
   public findAllByCode(code: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/code/${code}`)
         .pipe(map((res: any) => {
-          res?.responseBody?.forEach((s: Saloon) => s.openingDate = new Date(s?.openingDate));
+          res?.responseBody?.content?.forEach((s: Saloon) => s.openingDate = new Date(s?.openingDate));
           return res;
     }));
   }

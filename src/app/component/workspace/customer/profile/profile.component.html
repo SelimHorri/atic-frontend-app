@@ -45,15 +45,15 @@
             </ul>
             <div class="row text-center mt-4">
               <div class="col p-2">
-                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.reservations?.length }}</h4>
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.reservations?.content?.length }}</h4>
                 <small class="mb-0 font-weight-bold">Reservations</small>
               </div>
               <div class="col p-2">
-                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.favourites?.length }}</h4>
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.favourites?.content?.length }}</h4>
                 <small class="mb-0 font-weight-bold">Favourites</small>
               </div>
               <div class="col p-2">
-                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.ratings?.length }}</h4>
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.ratings?.content?.length }}</h4>
                 <small class="mb-0 font-weight-bold">Ratings</small>
               </div>
             </div>
@@ -247,7 +247,7 @@
                     </div>
                   </form>
 
-                  <div *ngIf="customerProfileResponse?.reservations?.length !== 0">
+                  <div *ngIf="customerProfileResponse?.reservations?.content?.length !== 0">
                     <br>
                     <hr>
                     <br>
@@ -256,7 +256,7 @@
                     <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Some
                       Reservations
                       notifs: </h5>
-                    <table *ngFor="let r of customerProfileResponse?.reservations" class="table table-hover ">
+                    <table *ngFor="let r of customerProfileResponse?.reservations?.content" class="table table-hover ">
                       <tbody>
                         <tr>
                           <td>

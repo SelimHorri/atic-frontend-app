@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from 'src/app/model/location';
+import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { LocationService } from 'src/app/service/location.service';
@@ -15,8 +16,8 @@ import { SaloonService } from 'src/app/service/saloon.service';
 })
 export class SaloonComponent implements OnInit {
   
-  public saloons: Saloon[] = [];
-  public locations: Location[] = [];
+  public saloons!: PageResponse;
+  public locations!: PageResponse;
   
   constructor(private saloonService: SaloonService,
     private locationService: LocationService,
@@ -76,6 +77,7 @@ export class SaloonComponent implements OnInit {
               this.saloonService.findAllByLocationState(p?.state, q?.offset).subscribe({
                 next: (saloonsPayload: any) => {
                   this.saloons = saloonsPayload?.responseBody;
+                  console.log("saloons: " + JSON.stringify(this.saloons))
                 },
                 error: (errorResponse: HttpErrorResponse) => {
                   this.errorHandlerService.extractExceptionMsg(errorResponse);

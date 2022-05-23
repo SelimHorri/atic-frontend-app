@@ -15,13 +15,13 @@
               <div class="col-lg-10 col-xl-12">
                 <div class="cart-container">
                   <div class="cart-head">
-                    <div class="table-responsive" *ngIf="orderedServiceDetails?.serviceDetails?.length !== 0">
+                    <div class="table-responsive" *ngIf="orderedServiceDetails?.serviceDetails?.content?.length !== 0">
                       <table class="table table-borderless">
                         <thead>
                           <tr>
                             <th
                               *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()">
-                              <a (click)="onOpenModal(reservationDetails.reservation.saloon, orderedServiceDetails.serviceDetails, 'addServiceDetail')"
+                              <a (click)="onOpenModal(reservationDetails.reservation.saloon, orderedServiceDetails.serviceDetails.content, 'addServiceDetail')"
                                 href="javascript:void();" class="btn text-primary ">
                                 <i class="ri-shield-cross-fill"></i>
                                 Add
@@ -40,7 +40,7 @@
                               scope="col" class="text-right">Remove</th>
                           </tr>
                         </thead>
-                        <tbody *ngFor="let s of orderedServiceDetails?.serviceDetails">
+                        <tbody *ngFor="let s of orderedServiceDetails?.serviceDetails?.content">
                           <tr>
                             <th scope="row"
                               *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()">
@@ -180,7 +180,7 @@
           <!-- <input type="hidden" [ngModel]="reservationDetails?.reservation?.id" name="reservationId" /> -->
           <select name="serviceDetailId" ngModel class="form-select" aria-label="Default select example">
             <option selected value="">==> Select a valid service <==</option>
-            <option *ngFor="let s of allServiceDetails" value="{{ s?.id }}">
+            <option *ngFor="let s of allServiceDetails?.content" value="{{ s?.id }}">
               {{ s?.name | uppercase }}
             </option>
           </select>

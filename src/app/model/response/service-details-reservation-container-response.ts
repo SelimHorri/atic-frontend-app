@@ -1,13 +1,12 @@
 
 import { Category } from "../category";
-import { OrderedDetail } from "../ordered-detail";
-import { ServiceDetail } from "../service-detail";
+import { PageResponse } from "./page/page-response";
 
 export class ServiceDetailsReservationContainerResponse {
   
   constructor(
-    public orderedDetails: OrderedDetail[],
-    public serviceDetails: ServiceDetail[],
+    public orderedDetails: PageResponse,
+    public serviceDetails: PageResponse,
     public category: Category) {
   }
   

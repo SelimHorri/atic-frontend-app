@@ -61,7 +61,7 @@ export class ReservationService {
       }
     })
     .pipe(map(payload => {
-      payload?.responseBody?.orderedDetails?.map((o: any) => 
+      payload?.responseBody?.orderedDetails?.content?.map((o: any) => 
             o.orderedDate = moment(o?.orderedDate, DateBackendFormat.LOCAL_DATE_TIME).toDate());
       payload.responseBody.reservation.startDate = moment(payload?.responseBody?.reservation?.startDate, 
             DateBackendFormat.LOCAL_DATE_TIME).toDate();

@@ -2,6 +2,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Reservation } from 'src/app/model/reservation';
+import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
 import { Task } from 'src/app/model/task';
 import { CredentialService } from 'src/app/service/credential.service';
@@ -19,7 +20,7 @@ import { TaskService } from 'src/app/service/task.service';
 export class ReservationComponent implements OnInit {
   
   public accountUrl!: string;
-  public reservations!: Reservation[];
+  public reservations!: PageResponse;
   public tasks!: Task[];
   public relatedSaloon!: Saloon;
   
@@ -37,18 +38,18 @@ export class ReservationComponent implements OnInit {
   }
   
   public getCompletedReservations(): Reservation[] {
-    return this.reservationService.getCompletedReservations(this.reservations);
+    return this.reservationService.getCompletedReservations(this.reservations?.content);
   }
   
   public getPendingReservations(): Reservation[] {
-    return this.reservationService.getPendingReservations(this.reservations);
+    return this.reservationService.getPendingReservations(this.reservations?.content);
   }
   
   public getReservations(): void {
     this.customerService.getReservations().subscribe({
       next: (customerReservationPayload: any) => {
         this.reservations = customerReservationPayload?.responseBody?.reservations;
-        this.reservations.forEach(r => {
+        this.reservations?.content.forEach(r => {
           // this.tasks = this.getAssignedWorkers(r?.id);
           // this.findSaloonById(r?.saloon?.id);
         });
@@ -78,7 +79,7 @@ export class ReservationComponent implements OnInit {
   
   public searchBy(key: string): void {
     let res: Reservation[] = [];
-    this.reservations.forEach(r => {
+    this.reservations?.content.forEach(r => {
       if (`REF-${r?.code}`.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || r.startDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
           || r.cancelDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
@@ -87,7 +88,7 @@ export class ReservationComponent implements OnInit {
         res.push(r);
     });
     
-    this.reservations = res;
+    this.reservations.content = res;
     if (res.length === 0 || !key)
       this.getReservations();
   }

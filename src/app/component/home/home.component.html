@@ -171,7 +171,7 @@
           <div class="card-header">Tags you might be interested in</div>
           <div class="card-body">
             <div class="row">
-              <div *ngFor="let tag of tags" class="col-sm-6">
+              <div *ngFor="let tag of tags?.content" class="col-sm-6">
                 <ul class="list-unstyled mb-0">
                   <li><a routerLink="">{{ tag?.name | uppercase }}</a></li>
                 </ul>

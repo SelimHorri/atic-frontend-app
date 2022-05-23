@@ -10,6 +10,7 @@ import { OrderedDetailRequest } from 'src/app/model/request/ordered-detail-reque
 import { ReservationDetailRequest } from 'src/app/model/request/reservation-detail-request';
 import { ApiPayloadReservationContainerResponse } from 'src/app/model/response/api/api-payload-reservation-container-response';
 import { ApiPayloadServiceDetailsReservationContainerResponse } from 'src/app/model/response/api/api-payload-service-details-reservation-container-response';
+import { PageResponse } from 'src/app/model/response/page/page-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
 import { ServiceDetailsReservationContainerResponse } from 'src/app/model/response/service-details-reservation-container-response';
 import { Saloon } from 'src/app/model/saloon';
@@ -30,7 +31,7 @@ export class ReservationDetailsComponent implements OnInit {
   public accountUrl!: string;
   public reservationDetails!: ReservationContainerResponse;
   public orderedServiceDetails!: ServiceDetailsReservationContainerResponse;
-  public allServiceDetails: ServiceDetail[] = [];
+  public allServiceDetails!: PageResponse;
   public msg: string = "";
   
   constructor(private reservationService: ReservationService,
@@ -50,7 +51,7 @@ export class ReservationDetailsComponent implements OnInit {
   public calculateTotalAmount(): number {
     
     let amount: number = 0;
-    this.orderedServiceDetails?.serviceDetails?.map(s => {
+    this.orderedServiceDetails?.serviceDetails?.content?.map(s => {
       amount += s?.priceUnit;
     });
     
@@ -60,7 +61,7 @@ export class ReservationDetailsComponent implements OnInit {
   public calculateTotalDuration(): number {
 
     let totalDuration: number = 0;
-    this.orderedServiceDetails?.serviceDetails?.map(s => {
+    this.orderedServiceDetails?.serviceDetails?.content?.map(s => {
       totalDuration += s?.duration;
     });
 
@@ -71,7 +72,7 @@ export class ReservationDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe({
       next: (p: any) =>
         this.reservationService.getReservationDetails(p.reservationId).subscribe({
-          next: (reservationDetailsPayload: ApiPayloadReservationContainerResponse) =>
+          next: (reservationDetailsPayload: any) =>
               this.reservationDetails = reservationDetailsPayload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         })
@@ -82,7 +83,7 @@ export class ReservationDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe({
       next: (p:any) => {
         this.serviceDetailService.getOrderedServiceDetailsByReservationId(p.reservationId).subscribe({
-          next: (orderedServiceDetailsPayload: ApiPayloadServiceDetailsReservationContainerResponse) =>
+          next: (orderedServiceDetailsPayload: any) =>
             this.orderedServiceDetails = orderedServiceDetailsPayload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
@@ -137,7 +138,7 @@ export class ReservationDetailsComponent implements OnInit {
     this.serviceDetailService.findAllByCategorySaloonId(saloon.id).subscribe({
       next: (serviceDetailsPayload: any) => {
         this.allServiceDetails = serviceDetailsPayload?.responseBody;
-        existingServiceDetails?.forEach(existing => this.allServiceDetails?.filter(s => s.id === existing.id));
+        existingServiceDetails?.forEach(existing => this.allServiceDetails?.content?.filter(s => s.id === existing.id));
       },
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });

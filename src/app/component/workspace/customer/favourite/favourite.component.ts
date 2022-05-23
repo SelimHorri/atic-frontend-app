@@ -33,7 +33,7 @@ export class FavouriteComponent implements OnInit {
     this.customerService.getFavourites().subscribe({
       next: (customerFavouritePayload: any) => {
         this.customerFavouriteResponse = customerFavouritePayload?.responseBody;
-        this.customerFavouriteResponse?.favourites?.forEach(f => {
+        this.customerFavouriteResponse?.favourites?.content?.forEach(f => {
           this.saloonService.findById(f?.saloonId).subscribe({
             next: (saloonPayload: any) => {
               this.saloons.push(saloonPayload?.responseBody);

@@ -42,7 +42,7 @@ export class CustomerService {
     })
     .pipe(map(res => {
       res.responseBody.customer.birthdate = new Date(res?.responseBody?.customer?.birthdate);
-      res?.responseBody?.favourites?.map((f: any) => 
+      res?.responseBody?.favourites?.content?.map((f: any) => 
             f.favouriteDate = moment(f?.favouriteDate, DateBackendFormat.LOCAL_DATE_TIME).toDate());
       return res;
     }));
@@ -56,7 +56,7 @@ export class CustomerService {
       }
     }).pipe(map((payload: any) => {
       payload.responseBody.customer.birthdate = new Date(payload?.responseBody?.customer?.birthdate);
-      payload?.responseBody?.reservations?.map((r: any) => {
+      payload?.responseBody?.reservations?.content?.map((r: any) => {
         r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       });
