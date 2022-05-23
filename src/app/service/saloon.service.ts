@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiPayloadSaloon } from '../model/response/api/api-payload-saloon';
 import { Saloon } from '../model/saloon';
 
 @Injectable({
@@ -25,8 +24,8 @@ export class SaloonService {
         }));
   }
   
-  public findById(id: number): Observable<ApiPayloadSaloon> {
-    return this.http.get<ApiPayloadSaloon>(`${this.apiUrl}/${id}`)
+  public findById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`)
         .pipe(map(res => {
           res.responseBody.openingDate = new Date(res?.responseBody?.openingDate);
           return res;

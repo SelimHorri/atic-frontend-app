@@ -3,8 +3,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoginRequest } from 'src/app/model/request/login-request';
-import { ApiPayloadCredential } from 'src/app/model/response/api/api-payload-credential';
-import { ApiPayloadLoginResponse } from 'src/app/model/response/api/api-payload-login-response';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
@@ -60,12 +58,12 @@ export class AuthenticationComponent implements OnInit {
   
   public onLogin(loginRequest: LoginRequest): void {
     this.authenticationService.authenticate(loginRequest).subscribe({
-      next: (payload: ApiPayloadLoginResponse) => {
+      next: (payload: any) => {
         sessionStorage.setItem("username", payload?.responseBody?.username);
         sessionStorage.setItem("jwtToken", payload?.responseBody?.jwtToken);
         
         this.credentialService.findByUsername(payload.responseBody.username).subscribe({
-          next: (credentialPayload: ApiPayloadCredential) => {
+          next: (credentialPayload: any) => {
             
             const userRole: string = this.credentialService.getUserRole(credentialPayload?.responseBody?.role);
             sessionStorage.setItem("userRole", userRole.toUpperCase());

@@ -2,8 +2,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Reservation } from 'src/app/model/reservation';
-import { ApiPayloadCustomerReservationResponse } from 'src/app/model/response/api/api-payload-customer-reservation-response';
-import { ApiPayloadTaskList } from 'src/app/model/response/api/api-payload-task-list';
 import { Saloon } from 'src/app/model/saloon';
 import { Task } from 'src/app/model/task';
 import { CredentialService } from 'src/app/service/credential.service';
@@ -48,7 +46,7 @@ export class ReservationComponent implements OnInit {
   
   public getReservations(): void {
     this.customerService.getReservations().subscribe({
-      next: (customerReservationPayload: ApiPayloadCustomerReservationResponse) => {
+      next: (customerReservationPayload: any) => {
         this.reservations = customerReservationPayload?.responseBody?.reservations;
         this.reservations.forEach(r => {
           // this.tasks = this.getAssignedWorkers(r?.id);
@@ -63,7 +61,7 @@ export class ReservationComponent implements OnInit {
   
   public findAllByReservationId(reservationId: number): void {
     this.taskService.findAllByReservationId(reservationId).subscribe({
-      next: (tasksPayload: ApiPayloadTaskList) => {
+      next: (tasksPayload: any) => {
         this.tasks = tasksPayload?.responseBody;
         console.log(JSON.stringify(this.tasks));
       },

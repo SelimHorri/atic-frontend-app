@@ -1,8 +1,6 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ApiPayloadCustomerFavouriteResponse } from 'src/app/model/response/api/api-payload-customer-favourite-response';
-import { ApiPayloadSaloon } from 'src/app/model/response/api/api-payload-saloon';
 import { CustomerFavouriteResponse } from 'src/app/model/response/customer-favourite-response';
 import { Saloon } from 'src/app/model/saloon';
 import { CredentialService } from 'src/app/service/credential.service';
@@ -33,11 +31,11 @@ export class FavouriteComponent implements OnInit {
   
   public getFavourites():void {
     this.customerService.getFavourites().subscribe({
-      next: (customerFavouritePayload: ApiPayloadCustomerFavouriteResponse) => {
+      next: (customerFavouritePayload: any) => {
         this.customerFavouriteResponse = customerFavouritePayload?.responseBody;
         this.customerFavouriteResponse?.favourites?.forEach(f => {
           this.saloonService.findById(f?.saloonId).subscribe({
-            next: (saloonPayload: ApiPayloadSaloon) => {
+            next: (saloonPayload: any) => {
               this.saloons.push(saloonPayload?.responseBody);
             },
             error: (errorResponse: HttpErrorResponse) => {

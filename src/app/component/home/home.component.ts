@@ -2,9 +2,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ExceptionMsg } from 'src/app/model/exception-msg';
-import { ApiPayloadDExceptionMsg } from 'src/app/model/response/api/api-payload-d-exception-msg';
-import { ApiPayloadSaloonList } from 'src/app/model/response/api/api-payload-saloon-list';
-import { ApiPayloadTag } from 'src/app/model/response/api/api-payload-tag';
 import { Saloon } from 'src/app/model/saloon';
 import { Tag } from 'src/app/model/tag';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
@@ -47,7 +44,7 @@ export class HomeComponent implements OnInit {
 
   public findAllTags(offset: number): void {
     this.tagService.findAll(offset).subscribe({
-      next: (payload: ApiPayloadTag) => {
+      next: (payload: any) => {
         this.tags = payload?.responseBody;
         console.log(JSON.stringify(this.tags));
       },
@@ -61,7 +58,7 @@ export class HomeComponent implements OnInit {
   
   public findAllWithOffset(offset: number): void {
     this.saloonService.findAllWithOffset(offset).subscribe({
-      next: (res: ApiPayloadSaloonList) => {
+      next: (res: any) => {
         this.saloons = res?.responseBody;
       },
       error: (errorResponse: HttpErrorResponse) => {

@@ -1,9 +1,8 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from 'src/app/model/location';
-import { ApiPayloadSaloonList } from 'src/app/model/response/api/api-payload-saloon-list';
 import { Saloon } from 'src/app/model/saloon';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { LocationService } from 'src/app/service/location.service';
@@ -44,7 +43,7 @@ export class SaloonComponent implements OnInit {
             }
           });
           this.saloonService.findAllWithOffset(p?.offset).subscribe({
-            next: (saloonsPayload: ApiPayloadSaloonList) => {
+            next: (saloonsPayload: any) => {
               this.saloons = saloonsPayload?.responseBody;
             },
             error: (errorResponse: HttpErrorResponse) => {
@@ -75,7 +74,7 @@ export class SaloonComponent implements OnInit {
                 }
               });
               this.saloonService.findAllByLocationState(p?.state, q?.offset).subscribe({
-                next: (saloonsPayload: ApiPayloadSaloonList) => {
+                next: (saloonsPayload: any) => {
                   this.saloons = saloonsPayload?.responseBody;
                 },
                 error: (errorResponse: HttpErrorResponse) => {

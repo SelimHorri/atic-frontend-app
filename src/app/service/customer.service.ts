@@ -6,8 +6,6 @@ import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DateBackendFormat } from '../model/date-backend-format';
 import { Reservation } from '../model/reservation';
-import { ApiPayloadCustomerFavouriteResponse } from '../model/response/api/api-payload-customer-favourite-response';
-import { ApiPayloadCustomerReservationResponse } from '../model/response/api/api-payload-customer-reservation-response';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +33,8 @@ export class CustomerService {
     );
   }
   
-  public getFavourites(): Observable<ApiPayloadCustomerFavouriteResponse> {
-    return this.http.get<ApiPayloadCustomerFavouriteResponse>(`${this.apiUrl}/favourites`, {
+  public getFavourites(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/favourites`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
@@ -44,21 +42,21 @@ export class CustomerService {
     })
     .pipe(map(res => {
       res.responseBody.customer.birthdate = new Date(res?.responseBody?.customer?.birthdate);
-      res?.responseBody?.favourites?.map(f => 
+      res?.responseBody?.favourites?.map((f: any) => 
             f.favouriteDate = moment(f?.favouriteDate, DateBackendFormat.LOCAL_DATE_TIME).toDate());
       return res;
     }));
   }
   
-  public getReservations(): Observable<ApiPayloadCustomerReservationResponse> {
-    return this.http.get<ApiPayloadCustomerReservationResponse>(`${this.apiUrl}/reservations`, {
+  public getReservations(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/reservations`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
-    }).pipe(map((payload: ApiPayloadCustomerReservationResponse) => {
+    }).pipe(map((payload: any) => {
       payload.responseBody.customer.birthdate = new Date(payload?.responseBody?.customer?.birthdate);
-      payload?.responseBody?.reservations?.map(r => {
+      payload?.responseBody?.reservations?.map((r: any) => {
         r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       });
