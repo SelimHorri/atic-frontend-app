@@ -28,8 +28,6 @@ export class SaloonComponent implements OnInit {
     this.findAllSaloons();
     this.pages = new Array<number>(this.saloons?.totalPages);
     console.log(JSON.stringify(this.saloons))
-    // console.log(this.saloons?.totalPages)
-    // console.log(this.pages.length)
   }
   
   private findAll(): void {
@@ -107,10 +105,13 @@ export class SaloonComponent implements OnInit {
     });
   }
   
-  public onNavigatePagination(offset?: number): string {
+  public onNavigatePagination(offset?: number, newTotalPages?: number): string | void {
     const url: string = `/saloons?offset=${offset}`;
     this.router.navigateByUrl(url);
-    // this.pages = new Array<number>(this.saloons?.totalPages);
+    if (newTotalPages === undefined)
+      this.pages = new Array<number>(this.saloons?.totalPages);
+    else 
+      this.pages = new Array<number>(newTotalPages);
     return url;
   }
   

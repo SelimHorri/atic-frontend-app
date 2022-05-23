@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="container-fluid" *ngIf="saloons?.content?.length !== 0">
-        <p class="search-results-count">About {{ saloons?.content?.length }} (0.0039 sec.) results</p>
+        <p class="search-results-count">About {{ saloons?.numberOfElements }}/{{ saloons?.totalElements }} (0.0039 sec.) results</p>
         <div *ngFor="let s of saloons?.content">
           <section class="search-result-item">
             <a class="image-link" href="javascript:void();" (click)="getAllByCode(s.code)"><img class="image"
