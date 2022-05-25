@@ -60,6 +60,7 @@ export class ReservationComponent implements OnInit {
     });
   }
   
+  /*
   public findAllByReservationId(reservationId: number): void {
     this.taskService.findAllByReservationId(reservationId).subscribe({
       next: (tasksPayload: any) => {
@@ -76,6 +77,7 @@ export class ReservationComponent implements OnInit {
     this.findAllByReservationId(reservationId);
     return this.tasks;
   }
+  */
   
   public searchBy(key: string): void {
     let res: Reservation[] = [];

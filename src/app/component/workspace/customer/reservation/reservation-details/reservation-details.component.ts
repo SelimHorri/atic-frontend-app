@@ -5,11 +5,10 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { ExceptionMsg } from 'src/app/model/exception-msg';
+import { OrderedDetail } from 'src/app/model/ordered-detail';
 import { OrderedDetailId } from 'src/app/model/ordered-detail-id';
 import { OrderedDetailRequest } from 'src/app/model/request/ordered-detail-request';
 import { ReservationDetailRequest } from 'src/app/model/request/reservation-detail-request';
-import { ApiPayloadReservationContainerResponse } from 'src/app/model/response/api/api-payload-reservation-container-response';
-import { ApiPayloadServiceDetailsReservationContainerResponse } from 'src/app/model/response/api/api-payload-service-details-reservation-container-response';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
 import { ServiceDetailsReservationContainerResponse } from 'src/app/model/response/service-details-reservation-container-response';
@@ -81,10 +80,11 @@ export class ReservationDetailsComponent implements OnInit {
   
   public getOrderedServiceDetails(): void {
     this.activatedRoute.params.subscribe({
-      next: (p:any) => {
+      next: (p: any) => {
         this.serviceDetailService.getOrderedServiceDetailsByReservationId(p.reservationId).subscribe({
-          next: (orderedServiceDetailsPayload: any) =>
-            this.orderedServiceDetails = orderedServiceDetailsPayload?.responseBody,
+          next: (orderedServiceDetailsPayload: any) => {
+            this.orderedServiceDetails = orderedServiceDetailsPayload?.responseBody;
+          },
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
       }

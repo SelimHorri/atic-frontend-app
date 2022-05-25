@@ -40,6 +40,15 @@ export class OrderedDetailService {
     });
   }
   
+  public findById(orderedDetailId: OrderedDetailId): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/reservationId/${orderedDetailId?.reservationId}/serviceDetailId/${orderedDetailId?.serviceDetailId}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    });
+  }
+  
   
   
 }
