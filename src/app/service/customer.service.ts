@@ -48,7 +48,7 @@ export class CustomerService {
     .pipe(map(res => {
       res.responseBody.customer.birthdate = new Date(res?.responseBody?.customer?.birthdate);
       res?.responseBody?.favourites?.content?.map((f: any) => 
-            f.favouriteDate = moment(f?.favouriteDate, DateBackendFormat.LOCAL_DATE_TIME).toDate());
+          f.favouriteDate = moment(f?.favouriteDate, DateBackendFormat.LOCAL_DATE_TIME).toDate());
       return res;
     }));
   }

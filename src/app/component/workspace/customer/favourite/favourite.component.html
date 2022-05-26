@@ -57,7 +57,8 @@
                   </div>
                   <div class="row" *ngIf="customerFavouriteResponse?.favourites?.content?.length !== 0">
                     <div class="col-lg-6">
-                      <div class="records">Showing: <b>1-20</b> of <b>200</b> result</div>
+                      <div class="records">Showing: <b>1-{{ customerFavouriteResponse?.favourites?.numberOfElements }}</b>
+                        of <b>{{ customerFavouriteResponse?.favourites?.totalElements }}</b> result</div>
                     </div>
                     <div class="col-lg-6">
                       <div class="result-actions">
@@ -108,7 +109,7 @@
                         <th>Opened at</th>
                         <th>Email</th>
                         <th>Address</th>
-                        <!-- <th>Location</th> -->
+                        <th>Location</th>
                         <th>Action</th>
                       </thead>
                       <tbody *ngFor="let s of saloons">
@@ -130,9 +131,10 @@
                           <td>
                             {{ s?.isPrimary }}
                           </td>
-                          <td>{{ s?.openingDate }}</td>
+                          <td>{{ s?.openingDate | date: 'dd MMM yyyy' }}</td>
                           <td>{{ s?.email | lowercase }}</td>
                           <td>{{ s?.fullAdr }}</td>
+                          <td>{{ s?.location?.zipcode }} {{ s?.location?.city | uppercase }} {{ s?.location?.state | uppercase }}</td>
                           <td>
                             <div class="text-center widget-26-job-starred">
                               <a href="javascript:void();" (click)="removeFavourite(s.id)">

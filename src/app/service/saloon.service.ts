@@ -1,8 +1,10 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { DateBackendFormat } from '../model/date-backend-format';
 import { Saloon } from '../model/saloon';
 
 @Injectable({
@@ -19,7 +21,7 @@ export class SaloonService {
   public findAllWithOffset(offset: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/offset/${offset}`)
         .pipe(map(payload => {
-          payload?.responseBody?.content?.forEach((s: Saloon) => s.openingDate = new Date(s?.openingDate));
+          payload?.responseBody?.content?.forEach((s: Saloon) => s.openingDate = moment(s?.openingDate, DateBackendFormat.LOCAL_DATE).toDate());
           return payload;
         }));
   }
@@ -27,7 +29,7 @@ export class SaloonService {
   public findById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`)
         .pipe(map(res => {
-          res.responseBody.openingDate = new Date(res?.responseBody?.openingDate);
+          res.responseBody.openingDate = moment(res?.responseBody?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
           return res;
     }));
   }
@@ -35,7 +37,7 @@ export class SaloonService {
   public findAllByCode(code: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/code/${code}`)
         .pipe(map((res: any) => {
-          res?.responseBody?.content?.forEach((s: Saloon) => s.openingDate = new Date(s?.openingDate));
+          res?.responseBody?.content?.forEach((s: Saloon) => s.openingDate = moment(s?.openingDate, DateBackendFormat.LOCAL_DATE).toDate());
           return res;
     }));
   }
