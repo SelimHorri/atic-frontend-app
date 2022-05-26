@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { CustomerFavouriteResponse } from 'src/app/model/response/customer-favourite-response';
+import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
 import { CredentialService } from 'src/app/service/credential.service';
 import { CustomerService } from 'src/app/service/customer.service';
@@ -20,7 +21,8 @@ export class FavouriteComponent implements OnInit {
   public accountUrl!: string;
   public customerFavouriteResponse!: CustomerFavouriteResponse;
   public saloons: Saloon[] = [];
-  // public pages: number[] = [];
+  // public favourites!: PageResponse;
+  public pages: number[] = [];
   
   constructor(private customerService: CustomerService,
     private credentialService: CredentialService,
@@ -43,11 +45,12 @@ export class FavouriteComponent implements OnInit {
           this.customerService.getFavourites(new ClientPageRequest(q?.offset, q?.size)).subscribe({
             next: (customerFavouritePayload: any) => {
               this.customerFavouriteResponse = customerFavouritePayload?.responseBody;
+              this.pages = new Array<number>(this.customerFavouriteResponse?.favourites?.totalPages);
               this.customerFavouriteResponse?.favourites?.content?.forEach(f => {
                 this.saloonService.findById(f?.saloonId).subscribe({
                   next: (saloonPayload: any) => {
                     this.saloons.push(saloonPayload?.responseBody);
-                    // this.pages = saloonPayload?.responseBody;
+                    // this.favourites = this.customerFavouriteResponse?.favourites;
                   },
                   error: (errorResponse: HttpErrorResponse) => {
                     this.errorHandlerService.extractExceptionMsg(errorResponse);
@@ -62,6 +65,13 @@ export class FavouriteComponent implements OnInit {
         }
       }
     });
+  }
+  
+  public onNavigatePagination(offset?: number): string | void {
+    const url: string = `/workspace/${this.accountUrl}/favourites?offset=${offset}`;
+    // this.router.navigateByUrl(url);
+    window.location.replace(url); // cause of the forloop in getFavourites()
+    return url;
   }
   
   public removeFavourite(saloonId: number): void {
