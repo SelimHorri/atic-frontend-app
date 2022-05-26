@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DateBackendFormat } from '../model/date-backend-format';
+import { ClientPageRequest } from '../model/request/client-page-request';
 import { Reservation } from '../model/reservation';
 
 @Injectable({
@@ -33,8 +34,12 @@ export class CustomerService {
     );
   }
   
-  public getFavourites(): Observable<any> {
+  public getFavourites(clientPageRequest: ClientPageRequest): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/favourites`, {
+      params: {
+        offset: `${clientPageRequest?.offset}`,
+        size: `${clientPageRequest?.size}`
+      },
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,

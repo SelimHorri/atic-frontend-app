@@ -41,7 +41,11 @@ export class SaloonService {
   }
   
   public findAllByLocationState(state: string, offset: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/locations/state/${state}?offset=${offset}`);
+    return this.http.get<any>(`${this.apiUrl}/locations/state/${state}`, {
+      params: {
+        offset: `${offset}`
+      }
+    });
   }
   
   

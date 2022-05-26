@@ -45,15 +45,15 @@
             </ul>
             <div class="row text-center mt-4">
               <div class="col p-2">
-                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.reservations?.content?.length }}</h4>
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.reservations?.totalElements }}</h4>
                 <small class="mb-0 font-weight-bold">Reservations</small>
               </div>
               <div class="col p-2">
-                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.favourites?.content?.length }}</h4>
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.favourites?.totalElements }}</h4>
                 <small class="mb-0 font-weight-bold">Favourites</small>
               </div>
               <div class="col p-2">
-                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.ratings?.content?.length }}</h4>
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.ratings?.totalElements }}</h4>
                 <small class="mb-0 font-weight-bold">Ratings</small>
               </div>
             </div>

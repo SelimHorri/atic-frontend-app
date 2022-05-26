@@ -29,6 +29,7 @@ import { ReservationDetailsComponent as CustomerReservationDetailsComponent } fr
 import { AssignedWorkerComponent as CustomerAssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
 import { SaloonComponent } from './component/saloon/saloon.component';
 import { LocationComponent } from './component/location/location.component';
+import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-detail.component';
 
 const routes: Routes = [
   
@@ -45,7 +46,7 @@ const routes: Routes = [
       { path: "locations/:state/saloons", component: SaloonComponent },
       
       { path: "saloons", component: SaloonComponent },
-      // { path: "saloons/:id", component: SaloonComponent },
+      { path: "saloons/:id", component: SaloonDetailComponent },
       // { path: "saloons/code/:code", component: SaloonComponent },
       
       { path: "logout", component: LogoutComponent },
