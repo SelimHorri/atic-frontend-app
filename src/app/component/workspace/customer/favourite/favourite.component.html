@@ -117,8 +117,8 @@
                           <td>#</td>
                           <td>
                             <div class="widget-26-job-title">
-                              <a href="#">{{ s?.name | uppercase }}</a>
-                              <p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span
+                              <a routerLink="/saloons/{{ s?.id }}">{{ s?.name | uppercase }}</a>
+                              <p class="m-0"><a class="employer-name">Axiom Corp.</a> <span
                                   class="text-muted time">6 days ago</span></p>
                             </div>
                           </td>
@@ -164,10 +164,8 @@
                     <span class="sr-only">Previous</span>
                   </a>
                 </li>
-                <li class="page-item active"><a class="page-link no-border" href="#">1</a></li>
-                <li class="page-item"><a class="page-link no-border" href="#">2</a></li>
-                <li class="page-item"><a class="page-link no-border" href="#">3</a></li>
-                <li class="page-item"><a class="page-link no-border" href="#">4</a></li>
+                <li *ngFor="" class="page-item active"><a
+                    class="page-link no-border" href="#">1</a></li>
                 <li class="page-item">
                   <a class="page-link no-border" href="#">
                     <span aria-hidden="true">»</span>

@@ -20,6 +20,7 @@ export class FavouriteComponent implements OnInit {
   public accountUrl!: string;
   public customerFavouriteResponse!: CustomerFavouriteResponse;
   public saloons: Saloon[] = [];
+  // public pages: number[] = [];
   
   constructor(private customerService: CustomerService,
     private credentialService: CredentialService,
@@ -46,6 +47,7 @@ export class FavouriteComponent implements OnInit {
                 this.saloonService.findById(f?.saloonId).subscribe({
                   next: (saloonPayload: any) => {
                     this.saloons.push(saloonPayload?.responseBody);
+                    // this.pages = saloonPayload?.responseBody;
                   },
                   error: (errorResponse: HttpErrorResponse) => {
                     this.errorHandlerService.extractExceptionMsg(errorResponse);
