@@ -39,6 +39,9 @@ import { HealthLivenessService } from './service/health-liveness.service';
 import { SaloonComponent } from './component/saloon/saloon.component';
 import { LocationComponent } from './component/location/location.component';
 import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-detail.component';
+import { ToastNoAnimationModule, ToastrModule, ToastrService } from 'ngx-toastr';
+import { NotificationService } from './service/notification.service';
+import { EmployeeService } from './service/employee.service';
 
 @NgModule({
   declarations: [
@@ -69,6 +72,8 @@ import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-d
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
+    ToastNoAnimationModule.forRoot(),
   ],
   providers: [
     AuthenticationService,
@@ -84,6 +89,9 @@ import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-d
     ServiceDetailService,
     OrderedDetailService,
     HealthLivenessService,
+    EmployeeService,
+    ToastrService,
+    NotificationService,
   ],
   bootstrap: [AppComponent]
 })

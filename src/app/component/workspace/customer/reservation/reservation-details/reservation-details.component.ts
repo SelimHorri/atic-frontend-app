@@ -16,6 +16,7 @@ import { Saloon } from 'src/app/model/saloon';
 import { ServiceDetail } from 'src/app/model/service-detail';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { OrderedDetailService } from 'src/app/service/ordered-detail.service';
 import { ReservationService } from 'src/app/service/reservation.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
@@ -37,6 +38,7 @@ export class ReservationDetailsComponent implements OnInit {
     private credentialService: CredentialService,
     private serviceDetailService: ServiceDetailService,
     private orderedDetailService: OrderedDetailService,
+    private notificationService: NotificationService,
     private errorHandlerService: ErrorHandlerService,
     private activatedRoute: ActivatedRoute) {}
   
@@ -48,7 +50,6 @@ export class ReservationDetailsComponent implements OnInit {
   }
   
   public calculateTotalAmount(): number {
-    
     let amount: number = 0;
     this.orderedServiceDetails?.serviceDetails?.content?.map(s => {
       amount += s?.priceUnit;
@@ -58,7 +59,6 @@ export class ReservationDetailsComponent implements OnInit {
   }
   
   public calculateTotalDuration(): number {
-
     let totalDuration: number = 0;
     this.orderedServiceDetails?.serviceDetails?.content?.map(s => {
       totalDuration += s?.duration;
@@ -111,7 +111,7 @@ export class ReservationDetailsComponent implements OnInit {
         this.reservationService.updateReservationDetails(new ReservationDetailRequest(p?.reservationId, 
             descriptionObj?.description)).subscribe({
           next: (reservationDetailPayload: any) => {
-            
+            this.notificationService.showSuccess({message: "Reservation detail has been updated successfully...", title: "Updated!"});
           },
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
