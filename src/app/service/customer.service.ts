@@ -28,7 +28,8 @@ export class CustomerService {
     })
     .pipe(
       map((res: any) => {
-        res.responseBody.customer.birthdate = new Date(res?.responseBody?.customer?.birthdate);
+        res.responseBody.customer.birthdate = moment(res?.responseBody?.customer?.birthdate, 
+              DateBackendFormat.LOCAL_DATE).toDate();
         return res;
       })
     );
@@ -53,8 +54,12 @@ export class CustomerService {
     }));
   }
   
-  public getReservations(): Observable<any> {
+  public getReservations(clientPageRequest: ClientPageRequest): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/reservations`, {
+      params: {
+        offset: `${clientPageRequest.offset}`,
+        size: `${clientPageRequest.size}`
+      },
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,

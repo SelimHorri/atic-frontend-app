@@ -1,6 +1,9 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Action } from 'rxjs/internal/scheduler/Action';
+import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { Reservation } from 'src/app/model/reservation';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
@@ -25,18 +28,21 @@ export class ReservationComponent implements OnInit {
   public reservations!: PageResponse;
   public tasks!: Task[];
   public relatedSaloon!: Saloon;
+  public pages: number[] = [];
   
   constructor(private customerService: CustomerService,
     private credentialService: CredentialService,
     private reservationService: ReservationService,
     // private taskService: TaskService,
     private saloonService: SaloonService,
-    private notificationService: NotificationService, 
+    private notificationService: NotificationService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
-    this.getReservations();
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
+    this.getReservations();
     // this.findAllByReservationId();
   }
   
@@ -49,16 +55,24 @@ export class ReservationComponent implements OnInit {
   }
   
   public getReservations(): void {
-    this.customerService.getReservations().subscribe({
-      next: (customerReservationPayload: any) => {
-        this.reservations = customerReservationPayload?.responseBody?.reservations;
-        this.reservations?.content.forEach(r => {
-          // this.tasks = this.getAssignedWorkers(r?.id);
-          // this.findSaloonById(r?.saloon?.id);
-        });
-      },
-      error: (errorResponse: HttpErrorResponse) => {
-        this.errorHandlerService.extractExceptionMsg(errorResponse);
+    this.activatedRoute.queryParams.subscribe({
+      next: (q: any) => {
+        if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1 || q?.size as number < 1)
+          this.router.navigateByUrl(`/workspace/${this.accountUrl}/reservations?offset=1`);
+        else
+          this.customerService.getReservations(new ClientPageRequest(q?.offset, q?.size)).subscribe({
+            next: (customerReservationPayload: any) => {
+              this.reservations = customerReservationPayload?.responseBody?.reservations;
+              this.pages = new Array<number>(this.reservations?.totalPages);
+              this.reservations?.content.forEach(r => {
+                // this.tasks = this.getAssignedWorkers(r?.id);
+                // this.findSaloonById(r?.saloon?.id);
+              });
+            },
+            error: (errorResponse: HttpErrorResponse) => {
+              this.errorHandlerService.extractExceptionMsg(errorResponse);
+            }
+          });
       }
     });
   }
@@ -98,6 +112,19 @@ export class ReservationComponent implements OnInit {
       this.getReservations();
   }
   
+  public onNavigatePagination(offset?: number): string | void {
+    this.activatedRoute.queryParams.subscribe({
+      next: (q: any) => {
+        let url: string = `/workspace/${this.accountUrl}/reservations?offset=${offset}`;
+        if (q?.size !== undefined && q?.size !== null && q?.size >= 1)
+          url = `${url}&size=${q?.size}`;
+        this.router.navigateByUrl(url);
+        // window.location.replace(url);
+        return url;
+      }
+    });
+  }
+  
   public cancelReservation(reservation: Reservation): void {
     this.reservationService.cancelReservation(reservation).subscribe({
       next: (reservationPayload: any) => {
@@ -109,7 +136,7 @@ export class ReservationComponent implements OnInit {
     });
   }
   
-  public findSaloonById(saloonId: number): void {
+  private findSaloonById(saloonId: number): void {
     this.saloonService.findById(saloonId).subscribe({
       next: (saloonPayload: any) => {
         this.relatedSaloon = saloonPayload?.responseBody;

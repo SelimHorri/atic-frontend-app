@@ -139,17 +139,19 @@
             </table>
           </div>
           <!-- end project-list -->
-
           <div class="pt-3">
             <ul class="pagination justify-content-end mb-0">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+              <li class="page-item {{ (reservations?.first) ? 'disabled' : '' }}">
+                <a class="page-link"
+                  (click)="onNavigatePagination(reservations.number)" href="javascript:void(0);" tabindex="-1"
+                  aria-disabled="true">Previous</a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item active"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
+              <li *ngFor="let p of pages; let i = index" class="page-item {{ (reservations.number === i) ? 'active' : '' }}">
+                <a class="page-link" href="javascript:void(0);" (click)="onNavigatePagination(i + 1)" >{{ i + 1 }}</a>
+              </li>
+              <li class="page-item {{ (reservations?.last) ? 'disabled' : '' }}">
+                <a class="page-link"
+                  (click)="onNavigatePagination(reservations.number + 2)" href="javascript:void(0);">Next</a>
               </li>
             </ul>
           </div>
