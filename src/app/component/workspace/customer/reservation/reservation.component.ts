@@ -80,7 +80,7 @@ export class ReservationComponent implements OnInit {
   */
   
   public searchBy(key: string): void {
-    let res: Reservation[] = [];
+    const res: Reservation[] = [];
     this.reservations?.content.forEach(r => {
       if (`REF-${r?.code}`.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || r.startDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1

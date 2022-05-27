@@ -2,6 +2,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Favourite } from 'src/app/model/favourite';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { CustomerFavouriteResponse } from 'src/app/model/response/customer-favourite-response';
 import { PageResponse } from 'src/app/model/response/page/page-response';
@@ -79,6 +80,23 @@ export class FavouriteComponent implements OnInit {
       next: (payload: any) => (payload?.responseBody) ? window.location.reload() : alert("Unable to delete favourite!"),
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
+  }
+  
+  public searchBy(key: string): void {
+    const res: Saloon[] = [];
+    this.saloons?.forEach(s => {
+      if ( s?.name.toLowerCase().trim().indexOf(key.toLowerCase()) !== -1
+          || s?.code.toLowerCase().trim().indexOf(key.toLowerCase()) !== -1
+          || s?.openingDate.toString().toLowerCase().trim().indexOf(key.toLowerCase()) !== -1
+          || s?.email.toLowerCase().trim().indexOf(key.toLowerCase()) !== -1
+          || s?.fullAdr.toLowerCase().trim().indexOf(key.toLowerCase()) !== -1
+          || `${s?.location.zipcode} ${s?.location.city} ${s?.location.state}`.toLowerCase().trim().indexOf(key.toLowerCase()) !== -1 )
+        res.push(s);
+    });
+    
+    this.saloons = res;
+    if (res.length === 0 || !key)
+      this.getFavourites();
   }
   
   
