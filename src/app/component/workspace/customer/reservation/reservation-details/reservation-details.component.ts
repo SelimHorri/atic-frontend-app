@@ -14,6 +14,7 @@ import { ReservationContainerResponse } from 'src/app/model/response/reservation
 import { ServiceDetailsReservationContainerResponse } from 'src/app/model/response/service-details-reservation-container-response';
 import { Saloon } from 'src/app/model/saloon';
 import { ServiceDetail } from 'src/app/model/service-detail';
+import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -110,9 +111,8 @@ export class ReservationDetailsComponent implements OnInit {
       next: (p: any) => {
         this.reservationService.updateReservationDetails(new ReservationDetailRequest(p?.reservationId, 
             descriptionObj?.description)).subscribe({
-          next: (reservationDetailPayload: any) => {
-            this.notificationService.showSuccess({message: "Reservation detail has been updated successfully...", title: "Updated!"});
-          },
+          next: (reservationDetailPayload: any) => this.notificationService
+              .showSuccess(new ToastrMsg("Reservation detail has been updated successfully...", "Updated!")),
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
       }

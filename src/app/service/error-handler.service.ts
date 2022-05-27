@@ -15,7 +15,7 @@ export class ErrorHandlerService {
   public extractExceptionMsg(errorResponse: HttpErrorResponse): ExceptionMsg {
     const errorPayload: ApiPayloadDExceptionMsg = new ApiPayloadDExceptionMsg(errorResponse?.error);
     console.log(JSON.stringify(errorPayload));
-    this.notificationService.showError({message: `${errorPayload?.responseBody?.errorMsg}`, title: "Error!"});
+    this.notificationService.showError({message: `${errorPayload?.responseBody?.errorMsg.replace(/####/g, '').trim()}`, title: "Error!"});
     return errorPayload?.responseBody;
   }
   

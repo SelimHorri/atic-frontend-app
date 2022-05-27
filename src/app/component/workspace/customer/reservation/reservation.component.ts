@@ -5,9 +5,11 @@ import { Reservation } from 'src/app/model/reservation';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
 import { Task } from 'src/app/model/task';
+import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
 import { CustomerService } from 'src/app/service/customer.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { ReservationService } from 'src/app/service/reservation.service';
 import { SaloonService } from 'src/app/service/saloon.service';
 import { TaskService } from 'src/app/service/task.service';
@@ -27,8 +29,9 @@ export class ReservationComponent implements OnInit {
   constructor(private customerService: CustomerService,
     private credentialService: CredentialService,
     private reservationService: ReservationService,
-    private taskService: TaskService,
+    // private taskService: TaskService,
     private saloonService: SaloonService,
+    private notificationService: NotificationService, 
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
@@ -97,7 +100,11 @@ export class ReservationComponent implements OnInit {
   
   public cancelReservation(reservation: Reservation): void {
     this.reservationService.cancelReservation(reservation).subscribe({
-      next: (reservationPayload: any) => this.getReservations(),
+      next: (reservationPayload: any) => {
+        this.getReservations();
+        this.notificationService.showWarning(new ToastrMsg(`Reservation REF-${reservation?.code.substring(0, 8)} has been cancelled`, 
+            "Reservation cancelled!"));
+      },
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
   }
