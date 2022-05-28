@@ -150,10 +150,10 @@ export class ReservationDetailsComponent implements OnInit {
         ngForm.value.reservationId = p?.reservationId;
         this.orderedDetailService.save(ngForm.value as OrderedDetailRequest).subscribe({
           next: (savedOrderedDetail: any) => {
-            // console.log(JSON.stringify(savedOrderedDetail?.responseBody));
             this.getOrderedServiceDetails();
             ngForm.reset();
             document.getElementById("addServiceDetail")?.click();
+            this.notificationService.showSuccess(new ToastrMsg("Service has been added successfully...", "Service added!"));
           },
           error: (errorResponse: HttpErrorResponse) => {
             const exceptionMsg: ExceptionMsg = this.errorHandlerService.extractExceptionMsg(errorResponse);
