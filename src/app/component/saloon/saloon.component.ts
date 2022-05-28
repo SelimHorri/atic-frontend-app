@@ -36,7 +36,7 @@ export class SaloonComponent implements OnInit {
         if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1)
           this.router.navigateByUrl("/saloons?offset=1");
         else {
-          this.locationService.findAll(q?.offset).subscribe({
+          this.locationService.findAll(new ClientPageRequest(q?.offset)).subscribe({
             next: (locationsPayload: any) => {
               this.locations = locationsPayload?.responseBody;
             },
@@ -69,7 +69,7 @@ export class SaloonComponent implements OnInit {
             else if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1)
               this.router.navigateByUrl(`/locations/${p?.state}/saloons?offset=1`);
             else {
-              this.locationService.findAll(q?.offset).subscribe({
+              this.locationService.findAll(new ClientPageRequest(q?.offset)).subscribe({
                 next: (locationsPayload: any) => {
                   this.locations = locationsPayload?.responseBody;
                 },
@@ -77,7 +77,7 @@ export class SaloonComponent implements OnInit {
                   this.errorHandlerService.extractExceptionMsg(errorResponse);
                 }
               });
-              this.saloonService.findAllByLocationState(p?.state, q?.offset).subscribe({
+              this.saloonService.findAllByLocationState(p?.state, new ClientPageRequest(q?.offset)).subscribe({
                 next: (saloonsPayload: any) => {
                   this.saloons = saloonsPayload?.responseBody;
                   this.pages = new Array<number>(this.saloons?.totalPages);

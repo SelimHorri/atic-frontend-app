@@ -48,10 +48,11 @@ export class SaloonService {
     }));
   }
   
-  public findAllByLocationState(state: string, offset: number): Observable<any> {
+  public findAllByLocationState(state: string, clientPageRequest: ClientPageRequest): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/locations/state/${state}`, {
       params: {
-        offset: `${offset}`
+        offset: `${clientPageRequest?.offset}`,
+        size: `${clientPageRequest?.size}`
       }
     });
   }
