@@ -184,7 +184,7 @@
               {{ s?.name | uppercase }}
             </option>
           </select>
-          <span class="text-danger" *ngIf="msg.trim() !== ''">{{ msg | uppercase }}</span>
+          <div align="center"><span class="badge text-danger" *ngIf="msg.trim() !== ''">{{ msg | uppercase }}</span></div>
           <div class="modal-footer">
             <button type="button" onclick="document.getElementById('addServiceDetail').click()" id="addServiceDetail-form"
               class="btn btn-secondary" data-dismiss="modal">Close</button>
