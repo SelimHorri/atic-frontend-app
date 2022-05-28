@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DateBackendFormat } from '../model/date-backend-format';
+import { ClientPageRequest } from '../model/request/client-page-request';
 import { Saloon } from '../model/saloon';
 
 @Injectable({
@@ -18,12 +19,17 @@ export class SaloonService {
     this.apiUrl = `${this.apiUrl}/saloons`;
   }
   
-  public findAllWithOffset(offset: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/offset/${offset}`)
-        .pipe(map(payload => {
-          payload?.responseBody?.content?.forEach((s: Saloon) => s.openingDate = moment(s?.openingDate, DateBackendFormat.LOCAL_DATE).toDate());
-          return payload;
-        }));
+  public findAll(clientPageRequest: ClientPageRequest): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}`, {
+      params: {
+        offset: `${clientPageRequest.offset}`,
+        size: `${clientPageRequest.size}`
+      }
+    })
+    .pipe(map(payload => {
+      payload?.responseBody?.content?.forEach((s: Saloon) => s.openingDate = moment(s?.openingDate, DateBackendFormat.LOCAL_DATE).toDate());
+      return payload;
+    }));
   }
   
   public findById(id: number): Observable<any> {

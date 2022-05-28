@@ -2,6 +2,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ExceptionMsg } from 'src/app/model/exception-msg';
+import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
 import { Tag } from 'src/app/model/tag';
@@ -25,8 +26,8 @@ export class HomeComponent implements OnInit {
     private errorHandlerService: ErrorHandlerService) {}
 
   ngOnInit(): void {
-    this.findAllTags(1);
-    this.findAllWithOffset(1);
+    this.findAllTags();
+    this.findAllSaloons();
   }
 
   public onOpenModal(action: string): void {
@@ -43,8 +44,8 @@ export class HomeComponent implements OnInit {
     button.click();
   }
 
-  public findAllTags(offset: number): void {
-    this.tagService.findAll(offset).subscribe({
+  public findAllTags(): void {
+    this.tagService.findAll(new ClientPageRequest()).subscribe({
       next: (payload: any) => {
         this.tags = payload?.responseBody;
         console.log(JSON.stringify(this.tags));
@@ -57,8 +58,8 @@ export class HomeComponent implements OnInit {
     });
   }
   
-  public findAllWithOffset(offset: number): void {
-    this.saloonService.findAllWithOffset(offset).subscribe({
+  public findAllSaloons(): void {
+    this.saloonService.findAll(new ClientPageRequest()).subscribe({
       next: (res: any) => {
         this.saloons = res?.responseBody;
       },

@@ -20,7 +20,12 @@ export class CustomerService {
   }
   
   public getProfile(): Observable<any> {
+    const clientPageRequest = new ClientPageRequest();
     return this.http.get<any>(`${this.apiUrl}/profile`, {
+      params: {
+        offset: `${clientPageRequest?.offset}`,
+        size: `${clientPageRequest?.size}`
+      },
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,

@@ -2,6 +2,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { LocationService } from 'src/app/service/location.service';
@@ -27,7 +28,6 @@ export class SaloonComponent implements OnInit {
   ngOnInit(): void {
     this.findAllSaloons();
     this.pages = new Array<number>(this.saloons?.totalPages);
-    console.log(JSON.stringify(this.saloons))
   }
   
   private findAll(): void {
@@ -44,7 +44,7 @@ export class SaloonComponent implements OnInit {
               this.errorHandlerService.extractExceptionMsg(errorResponse);
             }
           });
-          this.saloonService.findAllWithOffset(p?.offset).subscribe({
+          this.saloonService.findAll(new ClientPageRequest(p?.offset)).subscribe({
             next: (saloonsPayload: any) => {
               this.saloons = saloonsPayload?.responseBody;
               console.log(JSON.stringify(this.saloons))
