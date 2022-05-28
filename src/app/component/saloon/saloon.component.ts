@@ -32,11 +32,11 @@ export class SaloonComponent implements OnInit {
   
   private findAll(): void {
     this.activatedRoute.queryParams.subscribe({
-      next: (p: any) => {
-        if (p?.offset === undefined || p?.offset === null || p?.offset as number < 1)
+      next: (q: any) => {
+        if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1)
           this.router.navigateByUrl("/saloons?offset=1");
         else {
-          this.locationService.findAll(p?.offset).subscribe({
+          this.locationService.findAll(q?.offset).subscribe({
             next: (locationsPayload: any) => {
               this.locations = locationsPayload?.responseBody;
             },
@@ -44,7 +44,7 @@ export class SaloonComponent implements OnInit {
               this.errorHandlerService.extractExceptionMsg(errorResponse);
             }
           });
-          this.saloonService.findAll(new ClientPageRequest(p?.offset)).subscribe({
+          this.saloonService.findAll(new ClientPageRequest(q?.offset)).subscribe({
             next: (saloonsPayload: any) => {
               this.saloons = saloonsPayload?.responseBody;
               console.log(JSON.stringify(this.saloons))
@@ -106,13 +106,19 @@ export class SaloonComponent implements OnInit {
   }
   
   public onNavigatePagination(offset?: number, newTotalPages?: number): string | void {
-    const url: string = `/saloons?offset=${offset}`;
-    this.router.navigateByUrl(url);
-    if (newTotalPages === undefined)
-      this.pages = new Array<number>(this.saloons?.totalPages);
-    else 
-      this.pages = new Array<number>(newTotalPages);
-    return url;
+    this.activatedRoute.queryParams.subscribe({
+      next: (q: any) => {
+        let url: string = `/saloons?offset=${offset}`;
+        if (q?.size !== undefined && q?.size !== null && q?.size >= 1)
+          url = `${url}&size=${q?.size}`;
+        this.router.navigateByUrl(url);
+        if (newTotalPages === undefined)
+          this.pages = new Array<number>(this.saloons?.totalPages);
+        else
+          this.pages = new Array<number>(newTotalPages);
+        return url;
+      }
+    });
   }
   
   

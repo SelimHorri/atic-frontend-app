@@ -69,10 +69,16 @@ export class FavouriteComponent implements OnInit {
   }
   
   public onNavigatePagination(offset?: number): string | void {
-    const url: string = `/workspace/${this.accountUrl}/favourites?offset=${offset}`;
-    // this.router.navigateByUrl(url);
-    window.location.replace(url); // cause of the forloop in getFavourites()
-    return url;
+    this.activatedRoute.queryParams.subscribe({
+      next: (q: any) => {
+        let url: string = `/workspace/${this.accountUrl}/favourites?offset=${offset}`;
+        if (q?.size !== undefined && q?.size !== null && q?.size >= 1)
+          url = `${url}&size=${q?.size}`;
+        // this.router.navigateByUrl(url);
+        window.location.replace(url); // cause of the forloop in getFavourites()
+        return url;
+      }
+    });
   }
   
   public removeFavourite(saloonId: number): void {
