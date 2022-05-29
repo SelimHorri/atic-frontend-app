@@ -2,12 +2,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Action } from 'rxjs/internal/scheduler/Action';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { Reservation } from 'src/app/model/reservation';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
-import { Task } from 'src/app/model/task';
 import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
 import { CustomerService } from 'src/app/service/customer.service';
@@ -26,14 +24,14 @@ export class ReservationComponent implements OnInit {
   
   public accountUrl!: string;
   public reservations!: PageResponse;
-  public tasks!: Task[];
+  public tasks!: PageResponse;
   public relatedSaloon!: Saloon;
   public pages: number[] = [];
   
   constructor(private customerService: CustomerService,
     private credentialService: CredentialService,
     private reservationService: ReservationService,
-    // private taskService: TaskService,
+    private taskService: TaskService,
     private saloonService: SaloonService,
     private notificationService: NotificationService,
     private router: Router,
@@ -64,10 +62,6 @@ export class ReservationComponent implements OnInit {
             next: (customerReservationPayload: any) => {
               this.reservations = customerReservationPayload?.responseBody?.reservations;
               this.pages = new Array<number>(this.reservations?.totalPages);
-              this.reservations?.content.forEach(r => {
-                // this.tasks = this.getAssignedWorkers(r?.id);
-                // this.findSaloonById(r?.saloon?.id);
-              });
             },
             error: (errorResponse: HttpErrorResponse) => {
               this.errorHandlerService.extractExceptionMsg(errorResponse);
@@ -77,12 +71,10 @@ export class ReservationComponent implements OnInit {
     });
   }
   
-  /*
-  public findAllByReservationId(reservationId: number): void {
+  public findAllTasksByReservationId(reservationId: number): void {
     this.taskService.findAllByReservationId(reservationId).subscribe({
       next: (tasksPayload: any) => {
         this.tasks = tasksPayload?.responseBody;
-        console.log(JSON.stringify(this.tasks));
       },
       error: (errorResponse: HttpErrorResponse) => {
         this.errorHandlerService.extractExceptionMsg(errorResponse);
@@ -90,11 +82,10 @@ export class ReservationComponent implements OnInit {
     });
   }
   
-  public getAssignedWorkers(reservationId: number): Task[] {
-    this.findAllByReservationId(reservationId);
+  public getAssignedWorkers(reservationId: number): PageResponse {
+    this.findAllTasksByReservationId(reservationId);
     return this.tasks;
   }
-  */
   
   public searchBy(key: string): void {
     const res: Reservation[] = [];

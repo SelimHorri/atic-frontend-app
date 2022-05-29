@@ -55,14 +55,6 @@
   </div>
   <!-- end row -->
   
-  <!--
-    <div>
-      <a class="btn btn-outline-success" href="javascript:void(0);" (click)="onNewReservation()">New Reservation?</a>
-    </div>
-  -->
-  
-  <br>
-  
   <div class="row" *ngIf="reservations?.content?.length !== 0">
     <div class="col-lg-12">
       <div class="card">
@@ -119,16 +111,15 @@
                       {{ r?.status }}</span>
                   </td>
                   <!--
-                    <td>
-                      <div class="team" *ngFor="let t of tasks">
-                        <a routerLink="/workspace/{{ accountUrl }}/reservations/assigned/{{ t?.workerId }}"
-                          class="team-member" data-toggle="tooltip" data-placement="top" title=""
-                          data-original-title="Roger Drake">
-                          <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="rounded-circle avatar-xs"
-                            alt="" />
-                        </a>
-                      </div>
-                    </td>
+                  <td>
+                    <a *ngFor="let t of tasks"
+                      routerLink="/workspace/{{ accountUrl }}/reservations/assigned/{{ t?.workerId }}"
+                      class="team team-member" data-toggle="tooltip" data-placement="top" title=""
+                      data-original-title="Roger Drake">
+                      <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="rounded-circle avatar-xs"
+                        alt="" />
+                    </a>
+                  </td>
                   -->
                   <td *ngIf="r?.description !== null && r?.description !== undefined">
                     <p class="mb-0">{{ r?.description }}</p>

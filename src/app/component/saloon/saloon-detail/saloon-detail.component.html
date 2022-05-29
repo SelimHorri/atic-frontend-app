@@ -1,9 +1,12 @@
+
+<!-- https://www.bootdey.com/snippets/view/order-details -->
 <div class="container-fluid">
 
   <div class="container">
     <!-- Title -->
     <div class="d-flex justify-content-between align-items-center py-3">
-      <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Order #16123222</h2>
+      <h2 class="h2 mb-0"><a href="#" class="text-muted"></a> {{ saloon?.name | uppercase }} <span
+          class="h5 badge badge-dark">#{{ saloon?.code?.substring(0, 8) }}</span> </h2>
     </div>
 
     <!-- Main content -->
@@ -20,8 +23,8 @@
                 <span class="badge rounded-pill bg-info">SHIPPING</span>
               </div>
               <div class="d-flex">
-                <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text"><i class="bi bi-download"></i>
-                  <span class="text">Invoice</span></button>
+                <a href="javascript:void(0);" class="btn btn-outline-success "><i class="bi bi-download"></i>
+                  <span class="text">Make Appointment</span></a>
                 <div class="dropdown">
                   <button class="btn btn-link p-0 text-muted" type="button" data-bs-toggle="dropdown">
                     <i class="bi bi-three-dots-vertical"></i>
@@ -34,55 +37,76 @@
               </div>
             </div>
             <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="d-flex mb-2">
-                      <div class="flex-shrink-0">
-                        <img src="https://via.placeholder.com/280x280/87CEFA/000000" alt="" width="35"
-                          class="img-fluid">
+              <!--
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex mb-2">
+                        <div class="flex-shrink-0">
+                          <img src="https://via.placeholder.com/280x280/87CEFA/000000" alt="" width="35"
+                            class="img-fluid">
+                        </div>
+                        <div class="flex-lg-grow-1 ms-3">
+                          <h6 class="small mb-0"><a href="#" class="text-reset">Wireless Headphones with Noise
+                              Cancellation Tru Bass Bluetooth HiFi</a></h6>
+                          <span class="small">Color: Black</span>
+                        </div>
                       </div>
-                      <div class="flex-lg-grow-1 ms-3">
-                        <h6 class="small mb-0"><a href="#" class="text-reset">Wireless Headphones with Noise
-                            Cancellation Tru Bass Bluetooth HiFi</a></h6>
-                        <span class="small">Color: Black</span>
+                    </td>
+                    <td>1</td>
+                    <td class="text-end">$79.99</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex mb-2">
+                        <div class="flex-shrink-0">
+                          <img src="https://via.placeholder.com/280x280/FF69B4/000000" alt="" width="35"
+                            class="img-fluid">
+                        </div>
+                        <div class="flex-lg-grow-1 ms-3">
+                          <h6 class="small mb-0"><a href="#" class="text-reset">Smartwatch IP68 Waterproof GPS and
+                              Bluetooth Support</a></h6>
+                          <span class="small">Color: White</span>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>1</td>
-                  <td class="text-end">$79.99</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex mb-2">
-                      <div class="flex-shrink-0">
-                        <img src="https://via.placeholder.com/280x280/FF69B4/000000" alt="" width="35"
-                          class="img-fluid">
-                      </div>
-                      <div class="flex-lg-grow-1 ms-3">
-                        <h6 class="small mb-0"><a href="#" class="text-reset">Smartwatch IP68 Waterproof GPS and
-                            Bluetooth Support</a></h6>
-                        <span class="small">Color: White</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td>1</td>
-                  <td class="text-end">$79.99</td>
-                </tr>
-              </tbody>
+                    </td>
+                    <td>1</td>
+                    <td class="text-end">$79.99</td>
+                  </tr>
+                </tbody>
+              -->
               <tfoot>
                 <tr>
-                  <td colspan="2">Subtotal</td>
-                  <td class="text-end">$159,98</td>
+                  <td colspan="2">Code</td>
+                  <td class="text-end"><a routerLink="/saloons">#{{ saloon?.code?.substring(0, 8) }}</a></td>
                 </tr>
                 <tr>
-                  <td colspan="2">Shipping</td>
-                  <td class="text-end">$20.00</td>
+                  <td colspan="2">Email</td>
+                  <td class="text-end">{{ saloon?.email }}</td>
                 </tr>
                 <tr>
-                  <td colspan="2">Discount (Code: NEWYEAR)</td>
-                  <td class="text-danger text-end">-$10.00</td>
+                  <td colspan="2">isPrimary?</td>
+                  <td class="text-end">{{ saloon?.isPrimary }}</td>
                 </tr>
+                <tr>
+                  <td colspan="2">Opened at</td>
+                  <td class="text-end">{{ saloon?.openingDate | date: 'dd MMM yyyy' }}</td>
+                </tr>
+                <tr>
+                  <td colspan="2">Address</td>
+                  <td class="text-end">{{ saloon?.fullAdr }}</td>
+                </tr>
+                <tr>
+                  <td colspan="2">Location</td>
+                  <td class="text-end">{{ saloon?.location?.zipcode }} {{ saloon?.location?.city }}
+                    {{ saloon?.location?.state }}</td>
+                </tr>
+                <!--
+                  <tr>
+                    <td colspan="2">Discount (Code: NEWYEAR)</td>
+                    <td class="text-danger text-end">-$10.00</td>
+                  </tr>
+                -->
                 <tr class="fw-bold">
                   <td colspan="2">TOTAL</td>
                   <td class="text-end">$169,98</td>
