@@ -19,8 +19,8 @@ export class RegistrationService {
   }
   
   public register(registerRequest: RegisterRequest): Observable<any> {
-    if (registerRequest.birthdate !== null && registerRequest.birthdate !== '')
-      registerRequest.birthdate = moment(registerRequest?.birthdate).format(DateBackendFormat.LOCAL_DATE);
+    if (registerRequest?.birthdate !== undefined && registerRequest?.birthdate !== null && registerRequest?.birthdate !== '')
+      registerRequest.birthdate = moment(registerRequest.birthdate).format(DateBackendFormat.LOCAL_DATE);
     return this.http.post<any>(`${this.apiUrl}`, registerRequest);
   }
   

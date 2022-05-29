@@ -87,7 +87,7 @@ export class ReservationService {
     reservation.cancelDate = moment(Date.now()).format(DateBackendFormat.LOCAL_DATE_TIME);
     reservation.status = ReservationStatus.CANCELLED;
     
-    return this.http.put<any>(`${this.apiUrl}/cancel`, reservation, {
+    return this.http.put<any>(`${this.apiUrl}/details/cancel`, reservation, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
