@@ -80,12 +80,12 @@
         <div class="card-body">
           <ul class="nav nav-pills nav-pills-primary nav-justified">
             <li class="nav-item">
-              <a href="javascript:void();" data-bs-target="#profile" data-bs-toggle="pill"
+              <a href="javascript:void(0);" data-bs-target="#profile" data-bs-toggle="pill"
                 class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
             </li>
             <!--
                 <li class="nav-item">
-                  <a href="javascript:void();" data-bs-target="#edit" data-bs-toggle="pill" class="nav-link"><i
+                  <a href="javascript:void(0);" data-bs-target="#edit" data-bs-toggle="pill" class="nav-link"><i
                       class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
                 </li>
                 -->
@@ -109,7 +109,7 @@
                     <div class="col-md-6" *ngIf="customerProfileResponse?.favourites?.length !== 0">
                       <h6>Recent Facilities</h6>
                       <div *ngFor="let s of customerProfileResponse?.favourites">
-                        <a href="javascript:void();" class="badge badge-dark badge-pill">{{ s?.saloon?.name }}</a>
+                        <a href="javascript:void(0);" class="badge badge-dark badge-pill">{{ s?.saloon?.name }}</a>
                       </div>
                       <hr>
                     </div>

@@ -22,7 +22,7 @@
                             <th
                               *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()">
                               <a (click)="onOpenModal(reservationDetails.reservation.saloon, orderedServiceDetails.serviceDetails.content, 'addServiceDetail')"
-                                href="javascript:void();" class="btn text-primary ">
+                                href="javascript:void(0);" class="btn text-primary ">
                                 <i class="ri-shield-cross-fill"></i>
                                 Add
                               </a>
@@ -58,7 +58,7 @@
                             <td class="text-right">{{ s?.priceUnit }} DT</td>
                             <td
                               *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
-                              class="text-right"><a href="javascript:void();"
+                              class="text-right"><a href="javascript:void(0);"
                                 (click)="removeOrderedServiceDetail(reservationDetails.reservation.id, s.id)"
                                 class="text-danger"><i class="ri-delete-bin-3-line"></i></a>
                             </td>
@@ -70,7 +70,7 @@
                               <td></td>
                               <td>
                                 <a (click)="onOpenModal(reservationDetails.reservation.saloon, 'addServiceDetail')"
-                                  href="javascript:void();" class="btn btn-outline-primary ">
+                                  href="javascript:void(0);" class="btn btn-outline-primary ">
                                   <i class="ri-shield-cross-fill"></i>
                                   Add
                                 </a>

@@ -31,13 +31,13 @@
         <p class="search-results-count">About {{ saloons?.numberOfElements }}/{{ saloons?.totalElements }} (0.0039 sec.) results</p>
         <div *ngFor="let s of saloons?.content">
           <section class="search-result-item">
-            <a class="image-link" href="javascript:void();" (click)="getAllByCode(s.code)"><img class="image"
+            <a class="image-link" href="javascript:void(0);" (click)="getAllByCode(s.code)"><img class="image"
                 src="https://dummyimage.com/850x700/dee2e6/6c757d.jpg">
             </a>
             <div class="search-result-item-body">
               <div class="row">
                 <div class="col-sm-9">
-                  <h4 class="search-result-item-heading"><a href="javascript:void();"
+                  <h4 class="search-result-item-heading"><a href="javascript:void(0);"
                       (click)="getAllByCode(s.code)">{{ s?.name | uppercase }}</a></h4>
                   <p class="info text-danger">{{ s?.fullAdr }}</p>
                   <p class="description">Not just usual Metro. But something bigger. Not just usual widgets, but real
@@ -47,7 +47,7 @@
                   <!-- <p class="value3 mt-sm">$9, 700</p> -->
                   <p class="fs-mini text-muted">DAILY</p>
                   <div>
-                    <a href="javascript:void();">
+                    <a href="javascript:void(0);">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-star starred">
@@ -69,20 +69,20 @@
         <nav aria-label="Pagination">
           <ul class="pagination justify-content-center my-4">
             <li class="page-item {{ (saloons?.first) ? 'disabled' : '' }}">
-              <a class="page-link" (click)="onNavigatePagination(1)" href="javascript:void();"
+              <a class="page-link" (click)="onNavigatePagination(1)" href="javascript:void(0);"
                 tabindex="-1" aria-disabled="true">
                 First
               </a>
             </li>
             <li class="page-item {{ (saloons?.first && saloons?.number === 0) ? 'disabled' : '' }}">
               <a class="page-link" (click)="onNavigatePagination(saloons?.number)"
-                href="javascript:void();"
+                href="javascript:void(0);"
                 tabindex="-1" aria-disabled="true">
                 Previous
               </a>
             </li>
             <li *ngFor="let p of pages; let i = index" class="page-item {{ (saloons?.number === i)? 'active' : '' }}" aria-current="page">
-              <a class="page-link" (click)="onNavigatePagination(i + 1)" href="javascript:void();">{{ i + 1 }}</a>
+              <a class="page-link" (click)="onNavigatePagination(i + 1)" href="javascript:void(0);">{{ i + 1 }}</a>
             </li>
             <!--
               <li class="page-item"><a class="page-link" routerLink="">2</a></li>
@@ -92,13 +92,13 @@
             -->
             <li class="page-item {{ (saloons?.last && saloons.number + 1 === saloons?.totalPages) ? 'disabled' : '' }}">
               <a class="page-link" (click)="onNavigatePagination(saloons.number + 2)"
-                href="javascript:void();">
+                href="javascript:void(0);">
                 Next
               </a>
             </li>
             <li class="page-item {{ (saloons?.last) ? 'disabled' : '' }}">
               <a class="page-link" (click)="onNavigatePagination(saloons?.totalPages)"
-                  href="javascript:void();">
+                  href="javascript:void(0);">
                 Last
               </a>
             </li>

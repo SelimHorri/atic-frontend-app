@@ -57,7 +57,7 @@
   
   <!--
     <div>
-      <a class="btn btn-outline-success" href="javascript:void();" (click)="onNewReservation()">New Reservation?</a>
+      <a class="btn btn-outline-success" href="javascript:void(0);" (click)="onNewReservation()">New Reservation?</a>
     </div>
   -->
   
@@ -130,7 +130,7 @@
                       <a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}" class="text-success mr-4"
                         data-toggle="tooltip" data-placement="top" title=""
                         data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
-                      <a (click)="cancelReservation(r)" href="javascript:void();" class="text-danger" data-toggle="tooltip" data-placement="top" title=""
+                      <a (click)="cancelReservation(r)" href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title=""
                         data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
                     </div>
                   </td>
