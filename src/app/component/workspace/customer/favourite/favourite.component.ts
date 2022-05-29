@@ -10,6 +10,7 @@ import { Saloon } from 'src/app/model/saloon';
 import { CredentialService } from 'src/app/service/credential.service';
 import { CustomerService } from 'src/app/service/customer.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
+import { LocationService } from 'src/app/service/location.service';
 import { SaloonService } from 'src/app/service/saloon.service';
 
 @Component({
@@ -23,9 +24,11 @@ export class FavouriteComponent implements OnInit {
   public customerFavouriteResponse!: CustomerFavouriteResponse;
   public saloons: Saloon[] = [];
   // public favourites!: PageResponse;
+  public states: string[] = [];
   public pages: number[] = [];
   
   constructor(private customerService: CustomerService,
+    private locationService: LocationService,
     private credentialService: CredentialService,
     private saloonService: SaloonService,
     private activatedRoute: ActivatedRoute,
@@ -34,7 +37,17 @@ export class FavouriteComponent implements OnInit {
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
+    this.getAllStates();
     this.getFavourites();
+  }
+  
+  public getAllStates(): void {
+    this.locationService.getAllStates().subscribe({
+      next: (statesPayload: any) => {
+        this.states = statesPayload?.responseBody;
+        console.log(JSON.stringify(this.states));
+      }
+    });
   }
   
   public getFavourites():void {
@@ -77,6 +90,17 @@ export class FavouriteComponent implements OnInit {
         // this.router.navigateByUrl(url);
         window.location.replace(url); // cause of the forloop in getFavourites()
         return url;
+      }
+    });
+  }
+  
+  public onSelectPageSize(size: string): void {
+    this.activatedRoute.queryParams.subscribe({
+      next: (q: any) => {
+        if (q?.offset === undefined || size.trim() === '' || size === undefined || size === null || parseInt(size.trim()) < 1)
+          window.location.replace(`/workspace/${this.accountUrl}/favourites?offset=1`);
+        else
+          window.location.replace(`${window.location.pathname}?offset=${q?.offset}&size=${size}`);
       }
     });
   }

@@ -125,6 +125,17 @@ export class ReservationComponent implements OnInit {
     });
   }
   
+  public onSelectPageSize(size: string): void {
+    this.activatedRoute.queryParams.subscribe({
+      next: (q: any) => {
+        if(q?.offset === undefined || size.trim() === '' || size === undefined || size === null || parseInt(size.trim()) < 1)
+          this.router.navigateByUrl(`/workspace/${this.accountUrl}/reservations?offset=1`);
+        else
+          this.router.navigateByUrl(`${window.location.pathname}?offset=${q?.offset}&size=${size}`);
+      }
+    });
+  }
+  
   public cancelReservation(reservation: Reservation): void {
     this.reservationService.cancelReservation(reservation).subscribe({
       next: (reservationPayload: any) => {

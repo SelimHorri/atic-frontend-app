@@ -8,14 +8,10 @@
               <div class="col-12">
                 <div class="row no-gutters">
                   <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                    <select class="form-control" id="exampleFormControlSelect1">
-                      <option>Location</option>
-                      <option>London</option>
-                      <option>Boston</option>
-                      <option>Mumbai</option>
-                      <option>New York</option>
-                      <option>Toronto</option>
-                      <option>Paris</option>
+                    <select #state (change)="searchBy(state.value)" class="form-select form-select-lg" aria-label="form-select-lg .form-select-lg example"
+                      id="exampleFormControlSelect1">
+                      <option selected value="">Select state</option>
+                      <option *ngFor="let state of states" [value]="state">{{ state | uppercase }}</option>
                     </select>
                   </div>
                   <div class="col-lg-8 col-md-6 col-sm-12 p-0">
@@ -59,6 +55,17 @@
                     <div class="col-lg-6">
                       <div class="records">Showing: <b>1-{{ customerFavouriteResponse?.favourites?.numberOfElements }}</b>
                         of <b>{{ customerFavouriteResponse?.favourites?.totalElements }}</b> result</div>
+                      <div class="row col-sm-6">
+                        <select ngModel #size="ngModel" (change)="onSelectPageSize(size?.value)"
+                          class="form-select form-select-sm" aria-label="form-select-sm .form-select-sm example">
+                          <option selected value="">Choose how much to display</option>
+                          <option value="2">1-2</option>
+                          <option value="5">1-5</option>
+                          <option value="10">1-10</option>
+                          <option value="20">1-20</option>
+                          <option value="50">1-50</option>
+                        </select>
+                      </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="result-actions">
