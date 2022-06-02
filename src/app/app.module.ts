@@ -42,6 +42,10 @@ import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-d
 import { ToastNoAnimationModule, ToastrModule, ToastrService } from 'ngx-toastr';
 import { NotificationService } from './service/notification.service';
 import { EmployeeService } from './service/employee.service';
+import { CustomerReservationService } from './service/customer/customer-reservation.service';
+import { CustomerReservationDetailService } from './service/customer/customer-reservation-detail.service';
+import { CustomerProfileService } from './service/customer/customer-profile.service';
+import { CustomerFavouriteService } from './service/customer/customer-favourite.service';
 
 @NgModule({
   declarations: [
@@ -81,6 +85,10 @@ import { EmployeeService } from './service/employee.service';
     TagService,
     CredentialService,
     CustomerService,
+    CustomerProfileService,
+    CustomerFavouriteService,
+    CustomerReservationService,
+    CustomerReservationDetailService,
     ErrorHandlerService,
     ReservationService,
     SaloonService,

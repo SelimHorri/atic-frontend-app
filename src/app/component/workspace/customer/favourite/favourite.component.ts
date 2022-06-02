@@ -9,6 +9,7 @@ import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
 import { CredentialService } from 'src/app/service/credential.service';
 import { CustomerService } from 'src/app/service/customer.service';
+import { CustomerFavouriteService } from 'src/app/service/customer/customer-favourite.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { LocationService } from 'src/app/service/location.service';
 import { SaloonService } from 'src/app/service/saloon.service';
@@ -23,11 +24,10 @@ export class FavouriteComponent implements OnInit {
   public accountUrl!: string;
   public customerFavouriteResponse!: CustomerFavouriteResponse;
   public saloons: Saloon[] = [];
-  // public favourites!: PageResponse;
   public states: string[] = [];
   public pages: number[] = [];
   
-  constructor(private customerService: CustomerService,
+  constructor(private customerFavouriteService: CustomerFavouriteService,
     private locationService: LocationService,
     private credentialService: CredentialService,
     private saloonService: SaloonService,
@@ -56,7 +56,7 @@ export class FavouriteComponent implements OnInit {
         if (q?.offset === undefined || q?.offset === null || q?.offset as number === 1)
           this.router.navigateByUrl(`/workspace/${this.accountUrl}/favourites?offset=1`);
         else {
-          this.customerService.getFavourites(new ClientPageRequest(q?.offset, q?.size)).subscribe({
+          this.customerFavouriteService.getFavourites(new ClientPageRequest(q?.offset, q?.size)).subscribe({
             next: (customerFavouritePayload: any) => {
               this.customerFavouriteResponse = customerFavouritePayload?.responseBody;
               this.pages = new Array<number>(this.customerFavouriteResponse?.favourites?.totalPages);
@@ -106,7 +106,7 @@ export class FavouriteComponent implements OnInit {
   }
   
   public removeFavourite(saloonId: number): void {
-    this.customerService.deleteFavourite(saloonId).subscribe({
+    this.customerFavouriteService.deleteFavourite(saloonId).subscribe({
       next: (payload: any) => (payload?.responseBody) ? window.location.reload() : alert("Unable to delete favourite!"),
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });

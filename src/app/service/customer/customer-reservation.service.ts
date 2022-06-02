@@ -67,6 +67,17 @@ export class CustomerReservationService {
       || r?.status === ReservationStatus.IN_PROGRESS);
   }
   
+  /*
+  public addReservation(reservationRequest: Reservation): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/reservations`, reservationRequest, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    });
+  }
+  */
+  
   
   
 }
