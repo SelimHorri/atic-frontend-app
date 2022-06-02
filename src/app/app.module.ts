@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -46,6 +45,17 @@ import { CustomerReservationService } from './service/customer/customer-reservat
 import { CustomerReservationDetailService } from './service/customer/customer-reservation-detail.service';
 import { CustomerProfileService } from './service/customer/customer-profile.service';
 import { CustomerFavouriteService } from './service/customer/customer-favourite.service';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { SaloonCalendarComponent } from './component/saloon/saloon-calendar/saloon-calendar/saloon-calendar.component';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  timeGridPlugin,
+  interactionPlugin,
+]);
 
 @NgModule({
   declarations: [
@@ -70,6 +80,7 @@ import { CustomerFavouriteService } from './service/customer/customer-favourite.
     SaloonComponent,
     LocationComponent,
     SaloonDetailComponent,
+    SaloonCalendarComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +89,7 @@ import { CustomerFavouriteService } from './service/customer/customer-favourite.
     HttpClientModule,
     ToastrModule.forRoot(),
     ToastNoAnimationModule.forRoot(),
+    FullCalendarModule,
   ],
   providers: [
     AuthenticationService,
