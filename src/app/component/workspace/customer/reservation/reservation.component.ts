@@ -8,10 +8,9 @@ import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
 import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
-import { CustomerService } from 'src/app/service/customer.service';
+import { CustomerReservationService } from 'src/app/service/customer/customer-reservation.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReservationService } from 'src/app/service/reservation.service';
 import { SaloonService } from 'src/app/service/saloon.service';
 import { TaskService } from 'src/app/service/task.service';
 
@@ -28,9 +27,8 @@ export class ReservationComponent implements OnInit {
   public relatedSaloon!: Saloon;
   public pages: number[] = [];
   
-  constructor(private customerService: CustomerService,
-    private credentialService: CredentialService,
-    private reservationService: ReservationService,
+  constructor(private credentialService: CredentialService,
+    private customerReservationService: CustomerReservationService,
     private taskService: TaskService,
     private saloonService: SaloonService,
     private notificationService: NotificationService,
@@ -45,11 +43,11 @@ export class ReservationComponent implements OnInit {
   }
   
   public getCompletedReservations(): Reservation[] {
-    return this.reservationService.getCompletedReservations(this.reservations?.content);
+    return this.customerReservationService.getCompletedReservations(this.reservations?.content);
   }
   
   public getPendingReservations(): Reservation[] {
-    return this.reservationService.getPendingReservations(this.reservations?.content);
+    return this.customerReservationService.getPendingReservations(this.reservations?.content);
   }
   
   public getReservations(): void {
@@ -58,7 +56,7 @@ export class ReservationComponent implements OnInit {
         if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1 || q?.size as number < 1)
           this.router.navigateByUrl(`/workspace/${this.accountUrl}/reservations?offset=1`);
         else
-          this.customerService.getReservations(new ClientPageRequest(q?.offset, q?.size)).subscribe({
+          this.customerReservationService.getReservations(new ClientPageRequest(q?.offset, q?.size)).subscribe({
             next: (customerReservationPayload: any) => {
               this.reservations = customerReservationPayload?.responseBody?.reservations;
               this.pages = new Array<number>(this.reservations?.totalPages);
@@ -128,7 +126,7 @@ export class ReservationComponent implements OnInit {
   }
   
   public cancelReservation(reservation: Reservation): void {
-    this.reservationService.cancelReservation(reservation).subscribe({
+    this.customerReservationService.cancelReservation(reservation).subscribe({
       next: (reservationPayload: any) => {
         this.getReservations();
         this.notificationService.showWarning(new ToastrMsg(`Reservation REF-${reservation?.code.substring(0, 8)} has been cancelled`, 

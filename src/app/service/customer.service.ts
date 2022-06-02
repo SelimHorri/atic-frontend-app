@@ -59,26 +59,6 @@ export class CustomerService {
     }));
   }
   
-  public getReservations(clientPageRequest: ClientPageRequest): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/reservations`, {
-      params: {
-        offset: `${clientPageRequest.offset}`,
-        size: `${clientPageRequest.size}`
-      },
-      headers: {
-        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
-        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
-      }
-    }).pipe(map((payload: any) => {
-      payload.responseBody.customer.birthdate = new Date(payload?.responseBody?.customer?.birthdate);
-      payload?.responseBody?.reservations?.content?.map((r: any) => {
-        r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
-        r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
-      });
-      return payload;
-    }));
-  }
-  
   public getRatings(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/ratings`, {
       headers: {
@@ -88,6 +68,7 @@ export class CustomerService {
     });
   }
   
+  /*
   public addReservation(reservationRequest: Reservation): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/reservations`, reservationRequest, {
       headers: {
@@ -96,6 +77,7 @@ export class CustomerService {
       }
     });
   }
+  */
   
   public deleteFavourite(saloonId: number): Observable<boolean> {
     return this.http.delete<any>(`${this.apiUrl}/favourites/${saloonId}`, {

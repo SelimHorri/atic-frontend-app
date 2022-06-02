@@ -16,6 +16,8 @@ import { Saloon } from 'src/app/model/saloon';
 import { ServiceDetail } from 'src/app/model/service-detail';
 import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
+import { CustomerReservationDetailService } from 'src/app/service/customer/customer-reservation-detail.service';
+import { CustomerReservationService } from 'src/app/service/customer/customer-reservation.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { OrderedDetailService } from 'src/app/service/ordered-detail.service';
@@ -35,7 +37,7 @@ export class ReservationDetailsComponent implements OnInit {
   public allServiceDetails!: PageResponse;
   public msg: string = "";
   
-  constructor(private reservationService: ReservationService,
+  constructor(private customerReservationDetailService: CustomerReservationDetailService,
     private credentialService: CredentialService,
     private serviceDetailService: ServiceDetailService,
     private orderedDetailService: OrderedDetailService,
@@ -71,7 +73,7 @@ export class ReservationDetailsComponent implements OnInit {
   public getReservationDetails(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) =>
-        this.reservationService.getReservationDetails(p.reservationId).subscribe({
+        this.customerReservationDetailService.getReservationDetails(p.reservationId).subscribe({
           next: (reservationDetailsPayload: any) =>
               this.reservationDetails = reservationDetailsPayload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
@@ -109,7 +111,7 @@ export class ReservationDetailsComponent implements OnInit {
   public onUpdateReservation(descriptionObj: any): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        this.reservationService.updateReservationDetails(new ReservationDetailRequest(p?.reservationId, 
+        this.customerReservationDetailService.updateReservationDetails(new ReservationDetailRequest(p?.reservationId, 
             descriptionObj?.description)).subscribe({
           next: (reservationDetailPayload: any) => this.notificationService
               .showSuccess(new ToastrMsg("Reservation detail has been updated successfully...", "Updated!")),
