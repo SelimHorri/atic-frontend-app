@@ -28,16 +28,15 @@ export class SaloonCalendarComponent implements OnInit {
       right: 'timeGridWeek,dayGridMonth'
     },
     // selectMirror: true,
-    select: (arg) => alert(`reservation starts at: ${moment(arg?.startStr).format(`DD-MMM-yyyy HH:mm`)}`),
+    select: arg => alert(`reservation starts at: ${moment(arg?.startStr).format(`DD-MMM-yyyy HH:mm`)}`),
     // selectOverlap: true,
-    // selectAllow: (arg) => {return true},
-    
+    selectAllow: arg => moment(Date.now()).isAfter(arg.start) ? false : true,
     // eventClick: (arg) => alert('hello: '),
     events: [
-      { title: 'Appointment 1', date: '2022-06-03 06:30', interactive: true, className: 'btn btn-outline-danger',  /*, url: '/saloons'*/ },
-      { title: 'Appointment 2', date: '2022-06-04 10:00', interactive: true, className: 'btn btn-outline-danger' },
-      { title: 'Appointment 2', date: '2022-06-04 10:30', interactive: true, className: 'btn btn-outline-danger' },
-      { title: 'Appointment 2', date: '2022-06-04 13:00', interactive: true, className: 'btn btn-outline-danger' },
+      { title: 'Reservation 1', date: '2022-06-03 06:30', interactive: true, className: 'btn btn-outline-danger',  /*, url: '/saloons'*/ },
+      { title: 'Reservation 2', date: '2022-06-04 10:00', interactive: true, className: 'btn btn-outline-danger' },
+      { title: 'Reservation 2', date: '2022-06-04 10:30', interactive: true, className: 'btn btn-outline-danger' },
+      { title: 'Reservation 2', date: '2022-06-04 13:00', interactive: true, className: 'btn btn-outline-danger' },
     ]
   };
   
