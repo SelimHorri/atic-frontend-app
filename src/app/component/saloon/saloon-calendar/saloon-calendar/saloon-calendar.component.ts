@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
 import * as moment from 'moment';
-import { DateBackendFormat } from 'src/app/model/date-backend-format';
 import { ReservationStatus } from 'src/app/model/reservation-status';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { CalendarService } from 'src/app/service/calendar.service';
@@ -18,22 +17,22 @@ import { ReservationService } from 'src/app/service/reservation.service';
   styleUrls: ['./saloon-calendar.component.scss']
 })
 export class SaloonCalendarComponent implements OnInit {
-  
+
   public accountUrl!: string;
   public saloonReservations!: PageResponse;
   public calendarOptions!: CalendarOptions;
-  
+
   constructor(private credentialService: CredentialService,
     private reservationService: ReservationService,
     private calendarService: CalendarService,
     private activatedRoute: ActivatedRoute,
-    private errorHandlerService: ErrorHandlerService) {}
-  
+    private errorHandlerService: ErrorHandlerService) { }
+
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
     this.getAllReservationsBySaloonId();
   }
-  
+
   public getAllReservationsBySaloonId(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
@@ -48,7 +47,7 @@ export class SaloonCalendarComponent implements OnInit {
                   date: `${moment(r?.startDate).format(`yyyy-MM-DD HH:mm`)}`,
                   interactive: true,
                   className: 'btn btn-outline-danger',
-                  url: `/workspace/${this.accountUrl}/reservations/${r?.id}`
+                  // url: `/workspace/${this.accountUrl}/reservations/${r?.id}`
                 });
             });
           },
@@ -58,9 +57,9 @@ export class SaloonCalendarComponent implements OnInit {
       }
     });
   }
-  
-  
-  
+
+
+
 }
 
 

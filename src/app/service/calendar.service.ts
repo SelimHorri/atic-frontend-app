@@ -2,7 +2,6 @@
 import { Injectable } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
 import * as moment from 'moment';
-import { CredentialService } from './credential.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,7 @@ export class CalendarService {
   private calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek',
     selectable: true,
-    editable: true,
+    editable: false,
     allDaySlot: false,
     firstDay: 1,
     slotMinTime: '08:00',
@@ -26,7 +25,7 @@ export class CalendarService {
       right: 'timeGridWeek,dayGridMonth'
     },
     // selectMirror: true,
-    select: arg => alert(`reservation starts at: ${moment(arg?.startStr).format(`DD-MMM-yyyy HH:mm`)}`),
+    select: arg => alert(`Reservation starts at: ${moment(arg?.startStr).format(`DD-MMM-yyyy HH:mm`)}`),
     // selectOverlap: true,
     selectAllow: arg =>  {
       if (moment(Date.now()).isAfter(arg.start)) {
