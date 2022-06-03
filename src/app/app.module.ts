@@ -45,15 +45,15 @@ import { CustomerReservationService } from './service/customer/customer-reservat
 import { CustomerReservationDetailService } from './service/customer/customer-reservation-detail.service';
 import { CustomerProfileService } from './service/customer/customer-profile.service';
 import { CustomerFavouriteService } from './service/customer/customer-favourite.service';
-import { FullCalendarModule } from '@fullcalendar/angular';
 import { SaloonCalendarComponent } from './component/saloon/saloon-calendar/saloon-calendar/saloon-calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
-  dayGridPlugin,
   timeGridPlugin,
+  dayGridPlugin,
   interactionPlugin,
 ]);
 

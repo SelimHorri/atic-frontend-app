@@ -153,8 +153,7 @@
                   <td colspan="2">{{ sd?.name | uppercase }}</td>
                   <!-- <td class="text-end"><a class="btn btn-outline-success" (click)="onChooseServiceDetail(sd?.id)"
                       href="javascript:void(0);">Choose</a></td> -->
-                  <td class="text-end"><a class="btn btn-outline-success" href="javascript:void(0);"
-                      onclick="window.location.hash = '#timetable'">Choose</a></td>
+                  <td class="text-end"><a class="btn btn-outline-success" routerLink="/saloons/{{ saloon?.id }}/calendar">Choose</a></td>
                 </tr>
               </tfoot>
             </table>

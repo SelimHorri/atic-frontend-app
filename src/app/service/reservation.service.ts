@@ -38,6 +38,22 @@ export class ReservationService {
     });
   }
   
+  public findAllBySaloonId(saloonId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/saloonId/${saloonId}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    })
+    .pipe(map((payload: any) => {
+      payload?.responseBody?.content?.map((r: any) => {
+        r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      });
+      return payload;
+    }));
+  }
+  
   
   
 }
