@@ -8,7 +8,6 @@
       <h2 class="h2 mb-0"><a href="#" class="text-muted"></a> {{ saloon?.name | uppercase }} <span
           class="h5 badge badge-dark">#{{ saloon?.code?.substring(0, 8) }}</span> </h2>
     </div>
-
     <!-- Main content -->
     <div class="row">
       <div class="col-lg-8">
@@ -17,13 +16,15 @@
           <div class="card-body">
             <div class="mb-3 d-flex justify-content-between">
               <div>
-                <span class="me-3">22-11-2021</span>
-                <span class="me-3">#16123222</span>
-                <span class="me-3">Visa -1234</span>
-                <span class="badge rounded-pill bg-info">SHIPPING</span>
+                <span class="me-3">
+                  <p id="timePlay">
+                    
+                  </p>
+                </span>
+                <span class="badge rounded-pill bg-info">Actif</span>
               </div>
               <div class="d-flex">
-                <a href="javascript:void(0);" class="btn btn-outline-success "><i class="bi bi-download"></i>
+                <a onclick="window.location.hash = '#timetable'" href="javascript:void(0);" class="btn btn-outline-success "><i class="bi bi-download"></i>
                   <span class="text">Make Appointment</span></a>
                 <div class="dropdown">
                   <button class="btn btn-link p-0 text-muted" type="button" data-bs-toggle="dropdown">
@@ -100,16 +101,6 @@
                   <td colspan="2">Location</td>
                   <td class="text-end">{{ saloon?.location?.zipcode }} {{ saloon?.location?.city }}
                     {{ saloon?.location?.state }}</td>
-                </tr>
-                <!--
-                  <tr>
-                    <td colspan="2">Discount (Code: NEWYEAR)</td>
-                    <td class="text-danger text-end">-$10.00</td>
-                  </tr>
-                -->
-                <tr class="fw-bold">
-                  <td colspan="2">TOTAL</td>
-                  <td class="text-end">$169,98</td>
                 </tr>
               </tfoot>
             </table>
@@ -239,7 +230,8 @@
 <br>
 
 <div align="center">
-  <a class="btn btn-outline-warning" href="/saloons/{{ saloon?.id }}/calendar/"><strong class="text-dark">View TimeTable in a seperate window</strong></a>
+  <a class="btn btn-outline-warning" href="/saloons/{{ saloon?.id }}/calendar/"><strong class="text-dark">View TimeTable
+      in a seperate window</strong></a>
 </div>
 
 <br>
