@@ -1,6 +1,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -15,7 +16,8 @@ export class SaloonService {
   
   private apiUrl: string = environment.API_URL;
   
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private domSanitizer: DomSanitizer) {
     this.apiUrl = `${this.apiUrl}/saloons`;
   }
   
@@ -27,7 +29,10 @@ export class SaloonService {
       }
     })
     .pipe(map(payload => {
-      payload?.responseBody?.content?.forEach((s: Saloon) => s.openingDate = moment(s?.openingDate, DateBackendFormat.LOCAL_DATE).toDate());
+      payload?.responseBody?.content?.forEach((s: Saloon) => {
+        s.openingDate = moment(s?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
+        s.iframeGoogleMap = this.domSanitizer.bypassSecurityTrustHtml(s.iframeGoogleMap?.toString());
+      });
       return payload;
     }));
   }
@@ -36,6 +41,7 @@ export class SaloonService {
     return this.http.get<any>(`${this.apiUrl}/${id}`)
         .pipe(map(res => {
           res.responseBody.openingDate = moment(res?.responseBody?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
+          res.responseBody.iframeGoogleMap = this.domSanitizer.bypassSecurityTrustHtml(res?.responseBody?.iframeGoogleMap?.toString());
           return res;
     }));
   }
@@ -43,7 +49,10 @@ export class SaloonService {
   public findAllByCode(code: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/code/${code}`)
         .pipe(map((res: any) => {
-          res?.responseBody?.content?.forEach((s: Saloon) => s.openingDate = moment(s?.openingDate, DateBackendFormat.LOCAL_DATE).toDate());
+          res?.responseBody?.content?.forEach((s: Saloon) => {
+            s.openingDate = moment(s?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
+            s.iframeGoogleMap = this.domSanitizer.bypassSecurityTrustHtml(s.iframeGoogleMap?.toString());
+          });
           return res;
     }));
   }

@@ -1,6 +1,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -16,7 +17,8 @@ export class ReservationService {
   
   private apiUrl: string = environment.API_URL;
   
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private domSanitizer: DomSanitizer) {
     this.apiUrl = `${this.apiUrl}/reservations`;
   }
   
@@ -26,7 +28,10 @@ export class ReservationService {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
-    });
+    })
+    .pipe(map((payload: any) => {
+      payload.responseBody.iframeGoogleMap = this.domSanitizer.bypassSecurityTrustHtml(payload?.responseBody?.iframeGoogleMap?.toString());
+    }));
   }
   
   public findByCode(code: string): Observable<any> {
@@ -35,7 +40,10 @@ export class ReservationService {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
-    });
+    })
+    .pipe(map((payload: any) => {
+      payload.responseBody.iframeGoogleMap = this.domSanitizer.bypassSecurityTrustHtml(payload?.responseBody?.iframeGoogleMap?.toString());
+    }));
   }
   
   public findAllBySaloonId(saloonId: number): Observable<any> {
@@ -49,6 +57,7 @@ export class ReservationService {
       payload?.responseBody?.content?.map((r: any) => {
         r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.iframeGoogleMap = this.domSanitizer.bypassSecurityTrustHtml(r?.iframeGoogleMap?.toString());
       });
       return payload;
     }));

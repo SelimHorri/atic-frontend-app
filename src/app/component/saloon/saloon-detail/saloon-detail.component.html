@@ -226,10 +226,23 @@
             </address>
           </div>
         </div>
+        <div class="">
+          <div *ngIf="saloon?.iframeGoogleMap" [innerHTML]="saloon?.iframeGoogleMap" class=""></div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<br>
+<hr class="container">
+<br>
+
+<div align="center">
+  <a class="btn btn-outline-warning" href="/saloons/{{ saloon?.id }}/calendar/"><strong class="text-dark">View TimeTable in a seperate window</strong></a>
+</div>
+
+<br>
 
 <div id="timetable" class="container-fluid">
   <app-saloon-calendar></app-saloon-calendar>
