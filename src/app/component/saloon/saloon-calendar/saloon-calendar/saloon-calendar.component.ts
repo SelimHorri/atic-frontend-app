@@ -1,6 +1,7 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
 import * as moment from 'moment';
@@ -56,6 +57,24 @@ export class SaloonCalendarComponent implements OnInit {
         });
       }
     });
+  }
+  
+  public onOpenModal(action: string): void {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.style.display = "none";
+    button.setAttribute("data-bs-toggle", "modal");
+
+    if (action === "createReservation")
+      button.setAttribute("data-bs-target", "#createReservation");
+
+    const mainContainer = document.getElementById("main-container");
+    mainContainer?.appendChild(button);
+    button.click();
+  }
+
+  public onCreateReservation(ngForm: NgForm): void {
+
   }
 
 

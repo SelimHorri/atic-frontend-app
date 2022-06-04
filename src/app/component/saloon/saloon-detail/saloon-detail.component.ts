@@ -58,26 +58,8 @@ export class SaloonDetailComponent implements OnInit {
     });
   }
   
-  public onOpenModal(action: string): void {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.style.display = "none";
-    button.setAttribute("data-bs-toggle", "modal");
-    
-    if (action === "createReservation")
-      button.setAttribute("data-bs-target", "#createReservation");
-    
-    const mainContainer = document.getElementById("main-container");
-    mainContainer?.appendChild(button);
-    button.click();
-  }
-  
   private onChooseServiceDetail(serviceDetailId: number): void {
-    this.onOpenModal("createReservation");
-  }
-  
-  public onCreateReservation(ngForm: NgForm): void {
-    
+    // this.onOpenModal("createReservation");
   }
   
   

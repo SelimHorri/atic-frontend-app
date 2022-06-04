@@ -1,3 +1,35 @@
+
 <div class="container">
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>
+
+
+<div class="modal fade" id="createReservation" tabindex="-1" role="dialog" aria-labelledby="createReservationModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content card">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Reservation</h5>
+        <button onclick="document.getElementById('createReservation').click()" type="button" class="close"
+          data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body card-body">
+        <form #createReservationForm="ngForm">
+          <!-- <input type="hidden" [ngModel]="reservationDetails?.reservation?.id" name="reservationId" /> -->
+
+          <div class="modal-footer">
+            <button type="button" onclick="document.getElementById('createReservation').click()"
+              id="createReservation-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button [disabled]="createReservationForm.invalid" (click)="onCreateReservation(createReservationForm)"
+              type="submit" class="btn btn-primary">Create</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
