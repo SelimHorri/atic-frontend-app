@@ -74,9 +74,10 @@ export class SaloonCalendarComponent implements OnInit {
     button.click();
   }
   */
-
+  
   public onCreateReservation(ngForm: NgForm): void {
-
+    console.log(JSON.stringify(ngForm?.value));
+    ngForm.reset();
   }
 
 
