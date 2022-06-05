@@ -1,12 +1,10 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from 'src/app/model/category';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
-import { ServiceDetail } from 'src/app/model/service-detail';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { SaloonService } from 'src/app/service/saloon.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
@@ -20,6 +18,7 @@ export class SaloonDetailComponent implements OnInit {
   
   public saloon!: Saloon;
   public serviceDetails!: PageResponse;
+  public categories: Category[] = [];
   
   constructor(private saloonService: SaloonService,
     private serviceDetailService: ServiceDetailService,
@@ -52,6 +51,12 @@ export class SaloonDetailComponent implements OnInit {
     this.serviceDetailService.findAllByCategorySaloonId(saloonId).subscribe({
       next: (serviceDetailPayload: any) => {
         this.serviceDetails = serviceDetailPayload?.responseBody;
+        
+        const categoriesSet = new Set<Category>();
+        this.serviceDetails?.content?.forEach(sd => categoriesSet.add(sd?.category));
+        this.categories = Array.from(categoriesSet); // TODO: Remove redundants ********
+        
+        console.log(JSON.stringify(this.categories));
       },
       error: (errorResponse: HttpErrorResponse) =>
           this.errorHandlerService.extractExceptionMsg(errorResponse)

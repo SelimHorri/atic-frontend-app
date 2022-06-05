@@ -133,19 +133,18 @@
               -->
             </div>
             <table class="table table-borderless">
-              <tfoot *ngFor="let sd of serviceDetails?.content">
-                <!--
-                  <tr>
-                    <th colspan="2">{{ s?.category?.name | uppercase }}</th>
-                    <th colspan="2"></th>
-                  </tr>
-                -->
+              <tfoot *ngFor="let c of categories">
                 <tr>
-                  <td colspan="2">{{ sd?.name | uppercase }}</td>
+                  <th colspan="2">{{ c?.name | uppercase }}</th>
+                  <th colspan="2"></th>
+                </tr>
+                <tr *ngFor="let sd of serviceDetails?.content">
+                  <td *ngIf="sd?.category?.id === c?.id" colspan="2">{{ sd?.name | uppercase }}</td>
                   <!-- <td class="text-end"><a class="btn btn-outline-success" (click)="onChooseServiceDetail(sd?.id)"
                       href="javascript:void(0);">Choose</a></td> -->
                   <!-- <td class="text-end"><a class="btn btn-outline-success" routerLink="/saloons/{{ saloon?.id }}/calendar">Choose</a></td> -->
-                  <td class="text-end"><a class="btn btn-outline-success" href="javascript:void(0);"
+                  <td *ngIf="sd?.category?.id === c?.id" class="text-end"><a class="btn btn-outline-success"
+                      href="javascript:void(0);"
                       onclick="window.location.hash = 'timetable'">Choose</a></td>
                 </tr>
               </tfoot>
