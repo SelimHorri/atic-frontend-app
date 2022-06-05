@@ -2,6 +2,8 @@
 import { Injectable } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
 import * as moment from 'moment';
+import { ToastrMsg } from '../model/toastr-msg';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -35,11 +37,23 @@ export class CalendarService {
       else
         return true;
     },
-    // eventClick: (arg) => alert('hello: '),
+    eventClick: arg => {
+      const textarea = document.createElement('textarea');
+      textarea.value = arg?.event?.title;
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      navigator.clipboard.writeText(`${arg?.event?.title}`).then(
+        res => this.notificationService.showSuccess(new ToastrMsg(`Reservation ${arg?.event?.title} copied to clipboard, go and search...`, 
+              "Copied to clipboard!")), 
+        () => this.notificationService.showWarning(new ToastrMsg(`Fail to copy reference to clipboard...`, 
+              "Copy failed!")));
+      document.body.removeChild(textarea);
+    },
     events: []
   };
   
-  constructor() {}
+  constructor(private notificationService: NotificationService) {}
   
   public createSaloonCalendar(initialView?: string): CalendarOptions {
     this.calendarOptions.initialView = initialView;
