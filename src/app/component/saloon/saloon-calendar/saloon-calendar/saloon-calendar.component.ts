@@ -59,6 +59,7 @@ export class SaloonCalendarComponent implements OnInit {
     });
   }
   
+  /*
   public onOpenModal(action: string): void {
     const button = document.createElement("button");
     button.type = "button";
@@ -72,6 +73,7 @@ export class SaloonCalendarComponent implements OnInit {
     mainContainer?.appendChild(button);
     button.click();
   }
+  */
 
   public onCreateReservation(ngForm: NgForm): void {
 

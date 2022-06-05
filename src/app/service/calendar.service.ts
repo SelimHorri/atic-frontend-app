@@ -27,7 +27,10 @@ export class CalendarService {
       right: 'timeGridWeek,dayGridMonth'
     },
     // selectMirror: true,
-    select: arg => alert(`Reservation starts at: ${moment(arg?.startStr).format(`DD-MMM-yyyy HH:mm`)}`),
+    // select: arg => alert(`Reservation starts at: ${moment(arg?.startStr).format(`DD-MMM-yyyy HH:mm`)}`),
+    select: arg => {
+      this.onOpenModal('createReservation');
+    },
     // selectOverlap: true,
     selectAllow: arg =>  {
       if (moment(Date.now()).isAfter(arg.start)) {
@@ -58,6 +61,20 @@ export class CalendarService {
   public createSaloonCalendar(initialView?: string): CalendarOptions {
     this.calendarOptions.initialView = initialView;
     return this.calendarOptions;
+  }
+  
+  public onOpenModal(action: string): void {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.style.display = "none";
+    button.setAttribute("data-bs-toggle", "modal");
+
+    if (action === "createReservation")
+      button.setAttribute("data-bs-target", "#createReservation");
+
+    const mainContainer = document.getElementById("main-container");
+    mainContainer?.appendChild(button);
+    button.click();
   }
   
   
