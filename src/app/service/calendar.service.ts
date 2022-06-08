@@ -29,7 +29,7 @@ export class CalendarService {
     // selectMirror: true,
     // select: arg => alert(`Reservation starts at: ${moment(arg?.startStr).format(`DD-MMM-yyyy HH:mm`)}`),
     select: arg => {
-      this.onOpenModal('createReservation');
+      // this.onOpenModal('createReservation');
     },
     // selectOverlap: true,
     selectAllow: arg =>  {
