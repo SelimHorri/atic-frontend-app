@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
 import * as moment from 'moment';
+import { DateBackendFormat } from 'src/app/model/date-backend-format';
 import { ReservationStatus } from 'src/app/model/reservation-status';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { CalendarService } from 'src/app/service/calendar.service';
@@ -27,6 +28,9 @@ export class SaloonCalendarComponent implements OnInit {
   public allServiceDetails!: PageResponse;
   
   public reservationRequest: any = {
+    username: `${sessionStorage.getItem(`username`)}`.trim(),
+    saloonId: 0,
+    startDate: '',
     serviceDetailsIds: [],
     description: ""
   };
@@ -91,7 +95,10 @@ export class SaloonCalendarComponent implements OnInit {
         this.serviceDetailService.findAllByCategorySaloonId(p?.id).subscribe({
           next: (serviceDetailsPayload: any) => {
             this.allServiceDetails = serviceDetailsPayload?.responseBody;
-            this.calendarOptions.select = arg => this.onOpenModal('createReservation');
+            this.calendarOptions.select = arg => {
+              this.onOpenModal('createReservation');
+              this.reservationRequest.startDate = moment(arg?.start).format(DateBackendFormat.LOCAL_DATE_TIME);
+            };
           },
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
@@ -115,11 +122,17 @@ export class SaloonCalendarComponent implements OnInit {
     
     console.log('reser: ' + JSON.stringify(this.reservationRequest))
     
-    
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        
+      },
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
     
     document.getElementById('createReservation')?.click();
     ngForm.reset();
     this.reservationRequest.serviceDetailsIds = [];
+    // this.getAllReservationsBySaloonId();
   }
 
 
