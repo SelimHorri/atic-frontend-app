@@ -10,6 +10,7 @@ import { ReservationStatus } from 'src/app/model/reservation-status';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { CalendarService } from 'src/app/service/calendar.service';
 import { CredentialService } from 'src/app/service/credential.service';
+import { CustomerReservationService } from 'src/app/service/customer/customer-reservation.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { ReservationService } from 'src/app/service/reservation.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
@@ -36,6 +37,7 @@ export class SaloonCalendarComponent implements OnInit {
   };
 
   constructor(private credentialService: CredentialService,
+    private customerReservationService: CustomerReservationService,
     private serviceDetailService: ServiceDetailService,
     private reservationService: ReservationService,
     private calendarService: CalendarService,
