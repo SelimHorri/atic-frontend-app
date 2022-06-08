@@ -19,8 +19,6 @@
         </div>
         <div class="modal-body card-body">
           <form #createReservationForm="ngForm" (ngSubmit)="onCreateReservation(createReservationForm)">
-            <!-- <input type="hidden" [ngModel]="reservationDetails?.reservation?.id" name="reservationId" /> -->
-            
             <div class="form-group">
               <label for="servicesSwitches">
                 <h5>Services to choose<span class="badge text-danger">*</span></h5>
@@ -28,7 +26,8 @@
               <div *ngFor="let item of allServiceDetails?.content" id="servicesSwitches"
                 class="form-check form-switch">
                 <input name="serviceDetails" ngModel [value]="item?.id"
-                  (change)="onServiceCheck(item, $event)" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                  (change)="onServiceCheck(item, $event)" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                  required="{{ reservationRequest.serviceDetailsIds.length !== 0 }}">
                 <label class="form-check-label" for="flexSwitchCheckDefault">{{ item?.name | uppercase }}</label>
               </div>
             </div>

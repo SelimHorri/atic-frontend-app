@@ -6,12 +6,16 @@ import { ActivatedRoute } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
 import * as moment from 'moment';
 import { DateBackendFormat } from 'src/app/model/date-backend-format';
+import { ReservationRequest } from 'src/app/model/request/reservation-request';
+import { Reservation } from 'src/app/model/reservation';
 import { ReservationStatus } from 'src/app/model/reservation-status';
 import { PageResponse } from 'src/app/model/response/page/page-response';
+import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CalendarService } from 'src/app/service/calendar.service';
 import { CredentialService } from 'src/app/service/credential.service';
 import { CustomerReservationService } from 'src/app/service/customer/customer-reservation.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { ReservationService } from 'src/app/service/reservation.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
 
@@ -25,16 +29,8 @@ export class SaloonCalendarComponent implements OnInit {
   public accountUrl!: string;
   public saloonReservations!: PageResponse;
   public calendarOptions!: CalendarOptions;
-  
   public allServiceDetails!: PageResponse;
-  
-  public reservationRequest: any = {
-    username: `${sessionStorage.getItem(`username`)}`.trim(),
-    saloonId: 0,
-    startDate: '',
-    serviceDetailsIds: [],
-    description: ""
-  };
+  public reservationRequest: ReservationRequest = new ReservationRequest(`${sessionStorage.getItem(`username`)}`.trim(), 0, '', []);
 
   constructor(private credentialService: CredentialService,
     private customerReservationService: CustomerReservationService,
@@ -42,6 +38,7 @@ export class SaloonCalendarComponent implements OnInit {
     private reservationService: ReservationService,
     private calendarService: CalendarService,
     private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService,
     private errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit(): void {
@@ -77,7 +74,7 @@ export class SaloonCalendarComponent implements OnInit {
     });
   }
   
-  public onOpenModal(action: string): void {
+  private onOpenModal(action: string): void {
     const button = document.createElement("button");
     button.type = "button";
     button.style.display = "none";
@@ -121,21 +118,28 @@ export class SaloonCalendarComponent implements OnInit {
   }
   
   public onCreateReservation(ngForm: NgForm): void {
-    
-    console.log('reser: ' + JSON.stringify(this.reservationRequest))
-    
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        
+        this.reservationRequest.saloonId = p?.id;
+        this.customerReservationService.createReservation(this.reservationRequest).subscribe({
+          next: (reservationPayload: any) => {
+            console.log(JSON.stringify(reservationPayload?.responseBody));
+            const reservation: Reservation = reservationPayload?.responseBody;
+            document.getElementById('createReservation')?.click();
+            this.reservationRequest.serviceDetailsIds = [];
+            ngForm.reset();
+            this.getAllReservationsBySaloonId();
+            // window.location.reload();
+            this.notificationService.showSuccess(new ToastrMsg(`REF-${reservation?.code?.substring(0, 8)} has been created..`, 
+                "Reservation created!"));
+          },
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
       },
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
     
-    document.getElementById('createReservation')?.click();
-    ngForm.reset();
-    this.reservationRequest.serviceDetailsIds = [];
-    // this.getAllReservationsBySaloonId();
-  }
+    }
 
 
 

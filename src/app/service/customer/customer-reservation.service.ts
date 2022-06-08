@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { DateBackendFormat } from 'src/app/model/date-backend-format';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
+import { ReservationRequest } from 'src/app/model/request/reservation-request';
 import { Reservation } from 'src/app/model/reservation';
 import { ReservationStatus } from 'src/app/model/reservation-status';
 import { environment } from 'src/environments/environment';
@@ -21,10 +22,14 @@ export class CustomerReservationService {
   }
   
   public getReservations(clientPageRequest: ClientPageRequest): Observable<any> {
+    clientPageRequest.sortBy?.push("startDate");
+    clientPageRequest.sortDirection = "desc";
     return this.http.get<any>(`${this.apiUrl}`, {
       params: {
         offset: `${clientPageRequest.offset}`,
-        size: `${clientPageRequest.size}`
+        size: `${clientPageRequest.size}`,
+        sortBy: `${clientPageRequest?.sortBy?.join(`,`)}`,
+        sortDirection: `${clientPageRequest?.sortDirection}`
       },
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
@@ -67,8 +72,8 @@ export class CustomerReservationService {
       || r?.status === ReservationStatus.IN_PROGRESS);
   }
   
-  public addReservation(reservationRequest: Reservation): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/reservations`, reservationRequest, {
+  public createReservation(reservationRequest: ReservationRequest): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}`, reservationRequest, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
