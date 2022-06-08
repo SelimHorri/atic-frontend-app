@@ -60,7 +60,6 @@ export class SaloonCalendarComponent implements OnInit {
                   className: 'btn btn-outline-danger',
                   // url: `/workspace/${this.accountUrl}/reservations/${r?.id}`
                 });
-                // this.getAllServiceDetails();
               }
             });
             this.getAllServiceDetails();
@@ -92,15 +91,7 @@ export class SaloonCalendarComponent implements OnInit {
         this.serviceDetailService.findAllByCategorySaloonId(p?.id).subscribe({
           next: (serviceDetailsPayload: any) => {
             this.allServiceDetails = serviceDetailsPayload?.responseBody;
-            this.allServiceDetails?.content?.forEach(sd => {
-              // this.obj.serviceDetailsInput.push({id: sd?.id, name: sd?.name, isChecked: false});
-            });
-            // console.log(JSON.stringify(this.obj?.serviceDetailsInput));
-            
-            this.calendarOptions.select = arg => {
-              this.onOpenModal('createReservation');
-            };
-            
+            this.calendarOptions.select = arg => this.onOpenModal('createReservation');
           },
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
@@ -124,8 +115,10 @@ export class SaloonCalendarComponent implements OnInit {
     
     console.log('reser: ' + JSON.stringify(this.reservationRequest))
     
-    ngForm.reset();
+    
+    
     document.getElementById('createReservation')?.click();
+    ngForm.reset();
     this.reservationRequest.serviceDetailsIds = [];
   }
 
