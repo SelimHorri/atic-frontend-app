@@ -61,11 +61,13 @@ export class SaloonCalendarComponent implements OnInit {
                   date: `${moment(r?.startDate).format(`yyyy-MM-DD HH:mm`)}`,
                   interactive: true,
                   className: 'btn btn-outline-danger',
+                  borderColor: 'blue',
                   // url: `/workspace/${this.accountUrl}/reservations/${r?.id}`
                 });
               }
             });
             this.getAllServiceDetails();
+            
           },
           error: (errorResponse: HttpErrorResponse) =>
               this.errorHandlerService.extractExceptionMsg(errorResponse)
