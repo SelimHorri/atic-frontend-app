@@ -1,7 +1,7 @@
 
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Employee } from 'src/app/model/employee';
-import { Rating } from 'src/app/model/rating';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { CredentialService } from 'src/app/service/credential.service';
 import { CustomerService } from 'src/app/service/customer.service';
@@ -17,7 +17,7 @@ export class RatingComponent implements OnInit {
   
   public accountUrl!: string;
   public ratings!: PageResponse;
-  public employees!: PageResponse;
+  public employees: Employee[] = [];
   
   constructor(private credentialService: CredentialService,
     private customerService: CustomerService,
@@ -31,16 +31,14 @@ export class RatingComponent implements OnInit {
   
   public getRatings(): void {
     this.customerService.getRatings().subscribe({
-      next: (ratingPayload: any) => {
-        this.ratings = ratingPayload?.responseBody?.ratings;
+      next: (customerRatingPayload: any) => {
+        this.ratings = customerRatingPayload?.responseBody?.ratings;
         this.ratings?.content.forEach(r => {
           this.employeeService.findById(r?.workerId).subscribe({
             next: (employeePayload: any) => {
-              
-              this.employees?.content.push(employeePayload?.responseBody);
-              console.log(JSON.stringify(this.employees.content))
-              
-            }
+              this.employees?.push(employeePayload?.responseBody);
+            },
+            error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
           });
         });
       },
