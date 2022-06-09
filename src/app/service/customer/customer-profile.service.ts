@@ -20,10 +20,14 @@ export class CustomerProfileService {
 
   public getProfile(): Observable<any> {
     const clientPageRequest = new ClientPageRequest();
+    clientPageRequest.sortBy?.push("startDate");
+    clientPageRequest.sortDirection = "desc";
     return this.http.get<any>(`${this.apiUrl}`, {
       params: {
         offset: `${clientPageRequest?.offset}`,
-        size: `${clientPageRequest?.size}`
+        size: `${clientPageRequest?.size}`,
+        sortBy: `${clientPageRequest?.sortBy?.join(`,`)}`,
+        sortDirection: `${clientPageRequest?.sortDirection}`
       },
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
