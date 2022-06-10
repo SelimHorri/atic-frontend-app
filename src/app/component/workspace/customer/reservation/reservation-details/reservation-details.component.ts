@@ -38,6 +38,8 @@ export class ReservationDetailsComponent implements OnInit {
   public msg: string = "";
   
   constructor(private customerReservationDetailService: CustomerReservationDetailService,
+    private customerReservationService: CustomerReservationService,
+    private reservationService: ReservationService,
     private credentialService: CredentialService,
     private serviceDetailService: ServiceDetailService,
     private orderedDetailService: OrderedDetailService,
@@ -109,12 +111,36 @@ export class ReservationDetailsComponent implements OnInit {
       });
     else {
       if (confirm(`Only one Service remains!\nDo you want to cancel the whole reservation ?`)) {
+        // this.cancelReservation();
         alert("cancelled!")
       }
       else 
         return;
     }
   }
+  
+  /*
+  private cancelReservation(): void {
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        this.reservationService.findById(p?.reservationId).subscribe({
+          next: (reservationPayload: any) => {
+            this.customerReservationService.cancelReservation(reservationPayload?.responseBody).subscribe({
+              next: (payload: any) => {
+                this.getReservationDetails();
+                this.notificationService.showWarning(new ToastrMsg(`Reservation REF-${payload?.responseBody?.code.substring(0, 8)} has been cancelled`,
+                  "Reservation cancelled!"));
+              },
+              error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+            });
+          },
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      },
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  */
   
   public onUpdateReservation(descriptionObj: any): void {
     this.activatedRoute.params.subscribe({
