@@ -23,6 +23,7 @@ export class CustomerReservationService {
   
   public getReservations(clientPageRequest: ClientPageRequest): Observable<any> {
     clientPageRequest.sortBy?.push("startDate");
+    clientPageRequest.sortBy?.push("cancelDate");
     clientPageRequest.sortDirection = "desc";
     return this.http.get<any>(`${this.apiUrl}`, {
       params: {
