@@ -265,7 +265,7 @@
                             reservation with code: <a
                               routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}"><strong>`REF-{{ r?.code?.substring(0, 8) }}`</strong></a>
                             at:
-                            <u>{{ r?.startDate }}</u>
+                            <u>{{ r?.startDate | date: 'dd-MMM-yyyy HH:mm' }}</u>
                           </td>
                         </tr>
                       </tbody>

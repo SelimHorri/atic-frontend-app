@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { DateBackendFormat } from 'src/app/model/date-backend-format';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
+import { Reservation } from 'src/app/model/reservation';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -38,6 +39,9 @@ export class CustomerProfileService {
         map((res: any) => {
           res.responseBody.customer.birthdate = moment(res?.responseBody?.customer?.birthdate,
             DateBackendFormat.LOCAL_DATE).toDate();
+          res.responseBody.reservations.content?.map((r: Reservation) => {
+            r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+          });
           return res;
         })
       );
