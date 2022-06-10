@@ -67,7 +67,6 @@ export class SaloonCalendarComponent implements OnInit {
               }
             });
             this.getAllServiceDetails();
-            
           },
           error: (errorResponse: HttpErrorResponse) =>
               this.errorHandlerService.extractExceptionMsg(errorResponse)
