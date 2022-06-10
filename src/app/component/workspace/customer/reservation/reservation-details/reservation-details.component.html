@@ -1,3 +1,4 @@
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
 <div class="container main-container">
   <div class="contentbar">
@@ -181,7 +182,7 @@
           <select name="serviceDetailId" ngModel class="form-select" aria-label="Default select example">
             <option selected value="">==> Select a valid service <==</option>
             <option *ngFor="let s of allServiceDetails?.content" value="{{ s?.id }}">
-              {{ s?.name | uppercase }}
+              {{ s?.name | uppercase }} | <span class="badge text-dark">{{ s?.priceUnit }}DT</span>
             </option>
           </select>
           <div align="center"><span class="badge text-danger" *ngIf="msg.trim() !== ''">{{ msg | uppercase }}</span></div>

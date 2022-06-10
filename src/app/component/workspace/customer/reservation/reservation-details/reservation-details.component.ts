@@ -101,11 +101,19 @@ export class ReservationDetailsComponent implements OnInit {
   }
   
   public removeOrderedServiceDetail(reservationId: number, serviceDetailId: number): void {
-    this.orderedDetailService.deleteOrderedServiceDetail(new OrderedDetailId(reservationId, serviceDetailId)).subscribe({
-      // next: (responsePayload: any) => (responsePayload?.responseBody) ? this.getOrderedServiceDetails() : alert("Unable to remove service"),
-      next: (responsePayload: any) => (responsePayload?.responseBody) ? window.location.reload() : alert("Unable to remove service"),
-      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
-    });
+    if (this.orderedServiceDetails?.serviceDetails?.content?.length > 1)
+      this.orderedDetailService.deleteOrderedServiceDetail(new OrderedDetailId(reservationId, serviceDetailId)).subscribe({
+        // next: (responsePayload: any) => (responsePayload?.responseBody) ? this.getOrderedServiceDetails() : alert("Unable to remove service"),
+        next: (responsePayload: any) => (responsePayload?.responseBody) ? window.location.reload() : alert("Unable to remove service"),
+        error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+      });
+    else {
+      if (confirm(`Only one Service remains!\nDo you want to cancel the whole reservation ?`)) {
+        alert("cancelled!")
+      }
+      else 
+        return;
+    }
   }
   
   public onUpdateReservation(descriptionObj: any): void {
