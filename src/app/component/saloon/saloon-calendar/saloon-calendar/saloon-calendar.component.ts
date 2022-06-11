@@ -39,7 +39,7 @@ export class SaloonCalendarComponent implements OnInit {
     private calendarService: CalendarService,
     private activatedRoute: ActivatedRoute,
     private notificationService: NotificationService,
-    private errorHandlerService: ErrorHandlerService) { }
+    private errorHandlerService: ErrorHandlerService) {}
 
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
