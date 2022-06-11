@@ -126,13 +126,14 @@ export class ReservationComponent implements OnInit {
   }
   
   public cancelReservation(reservationId: number): void {
-    this.customerReservationService.cancelReservation(reservationId).subscribe({
-      next: (reservationPayload: any) => {
-        this.getReservations();
-        this.notificationService.showWarning(new ToastrMsg(`Reservation has been cancelled`, "Reservation cancelled!"));
-      },
-      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
-    });
+    if (confirm(`Cancel this reservation ?`))
+      this.customerReservationService.cancelReservation(reservationId).subscribe({
+        next: (reservationPayload: any) => {
+          this.getReservations();
+          this.notificationService.showWarning(new ToastrMsg(`Reservation has been cancelled`, "Reservation cancelled!"));
+        },
+        error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+      });
   }
   
   private findSaloonById(saloonId: number): void {

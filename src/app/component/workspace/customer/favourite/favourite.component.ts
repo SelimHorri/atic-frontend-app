@@ -106,10 +106,11 @@ export class FavouriteComponent implements OnInit {
   }
   
   public removeFavourite(saloonId: number): void {
-    this.customerFavouriteService.deleteFavourite(saloonId).subscribe({
-      next: (payload: any) => (payload?.responseBody) ? window.location.reload() : alert("Unable to delete favourite!"),
-      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
-    });
+    if (confirm(`Remove from favourite ?`))
+      this.customerFavouriteService.deleteFavourite(saloonId).subscribe({
+        next: (payload: any) => (payload?.responseBody) ? window.location.reload() : alert("Unable to delete favourite!"),
+        error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+      });
   }
   
   public searchBy(key: string): void {
