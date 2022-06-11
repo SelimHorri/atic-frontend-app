@@ -133,7 +133,7 @@
                       <a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}" class="text-success mr-4"
                         data-toggle="tooltip" data-placement="top" title=""
                         data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
-                      <a (click)="cancelReservation(r)" href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title=""
+                      <a (click)="cancelReservation(r?.id)" href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title=""
                         data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
                     </div>
                   </td>

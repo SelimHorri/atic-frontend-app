@@ -5,7 +5,6 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { ExceptionMsg } from 'src/app/model/exception-msg';
-import { OrderedDetail } from 'src/app/model/ordered-detail';
 import { OrderedDetailId } from 'src/app/model/ordered-detail-id';
 import { OrderedDetailRequest } from 'src/app/model/request/ordered-detail-request';
 import { ReservationDetailRequest } from 'src/app/model/request/reservation-detail-request';
@@ -121,7 +120,7 @@ export class ReservationDetailsComponent implements OnInit {
   
   // cancel reservation when nb services <= 1
   private cancelReservation(reservationId: number): void {
-    this.customerReservationService.cancelReservationById(reservationId).subscribe({
+    this.customerReservationService.cancelReservation(reservationId).subscribe({
       next: (reservationPayload: any) => {
         this.notificationService.showWarning(new ToastrMsg(`Reservation has been cancelled`, "Reservation cancelled!"));
         this.getReservationDetails();

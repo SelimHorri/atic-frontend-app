@@ -46,25 +46,7 @@ export class CustomerReservationService {
     }));
   }
   
-  public cancelReservation(reservation: Reservation): Observable<any> {
-
-    reservation.startDate = moment(reservation?.startDate).format(DateBackendFormat.LOCAL_DATE_TIME);
-    reservation.cancelDate = moment(Date.now()).format(DateBackendFormat.LOCAL_DATE_TIME);
-    reservation.status = ReservationStatus.CANCELLED;
-
-    return this.http.put<any>(`${this.apiUrl}/cancel`, reservation, {
-      headers: {
-        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
-        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
-      }
-    })
-    .pipe(map((payload: any) => {
-      payload.responseBody.startDate = moment(payload?.responseBody?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
-      payload.responseBody.cancelDate = moment(payload?.responseBody?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
-    }));
-  }
-  
-  public cancelReservationById(reservationId: number): Observable<any> {
+  public cancelReservation(reservationId: number): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/cancel/${reservationId}`, null, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
