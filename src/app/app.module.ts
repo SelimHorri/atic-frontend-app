@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -17,8 +16,6 @@ import { ContactComponent } from './component/contact/contact.component';
 import { AboutComponent } from './component/about/about.component';
 import { TagService } from './service/tag.service';
 import { IndexComponent } from './component/workspace/customer/index/index.component';
-import { SidebarComponent } from './component/workspace/customer/sidebar/sidebar.component';
-import { TopbarComponent } from './component/workspace/customer/topbar/topbar.component';
 import { ProfileComponent } from './component/workspace/customer/profile/profile.component';
 import { LogoutComponent } from './component/logout/logout.component';
 import { CredentialService } from './service/credential.service';
@@ -39,6 +36,24 @@ import { HealthLivenessService } from './service/health-liveness.service';
 import { SaloonComponent } from './component/saloon/saloon.component';
 import { LocationComponent } from './component/location/location.component';
 import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-detail.component';
+import { ToastNoAnimationModule, ToastrModule, ToastrService } from 'ngx-toastr';
+import { NotificationService } from './service/notification.service';
+import { EmployeeService } from './service/employee.service';
+import { CustomerReservationService } from './service/customer/customer-reservation.service';
+import { CustomerReservationDetailService } from './service/customer/customer-reservation-detail.service';
+import { CustomerProfileService } from './service/customer/customer-profile.service';
+import { CustomerFavouriteService } from './service/customer/customer-favourite.service';
+import { SaloonCalendarComponent } from './component/saloon/saloon-calendar/saloon-calendar/saloon-calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  timeGridPlugin,
+  dayGridPlugin,
+  interactionPlugin,
+]);
 
 @NgModule({
   declarations: [
@@ -51,8 +66,6 @@ import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-d
     ContactComponent,
     AboutComponent,
     IndexComponent,
-    SidebarComponent,
-    TopbarComponent,
     ProfileComponent,
     LogoutComponent,
     FavouriteComponent,
@@ -63,12 +76,16 @@ import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-d
     SaloonComponent,
     LocationComponent,
     SaloonDetailComponent,
+    SaloonCalendarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
+    ToastNoAnimationModule.forRoot(),
+    FullCalendarModule,
   ],
   providers: [
     AuthenticationService,
@@ -76,6 +93,10 @@ import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-d
     TagService,
     CredentialService,
     CustomerService,
+    CustomerProfileService,
+    CustomerFavouriteService,
+    CustomerReservationService,
+    CustomerReservationDetailService,
     ErrorHandlerService,
     ReservationService,
     SaloonService,
@@ -84,6 +105,9 @@ import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-d
     ServiceDetailService,
     OrderedDetailService,
     HealthLivenessService,
+    EmployeeService,
+    ToastrService,
+    NotificationService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,19 +1,24 @@
+
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
   <div class="row">
-    <div *ngFor="let i of [9, 5, 45, 25, 100]" class="col-md-4">
+    <div *ngFor="let e of employees" class="col-md-4">
       <div class="card user-card">
         <div class="card-header">
           <h5>Profile</h5>
         </div>
         <div class="card-block">
           <div class="user-image">
-            <img src="https://bootdey.com/img/Content/avatar/avatar8.png" class="img-radius" alt="User-Profile-Image">
+            <a routerLink="/workspace/{{ accountUrl }}/ratings/details/{{ e?.id }}">
+              <img src="https://bootdey.com/img/Content/avatar/avatar8.png" class="img-radius" alt="User-Profile-Image">
+            </a>
           </div>
-          <h6 class="f-w-600 m-t-25 m-b-10">Alessa Robert</h6>
+          <h6 class="f-w-600 m-t-25 m-b-10"><a
+              routerLink="/workspace/{{ accountUrl }}/ratings/details/{{ e?.id }}">{{ e?.firstname }}
+              {{ e?.lastname }}</a></h6>
           <p class="text-muted">Active | Male | Born 23.05.1992</p>
           <hr>
-          <p class="text-muted m-t-15">Activity Level: 87%</p>
+          <p class="text-muted m-t-15">Activity Level: {{ calculateEmployeeRatings(e) }}%</p>
           <ul class="list-unstyled activity-leval">
             <li class="active"></li>
             <li class="active"></li>

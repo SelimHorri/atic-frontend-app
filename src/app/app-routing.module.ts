@@ -29,6 +29,9 @@ import { ReservationDetailsComponent as CustomerReservationDetailsComponent } fr
 import { AssignedWorkerComponent as CustomerAssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
 import { SaloonComponent } from './component/saloon/saloon.component';
 import { LocationComponent } from './component/location/location.component';
+import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-detail.component';
+import { SaloonCalendarComponent } from './component/saloon/saloon-calendar/saloon-calendar/saloon-calendar.component';
+import { SaloonDetailGuard } from './guard/saloon-detail.guard';
 
 const routes: Routes = [
   
@@ -45,8 +48,9 @@ const routes: Routes = [
       { path: "locations/:state/saloons", component: SaloonComponent },
       
       { path: "saloons", component: SaloonComponent },
-      // { path: "saloons/:id", component: SaloonComponent },
-      // { path: "saloons/code/:code", component: SaloonComponent },
+      { path: "saloons/:id", component: SaloonDetailComponent, canActivate: [SaloonDetailGuard] },
+      { path: "saloons/:id/calendar", component: SaloonCalendarComponent, canActivate: [SaloonDetailGuard] },
+      // { path: "saloons/code/:code", component: SaloonComponent, canActivate: [SaloonDetailGuard] },
       
       { path: "logout", component: LogoutComponent },
       { path: "authenticate", component: AuthenticationComponent, canActivate: [AuthenticationGuard] },

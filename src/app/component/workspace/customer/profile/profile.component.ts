@@ -1,11 +1,14 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ApiPayloadCustomerProfileResponse } from 'src/app/model/response/api/api-payload-customer-profile-response';
+import { Router } from '@angular/router';
+import { CustomerProfileInfoRequest } from 'src/app/model/request/customer-profile-info-request';
 import { CustomerProfileResponse } from 'src/app/model/response/customer-profile-response';
+import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
-import { CustomerService } from 'src/app/service/customer.service';
+import { CustomerProfileService } from 'src/app/service/customer/customer-profile.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
+import { NotificationService } from 'src/app/service/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,22 +20,35 @@ export class ProfileComponent implements OnInit {
   public accountUrl!: string;
   public customerProfileResponse!: CustomerProfileResponse;
   
-  constructor(private customerService: CustomerService,
+  constructor(private customerProfileService: CustomerProfileService,
     private credentialService: CredentialService,
+    private notificationService: NotificationService,
+    private router: Router,
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
-    this.getProfile();
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem(`userRole`)}`);
+    this.getProfile();
   }
   
   public getProfile(): void {
-    this.customerService.getProfile().subscribe({
-      next: (responsePayload: ApiPayloadCustomerProfileResponse) => {
+    this.customerProfileService.getProfile().subscribe({
+      next: (responsePayload: any) => {
         this.customerProfileResponse = responsePayload?.responseBody;
-        console.log(JSON.stringify(this.customerProfileResponse));
       },
       error: (errorResponse: HttpErrorResponse) => 
+          this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  
+  public onProfileUpdate(customerProfileInfoRequest: CustomerProfileInfoRequest): void {
+    this.customerProfileService.updateProfileInfo(customerProfileInfoRequest).subscribe({
+      next: (responsePayload: any) => {
+        this.notificationService.showSuccess(new ToastrMsg(`Infos has been updated successfully..`, `Updated!`));
+        alert(`Please login again to continue!`);
+        this.router.navigateByUrl(`/logout`);
+      },
+      error: (errorResponse: HttpErrorResponse) =>
           this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
   }

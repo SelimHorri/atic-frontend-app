@@ -1,4 +1,6 @@
 
+import { Category } from "./category";
+
 export class ServiceDetail {
   
   constructor(
@@ -8,7 +10,7 @@ export class ServiceDetail {
     public isAvailable: boolean,
     public duration: number,
     public priceUnit: number,
-    public categoryId: number) {
+    public category: Category) {
   }
   
   

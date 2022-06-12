@@ -1,5 +1,6 @@
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
-<div class="container">
+<div class="container main-container">
   <div class="contentbar">
     <!-- Start row -->
     <div class="row">
@@ -15,10 +16,18 @@
               <div class="col-lg-10 col-xl-12">
                 <div class="cart-container">
                   <div class="cart-head">
-                    <div class="table-responsive" *ngIf="orderedServiceDetails?.serviceDetails?.length !== 0">
+                    <div class="table-responsive" *ngIf="orderedServiceDetails?.serviceDetails?.content?.length !== 0">
                       <table class="table table-borderless">
                         <thead>
                           <tr>
+                            <th
+                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()">
+                              <a (click)="onOpenModal(reservationDetails.reservation.saloon, orderedServiceDetails.serviceDetails.content, 'addServiceDetail')"
+                                href="javascript:void(0);" class="btn text-primary ">
+                                <i class="ri-shield-cross-fill"></i>
+                                Add
+                              </a>
+                            </th>
                             <th scope="col">#</th>
                             <th scope="col">Service</th>
                             <th scope="col">Description</th>
@@ -32,25 +41,44 @@
                               scope="col" class="text-right">Remove</th>
                           </tr>
                         </thead>
-                        <tbody *ngFor="let s of orderedServiceDetails?.serviceDetails">
+                        <tbody *ngFor="let s of orderedServiceDetails?.serviceDetails?.content">
                           <tr>
+                            <th scope="row"
+                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()">
+                            </th>
                             <th scope="row">#</th>
                             <td>{{ s?.name | uppercase }}</td>
-                            <td><img
+                            <td>
+                              <img
                                 src="https://themesbox.in/admin-templates/olian/html/light-vertical/assets/images/ecommerce/product_01.svg"
-                                class="img-fluid" width="35" alt="product"></td>
+                                class="img-fluid" width="35" alt="product">
+                            </td>
                             <td>{{ s?.isAvailable }}</td>
                             <td>{{ s?.duration }} min</td>
                             <td>{{ s?.priceUnit }} DT</td>
                             <td class="text-right">{{ s?.priceUnit }} DT</td>
                             <td
                               *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
-                              class="text-right"><a href="javascript:void();"
+                              class="text-right"><a href="javascript:void(0);"
                                 (click)="removeOrderedServiceDetail(reservationDetails.reservation.id, s.id)"
                                 class="text-danger"><i class="ri-delete-bin-3-line"></i></a>
                             </td>
                           </tr>
                         </tbody>
+                        <!--
+                          <tbody>
+                            <tr>
+                              <td></td>
+                              <td>
+                                <a (click)="onOpenModal(reservationDetails.reservation.saloon, 'addServiceDetail')"
+                                  href="javascript:void(0);" class="btn btn-outline-primary ">
+                                  <i class="ri-shield-cross-fill"></i>
+                                  Add
+                                </a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        -->
                       </table>
                     </div>
                   </div>
@@ -61,7 +89,7 @@
                           <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
                             <div class="order-note">
                               <div class="form-group">
-                                <label for="specialNotes">Special Note for this reservation:</label>
+                                <label for="specialNotes">Special Notes (eg..Describe expected duration)</label>
                                 <textarea
                                   [disabled]="reservationDetails?.reservation?.status === 'CANCELLED'.toUpperCase() || reservationDetails?.reservation?.status === 'COMPLETED'.toUpperCase()"
                                   name="description"
@@ -119,8 +147,8 @@
                       <div class="cart-footer text-right">
                         <button
                           *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
-                          (click)="onUpdateReservation(reservationDetails, reservationForm.value)" type="button"
-                          class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>
+                          (click)="onUpdateReservation(reservationForm.value)" type="button"
+                          class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>&nbsp;
                         <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout
                           reservations<i class="ri-arrow-right-line ml-2"></i></a>
                       </div>
@@ -135,5 +163,39 @@
       <!-- End col -->
     </div>
     <!-- End row -->
+  </div>
+</div>
+
+<div class="modal fade" id="addServiceDetail" tabindex="-1" role="dialog" aria-labelledby="addServiceDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content card">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Service</h5>
+        <button onclick="document.getElementById('addServiceDetail').click()" type="button" class="close"
+          data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body card-body">
+        <form #addServiceDetailForm="ngForm">
+          <!-- <input type="hidden" [ngModel]="reservationDetails?.reservation?.id" name="reservationId" /> -->
+          <select name="serviceDetailId" ngModel class="form-select" aria-label="Default select example">
+            <option selected value="">==> Select a valid service <==</option>
+            <option *ngFor="let s of allServiceDetails?.content" value="{{ s?.id }}">
+              {{ s?.name | uppercase }} | <span class="badge text-dark">{{ s?.priceUnit }}DT</span>
+            </option>
+          </select>
+          <div align="center"><span class="badge text-danger" *ngIf="msg.trim() !== ''">{{ msg | uppercase }}</span></div>
+          <div class="modal-footer">
+            <button type="button" onclick="document.getElementById('addServiceDetail').click()" id="addServiceDetail-form"
+              class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button [disabled]="addServiceDetailForm.invalid"
+              (click)="onAddServiceDetail(addServiceDetailForm)"
+              type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
   </div>
 </div>

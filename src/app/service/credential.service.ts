@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiPayloadCredential } from '../model/response/api/api-payload-credential';
 import { UserRoleBasedAuthority } from '../model/user-role-based-authority';
 
 @Injectable({
@@ -17,8 +16,8 @@ export class CredentialService {
     this.API_URL = `${this.API_URL}/credentials/username`;
   }
   
-  public findByUsername(username: string): Observable<ApiPayloadCredential> {
-    return this.http.get<ApiPayloadCredential>(`${this.API_URL}/${username}`, {
+  public findByUsername(username: string): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/${username}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,

@@ -1,4 +1,8 @@
 
+import { Credential } from "./credential";
+import { Saloon } from "./saloon";
+import { UserImage } from "./user-image";
+
 export class Employee {
   
   constructor(
@@ -9,10 +13,10 @@ export class Employee {
     public phone: string,
     public birthdate: Date | string,
     public hiredate: Date | string,
-    public credentialId: number,
-    public managerId: number,
-    public userImageId: number,
-    public saloonId: number) {
+    public credential: Credential,
+    public manager: Employee,
+    public userImage: UserImage,
+    public saloon: Saloon) {
   }
   
   

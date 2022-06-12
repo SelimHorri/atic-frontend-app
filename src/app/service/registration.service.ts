@@ -1,11 +1,11 @@
 
-import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, LOCALE_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { DateBackendFormat } from '../model/date-backend-format';
 import { RegisterRequest } from '../model/request/register-request';
-import { ApiPayloadRegisterResponse } from '../model/response/api/api-payload-register-response';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +18,10 @@ export class RegistrationService {
     this.apiUrl = `${this.apiUrl}/register`;
   }
   
-  public register(registerRequest: RegisterRequest): Observable<ApiPayloadRegisterResponse> {
-    if (registerRequest.birthdate !== null && registerRequest.birthdate !== '')
-      registerRequest.birthdate = formatDate(registerRequest?.birthdate, 'dd-MM-yyyy', 'en-US');
-    return this.http.post<ApiPayloadRegisterResponse>(`${this.apiUrl}`, registerRequest);
+  public register(registerRequest: RegisterRequest): Observable<any> {
+    if (registerRequest?.birthdate !== undefined && registerRequest?.birthdate !== null && registerRequest?.birthdate !== '')
+      registerRequest.birthdate = moment(registerRequest.birthdate).format(DateBackendFormat.LOCAL_DATE);
+    return this.http.post<any>(`${this.apiUrl}`, registerRequest);
   }
   
   

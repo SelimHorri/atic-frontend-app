@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiPayloadServiceDetailsReservationContainerResponse } from '../model/response/api/api-payload-service-details-reservation-container-response';
+import { ServiceDetail } from '../model/service-detail';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,8 @@ export class ServiceDetailService {
     this.apiUrl = `${this.apiUrl}/service-details`;
   }
   
-  public getOrderedServiceDetailsByReservationId(reservationId: number): Observable<ApiPayloadServiceDetailsReservationContainerResponse> {
-    return this.http.get<ApiPayloadServiceDetailsReservationContainerResponse>(`${this.apiUrl}/reservationId/${reservationId}`, {
+  public getOrderedServiceDetailsByReservationId(reservationId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/reservationId/${reservationId}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
@@ -25,7 +25,9 @@ export class ServiceDetailService {
     });
   }
   
-  
+  public findAllByCategorySaloonId(saloonId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/saloonId/${saloonId}`);
+  }
   
 }
 

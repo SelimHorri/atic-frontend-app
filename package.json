@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~13.2.0",
+    "@angular/animations": "^13.2.6",
     "@angular/common": "~13.2.0",
     "@angular/compiler": "~13.2.0",
     "@angular/core": "~13.2.0",
@@ -18,7 +18,12 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
+    "@fullcalendar/angular": "^5.11.0",
+    "@fullcalendar/daygrid": "^5.11.0",
+    "@fullcalendar/interaction": "^5.11.0",
+    "@fullcalendar/timegrid": "^5.11.0",
     "moment": "^2.29.3",
+    "ngx-toastr": "^14.3.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

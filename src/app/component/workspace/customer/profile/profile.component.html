@@ -1,3 +1,4 @@
+
 <div class="container container-fluid">
   <div class="row">
     <div class="col-lg-3">
@@ -45,30 +46,30 @@
             </ul>
             <div class="row text-center mt-4">
               <div class="col p-2">
-                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.reservations?.length }}</h4>
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.reservations?.totalElements }}</h4>
                 <small class="mb-0 font-weight-bold">Reservations</small>
               </div>
               <div class="col p-2">
-                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.favourites?.length }}</h4>
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.favourites?.totalElements }}</h4>
                 <small class="mb-0 font-weight-bold">Favourites</small>
               </div>
               <div class="col p-2">
-                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.ratings?.length }}</h4>
+                <h4 class="mb-1 line-height-5">{{ customerProfileResponse?.ratings?.totalElements }}</h4>
                 <small class="mb-0 font-weight-bold">Ratings</small>
               </div>
             </div>
           </div>
           <div class="card-footer text-center">
             <span *ngIf="customerProfileResponse?.customer?.facebookUrl !== null">
-              <a href="{{ customerProfileResponse?.customer?.facebookUrl }}"
+              <a href="{{ customerProfileResponse?.customer?.facebookUrl }}" target="_blank"
                 class="btn-social btn-facebook waves-effect waves-light m-2"><i class="fa fa-facebook"></i></a>
             </span>
             <span *ngIf="customerProfileResponse?.customer?.instagramUrl !== null">
-              <a href="{{ customerProfileResponse?.customer?.instagramUrl }}"
+              <a href="{{ customerProfileResponse?.customer?.instagramUrl }}" target="_blank"
                 class="btn-social btn-instagram waves-effect waves-light m-2"><i class="fa fa-instagram"></i></a>
             </span>
             <span *ngIf="customerProfileResponse?.customer?.linkedinUrl !== null">
-              <a href="{{ customerProfileResponse?.customer?.linkedinUrl }}"
+              <a href="{{ customerProfileResponse?.customer?.linkedinUrl }}" target="_blank"
                 class="btn-social btn-linkedin waves-effect waves-light m-2"><i class="fa fa-linkedin"></i></a>
             </span>
           </div>
@@ -80,12 +81,12 @@
         <div class="card-body">
           <ul class="nav nav-pills nav-pills-primary nav-justified">
             <li class="nav-item">
-              <a href="javascript:void();" data-bs-target="#profile" data-bs-toggle="pill"
+              <a href="javascript:void(0);" data-bs-target="#profile" data-bs-toggle="pill"
                 class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
             </li>
             <!--
                 <li class="nav-item">
-                  <a href="javascript:void();" data-bs-target="#edit" data-bs-toggle="pill" class="nav-link"><i
+                  <a href="javascript:void(0);" data-bs-target="#edit" data-bs-toggle="pill" class="nav-link"><i
                       class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
                 </li>
                 -->
@@ -109,7 +110,7 @@
                     <div class="col-md-6" *ngIf="customerProfileResponse?.favourites?.length !== 0">
                       <h6>Recent Facilities</h6>
                       <div *ngFor="let s of customerProfileResponse?.favourites">
-                        <a href="javascript:void();" class="badge badge-dark badge-pill">{{ s?.saloon?.name }}</a>
+                        <a href="javascript:void(0);" class="badge badge-dark badge-pill">{{ s?.saloon?.name }}</a>
                       </div>
                       <hr>
                     </div>
@@ -121,7 +122,7 @@
                 <div class="col-md-12">
 
 
-                  <form #userForm="ngForm" class="">
+                  <form #userForm="ngForm" (ngSubmit)="onProfileUpdate(userForm.value)" class="">
                     <div class="form-group row">
 
                       <label class="col-lg-3 col-form-label form-control-label">First name <span
@@ -189,7 +190,7 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">Birthdate</label>
                       <div class="col-lg-9">
-                        <input name="birthdate" [ngModel]="customerProfileResponse?.customer?.birthdate | date"
+                        <input name="birthdate" [ngModel]="customerProfileResponse?.customer?.birthdate | date: 'yyyy-MM-dd'"
                           class="form-control" type="date">
                       </div>
                     </div>
@@ -218,7 +219,7 @@
                       <label class="col-lg-3 col-form-label form-control-label">Username <span
                           class="text-danger">*</span></label>
                       <div class="col-lg-9">
-                        <input name="username" [ngModel]="customerProfileResponse?.credential?.username"
+                        <input name="username" [ngModel]="customerProfileResponse?.customer?.credential?.username"
                           class="form-control" type="text" placeholder="jhonsanmark">
                       </div>
                     </div>
@@ -247,7 +248,7 @@
                     </div>
                   </form>
 
-                  <div *ngIf="customerProfileResponse?.reservations?.length !== 0">
+                  <div *ngIf="customerProfileResponse?.reservations?.content?.length !== 0">
                     <br>
                     <hr>
                     <br>
@@ -256,7 +257,7 @@
                     <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Some
                       Reservations
                       notifs: </h5>
-                    <table *ngFor="let r of customerProfileResponse?.reservations" class="table table-hover ">
+                    <table *ngFor="let r of customerProfileResponse?.reservations?.content" class="table table-hover ">
                       <tbody>
                         <tr>
                           <td>
@@ -265,7 +266,7 @@
                             reservation with code: <a
                               routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}"><strong>`REF-{{ r?.code?.substring(0, 8) }}`</strong></a>
                             at:
-                            <u>{{ r?.startDate }}</u>
+                            <u>{{ r?.startDate | date: 'dd-MMM-yyyy HH:mm' }}</u>
                           </td>
                         </tr>
                       </tbody>

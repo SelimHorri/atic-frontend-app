@@ -1,4 +1,7 @@
 
+import { Credential } from "./credential";
+import { UserImage } from "./user-image";
+
 export class Customer {
   
   constructor(
@@ -11,8 +14,8 @@ export class Customer {
     public facebookUrl: string | null,
     public instagramUrl: string | null,
     public linkedinUrl: string | null,
-    public userImageId: string | null,
-    public credentialId: number) {
+    public userImage: UserImage | null,
+    public credential: Credential) {
   }
   
   
