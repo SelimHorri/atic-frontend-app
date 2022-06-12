@@ -54,8 +54,13 @@ export class CustomerProfileService {
     customerProfileInfoRequest.lastname = customerProfileInfoRequest?.lastname?.trim();
     customerProfileInfoRequest.email = customerProfileInfoRequest?.email?.trim();
     customerProfileInfoRequest.phone = customerProfileInfoRequest?.phone?.trim();
-    customerProfileInfoRequest.birthdate = moment(moment(customerProfileInfoRequest?.birthdate, 'yyyy-MM-DD').toDate())
-        .format(DateBackendFormat.LOCAL_DATE);
+    if (customerProfileInfoRequest?.birthdate !== null 
+        && customerProfileInfoRequest?.birthdate !== undefined
+        && customerProfileInfoRequest?.birthdate !== 'Invalid date')
+      customerProfileInfoRequest.birthdate = moment(moment(customerProfileInfoRequest?.birthdate, 'yyyy-MM-DD').toDate())
+          .format(DateBackendFormat.LOCAL_DATE);
+    else
+      customerProfileInfoRequest.birthdate = null;
     customerProfileInfoRequest.facebookUrl = customerProfileInfoRequest?.facebookUrl?.trim();
     customerProfileInfoRequest.instagramUrl = customerProfileInfoRequest?.instagramUrl?.trim();
     customerProfileInfoRequest.linkedinUrl = customerProfileInfoRequest?.linkedinUrl?.trim();
