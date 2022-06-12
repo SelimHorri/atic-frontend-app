@@ -87,9 +87,15 @@ export class NavbarComponent implements OnInit {
       },
     ];
   }
-
+  
   private getWorkerItems(): any[] {
-    return [];
+    return [
+      {
+        name: "Reservations",
+        link: "reservations",
+        subItems: []
+      },
+    ];
   }
 
   private getManagerItems(): any[] {
