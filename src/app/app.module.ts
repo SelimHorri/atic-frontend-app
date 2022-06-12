@@ -50,8 +50,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { IndexComponent as WorkerIndexComponent } from './component/workspace/worker/index/index.component';
 import { ProfileComponent as WorkerProfileComponent } from './component/workspace/worker/profile/profile.component';
-import { TimesheetComponent as WorkerTimesheetComponent } from './component/workspace/worker/timesheet/timesheet.component';
-import { TimesheetCalendarComponent as WorkerTimesheetCalendarComponent } from './component/workspace/worker/timesheet/timesheet-calendar/timesheet-calendar.component';
+import { ReservationComponent as WorkerReservationComponent } from './component/workspace/worker/reservation/reservation.component';
+import { ReservationCalendarComponent as WorkerReservationCalendarComponent } from './component/workspace/worker/reservation/reservation-calendar/reservation-calendar.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   timeGridPlugin,
@@ -83,8 +83,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SaloonCalendarComponent,
     WorkerIndexComponent,
     WorkerProfileComponent,
-    WorkerTimesheetComponent,
-    WorkerTimesheetCalendarComponent,
+    WorkerReservationComponent,
+    WorkerReservationCalendarComponent,
   ],
   imports: [
     BrowserModule,
