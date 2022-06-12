@@ -122,7 +122,7 @@
                 <div class="col-md-12">
 
 
-                  <form #userForm="ngForm" class="">
+                  <form #userForm="ngForm" (ngSubmit)="onProfileUpdate(userForm.value)" class="">
                     <div class="form-group row">
 
                       <label class="col-lg-3 col-form-label form-control-label">First name <span

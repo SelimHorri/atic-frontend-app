@@ -1,10 +1,15 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Customer } from 'src/app/model/customer';
+import { CustomerProfileInfoRequest } from 'src/app/model/request/customer-profile-info-request';
 import { CustomerProfileResponse } from 'src/app/model/response/customer-profile-response';
+import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
 import { CustomerProfileService } from 'src/app/service/customer/customer-profile.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
+import { NotificationService } from 'src/app/service/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +23,8 @@ export class ProfileComponent implements OnInit {
   
   constructor(private customerProfileService: CustomerProfileService,
     private credentialService: CredentialService,
+    private notificationService: NotificationService,
+    private router: Router,
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
@@ -31,6 +38,19 @@ export class ProfileComponent implements OnInit {
         this.customerProfileResponse = responsePayload?.responseBody;
       },
       error: (errorResponse: HttpErrorResponse) => 
+          this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  
+  public onProfileUpdate(customerProfileInfoRequest: CustomerProfileInfoRequest): void {
+    this.customerProfileService.updateProfileInfo(customerProfileInfoRequest).subscribe({
+      next: (responsePayload: any) => {
+        const updatedCustomer: Customer = responsePayload?.responseBody;
+        this.notificationService.showSuccess(new ToastrMsg(`Infos has been updated successfully..`, `Updated!`));
+        alert(`Please login again to continue!`);
+        this.router.navigateByUrl(`/logout`);
+      },
+      error: (errorResponse: HttpErrorResponse) =>
           this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
   }
