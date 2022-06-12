@@ -190,7 +190,7 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">Birthdate</label>
                       <div class="col-lg-9">
-                        <input name="birthdate" [ngModel]="customerProfileResponse?.customer?.birthdate | date"
+                        <input name="birthdate" [ngModel]="customerProfileResponse?.customer?.birthdate | date: 'yyyy-MM-dd'"
                           class="form-control" type="date">
                       </div>
                     </div>

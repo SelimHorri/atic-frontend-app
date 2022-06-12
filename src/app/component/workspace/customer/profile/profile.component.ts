@@ -2,7 +2,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Customer } from 'src/app/model/customer';
 import { CustomerProfileInfoRequest } from 'src/app/model/request/customer-profile-info-request';
 import { CustomerProfileResponse } from 'src/app/model/response/customer-profile-response';
 import { ToastrMsg } from 'src/app/model/toastr-msg';
@@ -45,7 +44,6 @@ export class ProfileComponent implements OnInit {
   public onProfileUpdate(customerProfileInfoRequest: CustomerProfileInfoRequest): void {
     this.customerProfileService.updateProfileInfo(customerProfileInfoRequest).subscribe({
       next: (responsePayload: any) => {
-        const updatedCustomer: Customer = responsePayload?.responseBody;
         this.notificationService.showSuccess(new ToastrMsg(`Infos has been updated successfully..`, `Updated!`));
         alert(`Please login again to continue!`);
         this.router.navigateByUrl(`/logout`);
