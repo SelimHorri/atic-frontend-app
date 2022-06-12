@@ -15,21 +15,21 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { ContactComponent } from './component/contact/contact.component';
 import { AboutComponent } from './component/about/about.component';
 import { TagService } from './service/tag.service';
-import { IndexComponent } from './component/workspace/customer/index/index.component';
-import { ProfileComponent } from './component/workspace/customer/profile/profile.component';
+import { IndexComponent as CustomerIndexComponent } from './component/workspace/customer/index/index.component';
+import { ProfileComponent as CustomerProfileComponent } from './component/workspace/customer/profile/profile.component';
 import { LogoutComponent } from './component/logout/logout.component';
 import { CredentialService } from './service/credential.service';
 import { ErrorHandlerService } from './service/error-handler.service';
 import { CustomerService } from './service/customer.service';
-import { FavouriteComponent } from './component/workspace/customer/favourite/favourite.component';
-import { RatingComponent } from './component/workspace/customer/rating/rating.component';
-import { ReservationComponent } from './component/workspace/customer/reservation/reservation.component';
+import { FavouriteComponent as CustomerFavouriteComponent } from './component/workspace/customer/favourite/favourite.component';
+import { RatingComponent as CustomerRatingComponent } from './component/workspace/customer/rating/rating.component';
+import { ReservationComponent as CustomerReservationComponent } from './component/workspace/customer/reservation/reservation.component';
 import { ReservationService } from './service/reservation.service';
 import { SaloonService } from './service/saloon.service';
 import { DatePipe } from '@angular/common';
 import { TaskService } from './service/task.service';
-import { ReservationDetailsComponent } from './component/workspace/customer/reservation/reservation-details/reservation-details.component';
-import { AssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
+import { ReservationDetailsComponent as CustomerReservationDetailsComponent } from './component/workspace/customer/reservation/reservation-details/reservation-details.component';
+import { AssignedWorkerComponent as CustomerAssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
 import { ServiceDetailService } from './service/service-detail.service';
 import { OrderedDetailService } from './service/ordered-detail.service';
 import { HealthLivenessService } from './service/health-liveness.service';
@@ -48,6 +48,10 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { IndexComponent as WorkerIndexComponent } from './component/workspace/worker/index/index.component';
+import { ProfileComponent as WorkerProfileComponent } from './component/workspace/worker/profile/profile.component';
+import { TimesheetComponent as WorkerTimesheetComponent } from './component/workspace/worker/timesheet/timesheet.component';
+import { TimesheetCalendarComponent as WorkerTimesheetCalendarComponent } from './component/workspace/worker/timesheet/timesheet-calendar/timesheet-calendar.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   timeGridPlugin,
@@ -65,18 +69,22 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NavbarComponent,
     ContactComponent,
     AboutComponent,
-    IndexComponent,
-    ProfileComponent,
+    CustomerIndexComponent,
+    CustomerProfileComponent,
     LogoutComponent,
-    FavouriteComponent,
-    RatingComponent,
-    ReservationComponent,
-    ReservationDetailsComponent,
-    AssignedWorkerComponent,
+    CustomerFavouriteComponent,
+    CustomerRatingComponent,
+    CustomerReservationComponent,
+    CustomerReservationDetailsComponent,
+    CustomerAssignedWorkerComponent,
     SaloonComponent,
     LocationComponent,
     SaloonDetailComponent,
     SaloonCalendarComponent,
+    WorkerIndexComponent,
+    WorkerProfileComponent,
+    WorkerTimesheetComponent,
+    WorkerTimesheetCalendarComponent,
   ],
   imports: [
     BrowserModule,

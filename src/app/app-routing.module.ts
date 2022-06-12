@@ -32,6 +32,8 @@ import { LocationComponent } from './component/location/location.component';
 import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-detail.component';
 import { SaloonCalendarComponent } from './component/saloon/saloon-calendar/saloon-calendar/saloon-calendar.component';
 import { SaloonDetailGuard } from './guard/saloon-detail.guard';
+import { TimesheetComponent as WorkerTimesheetComponent } from './component/workspace/worker/timesheet/timesheet.component';
+import { TimesheetCalendarComponent as WorkerTimesheetCalendarComponent } from './component/workspace/worker/timesheet/timesheet-calendar/timesheet-calendar.component';
 
 const routes: Routes = [
   
@@ -78,6 +80,8 @@ const routes: Routes = [
           { path: "", component: WorkerIndexComponent },
           { path: "index", redirectTo: "" },
           { path: "profile", component: WorkerProfileComponent },
+          { path: "timesheet", component: WorkerTimesheetComponent },
+          { path: "timesheet/calendar", component: WorkerTimesheetCalendarComponent },
         ]
       },
       {
