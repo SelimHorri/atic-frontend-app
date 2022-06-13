@@ -1,12 +1,180 @@
 
 <div>
   
-  <p>reservation works!</p>
+  <div class="container">
+    <div class="">
+      <div class="row">
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-pattern">
+            <div class="card-body">
+              <div class="float-right">
+                <i class="fa fa-archive text-primary h4 ml-3"></i>
+              </div>
+              <h5 class="font-size-20 mt-0 pt-1">{{ reservations?.length }}</h5>
+              <p class="text-muted mb-0">Total Reservations</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-pattern">
+            <div class="card-body">
+              <div class="float-right">
+                <i class="fa fa-th text-primary h4 ml-3"></i>
+              </div>
+              <h5 class="font-size-20 mt-0 pt-1">{{ getCompletedReservations()?.length }}</h5>
+              <p class="text-muted mb-0">Completed Reservations</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-pattern">
+            <div class="card-body">
+              <div class="float-right">
+                <i class="fa fa-file text-primary h4 ml-3"></i>
+              </div>
+              <h5 class="font-size-20 mt-0 pt-1">{{ getPendingReservations()?.length }}</h5>
+              <p class="text-muted mb-0">Pending Reservations</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <form>
+                <div class="form-group mb-0">
+                  <label>Search</label>
+                  <div class="input-group mb-0">
+                    <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" type="search"
+                      class="form-control" placeholder="Search..." aria-describedby="project-search-addon" required />
+                    <div class="input-group-append">
+                      <button class="btn btn-info" type="button" id="project-search-addon"><i
+                          class="fa fa-search search-icon font-12"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
 
+      <div class="row" *ngIf="reservations?.length !== 0">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <div>
+                <select ngModel #size="ngModel" (change)="onSelectPageSize(size?.value)"
+                  class="form-select form-select-sm" aria-label="form-select-sm .form-select-sm example">
+                  <option selected value="">Choose how much to display</option>
+                  <option value="2">1-2</option>
+                  <option value="5">1-5</option>
+                  <option value="10">1-10</option>
+                  <option value="20">1-20</option>
+                  <option value="50">1-50</option>
+                </select>
+              </div>
+              <br>
+              <div class="table-responsive project-list">
+                <table class="table table-hover project-table table-centered table-nowrap">
+                  <thead>
+                    <tr align="center">
+                      <th scope="col">#</th>
+                      <th scope="col">Reservation code</th>
+                      <th scope="col"><a>Start Date</a></th>
+                      <th scope="col">Cancel Date</th>
+                      <th scope="col">Status</th>
+                      <!-- <th scope="col">Assigned</th> -->
+                      <th scope="col">Description</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let r of reservations">
+                    <tr align="center">
+                      <td scope="col"><strong>#</strong></td>
+                      <td><a
+                          routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>
+                      </td>
+                      <td>{{ r?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
+                      <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MM-yyyy HH:mm" }}
+                      </td>
+                      <td *ngIf="r?.status !== 'CANCELLED'.toUpperCase()">-</td>
+                      <td>
+                        <span *ngIf="r?.status === 'NOT_STARTED'" class="badge rounded-pill bg-danger font-25"><i
+                            class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                          {{ r?.status }}</span>
+                        <span *ngIf="r?.status === 'IN_PROGRESS'" class="badge rounded-pill bg-primary font-25"><i
+                            class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                          {{ r?.status }}</span>
+                        <span *ngIf="r?.status === 'COMPLETED'" class="badge rounded-pill bg-success font-25"><i
+                            class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                          {{ r?.status }}</span>
+                        <span *ngIf="r?.status === 'CANCELLED'" class="badge rounded-pill bg-warning font-25"><i
+                            class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                          {{ r?.status }}</span>
+                      </td>
+                      <!--
+                  <td>
+                    <a *ngFor="let t of tasks"
+                      routerLink="/workspace/{{ accountUrl }}/reservations/assigned/{{ t?.workerId }}"
+                      class="team team-member" data-toggle="tooltip" data-placement="top" title=""
+                      data-original-title="Roger Drake">
+                      <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="rounded-circle avatar-xs"
+                        alt="" />
+                    </a>
+                  </td>
+                  -->
+                      <td *ngIf="r?.description !== null && r?.description !== undefined">
+                        <p class="mb-0">{{ r?.description }}</p>
+                      </td>
+                      <td *ngIf="r?.description === null || r?.description === undefined">
+                        <p class="mb-0">-</p>
+                      </td>
+                      <td>
+                        <div *ngIf="r?.status !== 'COMPLETED'.toUpperCase() && r?.status !== 'CANCELLED'.toUpperCase()"
+                          class="action">
+                          <a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}" class="text-success mr-4"
+                            data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i
+                              class="fa fa-pencil h5 m-0"></i></a>
+                          <!--
+                            <a (click)="cancelReservation(r?.id)" href="javascript:void(0);" class="text-danger"
+                              data-toggle="tooltip" data-placement="top" title="" data-original-title="Close">
+                              <i class="fa fa-remove h5 m-0"></i>
+                            </a>
+                          -->
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- end project-list -->
+              <div class="pt-3">
+                <ul class="pagination justify-content-end mb-0">
+                  <li class="page-item {{ (tasks?.first) ? 'disabled' : '' }}">
+                    <a class="page-link" (click)="onNavigatePagination(tasks.number)" href="javascript:void(0);"
+                      tabindex="-1" aria-disabled="true">Previous</a>
+                  </li>
+                  <li *ngFor="let p of pages; let i = index"
+                    class="page-item {{ (tasks.number === i) ? 'active' : '' }}">
+                    <a class="page-link" href="javascript:void(0);"
+                      (click)="onNavigatePagination(i + 1)">{{ i + 1 }}</a>
+                  </li>
+                  <li class="page-item {{ (tasks?.last) ? 'disabled' : '' }}">
+                    <a class="page-link" (click)="onNavigatePagination(tasks.number + 2)"
+                      href="javascript:void(0);">Next</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+    </div>
 
-
-
-
+    <hr>
+  </div>
 
 
 

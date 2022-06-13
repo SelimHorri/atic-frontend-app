@@ -5,6 +5,8 @@ import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { DateBackendFormat } from 'src/app/model/date-backend-format';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
+import { Reservation } from 'src/app/model/reservation';
+import { ReservationStatus } from 'src/app/model/reservation-status';
 import { Task } from 'src/app/model/task';
 import { environment } from 'src/environments/environment';
 
@@ -59,6 +61,15 @@ export class WorkerReservationService {
       });
       return payload;
     }));
+  }
+  
+  public getCompletedReservations(reservations: Reservation[]): Reservation[] {
+    return reservations?.filter(r => r?.status === ReservationStatus.COMPLETED);
+  }
+
+  public getPendingReservations(reservations: Reservation[]): Reservation[] {
+    return reservations?.filter(r => r?.status === ReservationStatus.NOT_STARTED
+      || r?.status === ReservationStatus.IN_PROGRESS);
   }
   
   
