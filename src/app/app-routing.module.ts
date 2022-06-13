@@ -34,6 +34,7 @@ import { SaloonCalendarComponent } from './component/saloon/saloon-calendar/salo
 import { SaloonDetailGuard } from './guard/saloon-detail.guard';
 import { ReservationComponent as WorkerReservationComponent } from './component/workspace/worker/reservation/reservation.component';
 import { ReservationCalendarComponent as WorkerReservationCalendarComponent } from './component/workspace/worker/reservation/reservation-calendar/reservation-calendar.component';
+import { ReservationDetailsComponent as WorkerReservationDetailsComponent } from './component/workspace/worker/reservation/reservation-details/reservation-details.component';
 
 const routes: Routes = [
   
@@ -82,6 +83,7 @@ const routes: Routes = [
           { path: "profile", component: WorkerProfileComponent },
           { path: "reservations", component: WorkerReservationComponent },
           { path: "reservations/calendar", component: WorkerReservationCalendarComponent },
+          { path: "reservations/:reservationId", component: WorkerReservationDetailsComponent },
         ]
       },
       {

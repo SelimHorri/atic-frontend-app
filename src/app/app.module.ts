@@ -53,6 +53,7 @@ import { ProfileComponent as WorkerProfileComponent } from './component/workspac
 import { ReservationComponent as WorkerReservationComponent } from './component/workspace/worker/reservation/reservation.component';
 import { ReservationCalendarComponent as WorkerReservationCalendarComponent } from './component/workspace/worker/reservation/reservation-calendar/reservation-calendar.component';
 import { WorkerReservationService } from './service/employee/worker/worker-reservation.service';
+import { ReservationDetailsComponent as WorkerReservationDetailsComponent } from './component/workspace/worker/reservation/reservation-details/reservation-details.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   timeGridPlugin,
@@ -86,6 +87,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     WorkerProfileComponent,
     WorkerReservationComponent,
     WorkerReservationCalendarComponent,
+    WorkerReservationDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -121,4 +123,4 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
