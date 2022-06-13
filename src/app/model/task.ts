@@ -8,10 +8,10 @@ export class Task {
     public workerId: number,
     public reservationId: number,
     public taskDate: Date | string,
-    public startDate: Date | string,
-    public endDate: Date | string,
-    public workerDescription: string,
-    public managerDescription: string,
+    public startDate: Date | string | null | undefined,
+    public endDate: Date | string | null | undefined,
+    public workerDescription: string | null | undefined,
+    public managerDescription: string | null | undefined,
     public worker: Employee,
     public reservation: Reservation) {  
   }

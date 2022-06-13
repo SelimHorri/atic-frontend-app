@@ -52,6 +52,7 @@ import { IndexComponent as WorkerIndexComponent } from './component/workspace/wo
 import { ProfileComponent as WorkerProfileComponent } from './component/workspace/worker/profile/profile.component';
 import { ReservationComponent as WorkerReservationComponent } from './component/workspace/worker/reservation/reservation.component';
 import { ReservationCalendarComponent as WorkerReservationCalendarComponent } from './component/workspace/worker/reservation/reservation-calendar/reservation-calendar.component';
+import { WorkerReservationService } from './service/employee/worker/worker-reservation.service';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   timeGridPlugin,
@@ -116,6 +117,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     EmployeeService,
     ToastrService,
     NotificationService,
+    WorkerReservationService,
   ],
   bootstrap: [AppComponent]
 })
