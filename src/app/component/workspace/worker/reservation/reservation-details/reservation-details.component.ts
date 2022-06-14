@@ -9,8 +9,6 @@ import { ServiceDetailsReservationContainerResponse } from 'src/app/model/respon
 import { CredentialService } from 'src/app/service/credential.service';
 import { WorkerReservationService } from 'src/app/service/employee/worker/worker-reservation.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
-import { NotificationService } from 'src/app/service/notification.service';
-import { OrderedDetailService } from 'src/app/service/ordered-detail.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
 
 @Component({
@@ -28,8 +26,6 @@ export class ReservationDetailsComponent implements OnInit {
   constructor(private credentialService: CredentialService,
     private workerReservationService: WorkerReservationService,
     private serviceDetailService: ServiceDetailService,
-    // private orderedDetailService: OrderedDetailService,
-    // private notificationService: NotificationService,
     private activatedRoute: ActivatedRoute,
     private errorHandlerService: ErrorHandlerService) {}
   
