@@ -110,6 +110,9 @@
                     <span *ngIf="r?.status === 'CANCELLED'" class="badge rounded-pill bg-warning font-25"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>
                       {{ r?.status }}</span>
+                    <span *ngIf="r?.status === 'OUTDATED'" class="badge rounded-pill bg-dark font-25"><i
+                        class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                      {{ r?.status }}</span>
                   </td>
                   <!--
                   <td>
@@ -129,7 +132,7 @@
                     <p class="mb-0">-</p>
                   </td>
                   <td>
-                    <div *ngIf="r?.status !== 'COMPLETED'.toUpperCase() && r?.status !== 'CANCELLED'.toUpperCase()"
+                    <div *ngIf="r?.status === 'NOT_STARTED'.toUpperCase() || r?.status === 'IN_PROGRESS'.toUpperCase()"
                       class="action">
                       <a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}" class="text-success mr-4"
                         data-toggle="tooltip" data-placement="top" title=""

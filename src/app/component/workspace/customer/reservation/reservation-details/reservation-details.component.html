@@ -21,7 +21,8 @@
                         <thead>
                           <tr>
                             <th
-                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()">
+                              *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'.toUpperCase() 
+                                || reservationDetails?.reservation?.status === 'IN_PROGRESS'.toUpperCase()">
                               <a (click)="onOpenModal(reservationDetails.reservation.saloon, orderedServiceDetails.serviceDetails.content, 'addServiceDetail')"
                                 href="javascript:void(0);" class="btn text-primary ">
                                 <i class="ri-shield-cross-fill"></i>
@@ -37,14 +38,16 @@
                             <!-- <th scope="col">Category</th> -->
                             <th scope="col" class="text-right">Total</th>
                             <th
-                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
+                              *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'.toUpperCase() 
+                                || reservationDetails?.reservation?.status === 'IN_PROGRESS'.toUpperCase()"
                               scope="col" class="text-right">Remove</th>
                           </tr>
                         </thead>
                         <tbody *ngFor="let s of orderedServiceDetails?.serviceDetails?.content">
                           <tr>
                             <th scope="row"
-                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()">
+                              *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'.toUpperCase()
+                                || reservationDetails?.reservation?.status === 'IN_PROGRESS'.toUpperCase()">
                             </th>
                             <th scope="row">#</th>
                             <td>{{ s?.name | uppercase }}</td>
@@ -58,7 +61,8 @@
                             <td>{{ s?.priceUnit }} DT</td>
                             <td class="text-right">{{ s?.priceUnit }} DT</td>
                             <td
-                              *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
+                              *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'.toUpperCase()
+                                || reservationDetails?.reservation?.status === 'IN_PROGRESS'.toUpperCase()"
                               class="text-right"><a href="javascript:void(0);"
                                 (click)="removeOrderedServiceDetail(reservationDetails.reservation.id, s.id)"
                                 class="text-danger"><i class="ri-delete-bin-3-line"></i></a>
@@ -91,7 +95,8 @@
                               <div class="form-group">
                                 <label for="specialNotes">Special Notes (eg..Describe expected duration)</label>
                                 <textarea
-                                  [disabled]="reservationDetails?.reservation?.status === 'CANCELLED'.toUpperCase() || reservationDetails?.reservation?.status === 'COMPLETED'.toUpperCase()"
+                                  [disabled]="reservationDetails?.reservation?.status !== 'NOT_STARTED'.toUpperCase() 
+                                    && reservationDetails?.reservation?.status !== 'IN_PROGRESS'.toUpperCase()"
                                   name="description"
                                   [ngModel]="reservationDetails?.reservation?.description" class="form-control"
                                   id="specialNotes" rows="6" placeholder="Comment here..."></textarea>
@@ -146,7 +151,8 @@
                       </div>
                       <div class="cart-footer text-right">
                         <button
-                          *ngIf="reservationDetails?.reservation?.status !== 'CANCELLED'.toUpperCase() && reservationDetails?.reservation?.status !== 'COMPLETED'.toUpperCase()"
+                          *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'.toUpperCase()
+                            || reservationDetails?.reservation?.status === 'IN_PROGRESS'.toUpperCase()"
                           (click)="onUpdateReservation(reservationForm.value)" type="button"
                           class="btn btn-info my-1"><i class="ri-save-line mr-2"></i>Update</button>&nbsp;
                         <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout
