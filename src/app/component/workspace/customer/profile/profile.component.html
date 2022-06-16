@@ -39,7 +39,7 @@
                   <i class="fa fa-globe"></i>
                 </div>
                 <div class="list-details">
-                  <span>{{ customerProfileResponse?.customer?.birthdate | date }}</span>
+                  <span>{{ customerProfileResponse?.customer?.birthdate | date: 'dd-MMM-yyyy' }}</span>
                   <small>Birthdate</small>
                 </div>
               </li>
@@ -61,15 +61,15 @@
           </div>
           <div class="card-footer text-center">
             <span *ngIf="customerProfileResponse?.customer?.facebookUrl !== null">
-              <a href="{{ customerProfileResponse?.customer?.facebookUrl }}" target="_blank"
+              <a [href]="customerProfileResponse?.customer?.facebookUrl" target="_blank"
                 class="btn-social btn-facebook waves-effect waves-light m-2"><i class="fa fa-facebook"></i></a>
             </span>
             <span *ngIf="customerProfileResponse?.customer?.instagramUrl !== null">
-              <a href="{{ customerProfileResponse?.customer?.instagramUrl }}" target="_blank"
+              <a [href]="customerProfileResponse?.customer?.instagramUrl" target="_blank"
                 class="btn-social btn-instagram waves-effect waves-light m-2"><i class="fa fa-instagram"></i></a>
             </span>
             <span *ngIf="customerProfileResponse?.customer?.linkedinUrl !== null">
-              <a href="{{ customerProfileResponse?.customer?.linkedinUrl }}" target="_blank"
+              <a [href]="customerProfileResponse?.customer?.linkedinUrl" target="_blank"
                 class="btn-social btn-linkedin waves-effect waves-light m-2"><i class="fa fa-linkedin"></i></a>
             </span>
           </div>
