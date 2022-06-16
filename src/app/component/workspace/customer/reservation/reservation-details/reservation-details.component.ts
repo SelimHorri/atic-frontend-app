@@ -23,7 +23,7 @@ import { OrderedDetailService } from 'src/app/service/ordered-detail.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
 
 @Component({
-  selector: 'app-reservation-details',
+  selector: 'app-customer-reservation-details',
   templateUrl: './reservation-details.component.html',
   styleUrls: ['./reservation-details.component.scss']
 })

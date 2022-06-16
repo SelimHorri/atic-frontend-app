@@ -15,7 +15,7 @@ import { SaloonService } from 'src/app/service/saloon.service';
 import { TaskService } from 'src/app/service/task.service';
 
 @Component({
-  selector: 'app-reservation',
+  selector: 'app-customer-reservation',
   templateUrl: './reservation.component.html',
   styleUrls: ['./reservation.component.scss']
 })

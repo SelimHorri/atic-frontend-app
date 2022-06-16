@@ -11,7 +11,7 @@ import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { NotificationService } from 'src/app/service/notification.service';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-customer-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })

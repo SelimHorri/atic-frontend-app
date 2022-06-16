@@ -12,7 +12,7 @@ import { LocationService } from 'src/app/service/location.service';
 import { SaloonService } from 'src/app/service/saloon.service';
 
 @Component({
-  selector: 'app-favourite',
+  selector: 'app-customer-favourite',
   templateUrl: './favourite.component.html',
   styleUrls: ['./favourite.component.scss']
 })
