@@ -87,8 +87,8 @@ export class ReservationComponent implements OnInit {
         let url: string = `/workspace/${this.accountUrl}/reservations?offset=${offset}`;
         if (q?.size !== undefined && q?.size !== null && q?.size >= 1)
           url = `${url}&size=${q?.size}`;
-        // this.router.navigateByUrl(url);
-        window.location.replace(url);
+        this.router.navigateByUrl(url);
+        // window.location.replace(url);
         return url;
       }
     });
@@ -98,9 +98,9 @@ export class ReservationComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe({
       next: (q: any) => {
         if (q?.offset === undefined || size.trim() === '' || size === undefined || size === null || parseInt(size.trim()) < 1)
-          window.location.replace(`/workspace/${this.accountUrl}/reservations?offset=1`);
+          this.router.navigateByUrl(`/workspace/${this.accountUrl}/reservations?offset=1`);
         else
-          window.location.replace(`${window.location.pathname}?offset=${q?.offset}&size=${size}`);
+          this.router.navigateByUrl(`${window.location.pathname}?offset=${q?.offset}&size=${size}`);
       }
     });
   }
