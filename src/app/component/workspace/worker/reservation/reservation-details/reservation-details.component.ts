@@ -1,6 +1,7 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { PageResponse } from 'src/app/model/response/page/page-response';
@@ -81,6 +82,28 @@ export class ReservationDetailsComponent implements OnInit {
     return moment(this.reservationDetails?.reservation?.startDate)
       .add(moment.duration(this.calculateTotalDuration()).asMinutes())
       .toDate();
+  }
+  
+  public onOpenModal(action: string): void {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.style.display = "none";
+    button.setAttribute("data-bs-toggle", "modal");
+
+    if (action === "beginReservationTask")
+      button.setAttribute("data-bs-target", "#beginReservationTask");
+
+    const mainContainer = document.getElementById("main-container");
+    mainContainer?.appendChild(button);
+    button.click();
+  }
+  
+  public openBeginTask(btn?: any): void {
+    this.onOpenModal("beginReservationTask");
+  }
+  
+  public onBeginTask(ngForm: NgForm): void {
+    
   }
   
   /*

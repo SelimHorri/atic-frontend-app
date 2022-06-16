@@ -54,7 +54,6 @@ export class ReservationComponent implements OnInit {
               this.tasks?.content?.forEach((t: Task) => {
                 this.reservations.push(t?.reservation);
               });
-              console.log(JSON.stringify(this.reservations));
               this.pages = new Array<number>(this.tasks?.totalPages);
             },
             error: (errorResponse: HttpErrorResponse) =>

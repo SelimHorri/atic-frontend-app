@@ -1,6 +1,6 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
-<div class="container main-container">
+<div id="main-container" class="container">
   <div class="contentbar">
     <!-- Start row -->
     <div class="row">
@@ -53,8 +53,7 @@
                               <label for="specialNotes">Special Customer Notes (eg.. expected duration)</label>
                               <textarea
                                 name="description" [ngModel]="reservationDetails?.reservation?.description"
-                                class="form-control" id="specialNotes" rows="6"
-                                placeholder="Comment here..." disabled></textarea>
+                                class="form-control" id="specialNotes" rows="6" disabled></textarea>
                             </div>
                           </div>
                         </div>
@@ -92,7 +91,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class="cart-footer text-right">&nbsp;
+                    <div class="cart-footer text-right">
+                      <button
+                        *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED' 
+                          || reservationDetails?.reservation?.status === 'IN_PROGRESS'"
+                        (click)="openBeginTask()" id="beginTaskBtn" type="button" class="btn
+                        btn-danger my-1"><i class=""></i>
+                        Begin Task
+                      </button>&nbsp;
                       <a href="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout assigned
                         reservations<i class="ri-arrow-right-line ml-2"></i></a>
                     </div>
@@ -109,4 +115,35 @@
   </div>
 </div>
 
+
+
+
+<div class="modal fade" id="beginReservationTask" tabindex="-1" role="dialog" aria-labelledby="beginReservationTaskModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content card">
+      <div class="modal-header">
+        <h5 class="modal-title text-primary" id="exampleModalLabel"><u>Begin Task</u></h5>
+        <button onclick="document.getElementById('beginReservationTask').click()" type="button" class="close"
+          data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body card-body">
+        <form #beginReservationTaskForm="ngForm" (ngSubmit)="onBeginTask(beginReservationTaskForm)">
+          <div class="form-group">
+            <label for="specialNotes">Write your task comment</label>
+            <textarea name="description" class="form-control" id="specialNotes" rows="4" placeholder="Comment here..."></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" onclick="document.getElementById('beginReservationTask').click()"
+              id="addServiceDetail-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button [disabled]="beginReservationTaskForm.invalid" 
+             type="submit" class="btn btn-success">Begin</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
