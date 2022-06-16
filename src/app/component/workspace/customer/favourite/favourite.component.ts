@@ -2,13 +2,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Favourite } from 'src/app/model/favourite';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { CustomerFavouriteResponse } from 'src/app/model/response/customer-favourite-response';
-import { PageResponse } from 'src/app/model/response/page/page-response';
 import { Saloon } from 'src/app/model/saloon';
 import { CredentialService } from 'src/app/service/credential.service';
-import { CustomerService } from 'src/app/service/customer.service';
 import { CustomerFavouriteService } from 'src/app/service/customer/customer-favourite.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { LocationService } from 'src/app/service/location.service';
@@ -59,17 +56,19 @@ export class FavouriteComponent implements OnInit {
             next: (customerFavouritePayload: any) => {
               this.customerFavouriteResponse = customerFavouritePayload?.responseBody;
               this.pages = new Array<number>(this.customerFavouriteResponse?.favourites?.totalPages);
+              const saloonsSet: Set<Saloon> = new Set<Saloon>();
               this.customerFavouriteResponse?.favourites?.content?.forEach(f => {
                 this.saloonService.findById(f?.saloonId).subscribe({
                   next: (saloonPayload: any) => {
                     this.saloons.push(saloonPayload?.responseBody);
-                    // this.favourites = this.customerFavouriteResponse?.favourites;
+                    saloonsSet.add(saloonPayload?.responseBody);
                   },
                   error: (errorResponse: HttpErrorResponse) => {
                     this.errorHandlerService.extractExceptionMsg(errorResponse);
                   }
                 });
               });
+              this.saloons = Array.from(saloonsSet); // remove duplicates..
             },
             error: (errorResponse: HttpErrorResponse) => {
               this.errorHandlerService.extractExceptionMsg(errorResponse);
@@ -86,8 +85,7 @@ export class FavouriteComponent implements OnInit {
         let url: string = `/workspace/${this.accountUrl}/favourites?offset=${offset}`;
         if (q?.size !== undefined && q?.size !== null && q?.size >= 1)
           url = `${url}&size=${q?.size}`;
-        // this.router.navigateByUrl(url);
-        window.location.replace(url); // cause of the forloop in getFavourites()
+        this.router.navigateByUrl(url);
         return url;
       }
     });
@@ -97,9 +95,9 @@ export class FavouriteComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe({
       next: (q: any) => {
         if (q?.offset === undefined || size.trim() === '' || size === undefined || size === null || parseInt(size.trim()) < 1)
-          window.location.replace(`/workspace/${this.accountUrl}/favourites?offset=1`);
+          this.router.navigateByUrl(`/workspace/${this.accountUrl}/favourites?offset=1`);
         else
-          window.location.replace(`${window.location.pathname}?offset=${q?.offset}&size=${size}`);
+          this.router.navigateByUrl(`${window.location.pathname}?offset=${q?.offset}&size=${size}`);
       }
     });
   }
@@ -107,7 +105,7 @@ export class FavouriteComponent implements OnInit {
   public removeFavourite(saloonId: number): void {
     if (confirm(`Remove from favourite ?`))
       this.customerFavouriteService.deleteFavourite(saloonId).subscribe({
-        next: (payload: any) => (payload?.responseBody) ? window.location.reload() : alert("Unable to delete favourite!"),
+        next: (payload: any) => (payload?.responseBody) ? this.getFavourites() : alert("Unable to delete favourite!"),
         error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
       });
   }
