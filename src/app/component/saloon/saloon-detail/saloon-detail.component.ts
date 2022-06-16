@@ -51,7 +51,10 @@ export class SaloonDetailComponent implements OnInit {
       next: (serviceDetailPayload: any) => {
         this.serviceDetails = serviceDetailPayload?.responseBody;
         const categoriesSet: Set<Category> = new Set<Category>();
-        this.serviceDetails?.content?.forEach(sd => categoriesSet.add(sd?.category));
+        this.serviceDetails?.content?.forEach(sd => {
+          this.categories.push(sd?.category);
+          categoriesSet.add(sd?.category);
+        });
         this.categories = Array.from(categoriesSet); // TODO: Remove redundants ********
       },
       error: (errorResponse: HttpErrorResponse) =>
