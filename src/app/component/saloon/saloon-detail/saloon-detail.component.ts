@@ -36,7 +36,6 @@ export class SaloonDetailComponent implements OnInit {
           next: (saloonPayload: any) => {
             this.saloon = saloonPayload?.responseBody;
             this.getAllServiceDetails(p?.id);
-            
           },
           error: (errorResponse: HttpErrorResponse) =>
               this.errorHandlerService.extractExceptionMsg(errorResponse)
@@ -51,12 +50,9 @@ export class SaloonDetailComponent implements OnInit {
     this.serviceDetailService.findAllByCategorySaloonId(saloonId).subscribe({
       next: (serviceDetailPayload: any) => {
         this.serviceDetails = serviceDetailPayload?.responseBody;
-        
-        const categoriesSet = new Set<Category>();
+        const categoriesSet: Set<Category> = new Set<Category>();
         this.serviceDetails?.content?.forEach(sd => categoriesSet.add(sd?.category));
         this.categories = Array.from(categoriesSet); // TODO: Remove redundants ********
-        
-        console.log(JSON.stringify(this.categories));
       },
       error: (errorResponse: HttpErrorResponse) =>
           this.errorHandlerService.extractExceptionMsg(errorResponse)

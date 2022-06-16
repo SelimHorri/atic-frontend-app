@@ -54,9 +54,10 @@ export class SaloonCalendarComponent implements OnInit {
           next: (saloonReservationsPayload: any) => {
             this.saloonReservations = saloonReservationsPayload?.responseBody;
             this.calendarOptions = this.calendarService.createSaloonCalendar();
+            const saloonsSet: Set<any> = new Set<any>();
             this.saloonReservations?.content?.forEach(r => {
               if (r?.status !== ReservationStatus.CANCELLED && r?.status !== ReservationStatus.COMPLETED) {
-                (this.calendarOptions.events as Array<any>).push({
+                saloonsSet.add({
                   title: `REF-${r?.code?.substring(0, 8)}`,
                   date: `${moment(r?.startDate).format(`yyyy-MM-DD HH:mm`)}`,
                   interactive: true,
@@ -66,10 +67,10 @@ export class SaloonCalendarComponent implements OnInit {
                 });
               }
             });
+            this.calendarOptions.events = Array.from(saloonsSet);
             this.getAllServiceDetails();
           },
-          error: (errorResponse: HttpErrorResponse) =>
-              this.errorHandlerService.extractExceptionMsg(errorResponse)
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
       }
     });
