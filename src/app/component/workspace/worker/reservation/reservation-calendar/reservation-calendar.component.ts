@@ -38,12 +38,15 @@ export class ReservationCalendarComponent implements OnInit {
       next: (tasksPayload: any) => {
         this.calendarOptions = this.calendarService.createSaloonCalendar();
         const tasks: PageResponse = tasksPayload?.responseBody;
+        
         tasks?.content?.forEach((t: Task) => {
           this.reservations.push(t?.reservation);
         });
+        
+        const reservationsSet: Set<any> = new Set<any>(this.reservations);
         this.reservations?.forEach(r => {
-          if (r?.status !== ReservationStatus.CANCELLED && r?.status !== ReservationStatus.COMPLETED && ReservationStatus.OUTDATED)
-            (this.calendarOptions.events as Array<any>).push({
+          if (r?.status !== ReservationStatus.CANCELLED && r?.status !== ReservationStatus.COMPLETED && r?.status !== ReservationStatus.OUTDATED)
+            reservationsSet.add({
               title: `REF-${r?.code?.substring(0, 8)}`,
               date: `${moment(r?.startDate).format(`yyyy-MM-DD HH:mm`)}`,
               interactive: true,
@@ -51,6 +54,7 @@ export class ReservationCalendarComponent implements OnInit {
               borderColor: 'blue'
             });
         });
+        this.calendarOptions.events = Array.from(reservationsSet);
       },
       error: (errorResponse: HttpErrorResponse) =>
           this.errorHandlerService.extractExceptionMsg(errorResponse)

@@ -50,10 +50,12 @@ export class ReservationComponent implements OnInit {
           this.workerReservationService
               .getAllPagedReservations(new ClientPageRequest(q?.offset, q?.size, ['startDate'], 'desc')).subscribe({
             next: (payload: any) => {
+              
+                  let reservationsSet: Set<Reservation> = new Set<Reservation>();
+              
               this.tasks = payload?.responseBody;
-              this.tasks?.content?.forEach((t: Task) => {
-                this.reservations.push(t?.reservation);
-              });
+              this.tasks?.content?.forEach((t: Task) => reservationsSet.add(t?.reservation));
+              this.reservations = Array.from(reservationsSet);
               this.pages = new Array<number>(this.tasks?.totalPages);
             },
             error: (errorResponse: HttpErrorResponse) =>
