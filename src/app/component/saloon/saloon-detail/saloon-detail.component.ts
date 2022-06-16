@@ -59,10 +59,6 @@ export class SaloonDetailComponent implements OnInit {
     });
   }
   
-  private onChooseServiceDetail(serviceDetailId: number): void {
-    // this.onOpenModal("createReservation");
-  }
-  
   
   
 }
