@@ -125,7 +125,6 @@ export class SaloonCalendarComponent implements OnInit {
         this.reservationRequest.saloonId = p?.id;
         this.customerReservationService.createReservation(this.reservationRequest).subscribe({
           next: (reservationPayload: any) => {
-            console.log(JSON.stringify(reservationPayload?.responseBody));
             const reservation: Reservation = reservationPayload?.responseBody;
             document.getElementById('createReservation')?.click();
             this.reservationRequest.serviceDetailsIds = [];

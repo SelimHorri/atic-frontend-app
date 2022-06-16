@@ -45,7 +45,6 @@ export class FavouriteComponent implements OnInit {
     this.locationService.getAllStates().subscribe({
       next: (statesPayload: any) => {
         this.states = statesPayload?.responseBody;
-        console.log(JSON.stringify(this.states));
       }
     });
   }

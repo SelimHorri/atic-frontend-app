@@ -1,6 +1,6 @@
 
 <!-- https://www.bootdey.com/snippets/view/order-details -->
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="saloon">
 
   <div class="container">
     <!-- Title -->
@@ -152,21 +152,21 @@
       </div>
     </div>
   </div>
-</div>
+  <br>
+  <hr class="container">
+  <br>
 
-<br>
-<hr class="container">
-<br>
+  <div align="center">
+    <a class="btn btn-outline-warning" href="/saloons/{{ saloon?.id }}/calendar/"><strong class="text-dark">View
+        TimeTable
+        in a seperate window</strong></a>
+  </div>
 
-<div align="center">
-  <a class="btn btn-outline-warning" href="/saloons/{{ saloon?.id }}/calendar/"><strong class="text-dark">View TimeTable
-      in a seperate window</strong></a>
-</div>
+  <br>
 
-<br>
-
-<div id="timetable" class="container-fluid">
-  <app-saloon-calendar></app-saloon-calendar>
+  <div id="timetable" class="container-fluid">
+    <app-saloon-calendar></app-saloon-calendar>
+  </div>
 </div>
 
 

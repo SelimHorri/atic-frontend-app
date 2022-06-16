@@ -20,7 +20,6 @@ import { CustomerReservationService } from 'src/app/service/customer/customer-re
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { OrderedDetailService } from 'src/app/service/ordered-detail.service';
-import { ReservationService } from 'src/app/service/reservation.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
 
 @Component({
@@ -38,7 +37,6 @@ export class ReservationDetailsComponent implements OnInit {
   
   constructor(private customerReservationDetailService: CustomerReservationDetailService,
     private customerReservationService: CustomerReservationService,
-    private reservationService: ReservationService,
     private credentialService: CredentialService,
     private serviceDetailService: ServiceDetailService,
     private orderedDetailService: OrderedDetailService,
