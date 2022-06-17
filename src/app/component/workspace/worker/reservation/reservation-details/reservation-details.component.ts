@@ -99,7 +99,12 @@ export class ReservationDetailsComponent implements OnInit {
   }
   
   public openBeginTask(btn?: any): void {
-    this.onOpenModal("beginReservationTask");
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        this.onOpenModal("beginReservationTask");
+      },
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
   }
   
   public onBeginTask(ngForm: NgForm): void {
