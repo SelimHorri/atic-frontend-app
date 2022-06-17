@@ -133,7 +133,7 @@
         <form #beginReservationTaskForm="ngForm" (ngSubmit)="onBeginTask(beginReservationTaskForm)">
           <div class="form-group">
             <label for="specialNotes">Write your task comment</label>
-            <textarea name="description" class="form-control" id="specialNotes" rows="4" placeholder="Comment here..."></textarea>
+            <textarea name="workerDescription" [ngModel]="task?.workerDescription" class="form-control" id="specialNotes" rows="4" placeholder="Comment here..."></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" onclick="document.getElementById('beginReservationTask').click()"

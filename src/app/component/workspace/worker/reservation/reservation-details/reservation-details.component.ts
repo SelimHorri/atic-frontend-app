@@ -4,10 +4,13 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { TaskBeginRequest } from 'src/app/model/request/task-begin-request';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
 import { ServiceDetailsReservationContainerResponse } from 'src/app/model/response/service-details-reservation-container-response';
+import { Task } from 'src/app/model/task';
 import { CredentialService } from 'src/app/service/credential.service';
+import { WorkerReservationDetailService } from 'src/app/service/employee/worker/worker-reservation-detail.service';
 import { WorkerReservationService } from 'src/app/service/employee/worker/worker-reservation.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
@@ -23,9 +26,10 @@ export class ReservationDetailsComponent implements OnInit {
   public reservationDetails!: ReservationContainerResponse;
   public orderedServiceDetails!: ServiceDetailsReservationContainerResponse;
   public allServiceDetails!: PageResponse;
+  public task!: Task;
   
   constructor(private credentialService: CredentialService,
-    private workerReservationService: WorkerReservationService,
+    private workerReservationDetailService: WorkerReservationDetailService,
     private serviceDetailService: ServiceDetailService,
     private activatedRoute: ActivatedRoute,
     private errorHandlerService: ErrorHandlerService) {}
@@ -57,7 +61,7 @@ export class ReservationDetailsComponent implements OnInit {
   public getReservationDetails(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) =>
-        this.workerReservationService.getReservationDetails(p.reservationId).subscribe({
+        this.workerReservationDetailService.getReservationDetails(p.reservationId).subscribe({
           next: (reservationDetailsPayload: any) =>
             this.reservationDetails = reservationDetailsPayload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
@@ -108,20 +112,22 @@ export class ReservationDetailsComponent implements OnInit {
   }
   
   public onBeginTask(ngForm: NgForm): void {
-    
-  }
-  
-  /*
-  private findAllServiceDetailsBySaloon(saloon: Saloon, existingServiceDetails: ServiceDetail[]): void {
-    this.serviceDetailService.findAllByCategorySaloonId(saloon.id).subscribe({
-      next: (serviceDetailsPayload: any) => {
-        this.allServiceDetails = serviceDetailsPayload?.responseBody;
-        existingServiceDetails?.forEach(existing => this.allServiceDetails?.content?.filter(s => s.id === existing.id));
-      },
-      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        const taskBeginRequest: TaskBeginRequest =
+            new TaskBeginRequest(`${sessionStorage.getItem(`username`)}`, p?.reservationId, ngForm?.value?.workerDescription);
+        this.workerReservationDetailService.beginTask(taskBeginRequest).subscribe({
+          next: (taskPayload: any) => {
+            this.task = taskPayload?.responseBody;
+            this.getReservationDetails();
+            document.getElementById(`beginReservationTask`)?.click();
+            ngForm.reset();
+          },
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      }
     });
   }
-  */
   
   
   
