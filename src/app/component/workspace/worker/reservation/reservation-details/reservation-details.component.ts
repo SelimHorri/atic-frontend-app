@@ -13,7 +13,6 @@ import { Task } from 'src/app/model/task';
 import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
 import { WorkerReservationDetailService } from 'src/app/service/employee/worker/worker-reservation-detail.service';
-import { WorkerReservationService } from 'src/app/service/employee/worker/worker-reservation.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';

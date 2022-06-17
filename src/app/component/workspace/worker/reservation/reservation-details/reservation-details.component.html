@@ -9,7 +9,25 @@
         <div class="card m-b-30">
           <div class="card-header">
             <h5 class="card-title">Reservation: <span class="text-success">
-                <u class="text-success">REF-{{ reservationDetails?.reservation?.code?.substring(0, 8) }}</u></span></h5>
+                <u class="text-success">REF-{{ reservationDetails?.reservation?.code?.substring(0, 8) }}</u>
+                &nbsp;&nbsp;
+                <span
+                  *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'"
+                  class="badge bg-danger font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  {{ reservationDetails?.reservation?.status }}</span>
+                <span *ngIf="reservationDetails?.reservation?.status === 'IN_PROGRESS'"
+                  class="badge bg-primary font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  {{ reservationDetails?.reservation?.status }}</span>
+                <span *ngIf="reservationDetails?.reservation?.status === 'COMPLETED'"
+                  class="badge bg-success font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  {{ reservationDetails?.reservation?.status }}</span>
+                <span *ngIf="reservationDetails?.reservation?.status === 'CANCELLED'"
+                  class="badge bg-warning font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  {{ reservationDetails?.reservation?.status }}</span>
+                <span *ngIf="reservationDetails?.reservation?.status === 'OUTDATED'"
+                  class="badge bg-dark font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  <s>{{ reservationDetails?.reservation?.status }}</s></span></span>
+            </h5>
           </div>
           <div class="card-body">
             <div class="row justify-content-center">
@@ -48,29 +66,49 @@
                     <div class="cart-body">
                       <div class="row">
                         <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
-                          <div class="order-note">
-                            <div class="form-group">
-                              <label for="specialNotes">Special Customer Notes (eg.. expected duration)</label>
-                              <textarea
-                                name="description" [ngModel]="reservationDetails?.reservation?.description"
-                                class="form-control" rows="2" id="specialNotes" disabled></textarea>
-                            </div>
+                          <div align="center">
+                            <table id="mytask" class="table">
+                              <thead>
+                                <tr>
+                                  <th>Assigned at</th>
+                                  <th>Begin date</th>
+                                  <th>End date</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>{{ task?.taskDate | date: 'dd-MMM-yyyy HH:mm' }}</td>
+                                  <td *ngIf="task?.startDate">{{ task?.startDate | date: 'dd-MMM-yyyy HH:mm' }}</td>
+                                  <td *ngIf="!task?.startDate">-</td>
+                                  <td *ngIf="task?.endDate">{{ task?.endDate | date: 'dd-MMM-yyyy HH:mm' }}</td>
+                                  <td *ngIf="!task?.endDate">-</td>
+                                </tr>
+                              </tbody>
+                            </table>
                           </div>
-                          <hr>
                           <div class="order-note">
                             <div class="form-group">
-                              <label for="specialNotes">My comments</label>
+                              <label for="specialNotes">My last comments</label>
                               <textarea name="description" [ngModel]="task?.workerDescription"
-                                class="form-control" id="specialNotes" rows="2" disabled></textarea>
+                                class="form-control" id="specialNotes" rows="2" placeholder="-" disabled></textarea>
                             </div>
                             <div class="form-group">
-                              <label for="specialNotes">Manager comments</label>
+                              <label for="specialNotes">Manager last comments</label>
                               <textarea name="description" [ngModel]="task?.managerDescription"
-                                class="form-control" id="specialNotes" rows="2" disabled></textarea>
+                                class="form-control" id="specialNotes" rows="2" placeholder="-" disabled></textarea>
                             </div>
                           </div>
                         </div>
                         <div class="col-md-12 order-1 order-lg-2 col-lg-7 col-xl-6">
+                         <div align="center">
+                            <div align="left" id="myReservationDetails" class="order-note">
+                              <div class="form-group">
+                                <label for="specialNotes">Special Customer Notes (eg.. expected duration)</label>
+                                <textarea name="description" [ngModel]="reservationDetails?.reservation?.description"
+                                  class="form-control" rows="2" id="specialNotes" placeholder="-" disabled></textarea>
+                              </div>
+                            </div>
+                          </div>
                           <div class="order-total table-responsive ">
                             <table class="table table-borderless text-right">
                               <tbody>
@@ -109,7 +147,7 @@
                         *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED' 
                           || reservationDetails?.reservation?.status === 'IN_PROGRESS'"
                         (click)="openBeginTask()" id="beginTaskBtn" type="button" class="btn
-                        btn-danger my-1"><i class=""></i>
+                        btn-outline-danger my-1"><i class=""></i>
                         Begin Task
                       </button>&nbsp;
                       <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout assigned
@@ -147,8 +185,7 @@
             <label for="specialNotes">Write your task comment</label>
             <textarea 
               name="workerDescription" 
-              [ngModel]="task?.workerDescription" 
-              [disabled]="task?.startDate !== null && task?.startDate !== undefined"
+              [ngModel]="task?.workerDescription"
               class="form-control" id="specialNotes" rows="4" placeholder="Comment here..."></textarea>
           </div>
           <div class="modal-footer">
