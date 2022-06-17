@@ -86,7 +86,6 @@ export class ReservationComponent implements OnInit {
         if (q?.size !== undefined && q?.size !== null && q?.size >= 1)
           url = `${url}&size=${q?.size}`;
         this.router.navigateByUrl(url);
-        // window.location.replace(url);
         return url;
       }
     });
