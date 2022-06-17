@@ -5,14 +5,17 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { TaskBeginRequest } from 'src/app/model/request/task-begin-request';
+import { ReservationStatus } from 'src/app/model/reservation-status';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
 import { ServiceDetailsReservationContainerResponse } from 'src/app/model/response/service-details-reservation-container-response';
 import { Task } from 'src/app/model/task';
+import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
 import { WorkerReservationDetailService } from 'src/app/service/employee/worker/worker-reservation-detail.service';
 import { WorkerReservationService } from 'src/app/service/employee/worker/worker-reservation.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
 
 @Component({
@@ -32,10 +35,12 @@ export class ReservationDetailsComponent implements OnInit {
     private workerReservationDetailService: WorkerReservationDetailService,
     private serviceDetailService: ServiceDetailService,
     private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService,
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
+    this.getAssignedTask();
     this.getReservationDetails();
     this.getOrderedServiceDetails();
   }
@@ -102,11 +107,21 @@ export class ReservationDetailsComponent implements OnInit {
     button.click();
   }
   
-  public openBeginTask(btn?: any): void {
+  private getAssignedTask(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        this.onOpenModal("beginReservationTask");
+        this.workerReservationDetailService.getAssignedTask(p?.reservationId).subscribe({
+          next: (taskPayload: any) => this.task = taskPayload?.responseBody,
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
       },
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  
+  public openBeginTask(btn?: any): void {
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => this.onOpenModal("beginReservationTask"),
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
   }
@@ -120,6 +135,9 @@ export class ReservationDetailsComponent implements OnInit {
           next: (taskPayload: any) => {
             this.task = taskPayload?.responseBody;
             this.getReservationDetails();
+            this.notificationService.showSuccess(new ToastrMsg(`My Task has been initiated successfully..`, `Task Started!`));
+            if (this.task?.reservation?.status === ReservationStatus.IN_PROGRESS)
+              this.notificationService.showInfo(new ToastrMsg(`Reservation is IN_PROGRESS`, `Reservation Updated!`));
             document.getElementById(`beginReservationTask`)?.click();
             ngForm.reset();
           },

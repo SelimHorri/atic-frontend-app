@@ -35,8 +35,17 @@ export class WorkerReservationDetailService {
     }));
   }
   
+  public getAssignedTask(reservationId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/tasks/${reservationId}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    });
+  }
+  
   public beginTask(taskBeginRequest: TaskBeginRequest): Observable<any> {
-    return this.http.put(`${this.apiUrl}/tasks/begin`, taskBeginRequest, {
+    return this.http.put<any>(`${this.apiUrl}/tasks/begin`, taskBeginRequest, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,

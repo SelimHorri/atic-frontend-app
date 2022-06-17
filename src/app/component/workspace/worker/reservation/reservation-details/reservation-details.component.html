@@ -53,7 +53,20 @@
                               <label for="specialNotes">Special Customer Notes (eg.. expected duration)</label>
                               <textarea
                                 name="description" [ngModel]="reservationDetails?.reservation?.description"
-                                class="form-control" id="specialNotes" rows="6" disabled></textarea>
+                                class="form-control" rows="2" id="specialNotes" disabled></textarea>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="order-note">
+                            <div class="form-group">
+                              <label for="specialNotes">My comments</label>
+                              <textarea name="description" [ngModel]="task?.workerDescription"
+                                class="form-control" id="specialNotes" rows="2" disabled></textarea>
+                            </div>
+                            <div class="form-group">
+                              <label for="specialNotes">Manager comments</label>
+                              <textarea name="description" [ngModel]="task?.managerDescription"
+                                class="form-control" id="specialNotes" rows="2" disabled></textarea>
                             </div>
                           </div>
                         </div>
@@ -117,7 +130,6 @@
 
 
 
-
 <div class="modal fade" id="beginReservationTask" tabindex="-1" role="dialog" aria-labelledby="beginReservationTaskModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog" role="document">
@@ -133,7 +145,11 @@
         <form #beginReservationTaskForm="ngForm" (ngSubmit)="onBeginTask(beginReservationTaskForm)">
           <div class="form-group">
             <label for="specialNotes">Write your task comment</label>
-            <textarea name="workerDescription" [ngModel]="task?.workerDescription" class="form-control" id="specialNotes" rows="4" placeholder="Comment here..."></textarea>
+            <textarea 
+              name="workerDescription" 
+              [ngModel]="task?.workerDescription" 
+              [disabled]="task?.startDate !== null && task?.startDate !== undefined"
+              class="form-control" id="specialNotes" rows="4" placeholder="Comment here..."></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" onclick="document.getElementById('beginReservationTask').click()"

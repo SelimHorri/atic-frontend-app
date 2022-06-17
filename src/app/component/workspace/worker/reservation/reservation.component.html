@@ -115,17 +115,6 @@
                             class="mdi mdi-checkbox-blank-circle mr-1"></i>
                           {{ r?.status }}</span>
                       </td>
-                      <!--
-                  <td>
-                    <a *ngFor="let t of tasks"
-                      routerLink="/workspace/{{ accountUrl }}/reservations/assigned/{{ t?.workerId }}"
-                      class="team team-member" data-toggle="tooltip" data-placement="top" title=""
-                      data-original-title="Roger Drake">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="rounded-circle avatar-xs"
-                        alt="" />
-                    </a>
-                  </td>
-                  -->
                       <td *ngIf="r?.description !== null && r?.description !== undefined">
                         <p class="mb-0">{{ r?.description }}</p>
                       </td>
