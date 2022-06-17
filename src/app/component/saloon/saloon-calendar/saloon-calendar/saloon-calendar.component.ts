@@ -69,8 +69,8 @@ export class SaloonCalendarComponent implements OnInit {
               }
             });
             this.calendarOptions.events = Array.from(saloonsSet);
-            const userRole = this.credentialService.getUserRole(`userRole`);
-            if (userRole === UserRoleBasedAuthority.CUSTOMER)
+            const userRole = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
+            if (userRole?.toUpperCase() === UserRoleBasedAuthority.CUSTOMER)
               this.getAllServiceDetails();
           },
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
