@@ -83,15 +83,6 @@
                     Indie music, skiing and hiking. I love the great outdoors.
                   </p>
                 </div>
-                <!--
-                    <div class="col-md-6" *ngIf="workerProfileResponse?.favourites?.length !== 0">
-                      <h6>Recent Facilities</h6>
-                      <div *ngFor="let s of workerProfileResponse?.favourites">
-                        <a href="javascript:void(0);" class="badge badge-dark badge-pill">{{ s?.saloon?.name }}</a>
-                      </div>
-                      <hr>
-                    </div>
-                    -->
 
                 <hr>
 
@@ -139,6 +130,14 @@
                         <input name="birthdate"
                           [ngModel]="workerProfileResponse?.worker?.birthdate | date: 'yyyy-MM-dd'"
                           class="form-control" type="date">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Hiredate</label>
+                      <div class="col-lg-9">
+                        <input name="hiredate"
+                          [ngModel]="workerProfileResponse?.worker?.hiredate | date: 'yyyy-MM-dd'" class="form-control"
+                          type="date">
                       </div>
                     </div>
                     <div class="form-group row">

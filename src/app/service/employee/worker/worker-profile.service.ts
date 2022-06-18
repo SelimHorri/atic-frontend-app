@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { DateBackendFormat } from 'src/app/model/date-backend-format';
+import { WorkerProfileRequest } from 'src/app/model/request/worker-profile-request';
 import { Task } from 'src/app/model/task';
 import { environment } from 'src/environments/environment';
 
@@ -34,6 +35,35 @@ export class WorkerProfileService {
       });
       return res;
     }));
+  }
+  
+  public updateProfileInfo(workerProfileRequest: WorkerProfileRequest): Observable<any> {
+    workerProfileRequest.authenticatedUsername = `${sessionStorage.getItem(`username`)}`;
+    workerProfileRequest.firstname = workerProfileRequest?.firstname?.trim();
+    workerProfileRequest.lastname = workerProfileRequest?.lastname?.trim();
+    workerProfileRequest.email = workerProfileRequest?.email?.trim();
+    workerProfileRequest.phone = workerProfileRequest?.phone?.trim();
+    if (workerProfileRequest?.birthdate !== null
+      && workerProfileRequest?.birthdate !== undefined
+      && workerProfileRequest?.birthdate !== 'Invalid date')
+      workerProfileRequest.birthdate = moment(moment(workerProfileRequest?.birthdate, 'yyyy-MM-DD').toDate())
+        .format(DateBackendFormat.LOCAL_DATE);
+    else
+      workerProfileRequest.birthdate = null;
+    if (workerProfileRequest?.hiredate !== null
+      && workerProfileRequest?.hiredate !== undefined
+      && workerProfileRequest?.hiredate !== 'Invalid date')
+      workerProfileRequest.hiredate = moment(moment(workerProfileRequest?.hiredate, 'yyyy-MM-DD').toDate())
+        .format(DateBackendFormat.LOCAL_DATE);
+    else
+      workerProfileRequest.hiredate = null;
+    workerProfileRequest.username = workerProfileRequest?.username?.trim();
+    return this.http.put<any>(`${this.apiUrl}`, workerProfileRequest, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    });
   }
   
   

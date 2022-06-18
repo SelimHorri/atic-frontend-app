@@ -66,8 +66,6 @@ export class CustomerProfileService {
     customerProfileInfoRequest.linkedinUrl = customerProfileInfoRequest?.linkedinUrl?.trim();
     customerProfileInfoRequest.username = customerProfileInfoRequest?.username?.trim();
     
-    console.log(JSON.stringify(customerProfileInfoRequest));
-    
     return this.http.put<any>(`${this.apiUrl}`, customerProfileInfoRequest, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
