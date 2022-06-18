@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-import { TaskBeginRequest } from 'src/app/model/request/task-begin-request';
 import { ReservationStatus } from 'src/app/model/reservation-status';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
@@ -125,12 +124,26 @@ export class ReservationDetailsComponent implements OnInit {
     });
   }
   
+  public onUpdateMyNewComment(newWorkerDescription?: string | any): void {
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        this.workerReservationDetailService.updateDescription(p?.reservationId, newWorkerDescription).subscribe({
+          next: (taskPayload: any) => {
+            this.task = taskPayload?.responseBody;
+            console.log(JSON.stringify(this.task));
+            this.notificationService.showSuccess(new ToastrMsg(`Your last comment has been updated successfully..`, `Updated!`));
+          },
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      },
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  
   public onBeginTask(ngForm: NgForm): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        const taskBeginRequest: TaskBeginRequest =
-            new TaskBeginRequest(`${sessionStorage.getItem(`username`)}`, p?.reservationId, ngForm?.value?.workerDescription);
-        this.workerReservationDetailService.beginTask(taskBeginRequest).subscribe({
+        this.workerReservationDetailService.beginTask(p?.reservationId, ngForm?.value?.workerDescription).subscribe({
           next: (taskPayload: any) => {
             this.task = taskPayload?.responseBody;
             this.getReservationDetails();

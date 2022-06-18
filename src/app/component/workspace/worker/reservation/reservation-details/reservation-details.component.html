@@ -90,14 +90,14 @@
                           <div class="order-note">
                             <div class="form-group">
                               <label for="specialNotes">My last comments</label>
-                              <textarea name="description" [ngModel]="task?.workerDescription"
+                              <textarea name="workerDescription" [(ngModel)]="task.workerDescription"
                                 class="form-control" id="specialNotes" rows="2" placeholder="-"
-                                [disabled]="task?.reservation?.status !== 'NOT_STARTED' 
-                                  && task?.reservation?.status !== 'IN_PROGRESS'"></textarea>
+                                [disabled]="(task?.reservation?.status !== 'NOT_STARTED' 
+                                  && task?.reservation?.status !== 'IN_PROGRESS')"></textarea>
                             </div>
                             <div class="form-group">
                               <label for="specialNotes">Manager last comments</label>
-                              <textarea name="description" [ngModel]="task?.managerDescription"
+                              <textarea name="managerDescription" [ngModel]="task?.managerDescription"
                                 class="form-control" id="specialNotes" rows="2" placeholder="-" disabled></textarea>
                             </div>
                           </div>
@@ -143,6 +143,10 @@
                             </table>
                           </div>
                         </div>
+                      </div>
+                      <div align="left">
+                        <button type="button" (click)="onUpdateMyNewComment(task?.workerDescription)" 
+                          class="btn btn-outline-success">Update my new comment</button>
                       </div>
                     </div>
                     <div class="cart-footer text-right">
