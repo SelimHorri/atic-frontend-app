@@ -12,6 +12,7 @@ import { Task } from 'src/app/model/task';
 import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
 import { WorkerReservationDetailService } from 'src/app/service/employee/worker/worker-reservation-detail.service';
+import { WorkerReservationTaskService } from 'src/app/service/employee/worker/worker-reservation-task.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
@@ -31,6 +32,7 @@ export class ReservationDetailsComponent implements OnInit {
   
   constructor(private credentialService: CredentialService,
     private workerReservationDetailService: WorkerReservationDetailService,
+    private workerReservationTaskService: WorkerReservationTaskService,
     private serviceDetailService: ServiceDetailService,
     private activatedRoute: ActivatedRoute,
     private notificationService: NotificationService,
@@ -110,7 +112,7 @@ export class ReservationDetailsComponent implements OnInit {
   private getAssignedTask(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        this.workerReservationDetailService.getAssignedTask(p?.reservationId).subscribe({
+        this.workerReservationTaskService.getAssignedTask(p?.reservationId).subscribe({
           next: (taskPayload: any) => this.task = taskPayload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
@@ -129,7 +131,7 @@ export class ReservationDetailsComponent implements OnInit {
   public onUpdateMyNewComment(newWorkerDescription?: string | any): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        this.workerReservationDetailService.updateDescription(p?.reservationId, newWorkerDescription).subscribe({
+        this.workerReservationTaskService.updateDescription(p?.reservationId, newWorkerDescription).subscribe({
           next: (taskPayload: any) => {
             this.task = taskPayload?.responseBody;
             console.log(JSON.stringify(this.task));
@@ -145,7 +147,7 @@ export class ReservationDetailsComponent implements OnInit {
   public onBeginTask(ngForm: NgForm): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        this.workerReservationDetailService.beginTask(p?.reservationId, ngForm?.value?.workerDescription).subscribe({
+        this.workerReservationTaskService.beginTask(p?.reservationId, ngForm?.value?.workerDescription).subscribe({
           next: (taskPayload: any) => {
             this.task = taskPayload?.responseBody;
             this.getReservationDetails();
@@ -165,7 +167,7 @@ export class ReservationDetailsComponent implements OnInit {
     if (confirm(`Once your task is ended, you won't be able to change it anymore.\nDo you confirm ?`))
       this.activatedRoute.params.subscribe({
         next: (p: any) => {
-          this.workerReservationDetailService.endTask(p?.reservationId, ngForm?.value?.workerDescription).subscribe({
+          this.workerReservationTaskService.endTask(p?.reservationId, ngForm?.value?.workerDescription).subscribe({
             next: (taskPayload: any) => {
               this.task = taskPayload?.responseBody;
               this.getReservationDetails();
