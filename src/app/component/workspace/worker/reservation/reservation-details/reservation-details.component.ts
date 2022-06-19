@@ -99,7 +99,9 @@ export class ReservationDetailsComponent implements OnInit {
 
     if (action === "beginReservationTask")
       button.setAttribute("data-bs-target", "#beginReservationTask");
-
+    else if (action === "endReservationTask")
+      button.setAttribute("data-bs-target", "#endReservationTask");
+    
     const mainContainer = document.getElementById("main-container");
     mainContainer?.appendChild(button);
     button.click();
@@ -117,9 +119,9 @@ export class ReservationDetailsComponent implements OnInit {
     });
   }
   
-  public openBeginTask(btn?: any): void {
+  public openTaskModal(action?: string): void {
     this.activatedRoute.params.subscribe({
-      next: (p: any) => this.onOpenModal("beginReservationTask"),
+      next: (p: any) => (action === 'beginReservationTask') ? this.onOpenModal("beginReservationTask") : this.onOpenModal("endReservationTask"),
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
   }
@@ -157,6 +159,26 @@ export class ReservationDetailsComponent implements OnInit {
         });
       }
     });
+  }
+  
+  public onEndTask(ngForm: NgForm): void {
+    if (confirm(`Once your task is ended, you won't be able to change it anymore.\nDo you confirm`))
+      this.activatedRoute.params.subscribe({
+        next: (p: any) => {
+          this.workerReservationDetailService.endTask(p?.reservationId, ngForm?.value?.workerDescription).subscribe({
+            next: (taskPayload: any) => {
+              this.task = taskPayload?.responseBody;
+              this.getReservationDetails();
+              this.notificationService.showSuccess(new ToastrMsg(`My Task has been ended successfully..`, `Task Ended!`));
+              if (this.task?.reservation?.status === ReservationStatus.COMPLETED)
+                this.notificationService.showInfo(new ToastrMsg(`Reservation is COMPLETED`, `Reservation Updated!`));
+              document.getElementById(`endReservationTask`)?.click();
+              ngForm.reset();
+            },
+            error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+          });
+        }
+      });
   }
   
   

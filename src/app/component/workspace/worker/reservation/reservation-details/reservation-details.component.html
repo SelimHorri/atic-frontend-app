@@ -91,7 +91,7 @@
                             <div class="form-group">
                               <label for="specialNotes">My last comments</label>
                               <textarea name="workerDescription" [(ngModel)]="task.workerDescription"
-                                class="form-control" id="specialNotes" rows="2" placeholder="-"
+                                class="form-control" id="specialNotes" rows="2" placeholder="Comment here.."
                                 [disabled]="(task?.reservation?.status !== 'NOT_STARTED' 
                                   && task?.reservation?.status !== 'IN_PROGRESS')"></textarea>
                             </div>
@@ -146,18 +146,24 @@
                       </div>
                       <div align="left">
                         <button type="button" (click)="onUpdateMyNewComment(task?.workerDescription)" 
-                          class="btn btn-outline-success">Update my new comment</button>
+                          class="btn btn-outline-dark">Update my new comment</button>
                       </div>
                     </div>
                     <div class="cart-footer text-right">
                       <button
-                        *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED' 
-                          || reservationDetails?.reservation?.status === 'IN_PROGRESS'"
-                        (click)="openBeginTask()" id="beginTaskBtn" type="button" class="btn
-                        btn-outline-danger my-1"><i class=""></i>
-                        Begin Task
+                          *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED' 
+                            || reservationDetails?.reservation?.status === 'IN_PROGRESS'"
+                          (click)="openTaskModal('beginReservationTask')" id="beginTaskBtn" type="button" class="btn
+                          btn-outline-success my-1"><i class=""></i>
+                        &nbsp;&nbsp;Begin Task ✅&nbsp;&nbsp;
                       </button>&nbsp;
-                      <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn btn-success my-1">Checkout assigned
+                      <button *ngIf="reservationDetails?.reservation?.status === 'IN_PROGRESS'" 
+                          (click)="openTaskModal('endReservationTask')"
+                          id="endTaskBtn" type="button" class="btn
+                          btn-outline-danger my-1"><i class=""></i>
+                        &nbsp;&nbsp;End Task ❌&nbsp;&nbsp;
+                      </button>&nbsp;&nbsp;|&nbsp;
+                      <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn text-dark my-1">Checkout assigned
                         reservations<i class="ri-arrow-right-line ml-2"></i></a>
                     </div>
                   </div>
@@ -199,7 +205,39 @@
             <button type="button" onclick="document.getElementById('beginReservationTask').click()"
               id="addServiceDetail-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button [disabled]="beginReservationTaskForm.invalid" 
-             type="submit" class="btn btn-success">Begin</button>
+             type="submit" class="btn btn-danger">Begin</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="endReservationTask" tabindex="-1" role="dialog"
+  aria-labelledby="endReservationTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content card">
+      <div class="modal-header">
+        <h5 class="modal-title text-primary" id="exampleModalLabel"><u>End Task</u></h5>
+        <button onclick="document.getElementById('endReservationTask').click()" type="button" class="close"
+          data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body card-body">
+        <form #endReservationTaskForm="ngForm" (ngSubmit)="onEndTask(endReservationTaskForm)">
+          <div class="form-group">
+            <label for="specialNotes">Write your task comment</label>
+            <textarea name="workerDescription" [ngModel]="task?.workerDescription" class="form-control"
+              id="specialNotes" rows="4" placeholder="Comment here..."></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" onclick="document.getElementById('endReservationTask').click()"
+              id="addServiceDetail-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button [disabled]="endReservationTaskForm.invalid" type="submit" class="btn btn-danger">End</button>
           </div>
         </form>
       </div>
