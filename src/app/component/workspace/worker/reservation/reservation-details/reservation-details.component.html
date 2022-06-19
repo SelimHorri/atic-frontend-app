@@ -144,7 +144,9 @@
                           </div>
                         </div>
                       </div>
-                      <div align="left">
+                      <div align="left"
+                          *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'
+                            || reservationDetails?.reservation?.status === 'IN_PROGRESS'">
                         <button type="button" (click)="onUpdateMyNewComment(task?.workerDescription)" 
                           class="btn btn-outline-dark">Update my new comment</button>
                       </div>

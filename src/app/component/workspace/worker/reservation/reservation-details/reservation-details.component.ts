@@ -162,7 +162,7 @@ export class ReservationDetailsComponent implements OnInit {
   }
   
   public onEndTask(ngForm: NgForm): void {
-    if (confirm(`Once your task is ended, you won't be able to change it anymore.\nDo you confirm`))
+    if (confirm(`Once your task is ended, you won't be able to change it anymore.\nDo you confirm ?`))
       this.activatedRoute.params.subscribe({
         next: (p: any) => {
           this.workerReservationDetailService.endTask(p?.reservationId, ngForm?.value?.workerDescription).subscribe({
