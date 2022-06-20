@@ -99,7 +99,13 @@ export class NavbarComponent implements OnInit {
   }
 
   private getManagerItems(): any[] {
-    return [];
+    return [
+      {
+        name: "Reservations",
+        link: "reservations",
+        subItems: []
+      },
+    ];
   }
 
   private getOwnerItems(): any[] {
