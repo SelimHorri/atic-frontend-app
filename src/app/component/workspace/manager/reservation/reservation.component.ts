@@ -54,6 +54,7 @@ export class ReservationComponent implements OnInit {
                   reservationsSet.add(r);
                 });
                 this.managerReservationResponse.reservations.content = Array.from(reservationsSet);
+                this.pages = new Array<number>(this.managerReservationResponse?.reservations?.totalPages);
               },
               error: (errorResponse: HttpErrorResponse) =>
                 this.errorHandlerService.extractExceptionMsg(errorResponse)

@@ -1,5 +1,5 @@
-<div>
 
+<div>
   <div class="container">
     <div class="">
       <div class="row">
@@ -9,7 +9,7 @@
               <div class="float-right">
                 <i class="fa fa-archive text-primary h4 ml-3"></i>
               </div>
-              <h5 class="font-size-20 mt-0 pt-1">{{ managerReservationResponse?.reservations?.content?.length }}</h5>
+              <h5 class="font-size-20 mt-0 pt-1">{{ managerReservationResponse?.reservations?.totalElements }}</h5>
               <p class="text-muted mb-0">Total Reservations</p>
             </div>
           </div>
@@ -125,25 +125,25 @@
                 </table>
               </div>
               <!-- end project-list -->
-              <!--
-                <div class="pt-3">
-                  <ul class="pagination justify-content-end mb-0">
-                    <li class="page-item {{ (tasks?.first) ? 'disabled' : '' }}">
-                      <a class="page-link" (click)="onNavigatePagination(tasks.number)" href="javascript:void(0);"
-                        tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li *ngFor="let p of pages; let i = index"
-                      class="page-item {{ (tasks.number === i) ? 'active' : '' }}">
-                      <a class="page-link" href="javascript:void(0);"
-                        (click)="onNavigatePagination(i + 1)">{{ i + 1 }}</a>
-                    </li>
-                    <li class="page-item {{ (tasks?.last) ? 'disabled' : '' }}">
-                      <a class="page-link" (click)="onNavigatePagination(tasks.number + 2)"
-                        href="javascript:void(0);">Next</a>
-                    </li>
-                  </ul>
-                </div>
-              -->
+              <div class="pt-3">
+                <ul class="pagination justify-content-end mb-0">
+                  <li class="page-item {{ (managerReservationResponse?.reservations?.first) ? 'disabled' : '' }}">
+                    <a class="page-link" (click)="onNavigatePagination(managerReservationResponse.reservations.number)"
+                      href="javascript:void(0);"
+                      tabindex="-1" aria-disabled="true">Previous</a>
+                  </li>
+                  <li *ngFor="let p of pages; let i = index"
+                    class="page-item {{ (managerReservationResponse.reservations.number === i) ? 'active' : '' }}">
+                    <a class="page-link" href="javascript:void(0);"
+                      (click)="onNavigatePagination(i + 1)">{{ i + 1 }}</a>
+                  </li>
+                  <li class="page-item {{ (managerReservationResponse?.reservations?.last) ? 'disabled' : '' }}">
+                    <a class="page-link"
+                      (click)="onNavigatePagination(managerReservationResponse.reservations.number + 2)"
+                      href="javascript:void(0);">Next</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
