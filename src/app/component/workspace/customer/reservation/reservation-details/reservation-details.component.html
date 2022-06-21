@@ -9,8 +9,25 @@
         <div class="card m-b-30">
           <div class="card-header">
             <h5 class="card-title">Reservation: <span class="text-success">
-                <u class="text-success">REF-{{ reservationDetails?.reservation?.code?.substring(0, 8) }}</u></span></h5>
-          </div>
+                <u class="text-success">REF-{{ reservationDetails?.reservation?.code?.substring(0, 8) }}</u>
+                &nbsp;&nbsp;
+                <span *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'"
+                  class="badge bg-danger font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  {{ reservationDetails?.reservation?.status }}</span>
+                <span *ngIf="reservationDetails?.reservation?.status === 'IN_PROGRESS'"
+                  class="badge bg-primary font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  {{ reservationDetails?.reservation?.status }}</span>
+                <span *ngIf="reservationDetails?.reservation?.status === 'COMPLETED'"
+                  class="badge bg-success font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  {{ reservationDetails?.reservation?.status }}</span>
+                <span *ngIf="reservationDetails?.reservation?.status === 'CANCELLED'"
+                  class="badge bg-warning font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  {{ reservationDetails?.reservation?.status }}</span>
+                <span *ngIf="reservationDetails?.reservation?.status === 'OUTDATED'" class="badge bg-dark font-25"><i
+                    class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  <s>{{ reservationDetails?.reservation?.status }}</s></span></span>
+                </h5>
+                </div>
           <div class="card-body">
             <div class="row justify-content-center">
               <div class="col-lg-10 col-xl-12">
