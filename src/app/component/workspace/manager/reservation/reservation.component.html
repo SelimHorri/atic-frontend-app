@@ -46,7 +46,7 @@
                     <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" type="search"
                       class="form-control" placeholder="Search..." aria-describedby="project-search-addon" required />
                     <div class="input-group-append">
-                      <button class="btn btn-info" type="button" id="project-search-addon"><i
+                      <button class="btn btn-primary" type="button" id="project-search-addon"><i
                           class="fa fa-search search-icon font-12"></i></button>
                     </div>
                   </div>
@@ -93,8 +93,8 @@
                       <td><a
                           routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>
                       </td>
-                      <td>{{ r?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
-                      <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MM-yyyy HH:mm" }}
+                      <td>{{ r?.startDate | date: "dd-MMM-yyyy HH:mm" }}</td>
+                      <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MMM-yyyy HH:mm" }}
                       </td>
                       <td *ngIf="r?.status !== 'CANCELLED'.toUpperCase()">-</td>
                       <td>

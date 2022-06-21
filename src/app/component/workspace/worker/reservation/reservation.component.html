@@ -1,6 +1,5 @@
 
 <div>
-  
   <div class="container">
     <div class="">
       <div class="row">
@@ -94,8 +93,8 @@
                       <td><a
                           routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>
                       </td>
-                      <td>{{ r?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
-                      <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MM-yyyy HH:mm" }}
+                      <td>{{ r?.startDate | date: "dd-MMM-yyyy HH:mm" }}</td>
+                      <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MMM-yyyy HH:mm" }}
                       </td>
                       <td *ngIf="r?.status !== 'CANCELLED'.toUpperCase()">-</td>
                       <td>
