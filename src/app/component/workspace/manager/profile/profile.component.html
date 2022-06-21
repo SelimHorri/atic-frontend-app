@@ -8,10 +8,11 @@
               <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user avatar">
             </div>
             <h5 class="mb-1 text-white">
-              {{ managerProfileResponse?.manager?.firstname?.charAt(0) | uppercase }}{{ managerProfileResponse?.manager?.firstname?.substring(1) | lowercase}}
-              {{ managerProfileResponse?.manager?.lastname | uppercase}}
+              {{ managerProfileResponse?.manager?.firstname?.charAt(0) | uppercase }}{{ managerProfileResponse?.manager?.firstname?.substring(1) | lowercase }}
+              {{ managerProfileResponse?.manager?.lastname | uppercase }}
             </h5>
-            <h6 class="text-light"><i>{{ managerProfileResponse?.credential?.role }}</i></h6>
+            <h6 class="text-light"><i>{{ managerProfileResponse?.manager?.credential?.role }}</i></h6>
+            <h6 class="text-light"><i>{{ managerProfileResponse?.manager?.saloon?.name }}</i></h6>
           </div>
           <div class="card-body">
             <ul class="list-group shadow-none">
@@ -45,8 +46,24 @@
             </ul>
             <div class="row text-center mt-4">
               <div class="col p-2">
+                <h4 class="mb-1 line-height-5">{{ managerProfileResponse?.workers?.totalElements }}</h4>
+                <small class="mb-0 font-weight-bold">Sub Workers</small>
+              </div>
+              <div class="col p-2">
                 <h4 class="mb-1 line-height-5">{{ managerProfileResponse?.reservations?.totalElements }}</h4>
                 <small class="mb-0 font-weight-bold">Reservations</small>
+              </div>
+                <div class="col p-2">
+                  <h4 class="mb-1 line-height-5">{{ managerProfileResponse?.saloonTags?.totalElements }}</h4>
+                  <small class="mb-0 font-weight-bold">Tags</small>
+                </div>
+              <div class="col p-2">
+                <h4 class="mb-1 line-height-5">{{ managerProfileResponse?.categories?.totalElements }}</h4>
+                <small class="mb-0 font-weight-bold">Categories</small>
+              </div>
+              <div class="col p-2">
+                <h4 class="mb-1 line-height-5">{{ managerProfileResponse?.serviceDetails?.totalElements }}</h4>
+                <small class="mb-0 font-weight-bold">Services</small>
               </div>
             </div>
           </div>

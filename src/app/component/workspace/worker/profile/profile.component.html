@@ -8,10 +8,11 @@
               <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user avatar">
             </div>
             <h5 class="mb-1 text-white">
-              {{ workerProfileResponse?.worker?.firstname?.charAt(0) | uppercase}}{{ workerProfileResponse?.worker?.firstname?.substring(1) | lowercase}}
-              {{ workerProfileResponse?.worker?.lastname | uppercase}}
+              {{ workerProfileResponse?.worker?.firstname?.charAt(0) | uppercase }}{{ workerProfileResponse?.worker?.firstname?.substring(1) | lowercase }}
+              {{ workerProfileResponse?.worker?.lastname | uppercase }}
             </h5>
             <h6 class="text-light"><i>{{ workerProfileResponse?.credential?.role }}</i></h6>
+            <h6 class="text-light"><i>{{ workerProfileResponse?.worker?.saloon?.name }}</i></h6>
           </div>
           <div class="card-body">
             <ul class="list-group shadow-none">
