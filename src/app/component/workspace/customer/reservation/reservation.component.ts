@@ -56,7 +56,7 @@ export class ReservationComponent implements OnInit {
         if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1 || q?.size as number < 1)
           this.router.navigateByUrl(`/workspace/${this.accountUrl}/reservations?offset=1`);
         else
-          this.customerReservationService.getReservations(new ClientPageRequest(q?.offset, q?.size)).subscribe({
+          this.customerReservationService.getReservations(new ClientPageRequest(q?.offset, q?.size, ['startDate', 'createdAt'], 'desc')).subscribe({
             next: (customerReservationPayload: any) => {
               this.reservations = customerReservationPayload?.responseBody?.reservations;
               this.pages = new Array<number>(this.reservations?.totalPages);

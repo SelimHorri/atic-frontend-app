@@ -4,68 +4,67 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { Reservation } from 'src/app/model/reservation';
-import { PageResponse } from 'src/app/model/response/page/page-response';
-import { Task } from 'src/app/model/task';
+import { ManagerReservationResponse } from 'src/app/model/response/manager-reservation-response';
 import { CredentialService } from 'src/app/service/credential.service';
-import { WorkerReservationService } from 'src/app/service/employee/worker/worker-reservation.service';
+import { ManagerReservationService } from 'src/app/service/employee/manager/manager-reservation.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 
 @Component({
-  selector: 'app-worker-reservation',
+  selector: 'app-manager-reservation',
   templateUrl: './reservation.component.html',
   styleUrls: ['./reservation.component.scss']
 })
 export class ReservationComponent implements OnInit {
   
   public accountUrl!: string;
-  public tasks!: PageResponse;
-  public reservations: any[] = [];
+  public managerReservationResponse!: ManagerReservationResponse;
   public pages: number[] = [];
-  
+
   constructor(private credentialService: CredentialService,
-    private workerReservationService: WorkerReservationService,
+    private managerReservationService: ManagerReservationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private errorHandlerService: ErrorHandlerService) {}
-  
+
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
     this.getAllPagedReservations();
   }
-  
+
   public getCompletedReservations(): Reservation[] {
-    return this.workerReservationService.getCompletedReservations(this.reservations);
+    return this.managerReservationService.getCompletedReservations(this.managerReservationResponse?.reservations?.content);
   }
 
   public getPendingReservations(): Reservation[] {
-    return this.workerReservationService.getPendingReservations(this.reservations);
+    return this.managerReservationService.getPendingReservations(this.managerReservationResponse?.reservations?.content);
   }
-  
+
   public getAllPagedReservations(): void {
     this.activatedRoute.queryParams.subscribe({
       next: (q: any) => {
         if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1 || q?.size as number < 1)
           this.router.navigateByUrl(`/workspace/${this.accountUrl}/reservations?offset=1`);
         else
-          this.workerReservationService
-              .getAllPagedReservations(new ClientPageRequest(q?.offset, q?.size, ['startDate', 'createdAt'], 'desc')).subscribe({
-            next: (payload: any) => {
-              const reservationsSet: Set<Reservation> = new Set<Reservation>();
-              this.tasks = payload?.responseBody;
-              this.tasks?.content?.forEach((t: Task) => reservationsSet.add(t?.reservation));
-              this.reservations = Array.from(reservationsSet);
-              this.pages = new Array<number>(this.tasks?.totalPages);
-            },
-            error: (errorResponse: HttpErrorResponse) =>
+          this.managerReservationService
+            .getAllPagedReservations(new ClientPageRequest(q?.offset, q?.size, ['startDate', 'createdAt'], 'desc')).subscribe({
+              next: (payload: any) => {
+                this.managerReservationResponse = payload?.responseBody;
+                const reservationsSet: Set<Reservation> = new Set<Reservation>();
+                this.managerReservationResponse?.reservations?.content?.forEach((r: Reservation) => {
+                  reservationsSet.add(r);
+                });
+                this.managerReservationResponse.reservations.content = Array.from(reservationsSet);
+              },
+              error: (errorResponse: HttpErrorResponse) =>
                 this.errorHandlerService.extractExceptionMsg(errorResponse)
-          });
+            });
       }
     });
   }
-  
+
   public searchBy(key: string): void {
     const res: Reservation[] = [];
-    this.reservations.forEach(r => {
+    this.managerReservationResponse?.reservations?.content.forEach((r: Reservation) => {
       if (`REF-${r?.code}`.toLowerCase().indexOf(key.toLowerCase()) !== -1
         || r.startDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
         || r.cancelDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
@@ -74,7 +73,7 @@ export class ReservationComponent implements OnInit {
         res.push(r);
     });
 
-    this.reservations = res;
+    this.managerReservationResponse.reservations.content = res;
     if (res.length === 0 || !key)
       this.getAllPagedReservations();
   }
@@ -105,6 +104,7 @@ export class ReservationComponent implements OnInit {
   
   
 }
+
 
 
 
