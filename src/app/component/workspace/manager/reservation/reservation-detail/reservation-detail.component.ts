@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { PageResponse } from 'src/app/model/response/page/page-response';
+import { ReservationBeginEndTaskResponse } from 'src/app/model/response/reservation-begin-end-task-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
 import { ServiceDetailsReservationContainerResponse } from 'src/app/model/response/service-details-reservation-container-response';
 import { Saloon } from 'src/app/model/saloon';
@@ -27,6 +28,7 @@ export class ReservationDetailComponent implements OnInit {
   public orderedServiceDetails!: ServiceDetailsReservationContainerResponse;
   public allServiceDetails!: PageResponse;
   public msg: string = "";
+  public reservationBeginEndTaskResponse!: ReservationBeginEndTaskResponse;
 
   constructor(private managerReservationDetailService: ManagerReservationDetailService,
     private credentialService: CredentialService,
@@ -40,6 +42,7 @@ export class ReservationDetailComponent implements OnInit {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
     this.getReservationDetails();
     this.getOrderedServiceDetails();
+    this.getBeginEndTask();
   }
 
   public calculateTotalAmount(): number {
@@ -77,6 +80,20 @@ export class ReservationDetailComponent implements OnInit {
         this.serviceDetailService.getOrderedServiceDetailsByReservationId(p.reservationId).subscribe({
           next: (orderedServiceDetailsPayload: any) => {
             this.orderedServiceDetails = orderedServiceDetailsPayload?.responseBody;
+          },
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      }
+    });
+  }
+  
+  private getBeginEndTask(): void {
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        this.managerReservationDetailService.getBeginEndTask(p?.reservationId).subscribe({
+          next: (payload: any) => {
+            this.reservationBeginEndTaskResponse = payload?.responseBody;
+            console.log(JSON.stringify(this.reservationBeginEndTaskResponse));
           },
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });

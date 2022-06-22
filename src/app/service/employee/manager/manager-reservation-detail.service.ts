@@ -34,6 +34,23 @@ export class ManagerReservationDetailService {
     }));
   }
   
+  public getBeginEndTask(reservationId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${reservationId}/tasks/info/beginEnd`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((payload: any) => {
+      payload.responseBody.taskBegin.taskDate = moment(payload.responseBody?.taskBegin?.taskDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.taskBegin.startDate = moment(payload.responseBody?.taskBegin?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.taskBegin.endDate = moment(payload.responseBody?.taskBegin?.endDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.taskEnd.taskDate = moment(payload.responseBody?.taskEnd?.taskDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.taskEnd.startDate = moment(payload.responseBody?.taskEnd?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.taskEnd.endDate = moment(payload.responseBody?.taskEnd?.endDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      return payload;
+    }));
+  }
+  
   
   
 }

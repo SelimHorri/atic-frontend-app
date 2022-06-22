@@ -86,12 +86,14 @@
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <!--
-                                      <td *ngIf="task?.startDate">{{ task?.startDate | date: 'dd-MMM-yyyy HH:mm' }}</td>
-                                      <td *ngIf="!task?.startDate">-</td>
-                                      <td *ngIf="task?.endDate">{{ task?.endDate | date: 'dd-MMM-yyyy HH:mm' }}</td>
-                                      <td *ngIf="!task?.endDate">-</td>
-                                    -->
+                                    <td *ngIf="reservationBeginEndTaskResponse?.taskBegin">
+                                      {{ reservationBeginEndTaskResponse?.taskBegin?.startDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                    </td>
+                                    <td *ngIf="!reservationBeginEndTaskResponse?.taskBegin">-</td>
+                                    <td *ngIf="reservationBeginEndTaskResponse?.taskEnd">
+                                      {{ reservationBeginEndTaskResponse?.taskEnd?.endDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                    </td>
+                                    <td *ngIf="!reservationBeginEndTaskResponse?.taskEnd">-</td>
                                   </tr>
                                 </tbody>
                               </table>
