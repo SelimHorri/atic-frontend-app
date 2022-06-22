@@ -63,6 +63,7 @@ import { IndexComponent as ManagerIndexComponent } from './component/workspace/m
 import { IndexComponent as OwnerIndexComponent } from './component/workspace/owner/index/index.component';
 import { ProfileComponent as OwnerProfileComponent } from './component/workspace/owner/profile/profile.component';
 import { ReservationComponent as ManagerReservationComponent } from './component/workspace/manager/reservation/reservation.component';
+import { ReservationCalendarComponent as ManagerReservationCalendarComponent } from './component/workspace/manager/reservation/reservation-calendar/reservation-calendar.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   timeGridPlugin,
@@ -100,6 +101,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ManagerIndexComponent,
     ManagerProfileComponent,
     ManagerReservationComponent,
+    ManagerReservationCalendarComponent,
     
     OwnerIndexComponent,
     OwnerProfileComponent,

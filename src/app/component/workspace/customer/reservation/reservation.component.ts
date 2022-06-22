@@ -2,6 +2,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { Reservation } from 'src/app/model/reservation';
 import { PageResponse } from 'src/app/model/response/page/page-response';
@@ -89,10 +90,10 @@ export class ReservationComponent implements OnInit {
     const res: Reservation[] = [];
     this.reservations?.content.forEach(r => {
       if (`REF-${r?.code}`.toLowerCase().indexOf(key.toLowerCase()) !== -1
-          || r.startDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
-          || r.cancelDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.startDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.cancelDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           // || r.description.toLowerCase().indexOf(key.toLowerCase()) !== -1
-          || r.status.toLowerCase().indexOf(key.toLowerCase()) !== -1)
+          || r?.status.toLowerCase().indexOf(key.toLowerCase()) !== -1)
         res.push(r);
     });
     

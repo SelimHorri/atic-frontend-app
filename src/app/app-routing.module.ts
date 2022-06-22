@@ -36,6 +36,7 @@ import { ReservationComponent as WorkerReservationComponent } from './component/
 import { ReservationCalendarComponent as WorkerReservationCalendarComponent } from './component/workspace/worker/reservation/reservation-calendar/reservation-calendar.component';
 import { ReservationDetailsComponent as WorkerReservationDetailsComponent } from './component/workspace/worker/reservation/reservation-details/reservation-details.component';
 import { ReservationComponent as ManagerReservationComponent } from './component/workspace/manager/reservation/reservation.component';
+import { ReservationCalendarComponent as ManagerReservationCalendarComponent } from './component/workspace/manager/reservation/reservation-calendar/reservation-calendar.component';
 
 const routes: Routes = [
   
@@ -95,6 +96,7 @@ const routes: Routes = [
           { path: "index", redirectTo: "" },
           { path: "profile", component: ManagerProfileComponent },
           { path: "reservations", component: ManagerReservationComponent },
+          { path: "reservations/calendar", component: ManagerReservationCalendarComponent },
         ]
       },
       {
