@@ -25,7 +25,7 @@
                   class="badge bg-warning font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
                   {{ reservationDetails?.reservation?.status }}</span>
                 <span *ngIf="reservationDetails?.reservation?.status === 'OUTDATED'"
-                  class="badge bg-dark font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  class="text-danger badge bg-dark font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
                   <s>{{ reservationDetails?.reservation?.status }}</s></span></span>
             </h5>
           </div>
@@ -77,7 +77,7 @@
                       <div class="row ">
                         <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6 ">
                           <div align="center">
-                            <table id="mytask" class="table">
+                            <table id="mytask" class="table table-hover text-center">
                               <thead>
                                 <tr>
                                   <th>Assigned at</th>

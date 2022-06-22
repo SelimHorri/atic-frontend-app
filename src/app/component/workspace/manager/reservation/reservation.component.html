@@ -79,6 +79,7 @@
                   <thead>
                     <tr align="center">
                       <th scope="col">#</th>
+                      <th scope="col">Customer</th>
                       <th scope="col">Reservation code</th>
                       <th scope="col"><a>Start Date</a></th>
                       <th scope="col">Cancel Date</th>
@@ -90,6 +91,10 @@
                   <tbody *ngFor="let r of managerReservationResponse?.reservations?.content">
                     <tr align="center">
                       <td scope="col"><strong>#</strong></td>
+                      <td scope="col">
+                        {{ r?.customer?.firstname?.substring(0, 1) | uppercase }}{{ r?.customer?.firstname?.substring(1) | lowercase }}
+                        {{ r?.customer?.lastname | uppercase }}
+                      </td>
                       <td><a
                           routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>
                       </td>

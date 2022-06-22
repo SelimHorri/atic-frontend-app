@@ -67,7 +67,9 @@ export class ReservationComponent implements OnInit {
   public searchBy(key: string): void {
     const res: Reservation[] = [];
     this.managerReservationResponse?.reservations?.content.forEach((r: Reservation) => {
-      if (`REF-${r?.code}`.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      if (r?.customer?.firstname.toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || r?.customer?.lastname.toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || `REF-${r?.code}`.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.startDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.cancelDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           // || r?.description.toLowerCase().indexOf(key.toLowerCase()) !== -1

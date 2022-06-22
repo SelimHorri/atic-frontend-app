@@ -23,7 +23,8 @@
                 <span *ngIf="reservationDetails?.reservation?.status === 'CANCELLED'"
                   class="badge bg-warning font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
                   {{ reservationDetails?.reservation?.status }}</span>
-                <span *ngIf="reservationDetails?.reservation?.status === 'OUTDATED'" class="badge bg-dark font-25"><i
+                <span *ngIf="reservationDetails?.reservation?.status === 'OUTDATED'"
+                  class="text-danger badge bg-dark font-25"><i
                     class="mdi mdi-checkbox-blank-circle mr-1"></i>
                   <s>{{ reservationDetails?.reservation?.status }}</s></span></span>
                 </h5>
