@@ -33,19 +33,18 @@
               <div class="col-lg-10 col-xl-12">
                 <div class="cart-container">
                   <div class="cart-head">
+                    <div *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'.toUpperCase() 
+                                || reservationDetails?.reservation?.status === 'IN_PROGRESS'.toUpperCase()">
+                      <a (click)="onOpenModal(reservationDetails.reservation.saloon, orderedServiceDetails.serviceDetails.content, 'addServiceDetail')"
+                        href="javascript:void(0);" class="btn text-primary ">
+                        <i class="ri-shield-cross-fill"></i>
+                        Add
+                      </a>
+                    </div>
                     <div class="table-responsive" *ngIf="orderedServiceDetails?.serviceDetails?.content?.length !== 0">
                       <table class="table table-borderless">
                         <thead>
                           <tr>
-                            <th
-                              *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'.toUpperCase() 
-                                || reservationDetails?.reservation?.status === 'IN_PROGRESS'.toUpperCase()">
-                              <a (click)="onOpenModal(reservationDetails.reservation.saloon, orderedServiceDetails.serviceDetails.content, 'addServiceDetail')"
-                                href="javascript:void(0);" class="btn text-primary ">
-                                <i class="ri-shield-cross-fill"></i>
-                                Add
-                              </a>
-                            </th>
                             <th scope="col">#</th>
                             <th scope="col">Service</th>
                             <th scope="col">Description</th>
@@ -62,16 +61,16 @@
                         </thead>
                         <tbody *ngFor="let s of orderedServiceDetails?.serviceDetails?.content">
                           <tr>
-                            <th scope="row"
-                              *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'.toUpperCase()
-                                || reservationDetails?.reservation?.status === 'IN_PROGRESS'.toUpperCase()">
-                            </th>
                             <th scope="row">#</th>
                             <td>{{ s?.name | uppercase }}</td>
-                            <td>
+                            <td *ngIf="s?.description === null || s?.description === undefined || s?.description === ''">
                               <img
                                 src="https://themesbox.in/admin-templates/olian/html/light-vertical/assets/images/ecommerce/product_01.svg"
                                 class="img-fluid" width="35" alt="product">
+                            </td>
+                            <td
+                              *ngIf="s?.description !== null && s?.description !== undefined && s?.description !== ''">
+                              {{ s?.description }}
                             </td>
                             <td>{{ s?.isAvailable }}</td>
                             <td>{{ s?.duration }} min</td>

@@ -53,7 +53,16 @@
                           <tr>
                             <th scope="row">#</th>
                             <td>{{ s?.name | uppercase }}</td>
-                            <td>{{ s?.description }}</td>
+                            <td
+                              *ngIf="s?.description === null || s?.description === undefined || s?.description === ''">
+                              <img
+                                src="https://themesbox.in/admin-templates/olian/html/light-vertical/assets/images/ecommerce/product_01.svg"
+                                class="img-fluid" width="35" alt="product">
+                            </td>
+                            <td
+                              *ngIf="s?.description !== null && s?.description !== undefined && s?.description !== ''">
+                              {{ s?.description }}
+                            </td>
                             <td>{{ s?.isAvailable }}</td>
                             <td>{{ s?.duration }} min</td>
                             <td>{{ s?.priceUnit }} DT</td>
