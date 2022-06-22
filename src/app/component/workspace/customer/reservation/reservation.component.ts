@@ -90,6 +90,7 @@ export class ReservationComponent implements OnInit {
     const res: Reservation[] = [];
     this.reservations?.content.forEach(r => {
       if (`REF-${r?.code}`.toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || r?.saloon?.name.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.startDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.cancelDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           // || r.description.toLowerCase().indexOf(key.toLowerCase()) !== -1
