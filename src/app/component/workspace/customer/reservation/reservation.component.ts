@@ -70,6 +70,17 @@ export class ReservationComponent implements OnInit {
     });
   }
   
+  public onSearchAllByKey(key: string): void {
+    if (key?.trim() !== '')
+      this.customerReservationService.searchAllByKey(key).subscribe({
+        next: (payload: any) => {
+          this.reservations = payload?.responseBody?.reservations;
+        },
+        error: (errorResponse: HttpErrorResponse) =>
+          this.errorHandlerService.extractExceptionMsg(errorResponse)
+      });
+  }
+  
   public findAllTasksByReservationId(reservationId: number): void {
     this.taskService.findAllByReservationId(reservationId).subscribe({
       next: (tasksPayload: any) => {

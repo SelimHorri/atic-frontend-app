@@ -43,6 +43,22 @@ export class CustomerReservationService {
     }));
   }
   
+  public searchAllByKey(key: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/search/${key.toLowerCase()}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((payload: any) => {
+      payload.responseBody.customer.birthdate = moment(payload?.responseBody?.customer?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
+      payload.responseBody.reservations?.content?.map((r: Reservation) => {
+        r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      });
+      return payload;
+    }));
+  }
+  
   public cancelReservation(reservationId: number): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/cancel/${reservationId}`, null, {
       headers: {
@@ -56,15 +72,6 @@ export class CustomerReservationService {
     }));
   }
   
-  public getCompletedReservations(reservations: Reservation[]): Reservation[] {
-    return reservations?.filter(r => r?.status === ReservationStatus.COMPLETED);
-  }
-
-  public getPendingReservations(reservations: Reservation[]): Reservation[] {
-    return reservations?.filter(r => r?.status === ReservationStatus.NOT_STARTED
-      || r?.status === ReservationStatus.IN_PROGRESS);
-  }
-  
   public createReservation(reservationRequest: ReservationRequest): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}`, reservationRequest, {
       headers: {
@@ -72,6 +79,15 @@ export class CustomerReservationService {
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
     });
+  }
+  
+  public getCompletedReservations(reservations: Reservation[]): Reservation[] {
+    return reservations?.filter(r => r?.status === ReservationStatus.COMPLETED);
+  }
+
+  public getPendingReservations(reservations: Reservation[]): Reservation[] {
+    return reservations?.filter(r => r?.status === ReservationStatus.NOT_STARTED
+      || r?.status === ReservationStatus.IN_PROGRESS);
   }
   
   
