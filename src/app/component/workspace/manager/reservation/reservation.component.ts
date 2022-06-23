@@ -81,6 +81,17 @@ export class ReservationComponent implements OnInit {
     if (res.length === 0 || !key)
       this.getAllPagedReservations();
   }
+  
+  public onSearchAllByKey(key: string): void {
+    if (key?.trim() !== '')
+      this.managerReservationService.searchAllByKey(key).subscribe({
+        next: (payload: any) => {
+          this.managerReservationResponse = payload?.responseBody;
+        },
+        error: (errorResponse: HttpErrorResponse) =>
+          this.errorHandlerService.extractExceptionMsg(errorResponse)
+      });
+  }
 
   public onNavigatePagination(offset?: number): string | void {
     this.activatedRoute.queryParams.subscribe({

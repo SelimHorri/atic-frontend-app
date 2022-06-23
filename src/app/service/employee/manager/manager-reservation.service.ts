@@ -60,6 +60,23 @@ export class ManagerReservationService {
     }));
   }
   
+  public searchAllByKey(key: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/search/${key.toLowerCase()}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((payload: any) => {
+      payload.responseBody.manager.birthdate = moment(payload?.responseBody?.manager?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
+      payload.responseBody.manager.hiredate = moment(payload?.responseBody?.manager?.hiredate, DateBackendFormat.LOCAL_DATE).toDate();
+      payload.responseBody.reservations?.content?.map((r: Reservation) => {
+        r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      });
+      return payload;
+    }));
+  }
+  
   public getCompletedReservations(reservations: Reservation[]): Reservation[] {
     return reservations?.filter(r => r?.status === ReservationStatus.COMPLETED);
   }

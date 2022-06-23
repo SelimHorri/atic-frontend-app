@@ -39,14 +39,14 @@
         <div class="col-xl-3 col-md-6">
           <div class="card">
             <div class="card-body">
-              <form>
+              <form #ngForm="ngForm" (ngSubmit)="onSearchAllByKey(key.value)">
                 <div class="form-group mb-0">
                   <label>Search</label>
                   <div class="input-group mb-0">
-                    <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" type="search"
+                    <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" id="key" type="search"
                       class="form-control" placeholder="Search..." aria-describedby="project-search-addon" required />
                     <div class="input-group-append">
-                      <button class="btn btn-primary" type="button" id="project-search-addon"><i
+                      <button class="btn btn-primary" type="submit" id="project-search-addon"><i
                           class="fa fa-search search-icon font-12"></i></button>
                     </div>
                   </div>
