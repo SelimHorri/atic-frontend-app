@@ -75,6 +75,7 @@ export class ReservationComponent implements OnInit {
       this.customerReservationService.searchAllByKey(key).subscribe({
         next: (payload: any) => {
           this.reservations = payload?.responseBody?.reservations;
+          this.pages = new Array<number>(this.reservations?.totalPages);
         },
         error: (errorResponse: HttpErrorResponse) =>
           this.errorHandlerService.extractExceptionMsg(errorResponse)
