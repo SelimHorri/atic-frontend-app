@@ -74,6 +74,17 @@ export class ManagerReservationDetailService {
     }));
   }
   
+  public assignReservationWorkers(reservationAssignWorkerRequest: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/tasks/assign`, reservationAssignWorkerRequest, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((payload: any) => {
+      return payload;
+    }));
+  }
+  
   
   
 }

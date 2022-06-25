@@ -32,6 +32,11 @@ export class ReservationDetailComponent implements OnInit {
   public msg: string = "";
   public reservationBeginEndTaskResponse!: ReservationBeginEndTaskResponse;
   public reservationSubWorkerResponse!: ReservationSubWorkerResponse;
+  public reservationAssignWorkerRequest: any = {
+    reservationId: 0,
+    assignedWorkersIds: [],
+    managerDescription: ""
+  };
 
   constructor(private managerReservationDetailService: ManagerReservationDetailService,
     private credentialService: CredentialService,
@@ -135,11 +140,28 @@ export class ReservationDetailComponent implements OnInit {
   }
   
   public onCheckWorker(event: any): void {
-    
+    if (event.target.checked) {
+      if (!this.reservationAssignWorkerRequest?.assignedWorkersIds?.includes(event.target.value))
+        this.reservationAssignWorkerRequest.assignedWorkersIds.push(parseInt(event.target.value));
+    }
+    else
+      this.reservationAssignWorkerRequest.assignedWorkersIds.splice(
+          this.reservationAssignWorkerRequest.assignedWorkersIds.indexOf(event.target.value) - 1, 1);
   }
   
   public onAssignWorker(ngForm: NgForm): void {
-    
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        this.reservationAssignWorkerRequest.reservationId = p?.reservationId;
+        this.managerReservationDetailService.assignReservationWorkers(this.reservationAssignWorkerRequest).subscribe({
+          next: (payload: any) => {
+            
+          },
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      },
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
   }
   
   

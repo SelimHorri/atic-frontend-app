@@ -107,19 +107,26 @@
                                     <label for="workersSwitches">
                                       <h5><u>Assign workers</u><!-- <span class="badge text-danger">*</span> --></h5>
                                     </label>
-                                    <div *ngFor="let item of reservationSubWorkerResponse?.subWorkers?.content"
-                                      id="workersSwitches" class="form-check form-switch">
-                                      <input name="subWorkers" ngModel [value]="item?.id"
-                                        (change)="onCheckWorker($event)" class="form-check-input" type="checkbox"
-                                        id="flexSwitchCheckDefault" />
-                                      <label class="form-check-label" for="flexSwitchCheckDefault">
-                                        {{ item?.firstname?.substring(0, 1) | uppercase }}{{ item?.firstname?.substring(1) | lowercase }}
-                                        {{ item?.lastname | uppercase }}
-                                      </label>
+                                    <div *ngIf="reservationSubWorkerResponse?.subWorkers?.content?.length === 0">
+                                      
+                                    </div>
+                                    <div *ngIf="reservationSubWorkerResponse?.subWorkers?.content?.length !== 0">
+                                      <div *ngFor="let item of reservationSubWorkerResponse?.subWorkers?.content"
+                                        id="workersSwitches" class="form-check form-switch">
+                                        <input name="subWorkers" ngModel [value]="item?.id"
+                                          (change)="onCheckWorker($event)" class="form-check-input" type="checkbox"
+                                          id="flexSwitchCheckDefault"
+                                          [required]="reservationAssignWorkerRequest?.assignedWorkersIds <= 0" />
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">
+                                          {{ item?.firstname?.substring(0, 1) | uppercase }}{{ item?.firstname?.substring(1) | lowercase }}
+                                          {{ item?.lastname | uppercase }}
+                                        </label>
+                                      </div>
                                     </div>
                                   </div>
                                   <div class="footer text-left">
-                                    <button [disabled]="assignWorkerForm.invalid" type="submit"
+                                    <button 
+                                      [disabled]="assignWorkerForm.invalid" type="submit"
                                       class="btn btn-primary">&nbsp;&nbsp;Assign&nbsp;&nbsp;</button> &nbsp;&nbsp;&nbsp;|
                                     <a class="btn text-primary ">Detailed Assignment?</a>
                                   </div>
