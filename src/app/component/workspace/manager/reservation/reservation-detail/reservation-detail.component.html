@@ -99,7 +99,27 @@
                               </table>
                             </div>
                             <div class="order-note">
-                              
+                              <br>
+                              <form #assignWorkerForm="ngForm" (ngSubmit)="onAssignWorker(assignWorkerForm)">
+                                <div class="form-group">
+                                  <label for="workersSwitches">
+                                    <h5>Assign workers<span class="badge text-danger">*</span></h5>
+                                  </label>
+                                  <div *ngFor="let item of reservationSubWorkerResponse?.subWorkers?.content" id="workersSwitches"
+                                    class="form-check form-switch">
+                                    <input name="subWorkers" ngModel [value]="item?.id"
+                                      (change)="onCheckWorker($event)" class="form-check-input" type="checkbox"
+                                      id="flexSwitchCheckDefault">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">
+                                      {{ item?.firstname | uppercase }}
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="footer text-right">
+                                  <button [disabled]="assignWorkerForm.invalid" type="submit"
+                                    class="btn btn-primary">Assign</button>
+                                </div>
+                              </form>
                             </div>
                           </div>
                           <div class="col-md-12 order-1 order-lg-2 col-lg-7 col-xl-6 ">
@@ -168,19 +188,19 @@
 
 
 
-  <div class="modal fade" id="addServiceDetail" tabindex="-1" role="dialog" aria-labelledby="addServiceDetailModalLabel"
+  <div class="modal fade" id="assignWorker" tabindex="-1" role="dialog" aria-labelledby="assignWorkerModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
       <div class="modal-content card">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Add Service</h5>
-          <button onclick="document.getElementById('addServiceDetail').click()" type="button" class="close"
+          <button onclick="document.getElementById('assignWorker').click()" type="button" class="close"
             data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body card-body">
-          <form #addServiceDetailForm="ngForm">
+          <form #assignWorkerForm="ngForm">
             
           </form>
 

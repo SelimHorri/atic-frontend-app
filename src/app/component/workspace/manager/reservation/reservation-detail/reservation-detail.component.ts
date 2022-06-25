@@ -1,11 +1,13 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { ReservationBeginEndTaskResponse } from 'src/app/model/response/reservation-begin-end-task-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
+import { ReservationSubWorkerResponse } from 'src/app/model/response/reservation-sub-worker-response';
 import { ServiceDetailsReservationContainerResponse } from 'src/app/model/response/service-details-reservation-container-response';
 import { Saloon } from 'src/app/model/saloon';
 import { ServiceDetail } from 'src/app/model/service-detail';
@@ -29,6 +31,7 @@ export class ReservationDetailComponent implements OnInit {
   public allServiceDetails!: PageResponse;
   public msg: string = "";
   public reservationBeginEndTaskResponse!: ReservationBeginEndTaskResponse;
+  public reservationSubWorkerResponse!: ReservationSubWorkerResponse;
 
   constructor(private managerReservationDetailService: ManagerReservationDetailService,
     private credentialService: CredentialService,
@@ -43,6 +46,7 @@ export class ReservationDetailComponent implements OnInit {
     this.getReservationDetails();
     this.getOrderedServiceDetails();
     this.getBeginEndTask();
+    this.getAllUnassignedSubWorkers();
   }
 
   public calculateTotalAmount(): number {
@@ -91,10 +95,7 @@ export class ReservationDetailComponent implements OnInit {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
         this.managerReservationDetailService.getBeginEndTask(p?.reservationId).subscribe({
-          next: (payload: any) => {
-            this.reservationBeginEndTaskResponse = payload?.responseBody;
-            console.log(JSON.stringify(this.reservationBeginEndTaskResponse));
-          },
+          next: (payload: any) => this.reservationBeginEndTaskResponse = payload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
       }
@@ -113,12 +114,32 @@ export class ReservationDetailComponent implements OnInit {
     button.style.display = "none";
     button.setAttribute("data-bs-toggle", "modal");
 
-    if (action === "addServiceDetail")
-      button.setAttribute("data-bs-target", "#addServiceDetail");
+    if (action === "assignWorker")
+      button.setAttribute("data-bs-target", "#assignWorker");
 
     const mainContainer = document.getElementById("main-container");
     mainContainer?.appendChild(button);
     button.click();
+  }
+  
+  private getAllUnassignedSubWorkers(): void {
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        this.managerReservationDetailService.getAllUnassignedSubWorkers(p?.reservationId).subscribe({
+          next: (payload: any) => this.reservationSubWorkerResponse = payload?.responseBody,
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      },
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  
+  public onCheckWorker(event: any): void {
+    
+  }
+  
+  public onAssignWorker(ngForm: NgForm): void {
+    
   }
   
   
