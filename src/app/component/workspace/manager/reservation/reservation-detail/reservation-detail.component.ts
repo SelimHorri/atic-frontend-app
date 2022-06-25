@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { ReservationAssignWorkerRequest } from 'src/app/model/request/reservation-assign-worker-request';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { ReservationBeginEndTaskResponse } from 'src/app/model/response/reservation-begin-end-task-response';
 import { ReservationContainerResponse } from 'src/app/model/response/reservation-container-response';
@@ -32,7 +33,7 @@ export class ReservationDetailComponent implements OnInit {
   public msg: string = "";
   public reservationBeginEndTaskResponse!: ReservationBeginEndTaskResponse;
   public reservationSubWorkerResponse!: ReservationSubWorkerResponse;
-  public reservationAssignWorkerRequest: any = {
+  public reservationAssignWorkerRequest: ReservationAssignWorkerRequest = {
     reservationId: 0,
     assignedWorkersIds: [],
     managerDescription: ""

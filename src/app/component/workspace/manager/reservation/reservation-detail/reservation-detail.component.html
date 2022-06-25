@@ -116,7 +116,7 @@
                                         <input name="subWorkers" ngModel [value]="item?.id"
                                           (change)="onCheckWorker($event)" class="form-check-input" type="checkbox"
                                           id="flexSwitchCheckDefault"
-                                          [required]="reservationAssignWorkerRequest?.assignedWorkersIds <= 0" />
+                                          [required]="reservationAssignWorkerRequest.assignedWorkersIds.length <= 0" />
                                         <label class="form-check-label" for="flexSwitchCheckDefault">
                                           {{ item?.firstname?.substring(0, 1) | uppercase }}{{ item?.firstname?.substring(1) | lowercase }}
                                           {{ item?.lastname | uppercase }}
