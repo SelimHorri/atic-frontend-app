@@ -105,6 +105,11 @@ export class NavbarComponent implements OnInit {
         link: "reservations",
         subItems: []
       },
+      {
+        name: "Workers",
+        link: "workers",
+        subItems: []
+      },
     ];
   }
 
