@@ -87,11 +87,17 @@
                                 <tbody>
                                   <tr>
                                     <td *ngIf="reservationBeginEndTaskResponse?.taskBegin">
-                                      {{ reservationBeginEndTaskResponse?.taskBegin?.startDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                      <a 
+                                          routerLink="/workspace/{{ accountUrl }}/workers/{{ reservationBeginEndTaskResponse?.taskBegin?.workerId }}">
+                                        {{ reservationBeginEndTaskResponse?.taskBegin?.startDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                      </a>
                                     </td>
                                     <td *ngIf="!reservationBeginEndTaskResponse?.taskBegin">-</td>
                                     <td *ngIf="reservationBeginEndTaskResponse?.taskEnd">
-                                      {{ reservationBeginEndTaskResponse?.taskEnd?.endDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                      <a
+                                          routerLink="/workspace/{{ accountUrl }}/workers/{{ reservationBeginEndTaskResponse?.taskEnd?.workerId }}">
+                                        {{ reservationBeginEndTaskResponse?.taskEnd?.endDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                      </a>
                                     </td>
                                     <td *ngIf="!reservationBeginEndTaskResponse?.taskEnd">-</td>
                                   </tr>
@@ -99,18 +105,16 @@
                               </table>
                             </div>
                             <div class="order-note">
-                              <div class="" *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'
-                                  || reservationDetails?.reservation?.status === 'IN_PROGRESS'">
+                              <div class="" *ngIf="(reservationDetails?.reservation?.status === 'NOT_STARTED'
+                                  || reservationDetails?.reservation?.status === 'IN_PROGRESS')
+                                  && reservationSubWorkerResponse.subWorkers.content.length !== 0">
                                 <br>
                                 <form #assignWorkerForm="ngForm" (ngSubmit)="onAssignWorker(assignWorkerForm)">
                                   <div class="form-group">
                                     <label for="workersSwitches">
                                       <h5><u>Assign workers</u><!-- <span class="badge text-danger">*</span> --></h5>
                                     </label>
-                                    <div *ngIf="reservationSubWorkerResponse?.subWorkers?.content?.length === 0">
-                                      
-                                    </div>
-                                    <div *ngIf="reservationSubWorkerResponse?.subWorkers?.content?.length !== 0">
+                                    <div>
                                       <div *ngFor="let item of reservationSubWorkerResponse?.subWorkers?.content"
                                         id="workersSwitches" class="form-check form-switch">
                                         <input name="subWorkers" ngModel [value]="item?.id"

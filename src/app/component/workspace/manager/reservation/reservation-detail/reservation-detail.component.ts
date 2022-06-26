@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { Employee } from 'src/app/model/employee';
 import { ReservationAssignWorkerRequest } from 'src/app/model/request/reservation-assign-worker-request';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { ReservationBeginEndTaskResponse } from 'src/app/model/response/reservation-begin-end-task-response';
@@ -12,6 +13,7 @@ import { ReservationSubWorkerResponse } from 'src/app/model/response/reservation
 import { ServiceDetailsReservationContainerResponse } from 'src/app/model/response/service-details-reservation-container-response';
 import { Saloon } from 'src/app/model/saloon';
 import { ServiceDetail } from 'src/app/model/service-detail';
+import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ManagerReservationDetailService } from 'src/app/service/employee/manager/manager-reservation-detail.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
@@ -156,7 +158,11 @@ export class ReservationDetailComponent implements OnInit {
         this.reservationAssignWorkerRequest.reservationId = p?.reservationId;
         this.managerReservationDetailService.assignReservationWorkers(this.reservationAssignWorkerRequest).subscribe({
           next: (payload: any) => {
-            
+            this.reservationSubWorkerResponse = payload?.responseBody;
+            this.notificationService.showSuccess(new ToastrMsg(
+                `Workers assigned to this reservation REF-${this.reservationSubWorkerResponse?.reservation?.code?.substring(0, 8)} successfully..`, 
+                `Assigned!`));
+            this.getAllUnassignedSubWorkers();
           },
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
