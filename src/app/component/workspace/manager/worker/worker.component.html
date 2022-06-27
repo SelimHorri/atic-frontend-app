@@ -7,7 +7,8 @@
         <div>
           <form #searchForm="ngForm"  >
             <div class="container input-group">
-              <input type="search" class="form-control" placeholder="Search..">
+              <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" id="key" type="search"
+                class="form-control" placeholder="Search..">
               <span class="input-group-btn">
                 <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
               </span>
@@ -17,7 +18,8 @@
         <br><br>
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title text-uppercase mb-0 text-dark">Manage Workers</h4>
+            <h4 class="card-title text-uppercase mb-0 text-dark">Manage Workers</h4> <br>
+            <span class="">All {{ managerWorkerInfoResponse?.subWorkers?.totalElements }} workers</span>
           </div>
           <div class="card-body table-responsive table-hover ">
             <table class="table no-wrap user-table mb-0">
@@ -88,9 +90,9 @@
                       <button type="button" class="btn btn-outline-primary btn-circle btn-lg btn-circle ml-2"><i
                           class="fa fa-upload"></i> </button>
                     -->
-                    <button type="button" class="btn btn-outline-primary btn-circle btn-lg btn-circle ml-2"><i
+                    <button type="button" class="btn btn-outline-warning text-dark btn-circle btn-lg btn-circle ml-2"><i
                         class="fa fa-edit"></i> </button>
-                    <button type="button" class="btn btn-outline-primary btn-circle btn-lg btn-circle ml-2"><i
+                    <button type="button" class="btn btn-outline-danger btn-circle btn-lg btn-circle ml-2"><i
                         class="fa fa-trash"></i> </button>
                   </td>
                 </tr>
