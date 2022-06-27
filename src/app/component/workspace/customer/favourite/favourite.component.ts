@@ -52,7 +52,7 @@ export class FavouriteComponent implements OnInit {
         if (q?.offset === undefined || q?.offset === null || q?.offset as number === 1)
           this.router.navigateByUrl(`/workspace/${this.accountUrl}/favourites?offset=1`);
         else {
-          this.customerFavouriteService.getFavourites(new ClientPageRequest(q?.offset, q?.size)).subscribe({
+          this.customerFavouriteService.getFavourites(new ClientPageRequest(q?.offset, q?.size, ['favouriteDate'], 'desc')).subscribe({
             next: (customerFavouritePayload: any) => {
               this.customerFavouriteResponse = customerFavouritePayload?.responseBody;
               this.pages = new Array<number>(this.customerFavouriteResponse?.favourites?.totalPages);
