@@ -17,9 +17,9 @@
         <br><br>
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title text-uppercase mb-0 text-primary"><u>Manage Workers</u></h4> <br>
+            <h4 class="card-title text-uppercase mb-0 text-dark">Manage Workers</h4>
           </div>
-          <div class="table-responsive table-hover ">
+          <div class="card-body table-responsive table-hover ">
             <table class="table no-wrap user-table mb-0">
               <thead>
                 <tr>
@@ -27,8 +27,9 @@
                   <th scope="col" class="border-0 text-uppercase font-medium">FullName</th>
                   <th scope="col" class="border-0 text-uppercase font-medium">Occupation</th>
                   <th scope="col" class="border-0 text-uppercase font-medium">Email - Phone</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Hired</th>
                   <th scope="col" class="border-0 text-uppercase font-medium">Birthdate</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Hired</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Reservations</th>
                   <!-- <th scope="col" class="border-0 text-uppercase font-medium">Category</th> -->
                   <th scope="col" class="border-0 text-uppercase font-medium text-center ">Action</th>
                 </tr>
@@ -38,27 +39,37 @@
                   <td class="pl-4"><strong>#</strong></td>
                   <td>
                     <h5 class="font-medium mb-0">
-                      {{ w?.firstname?.substring(0, 1) | uppercase }}{{ w?.firstname?.substring(1) | lowercase }}
-                      {{ w?.lastname | uppercase }}
+                      <a routerLink="/workspace/{{ accountUrl }}/workers/{{ w?.id }}">
+                        {{ w?.firstname?.substring(0, 1) | uppercase }}{{ w?.firstname?.substring(1) | lowercase }}
+                        {{ w?.lastname | uppercase }}
+                      </a>
                     </h5>
                     <span class="text-muted">{{ w?.saloon?.name | lowercase }}</span><br>
                     <span class="text-muted">#{{ w?.saloon?.code?.substring(0, 8) | lowercase }}</span>
                   </td>
                   <td>
-                    <span class="text-muted">{{ w?.credential?.role | uppercase }}</span><br>
-                    <!--<span class="text-muted">Past : teacher</span>-->
+                    <span class="">{{ w?.credential?.role | uppercase }}</span><br>
+                    <span class="text-muted">Role</span>
                   </td>
                   <td>
-                    <span class="text-muted">{{ w?.email | lowercase }}</span><br>
+                    <span class="">{{ w?.email | lowercase }}</span><br>
                     <span class="text-muted">{{ w?.phone | lowercase }}</span>
                   </td>
                   <td>
-                    <span class="text-muted">{{ w?.hiredate | date: 'dd-MMM-yyyy' }}</span><br>
-                    <span class="text-muted">{{ w?.hiredate | date: 'MMMM-yyyy' }}</span>
+                    <span class="">{{ w?.birthdate | date: 'dd-MMM-yyyy' }}</span><br>
+                    <span class="text-muted">{{ w?.birthdate | date: 'MMMM yyyy' }}</span>
                   </td>
                   <td>
-                    <span class="text-muted">{{ w?.birthdate | date: 'dd-MMM-yyyy' }}</span><br>
-                    <span class="text-muted">{{ w?.hiredate | date: 'MMMM-yyyy' }}</span>
+                    <span class="">{{ w?.hiredate | date: 'dd-MMM-yyyy' }}</span><br>
+                    <span class="text-muted">{{ w?.hiredate | date: 'MMMM yyyy' }}</span>
+                  </td>
+                  <td>
+                    <span class="">
+                      <a class="btn btn-outline-primary "
+                          routerLink="/workspace/{{ accountUrl }}/reservations/workers/{{ w?.id }}">
+                        Checkout reservations ?
+                      </a>
+                    </span>
                   </td>
                   <!--
                     <td>
