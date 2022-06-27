@@ -86,6 +86,7 @@
                       <th scope="col">Status</th>
                       <!-- <th scope="col">Assigned</th> -->
                       <th scope="col">Description</th>
+                      <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody *ngFor="let r of managerReservationResponse?.reservations?.content">
@@ -124,6 +125,21 @@
                       </td>
                       <td *ngIf="r?.description === null || r?.description === undefined">
                         <p class="mb-0">-</p>
+                      </td>
+                      <td>
+                        <div
+                          *ngIf="r?.status === 'NOT_STARTED'.toUpperCase() || r?.status === 'IN_PROGRESS'.toUpperCase()"
+                          class="action">
+                          <!--
+                            <a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}"
+                              class="text-success mr-4" data-toggle="tooltip" data-placement="top" title=""
+                              data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                          -->
+                          <a (click)="cancelReservation(r?.id)" href="javascript:void(0);" class="text-danger"
+                            data-toggle="tooltip" data-placement="top" title="" data-original-title="Close">
+                            <i class="fa fa-remove h5 m-0"></i>
+                          </a>
+                        </div>
                       </td>
                     </tr>
                   </tbody>

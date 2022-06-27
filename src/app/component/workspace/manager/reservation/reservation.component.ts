@@ -6,9 +6,11 @@ import * as moment from 'moment';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { Reservation } from 'src/app/model/reservation';
 import { ManagerReservationResponse } from 'src/app/model/response/manager-reservation-response';
+import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ManagerReservationService } from 'src/app/service/employee/manager/manager-reservation.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
+import { NotificationService } from 'src/app/service/notification.service';
 
 @Component({
   selector: 'app-manager-reservation',
@@ -25,6 +27,7 @@ export class ReservationComponent implements OnInit {
     private managerReservationService: ManagerReservationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService,
     private errorHandlerService: ErrorHandlerService) {}
 
   ngOnInit(): void {
@@ -115,6 +118,17 @@ export class ReservationComponent implements OnInit {
           this.router.navigateByUrl(`${window.location.pathname}?offset=${q?.offset}&size=${size}`);
       }
     });
+  }
+  
+  public cancelReservation(reservationId: number): void {
+    if (confirm(`Cancel this reservation ?`))
+      this.managerReservationService.cancelReservation(reservationId).subscribe({
+        next: (reservationPayload: any) => {
+          this.getAllPagedReservations();
+          this.notificationService.showWarning(new ToastrMsg(`Reservation has been cancelled`, "Reservation cancelled!"));
+        },
+        error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
+      });
   }
   
   
