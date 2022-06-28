@@ -1,5 +1,5 @@
 
-<div>
+<div *ngIf="managerWorkerInfoResponse">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <div class="container">
     <div class="row bootstrap snippets bootdeys">
@@ -48,7 +48,6 @@
             &nbsp;<span class="text-muted">{{ w?.birthdate | date: 'MMMM yyyy' }}</span>
           </div>
           <div class="clear"></div>
-          <div class="clear"></div>
           <div class="col-sm-4">
             <i class="fa fa-location"></i>
           </div>
@@ -57,13 +56,15 @@
             &nbsp;{{ w?.email | lowercase }}
           </div>
           <div class="col-sm-4">
-            <button type="button" class="btn btn-outline-warning text-dark btn-circle btn-lg btn-circle ml-2"><i
-                class="fa fa-edit"></i> </button>
-            <button type="button" class="btn btn-outline-danger btn-circle btn-lg btn-circle ml-2"><i
-                class="fa fa-trash"></i> </button>
+            <a routerLink="/workspace/{{ accountUrl }}/workers/assignments/{{ w?.id }}"
+              class="btn btn-outline-warning text-dark">Checkout assignments!</a>
           </div>
         </div>
       </div>
+      <button type="button" class="btn btn-outline-info text-dark btn-circle btn-lg btn-circle ml-2"><i
+          class="fa fa-edit"></i> </button>
+      <button type="button" class="btn btn-outline-danger btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i>
+      </button>
     </div>
   </div>
 </div>
