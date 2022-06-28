@@ -35,12 +35,12 @@
                 </div>
               </li>
               <li class="list-group-item" *ngIf="managerProfileResponse?.manager?.birthdate !== null">
-                <div class="list-icon">
-                  <i class="fa fa-globe"></i>
-                </div>
                 <div class="list-details">
-                  <span>{{ managerProfileResponse?.manager?.birthdate | date: 'dd-MMM-yyyy' }}</span>
-                  <small>Birthdate</small>
+                  <div class="list-icon">
+                    <i class="fa fa-birthday-cake"></i>
+                    <span>{{ managerProfileResponse?.manager?.birthdate | date: 'dd-MMM-yyyy' }}</span>
+                    <small>Birthdate</small>
+                  </div>
                 </div>
               </li>
             </ul>

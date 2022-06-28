@@ -1,106 +1,76 @@
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <div>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div>
-          <form #searchForm="ngForm"  >
-            <div class="container input-group">
-              <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" id="key" type="search"
-                class="form-control" placeholder="Search..">
-              <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
-        </div>
-        <br><br>
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title text-uppercase mb-0 text-dark">Manage Workers</h4> <br>
-            <span class="">All {{ managerWorkerInfoResponse?.subWorkers?.totalElements }} workers</span>
+    <div class="row bootstrap snippets bootdeys">
+      <div class="col-md-9 col-sm-7">
+        <h2>Manage Workers</h2>
+      </div>
+      <div class="col-md-3 col-sm-5">
+        <form #searchForm="ngForm" role="form" class="search-form-full">
+          <div class="form-group">
+            <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" id="key" type="search"
+              class="form-control" name="s" id="search-input" placeholder="Search...">
+            <i class="entypo-search"></i>
           </div>
-          <div class="card-body table-responsive table-hover ">
-            <table class="table no-wrap user-table mb-0">
-              <thead>
-                <tr>
-                  <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">FullName</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Occupation</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Email - Phone</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Birthdate</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Hired</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Reservations</th>
-                  <!-- <th scope="col" class="border-0 text-uppercase font-medium">Category</th> -->
-                  <th scope="col" class="border-0 text-uppercase font-medium text-center ">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let w of managerWorkerInfoResponse?.subWorkers?.content">
-                  <td class="pl-4"><strong>#</strong></td>
-                  <td>
-                    <h5 class="font-medium mb-0">
-                      <a routerLink="/workspace/{{ accountUrl }}/workers/{{ w?.id }}">
-                        {{ w?.firstname?.substring(0, 1) | uppercase }}{{ w?.firstname?.substring(1) | lowercase }}
-                        {{ w?.lastname | uppercase }}
-                      </a>
-                    </h5>
-                    <span class="text-muted">{{ w?.saloon?.name | lowercase }}</span><br>
-                    <span class="text-muted">#{{ w?.saloon?.code?.substring(0, 8) | lowercase }}</span>
-                  </td>
-                  <td>
-                    <span class="">{{ w?.credential?.role | uppercase }}</span><br>
-                    <span class="text-muted">Role</span>
-                  </td>
-                  <td>
-                    <span class="">{{ w?.email | lowercase }}</span><br>
-                    <span class="text-muted">{{ w?.phone | lowercase }}</span>
-                  </td>
-                  <td>
-                    <span class="">{{ w?.birthdate | date: 'dd-MMM-yyyy' }}</span><br>
-                    <span class="text-muted">{{ w?.birthdate | date: 'MMMM yyyy' }}</span>
-                  </td>
-                  <td>
-                    <span class="">{{ w?.hiredate | date: 'dd-MMM-yyyy' }}</span><br>
-                    <span class="text-muted">{{ w?.hiredate | date: 'MMMM yyyy' }}</span>
-                  </td>
-                  <td>
-                    <span class="">
-                      <a class="btn btn-outline-primary "
-                          routerLink="/workspace/{{ accountUrl }}/reservations/workers/{{ w?.id }}">
-                        Checkout reservations ?
-                      </a>
-                    </span>
-                  </td>
-                  <!--
-                    <td>
-                      <select class="form-control category-select" id="exampleFormControlSelect1">
-                        <option>Modulator</option>
-                        <option>Admin</option>
-                        <option>User</option>
-                        <option>Subscriber</option>
-                      </select>
-                    </td>
-                  -->
-                  <td class="text-center ">
-                    <!--
-                      <button type="button" class="btn btn-outline-primary btn-circle btn-lg btn-circle"><i
-                          class="fa fa-key"></i> </button>
-                      <button type="button" class="btn btn-outline-primary btn-circle btn-lg btn-circle ml-2"><i
-                          class="fa fa-upload"></i> </button>
-                    -->
-                    <button type="button" class="btn btn-outline-warning text-dark btn-circle btn-lg btn-circle ml-2"><i
-                        class="fa fa-edit"></i> </button>
-                    <button type="button" class="btn btn-outline-danger btn-circle btn-lg btn-circle ml-2"><i
-                        class="fa fa-trash"></i> </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        </form>
+      </div>
+    </div>
+    <div *ngFor="let w of managerWorkerInfoResponse?.subWorkers?.content" class="member-entry">
+      <a routerLink="/workspace/{{ accountUrl }}/workers/{{ w?.id }}" class="member-img">
+        <img src="https://bootdey.com/img/Content/avatar/avatar4.png" class="img-rounded">
+        <i class="fa fa-forward"></i>
+      </a>
+      <div class="member-details">
+        <h4>
+          <a routerLink="/workspace/{{ accountUrl }}/workers/{{ w?.id }}">
+            {{ w?.firstname?.substring(0, 1) | uppercase }}{{ w?.firstname?.substring(1) | lowercase }}
+            {{ w?.lastname | uppercase }}
+          </a>
+        </h4>
+        <div class="row info-list">
+          <div class="col-sm-4">
+            <i class="fa fa-briefcase"></i>
+            &nbsp;<span class="text-muted"> Role occupied as</span> {{ w?.credential?.role | uppercase }}
+          </div>
+          <div class="col-sm-4">
+            <i class="fa fa-briefcase"></i>
+            &nbsp;<span class="">{{ w?.hiredate | date: 'dd-MMM-yyyy' }}</span><br>
+            &nbsp;<span class="text-muted">{{ w?.hiredate | date: 'MMMM yyyy' }}</span>
+          </div>
+          <div class="col-sm-4">
+            <i class="fa fa-phone"></i>
+            &nbsp;{{ w?.phone | lowercase }}
+          </div>
+          <div class="col-sm-4">
+            <i class="fa fa-birthday-cake"></i>
+            &nbsp;<span class="">{{ w?.birthdate | date: 'dd-MMM-yyyy' }}</span><br>
+            &nbsp;<span class="text-muted">{{ w?.birthdate | date: 'MMMM yyyy' }}</span>
+          </div>
+          <div class="clear"></div>
+          <div class="clear"></div>
+          <div class="col-sm-4">
+            <i class="fa fa-location"></i>
+          </div>
+          <div class="col-sm-4">
+            <i class="fa fa-envelope"></i>
+            &nbsp;{{ w?.email | lowercase }}
+          </div>
+          <div class="col-sm-4">
+            <button type="button" class="btn btn-outline-warning text-dark btn-circle btn-lg btn-circle ml-2"><i
+                class="fa fa-edit"></i> </button>
+            <button type="button" class="btn btn-outline-danger btn-circle btn-lg btn-circle ml-2"><i
+                class="fa fa-trash"></i> </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
