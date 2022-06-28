@@ -27,13 +27,6 @@ export class ManagerProfileService {
     }).pipe(map((res: any) => {
       res.responseBody.manager.birthdate = moment(res?.responseBody?.manager?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
       res.responseBody.manager.hiredate = moment(res?.responseBody?.manager?.hiredate, DateBackendFormat.LOCAL_DATE).toDate();
-      /*
-      res.responseBody.tasks.content?.map((t: Task) => {
-        t.taskDate = moment(t?.taskDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
-        t.startDate = moment(t?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
-        t.endDate = moment(t?.endDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
-      });
-      */
       return res;
     }));
   }

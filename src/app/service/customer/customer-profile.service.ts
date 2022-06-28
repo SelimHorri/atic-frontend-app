@@ -22,7 +22,7 @@ export class CustomerProfileService {
 
   public getProfile(): Observable<any> {
     const clientPageRequest = new ClientPageRequest();
-    clientPageRequest.sortBy?.push("startDate");
+    clientPageRequest.sortBy?.push("createdAt");
     clientPageRequest.sortDirection = "desc";
     return this.http.get<any>(`${this.apiUrl}`, {
       params: {
