@@ -1,7 +1,7 @@
 
 <div *ngIf="reservationDetails">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
-  <div class="container main-container">
+  <div class="container main-container" id="main-container">
     <div class="contentbar">
       <!-- Start row -->
       <div class="row">
@@ -87,15 +87,14 @@
                                 <tbody>
                                   <tr>
                                     <td *ngIf="reservationBeginEndTaskResponse?.taskBegin">
-                                      <a 
-                                          routerLink="/workspace/{{ accountUrl }}/workers/{{ reservationBeginEndTaskResponse?.taskBegin?.workerId }}">
+                                      <a (click)="findWorkerInfoById(reservationBeginEndTaskResponse.taskBegin.workerId)" href="javascript:void(0);">
                                         {{ reservationBeginEndTaskResponse?.taskBegin?.startDate | date: 'dd-MMM-yyyy HH:mm' }}
                                       </a>
                                     </td>
                                     <td *ngIf="!reservationBeginEndTaskResponse?.taskBegin">-</td>
                                     <td *ngIf="reservationBeginEndTaskResponse?.taskEnd">
-                                      <a
-                                          routerLink="/workspace/{{ accountUrl }}/workers/{{ reservationBeginEndTaskResponse?.taskEnd?.workerId }}">
+                                      <a (click)="findWorkerInfoById(reservationBeginEndTaskResponse.taskEnd.workerId)"
+                                        href="javascript:void(0);">
                                         {{ reservationBeginEndTaskResponse?.taskEnd?.endDate | date: 'dd-MMM-yyyy HH:mm' }}
                                       </a>
                                     </td>
@@ -201,8 +200,158 @@
   </div>
 
 
+  <div class="modal fade" id="workerInfo" tabindex="-1" role="dialog" aria-labelledby="workerInfoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl " role="document">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Worker Informations</h5>
+          <button onclick="document.getElementById('workerInfo').click()" type="button" class="close"
+            data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body card-body">
+          <form #workerInfoForm="ngForm">
+            <div class="container bootstrap snippets bootdey">
+              <div class="panel-body inf-content">
+                <div class="row">
+                  <div class="col-md-4">
+                    <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip"
+                      src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
+                    <ul title="Ratings" class="list-inline ratings text-center">
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <h4><strong>Information</strong></h4><br>
+                    <div class="table-responsive">
+                      <table class="table table-user-information">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                                OCCUPATION
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.credential?.role | uppercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-user text-primary"></span>
+                                FIRSTNAME
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.firstname?.substring(0, 1) | uppercase }}{{ workerInfo?.firstname?.substring(1) | lowercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-cloud text-primary"></span>
+                                LASTNAME
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.lastname | uppercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-bookmark text-primary"></span>
+                                BIRTHDATE
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.birthdate | date: 'dd-MMM-yyyy' }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-eye-open text-primary"></span>
+                                HIREDATE
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.hiredate | date: 'dd-MMM-yyyy' }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-envelope text-primary"></span>
+                                EMAIL
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.email | lowercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                PHONE NUMBER
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.phone | lowercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                FACILITY
+                              </strong>
+                            </td>
+                            <td class="">
+                              <a routerLink="/saloons/{{ workerInfo?.saloon?.id }}">
+                                <span>{{ workerInfo?.saloon?.name | uppercase }}</span>
+                                <span class="badge text-muted">#{{ workerInfo?.saloon?.code?.substring(0, 8) | uppercase }}</span>
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                RATING AVEREGE
+                              </strong>
+                            </td>
+                            <td class="">
+                              ---
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <div class="modal-footer">
+              <button type="button" onclick="document.getElementById('workerInfo').click()" id="workerInfo-form"
+                class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
 
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <div class="modal fade" id="assignWorker" tabindex="-1" role="dialog" aria-labelledby="assignWorkerModalLabel"

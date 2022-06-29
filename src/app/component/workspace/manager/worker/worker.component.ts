@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { Employee } from 'src/app/model/employee';
 import { ManagerWorkerInfoResponse } from 'src/app/model/response/manager-worker-info-response';
 import { CredentialService } from 'src/app/service/credential.service';
+import { EmployeeService } from 'src/app/service/employee.service';
 import { ManagerWorkerServiceService } from 'src/app/service/employee/manager/manager-worker-service.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 
@@ -17,9 +18,11 @@ export class WorkerComponent implements OnInit {
   
   public accountUrl!: string;
   public managerWorkerInfoResponse!: ManagerWorkerInfoResponse;
+  public workerInfo!: Employee;
   
   constructor(private credentialService: CredentialService,
     private managerWorkerService: ManagerWorkerServiceService,
+    private employeeService: EmployeeService,
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
@@ -58,6 +61,31 @@ export class WorkerComponent implements OnInit {
     this.managerWorkerInfoResponse.subWorkers.content = res;
     if (!key)
       this.getAllSubWorkers();
+  }
+  
+  public onOpenModal(action: string): void {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.style.display = "none";
+    button.setAttribute("data-bs-toggle", "modal");
+
+    if (action === "workerInfo")
+      button.setAttribute("data-bs-target", "#workerInfo");
+
+    const mainContainer = document.getElementById("main-container");
+    mainContainer?.appendChild(button);
+    button.click();
+  }
+  
+  public findWorkerInfoById(workerId: number): void {
+    this.employeeService.findById(workerId).subscribe({
+      next: (payload: any) => {
+        this.workerInfo = payload?.responseBody;
+        this.onOpenModal('workerInfo');
+      },
+      error: (errorResponse: HttpErrorResponse) =>
+        this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
   }
   
   

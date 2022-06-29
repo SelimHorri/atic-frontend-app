@@ -15,6 +15,7 @@ import { Saloon } from 'src/app/model/saloon';
 import { ServiceDetail } from 'src/app/model/service-detail';
 import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
+import { EmployeeService } from 'src/app/service/employee.service';
 import { ManagerReservationDetailService } from 'src/app/service/employee/manager/manager-reservation-detail.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -33,6 +34,7 @@ export class ReservationDetailComponent implements OnInit {
   public orderedServiceDetails!: ServiceDetailsReservationContainerResponse;
   public allServiceDetails!: PageResponse;
   public msg: string = "";
+  public workerInfo!: Employee;
   public reservationBeginEndTaskResponse!: ReservationBeginEndTaskResponse;
   public reservationSubWorkerResponse!: ReservationSubWorkerResponse;
   public reservationAssignWorkerRequest: ReservationAssignWorkerRequest = {
@@ -44,7 +46,7 @@ export class ReservationDetailComponent implements OnInit {
   constructor(private managerReservationDetailService: ManagerReservationDetailService,
     private credentialService: CredentialService,
     private serviceDetailService: ServiceDetailService,
-    private orderedDetailService: OrderedDetailService,
+    private employeeService: EmployeeService,
     private notificationService: NotificationService,
     private errorHandlerService: ErrorHandlerService,
     private activatedRoute: ActivatedRoute) {}
@@ -116,7 +118,7 @@ export class ReservationDetailComponent implements OnInit {
       .toDate();
   }
 
-  public onOpenModal(saloon: Saloon, existingServiceDetails: ServiceDetail[], action: string): void {
+  public onOpenModal(action: string): void {
     const button = document.createElement("button");
     button.type = "button";
     button.style.display = "none";
@@ -124,10 +126,23 @@ export class ReservationDetailComponent implements OnInit {
 
     if (action === "assignWorker")
       button.setAttribute("data-bs-target", "#assignWorker");
+    else if (action === "workerInfo")
+      button.setAttribute("data-bs-target", "#workerInfo");
 
     const mainContainer = document.getElementById("main-container");
     mainContainer?.appendChild(button);
     button.click();
+  }
+  
+  public findWorkerInfoById(workerId: number): void {
+    this.employeeService.findById(workerId).subscribe({
+      next: (payload: any) => {
+        this.workerInfo = payload?.responseBody;
+        this.onOpenModal('workerInfo');
+      },
+      error: (errorResponse: HttpErrorResponse) =>
+        this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
   }
   
   private getAllUnassignedSubWorkers(): void {

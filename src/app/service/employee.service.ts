@@ -1,8 +1,11 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import * as moment from 'moment';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { DateBackendFormat } from '../model/date-backend-format';
+import { UserRoleBasedAuthority } from '../model/user-role-based-authority';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +24,12 @@ export class EmployeeService {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
-    });
+    }).pipe(map((payload: any) => {
+      payload.responseBody.birthdate = moment(payload?.responseBody?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
+      if (payload?.credential?.role !== UserRoleBasedAuthority.CUSTOMER)
+        payload.responseBody.hiredate = moment(payload?.responseBody?.hiredate, DateBackendFormat.LOCAL_DATE).toDate();
+      return payload;
+    }));
   }
   
   
