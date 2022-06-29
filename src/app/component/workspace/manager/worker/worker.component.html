@@ -16,13 +16,13 @@
       </div>
     </div>
     <div *ngFor="let w of managerWorkerInfoResponse?.subWorkers?.content" class="member-entry">
-      <a (click)="findWorkerInfoById(w?.id)" href="javascript:void(0);" class="member-img">
+      <a (click)="getWorkerInfo(w?.id)" href="javascript:void(0);" class="member-img">
         <img src="https://bootdey.com/img/Content/avatar/avatar4.png" class="img-rounded">
         <i class="fa fa-forward"></i>
       </a>
       <div class="member-details">
         <h4>
-          <a (click)="findWorkerInfoById(w?.id)" href="javascript:void(0);">
+          <a (click)="getWorkerInfo(w?.id)" href="javascript:void(0);">
             {{ w?.firstname?.substring(0, 1) | uppercase }}{{ w?.firstname?.substring(1) | lowercase }}
             {{ w?.lastname | uppercase }}
           </a>

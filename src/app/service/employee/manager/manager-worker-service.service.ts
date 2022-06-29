@@ -39,6 +39,20 @@ export class ManagerWorkerServiceService {
     }));;
   }
   
+  public getWorkerInfo(workerId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${workerId}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((payload: any) => {
+      payload.responseBody.birthdate = moment(payload?.responseBody?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
+      payload.responseBody.hiredate = moment(payload?.responseBody?.hiredate, DateBackendFormat.LOCAL_DATE).toDate();
+      payload.responseBody.saloon.openingDate = moment(payload?.responseBody?.saloon?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
+      return payload;
+    }));
+  }
+  
   
   
 }

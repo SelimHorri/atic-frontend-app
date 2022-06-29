@@ -5,7 +5,6 @@ import * as moment from 'moment';
 import { Employee } from 'src/app/model/employee';
 import { ManagerWorkerInfoResponse } from 'src/app/model/response/manager-worker-info-response';
 import { CredentialService } from 'src/app/service/credential.service';
-import { EmployeeService } from 'src/app/service/employee.service';
 import { ManagerWorkerServiceService } from 'src/app/service/employee/manager/manager-worker-service.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 
@@ -22,7 +21,6 @@ export class WorkerComponent implements OnInit {
   
   constructor(private credentialService: CredentialService,
     private managerWorkerService: ManagerWorkerServiceService,
-    private employeeService: EmployeeService,
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
@@ -77,8 +75,8 @@ export class WorkerComponent implements OnInit {
     button.click();
   }
   
-  public findWorkerInfoById(workerId: number): void {
-    this.employeeService.findById(workerId).subscribe({
+  public getWorkerInfo(workerId: number): void {
+    this.managerWorkerService.getWorkerInfo(workerId).subscribe({
       next: (payload: any) => {
         this.workerInfo = payload?.responseBody;
         this.onOpenModal('workerInfo');
