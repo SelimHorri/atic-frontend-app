@@ -1,3 +1,4 @@
+
 <div id="main-container">
   <app-navbar></app-navbar>
 
@@ -7,10 +8,11 @@
 
   <div class="modal fade" id="health" tabindex="-1" role="dialog" aria-labelledby="healthModalLabel" aria-hidden="true">
     <div class="modal-dialog " role="document">
-      <div class="modal-content">
+      <div class="modal-content card">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel"><strong class="text-danger">Pay attention!</strong></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <button onclick="document.getElementById('health').click()" type="button" class="close"
+            data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -25,12 +27,10 @@
               <span class="text-danger">{{ msg }}</span>
             </span>
           </p>
-
+          
           <div class="modal-footer">
-            <!--
-              <button type="button" id="find-all-tags-error-form" class="btn btn-primary" data-dismiss="modal"
-                aria-label="Close">Got it! <span aria-hidden="true">&times;</span></button>
-            -->
+            <button type="button" onclick="document.getElementById('health').click()" id="health-form"
+              class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
 
         </div>

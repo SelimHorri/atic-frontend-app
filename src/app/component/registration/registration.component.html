@@ -91,7 +91,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"><strong>Pay attention!</strong></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        <button onclick="document.getElementById('register').click()" type="button" class="close" data-dismiss="modal"
+          aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -105,12 +106,10 @@
               class="text-danger">{{ msg }}</span> </span>
         </p>
         
-        <!--
         <div class="modal-footer">
-          <button type="button" id="register-form" onclick="document.getElementById('register').modal('hide')"
-            class="btn btn-primary" data-dismiss="modal">Got it!</button>
+          <button type="button" onclick="document.getElementById('register').click()"
+            id="register-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
-        -->
 
       </div>
     </div>

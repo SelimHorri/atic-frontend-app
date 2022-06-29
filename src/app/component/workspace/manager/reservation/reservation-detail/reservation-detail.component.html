@@ -210,17 +210,21 @@
     <div class="modal-dialog modal-dialog" role="document">
       <div class="modal-content card">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Service</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Assign Worker</h5>
           <button onclick="document.getElementById('assignWorker').click()" type="button" class="close"
-            data-dismiss="modal" aria-label="Close">
+            data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body card-body">
           <form #assignWorkerForm="ngForm">
             
+            <div class="modal-footer">
+              <button type="button" onclick="document.getElementById('assignWorker').click()" id="assignWorker-form"
+                class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            
           </form>
-
         </div>
       </div>
     </div>
