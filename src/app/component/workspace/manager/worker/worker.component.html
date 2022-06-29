@@ -1,7 +1,7 @@
 
 <div *ngIf="managerWorkerInfoResponse">
   <div class="container" id="main-container">
-    <div class="row bootstrap snippets bootdeys">
+    <div class="row">
       <div class="col-md-9 col-sm-7">
         <h2>Manage Workers</h2>
       </div>
@@ -71,7 +71,7 @@
   
   <div class="modal fade" id="workerInfo" tabindex="-1" role="dialog" aria-labelledby="workerInfoModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl " role="document">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl " role="document">
       <div class="modal-content card">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Worker Informations</h5>
@@ -82,7 +82,7 @@
         </div>
         <div class="modal-body card-body">
           <form #workerInfoForm="ngForm">
-            <div class="container bootstrap snippets bootdey">
+            <div class="container">
               <div class="panel-body inf-content">
                 <div class="row">
                   <div class="col-md-4">
