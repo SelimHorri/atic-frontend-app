@@ -1,0 +1,119 @@
+
+<div>
+  <div class="container" id="main-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          <form #searchForm="ngForm">
+            <div class="container input-group">
+              <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" id="key" type="search"
+                class="form-control" placeholder="Search..">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </form>
+        </div>
+        <br><br>
+        <div class="card card-body">
+          <div class="">
+            <h5 class="card-title text-uppercase mb-0">Manage my Workers</h5> <br>
+          </div>
+          <div>
+            <select ngModel #size="ngModel" (change)="onSelectPageSize(size?.value)"
+              class="form-select form-select-sm"
+              aria-label="form-select-sm .form-select-sm example">
+              <option selected value="">Choose how much to display</option>
+              <option value="2">1-2</option>
+              <option value="5">1-5</option>
+              <option value="10">1-10</option>
+              <option value="20">1-20</option>
+              <option value="50">1-50</option>
+            </select>
+            <br>
+          </div>
+          <div class="table-responsive">
+            <table class="table no-wrap user-table mb-0 table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Occupation</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Added</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Category</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium text-center">Manage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="pl-4">#</td>
+                  <td>
+                    <h5 class="font-medium mb-0">Daniel Kristeen</h5>
+                    <span class="text-muted">Texas, Unitedd states</span>
+                  </td>
+                  <td>
+                    <span class="text-muted">Visual Designer</span><br>
+                    <span class="text-muted">Past : teacher</span>
+                  </td>
+                  <td>
+                    <span class="text-muted">daniel@website.com</span><br>
+                    <span class="text-muted">999 - 444 - 555</span>
+                  </td>
+                  <td>
+                    <span class="text-muted">15 Mar 1988</span><br>
+                    <span class="text-muted">10: 55 AM</span>
+                  </td>
+                  <td>
+                    <select class="form-control category-select" id="exampleFormControlSelect1">
+                      <option>Modulator</option>
+                      <option>Admin</option>
+                      <option>User</option>
+                      <option>Subscriber</option>
+                    </select>
+                  </td>
+                  <td class="text-center">
+                    <!--
+                      <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i
+                          class="fa fa-key"></i> </button>
+                      <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
+                          class="fa fa-upload"></i> </button>
+                    -->
+                    <button type="button" class="btn btn-outline-warning text-dark btn-circle btn-lg btn-circle ml-2"><i
+                        class="fa fa-edit"></i> </button>
+                    <button type="button" class="btn btn-outline-danger btn-circle btn-lg btn-circle ml-2"><i
+                        class="fa fa-trash"></i> </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--
+            <div class="pt-3">
+              <ul class="pagination justify-content-end mb-0">
+                <li class="page-item {{ (managerReservationResponse?.reservations?.first) ? 'disabled' : '' }}">
+                  <a class="page-link" (click)="onNavigatePagination(managerReservationResponse.reservations.number)"
+                    href="javascript:void(0);" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li *ngFor="let p of pages; let i = index"
+                  class="page-item {{ (managerReservationResponse.reservations.number === i) ? 'active' : '' }}">
+                  <a class="page-link" href="javascript:void(0);" (click)="onNavigatePagination(i + 1)">{{ i + 1 }}</a>
+                </li>
+                <li class="page-item {{ (managerReservationResponse?.reservations?.last) ? 'disabled' : '' }}">
+                  <a class="page-link"
+                    (click)="onNavigatePagination(managerReservationResponse.reservations.number + 2)"
+                    href="javascript:void(0);">Next</a>
+                </li>
+              </ul>
+            </div>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
