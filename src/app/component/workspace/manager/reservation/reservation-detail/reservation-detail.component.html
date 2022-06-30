@@ -86,19 +86,31 @@
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td *ngIf="reservationBeginEndTaskResponse?.taskBegin">
-                                      <a (click)="findWorkerInfoById(reservationBeginEndTaskResponse.taskBegin.workerId)" href="javascript:void(0);">
-                                        {{ reservationBeginEndTaskResponse?.taskBegin?.startDate | date: 'dd-MMM-yyyy HH:mm' }}
-                                      </a>
+                                    <td>
+                                      <span *ngIf="!reservationBeginEndTaskResponse?.taskBegin">
+                                        -
+                                      </span>
+                                      <span *ngIf="reservationBeginEndTaskResponse?.taskBegin">
+                                        <a (click)="findWorkerInfoById(reservationBeginEndTaskResponse.taskBegin.workerId)"
+                                          href="javascript:void(0);">
+                                          {{ reservationBeginEndTaskResponse?.taskBegin?.startDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                        </a>
+                                      </span>
                                     </td>
-                                    <td *ngIf="!reservationBeginEndTaskResponse?.taskBegin">-</td>
-                                    <td *ngIf="reservationBeginEndTaskResponse?.taskEnd">
-                                      <a (click)="findWorkerInfoById(reservationBeginEndTaskResponse.taskEnd.workerId)"
-                                        href="javascript:void(0);">
-                                        {{ reservationBeginEndTaskResponse?.taskEnd?.endDate | date: 'dd-MMM-yyyy HH:mm' }}
-                                      </a>
+                                    <td>
+                                      <span *ngIf="!reservationBeginEndTaskResponse?.taskEnd">
+                                        <a (click)="findWorkerInfoById(reservationBeginEndTaskResponse.taskEnd.workerId)"
+                                          href="javascript:void(0);">
+                                          {{ reservationBeginEndTaskResponse?.taskEnd?.endDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                        </a>
+                                      </span>
+                                      <span *ngIf="reservationBeginEndTaskResponse?.taskEnd">
+                                        <a (click)="findWorkerInfoById(reservationBeginEndTaskResponse.taskEnd.workerId)"
+                                          href="javascript:void(0);">
+                                          {{ reservationBeginEndTaskResponse?.taskEnd?.endDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                        </a>
+                                      </span>
                                     </td>
-                                    <td *ngIf="!reservationBeginEndTaskResponse?.taskEnd">-</td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -332,6 +344,19 @@
                             </td>
                             <td class="">
                               ---
+                            </td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td>
+                              <br>
+                              <span class="">
+                                <a class="btn btn-info text-dark"
+                                    onclick="document.getElementById('workerInfo')?.click()"
+                                    routerLink="/workspace/{{ accountUrl }}/workers/assignments/{{ workerInfo?.id }}">
+                                  Checkout Assigned Reservations
+                                </a>
+                              </span>
                             </td>
                           </tr>
                         </tbody>
