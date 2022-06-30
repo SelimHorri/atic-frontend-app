@@ -1,5 +1,5 @@
 
-<div>
+<div *ngIf="managerWorkerAssignmentResponse">
   <div class="container" id="main-container">
     <div class="row">
       <div class="col-md-12">
@@ -17,7 +17,7 @@
         <br><br>
         <div class="card card-body">
           <div class="">
-            <h5 class="card-title text-uppercase mb-0">Manage my Workers</h5> <br>
+            <h5 class="card-title text-uppercase mb-0">Manage my Worker Assignments & Tasks</h5> <br>
           </div>
           <div>
             <select ngModel #size="ngModel" (change)="onSelectPageSize(size?.value)"
@@ -37,40 +37,56 @@
               <thead>
                 <tr>
                   <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Occupation</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Added</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Category</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium text-center">Manage</th>
+                  <!-- <th scope="col" class="border-0 text-uppercase font-medium">Customer</th> -->
+                  <th scope="col" class="border-0 text-uppercase font-medium">Reservation Code</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Start Date</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Cancel Date</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Status</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Description</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="pl-4">#</td>
+                <tr *ngFor="let r of reservations">
+                  <th class="pl-4">#</th>
+                  <!--
+                    <td>
+                      <h5 class="font-medium mb-0">
+                        {{ r?.customer?.firstname?.substring(0, 1) | uppercase }}{{ r?.customer?.firstname?.substring(1) | lowercase }}
+                        {{ r?.customer?.lastname | uppercase }}
+                      </h5>
+                      <span class="text-muted">Texas, Unitedd states</span>
+                    </td>
+                  -->
                   <td>
-                    <h5 class="font-medium mb-0">Daniel Kristeen</h5>
-                    <span class="text-muted">Texas, Unitedd states</span>
+                    <span class="">
+                      <a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>
+                    </span>
+                    <br>
+                    <span class="text-muted">REFERENCE</span>
                   </td>
                   <td>
-                    <span class="text-muted">Visual Designer</span><br>
-                    <span class="text-muted">Past : teacher</span>
+                    <span class="">{{ r?.startDate | date: 'dd-MMM-yyyy HH:mm' }}</span><br>
+                    <span class="text-muted">{{ r?.startDate | date: 'MMMM-yyyy' }}</span>
                   </td>
                   <td>
-                    <span class="text-muted">daniel@website.com</span><br>
-                    <span class="text-muted">999 - 444 - 555</span>
+                    <span *ngIf="r?.status !== 'CANCELLED'" class="">-</span>
+                    <span *ngIf="r?.status === 'CANCELLED'" class="">{{ r?.cancelDate | date: 'dd-MMM-yyyy HH:mm' }}</span>
+                    <br>
+                    <span class="text-muted">{{ r?.cancelDate | date: 'MMMM-yyyy' }}</span>
                   </td>
                   <td>
-                    <span class="text-muted">15 Mar 1988</span><br>
-                    <span class="text-muted">10: 55 AM</span>
+                    <span *ngIf="r?.status === 'NOT_STARTED'" class="badge text-danger">{{ r?.status | uppercase }}</span>
+                    <span *ngIf="r?.status === 'IN_PROGRESS'" class="badge text-primary">{{ r?.status | uppercase }}</span>
+                    <span *ngIf="r?.status === 'COMPLETED'" class="badge text-success">{{ r?.status | uppercase }}</span>
+                    <span *ngIf="r?.status === 'CANCELLED'" class="badge text-warning">{{ r?.status | uppercase }}</span>
+                    <span *ngIf="r?.status === 'OUTDATED'" class="badge text-dark"><s>{{ r?.status | uppercase }}</s></span>
+                    <br>
+                    <span class="text-muted"></span>
                   </td>
                   <td>
-                    <select class="form-control category-select" id="exampleFormControlSelect1">
-                      <option>Modulator</option>
-                      <option>Admin</option>
-                      <option>User</option>
-                      <option>Subscriber</option>
-                    </select>
+                    <span *ngIf="!r?.description">-</span>
+                    <span *ngIf="r?.description">{{ r?.description }}</span>
                   </td>
                   <td class="text-center">
                     <!--
@@ -88,25 +104,22 @@
               </tbody>
             </table>
           </div>
-          <!--
-            <div class="pt-3">
-              <ul class="pagination justify-content-end mb-0">
-                <li class="page-item {{ (managerReservationResponse?.reservations?.first) ? 'disabled' : '' }}">
-                  <a class="page-link" (click)="onNavigatePagination(managerReservationResponse.reservations.number)"
-                    href="javascript:void(0);" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li *ngFor="let p of pages; let i = index"
-                  class="page-item {{ (managerReservationResponse.reservations.number === i) ? 'active' : '' }}">
-                  <a class="page-link" href="javascript:void(0);" (click)="onNavigatePagination(i + 1)">{{ i + 1 }}</a>
-                </li>
-                <li class="page-item {{ (managerReservationResponse?.reservations?.last) ? 'disabled' : '' }}">
-                  <a class="page-link"
-                    (click)="onNavigatePagination(managerReservationResponse.reservations.number + 2)"
-                    href="javascript:void(0);">Next</a>
-                </li>
-              </ul>
-            </div>
-          -->
+          <div class="pt-3">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item {{ (managerWorkerAssignmentResponse?.tasks?.first) ? 'disabled' : '' }}">
+                <a class="page-link" (click)="onNavigatePagination(managerWorkerAssignmentResponse.tasks.number)"
+                  href="javascript:void(0);" tabindex="-1" aria-disabled="true">Previous</a>
+              </li>
+              <li *ngFor="let p of pages; let i = index"
+                class="page-item {{ (managerWorkerAssignmentResponse.tasks.number === i) ? 'active' : '' }}">
+                <a class="page-link" href="javascript:void(0);" (click)="onNavigatePagination(i + 1)">{{ i + 1 }}</a>
+              </li>
+              <li class="page-item {{ (managerWorkerAssignmentResponse?.tasks?.last) ? 'disabled' : '' }}">
+                <a class="page-link" (click)="onNavigatePagination(managerWorkerAssignmentResponse.tasks.number + 2)"
+                  href="javascript:void(0);">Next</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
