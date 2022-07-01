@@ -86,6 +86,7 @@
                       <th scope="col">Status</th>
                       <!-- <th scope="col">Assigned</th> -->
                       <th scope="col">Description</th>
+                      <th scope="col">Assign</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -125,6 +126,13 @@
                       </td>
                       <td *ngIf="r?.description === null || r?.description === undefined">
                         <p class="mb-0">-</p>
+                      </td>
+                      <td>
+                        <span>
+                          <a class="btn text-primary" (click)="onDisplayAssignReservation(r)" href="javascript:void(0);">
+                            <i class="ri-arrow-right-line ml-2"></i> Assign
+                          </a>
+                        </span>
                       </td>
                       <td>
                         <div
@@ -186,6 +194,108 @@
 
   <br>
   
-  <app-manager-reservation-calendar></app-manager-reservation-calendar>
-
+  <div>
+    <app-manager-reservation-calendar></app-manager-reservation-calendar>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <div class="modal fade" id="assignReservation" tabindex="-1" role="dialog"
+    aria-labelledby="assignReservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg " role="document">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Assign new Reservation</h5>
+          <button onclick="document.getElementById('assignReservation').click()" type="button" class="close"
+            data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body card-body">
+          <form #assignReservationForm="ngForm" (ngSubmit)="onAssignReservation(assignReservationForm)">
+            
+            <div class="container">
+              <div class="panel-body inf-content">
+                <div class="row">
+                  <div class="col-md-12">
+                      <span class="text-left">
+                        <h5><strong>Information</strong></h5>
+                      </span>
+                      <!-- <span class="text-right"><strong>Information</strong></span> -->
+                    <br>
+                    <div align="center">
+                      <div class="table-responsive">
+                        <table class="table table-user-information">
+                          <tbody>
+                            <tr *ngFor="let item of [1, 2, 57, 54]">
+                              <td>
+                                <strong>
+                                  <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                                  ---
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>---</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="glyphicon glyphicon-user text-primary"></span>
+                                  ---
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>---</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="glyphicon glyphicon-cloud text-primary"></span>
+                                  ---
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>---</span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="modal-footer">
+              <button type="button" onclick="document.getElementById('assignReservation').click()"
+                id="assignReservation-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
 </div>

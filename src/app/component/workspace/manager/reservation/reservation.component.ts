@@ -1,6 +1,7 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
@@ -129,6 +130,34 @@ export class ReservationComponent implements OnInit {
         },
         error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
       });
+  }
+  
+  public onOpenModal(action: string): void {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.style.display = "none";
+    button.setAttribute("data-bs-toggle", "modal");
+
+    if (action === "assignReservation")
+      button.setAttribute("data-bs-target", "#assignReservation");
+
+    const mainContainer = document.getElementById("main-container");
+    mainContainer?.appendChild(button);
+    button.click();
+  }
+
+  public onDisplayAssignReservation(reservation: Reservation): void {
+    this.activatedRoute.params.subscribe({
+      next: (p: any) => {
+        this.onOpenModal('assignReservation');
+      },
+      error: (errorResponse: HttpErrorResponse) =>
+        this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+
+  public onAssignReservation(ngForm: NgForm): void {
+    
   }
   
   
