@@ -128,7 +128,7 @@
                         <p class="mb-0">-</p>
                       </td>
                       <td>
-                        <span>
+                        <span *ngIf="r?.status === 'NOT_STARTED'.toUpperCase() || r?.status === 'IN_PROGRESS'.toUpperCase()">
                           <a class="btn text-primary" (click)="onDisplayAssignReservation(r)" href="javascript:void(0);">
                             <i class="ri-arrow-right-line ml-2"></i> Assign
                           </a>
@@ -218,7 +218,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg " role="document">
       <div class="modal-content card">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Assign new Reservation</h5>
+          <h4 class="modal-title text-primary " id="exampleModalLabel">Assign Reservation</h4>
           <button onclick="document.getElementById('assignReservation').click()" type="button" class="close"
             data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -226,51 +226,121 @@
         </div>
         <div class="modal-body card-body">
           <form #assignReservationForm="ngForm" (ngSubmit)="onAssignReservation(assignReservationForm)">
-            
             <div class="container">
               <div class="panel-body inf-content">
                 <div class="row">
                   <div class="col-md-12">
-                      <span class="text-left">
-                        <h5><strong>Information</strong></h5>
-                      </span>
-                      <!-- <span class="text-right"><strong>Information</strong></span> -->
-                    <br>
                     <div align="center">
                       <div class="table-responsive">
                         <table class="table table-user-information">
                           <tbody>
-                            <tr *ngFor="let item of [1, 2, 57, 54]">
+                            <tr>
                               <td>
                                 <strong>
-                                  <span class="glyphicon glyphicon-asterisk text-primary"></span>
-                                  ---
+                                  <span class="text-dark">
+                                    <u>Reference Code</u>
+                                  </span>
                                 </strong>
                               </td>
                               <td class="">
-                                <span>---</span>
+                                <span>
+                                  <a onclick="document.getElementById('assignReservation')?.click()"
+                                      routerLink="/workspace/{{ accountUrl }}/reservations/{{ reservationSubWorkerResponse?.reservation?.id }}">
+                                    REF-{{ reservationSubWorkerResponse?.reservation?.code?.substring(0, 8) }}
+                                  </a>
+                                </span>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <strong>
-                                  <span class="glyphicon glyphicon-user text-primary"></span>
-                                  ---
+                                  <span class="text-dark">
+                                    <u>Start Date</u> <span class="badge text-dark">(requested by customer)</span>
+                                  </span>
                                 </strong>
                               </td>
                               <td class="">
-                                <span>---</span>
+                                <span>{{ reservationSubWorkerResponse?.reservation?.startDate | date: 'dd-MMM-yyyy HH:mm' }}</span>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <strong>
-                                  <span class="glyphicon glyphicon-cloud text-primary"></span>
-                                  ---
+                                  <span class="text-dark">
+                                    <u>Cancelled at</u>
+                                  </span>
                                 </strong>
                               </td>
                               <td class="">
-                                <span>---</span>
+                                <span *ngIf="reservationSubWorkerResponse?.reservation?.status !== 'CANCELLED'">-</span>
+                                <span
+                                    *ngIf="reservationSubWorkerResponse?.reservation?.status === 'CANCELLED'">
+                                  {{ reservationSubWorkerResponse?.reservation?.cancelDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    <u>Customer</u>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>{{ reservationSubWorkerResponse?.reservation?.customer?.firstname?.substring(0, 1) | uppercase }}{{ reservationSubWorkerResponse?.reservation?.customer?.firstname?.substring(1) | lowercase }}
+                                  {{ reservationSubWorkerResponse?.reservation?.customer?.lastname | uppercase }}
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    <u>Facility</u>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <a routerLink="/saloons/{{ reservationSubWorkerResponse?.reservation?.saloon?.id }}">
+                                    {{ reservationSubWorkerResponse?.reservation?.saloon?.name | uppercase }}
+                                  </a>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    <u>Description</u>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  {{ reservationSubWorkerResponse?.reservation?.description }}
+                                </span>
+                              </td>
+                            </tr>
+                            <span class=""></span>
+                            <tr *ngFor="let w of reservationSubWorkerResponse?.subWorkers?.content">
+                              <td>
+                                <span id="workersSwitches" class="form-check form-switch">
+                                  <input name="subWorkers" ngModel [value]="w?.id" (change)="onCheckWorker($event)"
+                                    class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                                    [required]="reservationAssignWorkerRequest.assignedWorkersIds.length <= 0" />
+                                  <label class="form-check-label" for="flexSwitchCheckDefault">
+                                    {{ w?.firstname?.substring(0, 1) | uppercase }}{{ w?.firstname?.substring(1) | lowercase }}
+                                    {{ w?.lastname | uppercase }}
+                                  </label>
+                                </span>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <textarea [disabled]="!assignReservationForm?.value?.subWorkers" 
+                                  name="description" rows="2" placeholder="Comment here.."></textarea>
+                                </span>
                               </td>
                             </tr>
                           </tbody>
@@ -281,10 +351,15 @@
                 </div>
               </div>
             </div>
-            
             <div class="modal-footer">
-              <button type="button" onclick="document.getElementById('assignReservation').click()"
-                id="assignReservation-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <span>
+                <button type="button" onclick="document.getElementById('assignReservation')?.click()"
+                  id="assignReservation-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </span>
+              <span>
+                <button type="submit" [disabled]="assignReservationForm.invalid" 
+                  class="btn btn-success">Assign</button>
+              </span>
             </div>
           </form>
         </div>

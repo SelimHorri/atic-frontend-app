@@ -5,8 +5,10 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
+import { ReservationAssignWorkerRequest } from 'src/app/model/request/reservation-assign-worker-request';
 import { Reservation } from 'src/app/model/reservation';
 import { ManagerReservationResponse } from 'src/app/model/response/manager-reservation-response';
+import { ReservationSubWorkerResponse } from 'src/app/model/response/reservation-sub-worker-response';
 import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ManagerReservationService } from 'src/app/service/employee/manager/manager-reservation.service';
@@ -23,6 +25,12 @@ export class ReservationComponent implements OnInit {
   public accountUrl!: string;
   public managerReservationResponse!: ManagerReservationResponse;
   public pages: number[] = [];
+  public reservationSubWorkerResponse!: ReservationSubWorkerResponse;
+  public reservationAssignWorkerRequest: ReservationAssignWorkerRequest = {
+    reservationId: 0,
+    assignedWorkersIds: [],
+    managerDescription: ""
+  };
 
   constructor(private credentialService: CredentialService,
     private managerReservationService: ManagerReservationService,
@@ -150,14 +158,31 @@ export class ReservationComponent implements OnInit {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
         this.onOpenModal('assignReservation');
+        this.managerReservationService.getAllUnassignedSubWorkers(reservation?.id).subscribe({
+          next: (reservationSubWorkerResponsePayload: any) => {
+            this.reservationSubWorkerResponse = reservationSubWorkerResponsePayload?.responseBody;
+          },
+          error: (errorResponse: HttpErrorResponse) =>
+            this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
       },
       error: (errorResponse: HttpErrorResponse) =>
         this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
   }
+  
+  public onCheckWorker(event: any): void {
+    if (event.target.checked) {
+      if (!this.reservationAssignWorkerRequest?.assignedWorkersIds?.includes(event.target.value))
+        this.reservationAssignWorkerRequest.assignedWorkersIds.push(parseInt(event.target.value));
+    }
+    else
+      this.reservationAssignWorkerRequest.assignedWorkersIds.splice(
+        this.reservationAssignWorkerRequest.assignedWorkersIds.indexOf(event.target.value) - 1, 1);
+  }
 
   public onAssignReservation(ngForm: NgForm): void {
-    
+    alert('Here we go');
   }
   
   
