@@ -155,16 +155,11 @@ export class ReservationComponent implements OnInit {
   }
 
   public onDisplayAssignReservation(reservation: Reservation): void {
-    this.activatedRoute.params.subscribe({
-      next: (p: any) => {
-        this.onOpenModal('assignReservation');
-        this.managerReservationService.getAllUnassignedSubWorkers(reservation?.id).subscribe({
-          next: (reservationSubWorkerResponsePayload: any) => {
-            this.reservationSubWorkerResponse = reservationSubWorkerResponsePayload?.responseBody;
-          },
-          error: (errorResponse: HttpErrorResponse) =>
-            this.errorHandlerService.extractExceptionMsg(errorResponse)
-        });
+    this.onOpenModal('assignReservation');
+    this.managerReservationService.getAllUnassignedSubWorkers(reservation?.id).subscribe({
+      next: (reservationSubWorkerResponsePayload: any) => {
+        this.reservationSubWorkerResponse = reservationSubWorkerResponsePayload?.responseBody;
+        this.reservationAssignWorkerRequest.reservationId = reservation?.id;
       },
       error: (errorResponse: HttpErrorResponse) =>
         this.errorHandlerService.extractExceptionMsg(errorResponse)
@@ -182,7 +177,16 @@ export class ReservationComponent implements OnInit {
   }
 
   public onAssignReservation(ngForm: NgForm): void {
-    alert('Here we go');
+    const assignedWorkersIdsSet: Set<number> = new Set<number>();
+    this.reservationAssignWorkerRequest?.assignedWorkersIds?.forEach(id => assignedWorkersIdsSet.add(id));
+    this.reservationAssignWorkerRequest.assignedWorkersIds = Array.from(assignedWorkersIdsSet);
+    console.log(JSON?.stringify(this.reservationAssignWorkerRequest));
+    
+    this.reservationAssignWorkerRequest = {
+      reservationId: 0,
+      assignedWorkersIds: [],
+      managerDescription: ""
+    };
   }
   
   
