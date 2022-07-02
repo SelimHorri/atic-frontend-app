@@ -180,8 +180,11 @@ export class ReservationComponent implements OnInit {
     const assignedWorkersIdsSet: Set<number> = new Set<number>();
     this.reservationAssignWorkerRequest?.assignedWorkersIds?.forEach(id => assignedWorkersIdsSet.add(id));
     this.reservationAssignWorkerRequest.assignedWorkersIds = Array.from(assignedWorkersIdsSet);
+    this.reservationAssignWorkerRequest.managerDescription = ngForm?.value?.description;
     console.log(JSON?.stringify(this.reservationAssignWorkerRequest));
     
+    document.getElementById('assignReservation')?.click();
+    ngForm.reset();
     this.reservationAssignWorkerRequest = {
       reservationId: 0,
       assignedWorkersIds: [],

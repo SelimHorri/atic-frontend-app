@@ -232,8 +232,8 @@
                   <div class="col-md-12">
                     <div align="center">
                       <div class="table-responsive">
-                        <table class="table table-user-information">
-                          <tbody>
+                        <table class="table ">
+                          <tbody class="table-user-information">
                             <tr>
                               <td>
                                 <strong>
@@ -337,10 +337,20 @@
                                 </span>
                               </td>
                               <td class="">
+                                <!--
+                                  <span>
+                                    <textarea name="description" rows="2" placeholder="Comment here.."></textarea>
+                                  </span>
+                                -->
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
                                 <span>
-                                  <textarea
-                                  name="description" rows="2" placeholder="Comment here.."></textarea>
+                                  <textarea name="description" ngModel rows="4" class="col-md-12" placeholder="Comment here.."></textarea>
                                 </span>
+                              </td>
+                              <td class="">
                               </td>
                             </tr>
                           </tbody>
