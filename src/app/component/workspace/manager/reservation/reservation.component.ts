@@ -183,13 +183,21 @@ export class ReservationComponent implements OnInit {
     this.reservationAssignWorkerRequest.managerDescription = ngForm?.value?.description;
     console.log(JSON?.stringify(this.reservationAssignWorkerRequest));
     
-    document.getElementById('assignReservation')?.click();
-    ngForm.reset();
-    this.reservationAssignWorkerRequest = {
-      reservationId: 0,
-      assignedWorkersIds: [],
-      managerDescription: ""
-    };
+    this.managerReservationService.assignReservationWorkers(this.reservationAssignWorkerRequest).subscribe({
+      next: (payload: any) => {
+        this.reservationSubWorkerResponse = payload?.responseBody;
+        document.getElementById('assignReservation')?.click();
+        ngForm.reset();
+        this.notificationService.showSuccess(new ToastrMsg(`Workers assigned successfully..`, `Assigned!`));
+        this.reservationAssignWorkerRequest = {
+          reservationId: 0,
+          assignedWorkersIds: [],
+          managerDescription: ""
+        };
+      },
+      error: (errorResponse: HttpErrorResponse) =>
+        this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
   }
   
   

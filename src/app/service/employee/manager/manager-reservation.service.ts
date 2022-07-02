@@ -6,6 +6,7 @@ import { map, Observable } from 'rxjs';
 import { DateBackendFormat } from 'src/app/model/date-backend-format';
 import { Employee } from 'src/app/model/employee';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
+import { ReservationAssignWorkerRequest } from 'src/app/model/request/reservation-assign-worker-request';
 import { Reservation } from 'src/app/model/reservation';
 import { ReservationStatus } from 'src/app/model/reservation-status';
 import { environment } from 'src/environments/environment';
@@ -101,6 +102,31 @@ export class ManagerReservationService {
   
   public getAllUnassignedSubWorkers(reservationId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${reservationId}/unassigned`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((payload: any) => {
+      payload.responseBody.reservation.startDate = moment(payload?.responseBody?.reservation?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.cancelDate = moment(payload?.responseBody?.reservation?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.customer.birthdate = moment(payload?.responseBody?.reservation?.customer?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
+      payload.responseBody.reservation.saloon.openingDate = moment(payload?.responseBody?.reservation?.saloon?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
+      payload.responseBody.subWorkers?.content?.map((e: Employee) => {
+        e.birthdate = moment(e?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
+        e.hiredate = moment(e?.hiredate, DateBackendFormat.LOCAL_DATE).toDate();
+        e.manager.birthdate = moment(e?.manager?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
+        e.manager.hiredate = moment(e?.manager?.hiredate, DateBackendFormat.LOCAL_DATE).toDate();
+        e.saloon.openingDate = moment(e?.saloon?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
+      });
+      return payload;
+    }));
+  }
+  
+  public assignReservationWorkers(reservationAssignWorkerRequest: ReservationAssignWorkerRequest): Observable<any> {
+    (!reservationAssignWorkerRequest?.managerDescription || reservationAssignWorkerRequest?.managerDescription === '') ?
+      reservationAssignWorkerRequest.managerDescription = null
+      : reservationAssignWorkerRequest.managerDescription = reservationAssignWorkerRequest?.managerDescription;
+    return this.http.post<any>(`${this.apiUrl}/assign`, reservationAssignWorkerRequest, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
