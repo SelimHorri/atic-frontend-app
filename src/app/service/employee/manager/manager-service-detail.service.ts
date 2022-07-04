@@ -37,6 +37,17 @@ export class ManagerServiceDetailService {
     }));
   }
   
+  public deleteServiceDetail(serviceDetailId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${serviceDetailId}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((res: any) => {
+      return res;
+    }));
+  }
+  
   
   
 }

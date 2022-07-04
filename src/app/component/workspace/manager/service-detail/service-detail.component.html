@@ -1,1 +1,84 @@
-<p>service-detail works!</p>
+
+<div *ngIf="serviceDetails">
+  <div class="container" id="main-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          <form #searchForm="ngForm">
+            <div class="container input-group">
+              <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" id="key" type="search"
+                class="form-control" placeholder="Search..">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </form>
+        </div>
+        <br><br>
+        <div class="card card-body">
+          <div class="">
+            <span class="text-left">
+              <h5 class="card-title text-uppercase mb-0">Manage Categories</h5>
+              <br>
+            </span>
+          </div>
+          <div class="table-responsive">
+            <table class="table no-wrap user-table mb-0 table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
+                  <!-- <th scope="col" class="border-0 text-uppercase font-medium">Customer</th> -->
+                  <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Parent Category</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let sd of serviceDetails?.content">
+                  <th class="pl-4">#</th>
+                  <td>
+                    <span class="">{{ sd?.name | uppercase }}</span>
+                    <br>
+                    <span class="text-muted">name</span>
+                  </td>
+                  <td>
+                    <span *ngIf="!sd?.parentCategory" class="">-</span><br>
+                    <span *ngIf="sd?.parentCategory" class="">{{ sd?.parentCategory?.name }}</span>
+                    <!--
+                      <br>
+                      <span *ngIf="sd?.parentCategory" class="text-muted">parent</span>
+                    -->
+                  </td>
+                  <td class="text-center">
+                    <!--
+                      <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i
+                          class="fa fa-key"></i> </button>
+                      <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
+                          class="fa fa-upload"></i> </button>
+                    -->
+                    <a href="javascript:void(0);" (click)="onUpdate(sd)"
+                      class="btn btn-outline-warning text-dark btn-circle btn-lg btn-circle ml-2"><i
+                        class="fa fa-edit"></i></a>
+                    <a href="javascript:void(0);" (click)="onDelete(sd?.id)"
+                      class="btn btn-outline-danger btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
