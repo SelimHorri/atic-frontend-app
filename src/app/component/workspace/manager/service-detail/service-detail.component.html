@@ -18,7 +18,7 @@
         <div class="card card-body">
           <div class="">
             <span class="text-left">
-              <h5 class="card-title text-uppercase mb-0">Manage Categories</h5>
+              <h5 class="card-title text-uppercase mb-0">Manage Services</h5>
               <br>
             </span>
           </div>
@@ -29,7 +29,11 @@
                   <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
                   <!-- <th scope="col" class="border-0 text-uppercase font-medium">Customer</th> -->
                   <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
-                  <th scope="col" class="border-0 text-uppercase font-medium">Parent Category</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Available?</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Duration</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Price Unit</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Description</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Category</th>
                   <th scope="col" class="border-0 text-uppercase font-medium text-center">Action</th>
                 </tr>
               </thead>
@@ -42,12 +46,20 @@
                     <span class="text-muted">name</span>
                   </td>
                   <td>
-                    <span *ngIf="!sd?.parentCategory" class="">-</span><br>
-                    <span *ngIf="sd?.parentCategory" class="">{{ sd?.parentCategory?.name }}</span>
-                    <!--
-                      <br>
-                      <span *ngIf="sd?.parentCategory" class="text-muted">parent</span>
-                    -->
+                    <span class="">{{ sd?.isAvailable }}</span>
+                  </td>
+                  <td>
+                    <span class="">{{ sd?.duration }} min</span>
+                  </td>
+                  <td>
+                    <span class="">{{ sd?.priceUnit }} DT</span>
+                  </td>
+                  <td>
+                    <span *ngIf="!sd?.description || sd?.description === ''" class="">-</span>
+                    <span *ngIf="sd?.description && sd?.description !== ''" class="">{{ sd?.description }}</span>
+                  </td>
+                  <td>
+                    <span class="text-primary"><strong>{{ sd?.category?.name | uppercase }}</strong></span>
                   </td>
                   <td class="text-center">
                     <!--
