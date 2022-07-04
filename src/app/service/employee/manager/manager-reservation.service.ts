@@ -40,6 +40,7 @@ export class ManagerReservationService {
       payload.responseBody.reservations?.content?.map((r: Reservation) => {
         r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.completeDate = moment(r?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       });
       return payload;
     }));
@@ -57,6 +58,7 @@ export class ManagerReservationService {
       payload.responseBody.reservations?.content?.map((r: Reservation) => {
         r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.completeDate = moment(r?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       });
       return payload;
     }));
@@ -74,6 +76,7 @@ export class ManagerReservationService {
       payload.responseBody.reservations?.content?.map((r: Reservation) => {
         r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.completeDate = moment(r?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       });
       return payload;
     }));
@@ -97,6 +100,7 @@ export class ManagerReservationService {
     }).pipe(map((payload: any) => {
       payload.responseBody.startDate = moment(payload?.responseBody?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.cancelDate = moment(payload?.responseBody?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.completeDate = moment(payload?.responseBody?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
     }));
   }
   
@@ -109,6 +113,7 @@ export class ManagerReservationService {
     }).pipe(map((payload: any) => {
       payload.responseBody.reservation.startDate = moment(payload?.responseBody?.reservation?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.reservation.cancelDate = moment(payload?.responseBody?.reservation?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.completeDate = moment(payload?.responseBody?.reservation?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.reservation.customer.birthdate = moment(payload?.responseBody?.reservation?.customer?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
       payload.responseBody.reservation.saloon.openingDate = moment(payload?.responseBody?.reservation?.saloon?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
       payload.responseBody.subWorkers?.content?.map((e: Employee) => {
@@ -134,6 +139,7 @@ export class ManagerReservationService {
     }).pipe(map((payload: any) => {
       payload.responseBody.reservation.startDate = moment(payload?.responseBody?.reservation?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.reservation.cancelDate = moment(payload?.responseBody?.reservation?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.completeDate = moment(payload?.responseBody?.reservation?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.reservation.customer.birthdate = moment(payload?.responseBody?.reservation?.customer?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
       payload.responseBody.reservation.saloon.openingDate = moment(payload?.responseBody?.reservation?.saloon?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
       payload.responseBody.subWorkers?.content?.map((e: Employee) => {

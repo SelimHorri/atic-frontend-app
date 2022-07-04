@@ -5,7 +5,6 @@ import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { DateBackendFormat } from 'src/app/model/date-backend-format';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
-import { Reservation } from 'src/app/model/reservation';
 import { Task } from 'src/app/model/task';
 import { environment } from 'src/environments/environment';
 
@@ -45,6 +44,8 @@ export class ManagerWorkerAssignmentService {
         t.reservation.startDate = moment(t?.reservation?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         t.reservation.cancelDate = (!t?.reservation?.cancelDate) ? 
           t?.reservation?.cancelDate : moment(t?.reservation?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        t.reservation.completeDate = (!t?.reservation?.completeDate) ?
+          t?.reservation?.completeDate : moment(t?.reservation?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       });
       return payload;
     }));

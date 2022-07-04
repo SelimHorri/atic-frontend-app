@@ -41,6 +41,8 @@ export class WorkerReservationService {
         t.reservation.startDate = moment(t?.reservation?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         t.reservation.cancelDate = (!t?.reservation?.cancelDate) ?
           t?.reservation?.cancelDate : moment(t?.reservation?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        t.reservation.completeDate = (!t?.reservation?.completeDate) ?
+          t?.reservation?.completeDate : moment(t?.reservation?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       });
       return payload;
     }));
@@ -59,6 +61,7 @@ export class WorkerReservationService {
         t.endDate = moment(t?.endDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         t.reservation.startDate = moment(t?.reservation?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         t.reservation.cancelDate = moment(t?.reservation?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        t.reservation.completeDate = moment(t?.reservation?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       });
       return payload;
     }));

@@ -100,11 +100,12 @@ export class ReservationComponent implements OnInit {
   
   public searchBy(key: string): void {
     const res: Reservation[] = [];
-    this.reservations?.content.forEach(r => {
+    this.reservations?.content.forEach((r: Reservation) => {
       if (`REF-${r?.code}`.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || r?.saloon?.name.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.startDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.cancelDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.completeDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           // || r.description.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || r?.status.toLowerCase().indexOf(key.toLowerCase()) !== -1)
         res.push(r);

@@ -44,6 +44,7 @@
                   <th scope="col" class="border-0 text-uppercase font-medium">Reservation Code</th>
                   <th scope="col" class="border-0 text-uppercase font-medium">Start Date</th>
                   <th scope="col" class="border-0 text-uppercase font-medium">Cancel Date</th>
+                  <th scope="col" class="border-0 text-uppercase font-medium">Complete Date</th>
                   <th scope="col" class="border-0 text-uppercase font-medium">Status</th>
                   <th scope="col" class="border-0 text-uppercase font-medium">Description</th>
                   <th scope="col" class="border-0 text-uppercase font-medium text-center">Action</th>
@@ -77,6 +78,13 @@
                     <span *ngIf="r?.status === 'CANCELLED'" class="">{{ r?.cancelDate | date: 'dd-MMM-yyyy HH:mm' }}</span>
                     <br>
                     <span class="text-muted">{{ r?.cancelDate | date: 'MMMM-yyyy' }}</span>
+                  </td>
+                  <td>
+                    <span *ngIf="r?.status !== 'COMPLETED'" class="">-</span>
+                    <span *ngIf="r?.status === 'COMPLETED'"
+                      class="">{{ r?.completeDate | date: 'dd-MMM-yyyy HH:mm' }}</span>
+                    <br>
+                    <span class="text-muted">{{ r?.completeDate | date: 'MMMM-yyyy' }}</span>
                   </td>
                   <td>
                     <span *ngIf="r?.status === 'NOT_STARTED'" class="badge text-danger">{{ r?.status | uppercase }}</span>

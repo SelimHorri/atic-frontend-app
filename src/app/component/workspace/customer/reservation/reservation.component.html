@@ -81,6 +81,7 @@
                   <th scope="col">Facility</th>
                   <th scope="col"><a>Start Date</a></th>
                   <th scope="col">Cancel Date</th>
+                  <th scope="col">Complete Date</th>
                   <th scope="col">Status</th>
                   <!-- <th scope="col">Assigned</th> -->
                   <th scope="col">Description</th>
@@ -97,6 +98,8 @@
                   <td>{{ r?.startDate | date: "dd-MMM-yyyy HH:mm" }}</td>
                   <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MMM-yyyy HH:mm" }}</td>
                   <td *ngIf="r?.status !== 'CANCELLED'.toUpperCase()">-</td>
+                  <td *ngIf="r?.status === 'COMPLETED'.toUpperCase()">{{ r?.completeDate | date: "dd-MMM-yyyy HH:mm" }}</td>
+                  <td *ngIf="r?.status !== 'COMPLETED'.toUpperCase()">-</td>
                   <td>
                     <span *ngIf="r?.status === 'NOT_STARTED'" class="badge rounded-pill bg-danger font-25"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>

@@ -71,6 +71,7 @@ export class ReservationComponent implements OnInit {
           || r?.code?.substring(0, 8).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.startDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.cancelDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.completeDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           // || r.description.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || r?.status.toLowerCase().indexOf(key.toLowerCase()) !== -1)
         res.push(r);

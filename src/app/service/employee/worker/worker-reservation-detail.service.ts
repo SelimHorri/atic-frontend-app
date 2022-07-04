@@ -30,6 +30,8 @@ export class WorkerReservationDetailService {
         DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.reservation.cancelDate = moment(payload?.responseBody?.reservation?.cancelDate,
         DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.completeDate = moment(payload?.responseBody?.reservation?.completeDate,
+        DateBackendFormat.LOCAL_DATE_TIME).toDate();
       return payload;
     }));
   }

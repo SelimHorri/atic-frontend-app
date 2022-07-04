@@ -32,6 +32,8 @@ export class ManagerReservationDetailService {
         DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.reservation.cancelDate = moment(payload?.responseBody?.reservation?.cancelDate,
         DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.completeDate = moment(payload?.responseBody?.reservation?.completeDate,
+        DateBackendFormat.LOCAL_DATE_TIME).toDate();
       return payload;
     }));
   }
@@ -62,6 +64,7 @@ export class ManagerReservationDetailService {
     }).pipe(map((payload: any) => {
       payload.responseBody.reservation.startDate = moment(payload?.responseBody?.reservation?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.reservation.cancelDate = moment(payload?.responseBody?.reservation?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.completeDate = moment(payload?.responseBody?.reservation?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.reservation.customer.birthdate = moment(payload?.responseBody?.reservation?.customer?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
       payload.responseBody.reservation.saloon.openingDate = moment(payload?.responseBody?.reservation?.saloon?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
       payload.responseBody.subWorkers?.content?.map((e: Employee) => {
@@ -87,6 +90,7 @@ export class ManagerReservationDetailService {
     }).pipe(map((payload: any) => {
       payload.responseBody.reservation.startDate = moment(payload?.responseBody?.reservation?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.reservation.cancelDate = moment(payload?.responseBody?.reservation?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.completeDate = moment(payload?.responseBody?.reservation?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.reservation.customer.birthdate = moment(payload?.responseBody?.reservation?.customer?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
       payload.responseBody.reservation.saloon.openingDate = moment(payload?.responseBody?.reservation?.saloon?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
       payload.responseBody.subWorkers?.content?.map((e: Employee) => {
