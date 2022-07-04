@@ -77,9 +77,13 @@ export class ServiceDetailComponent implements OnInit {
     const res: ServiceDetail[] = [];
     this.serviceDetails?.content.forEach((sd: ServiceDetail) => {
       if (sd?.name?.toLowerCase()?.indexOf(key?.toLowerCase()) !== -1
-        // || sd?.saloon?.name?.toLowerCase()?.indexOf(key?.toLowerCase()) !== -1
-        // || sd?.saloon?.code?.toLowerCase()?.indexOf(key?.toLowerCase()) !== -1
-        )
+          || sd?.name?.toLowerCase()?.indexOf(key?.toLowerCase()) !== -1
+          || sd?.isAvailable?.toString()?.toLowerCase()?.indexOf(key?.toLowerCase()) !== -1
+          || sd?.duration?.toString()?.toLowerCase()?.indexOf(key?.toLowerCase()) !== -1
+          || `${sd?.duration?.toString()} min`.toLowerCase()?.indexOf(key?.toLowerCase()) !== -1
+          || sd?.priceUnit?.toString()?.toLowerCase()?.indexOf(key?.toLowerCase()) !== -1
+          || `${sd?.priceUnit?.toString()} DT`.toLowerCase()?.indexOf(key?.toLowerCase()) !== -1
+          || sd?.category?.name?.toLowerCase()?.indexOf(key?.toLowerCase()) !== -1)
         res.push(sd);
     });
     this.serviceDetails.content = res;
