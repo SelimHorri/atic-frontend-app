@@ -110,6 +110,16 @@ export class NavbarComponent implements OnInit {
         link: "workers",
         subItems: []
       },
+      {
+        name: "Categories",
+        link: "categories",
+        subItems: []
+      },
+      {
+        name: "Services",
+        link: "services",
+        subItems: []
+      },
     ];
   }
 
