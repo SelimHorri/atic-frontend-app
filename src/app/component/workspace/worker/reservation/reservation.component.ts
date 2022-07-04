@@ -81,6 +81,21 @@ export class ReservationComponent implements OnInit {
     if (!key)
       this.getAllPagedReservations();
   }
+  
+  public onSearchAllLikeKey(key: string): void {
+    if (key?.trim() !== '')
+      this.workerReservationService.searchAllLikeKey(key).subscribe({
+        next: (payload: any) => {
+          const reservationsSet: Set<Reservation> = new Set<Reservation>();
+          this.tasks = payload?.responseBody;
+          this.tasks?.content?.forEach((t: Task) => reservationsSet.add(t?.reservation));
+          this.reservations = Array.from(reservationsSet);
+          this.pages = new Array<number>(this.tasks?.totalPages);
+        },
+        error: (errorResponse: HttpErrorResponse) =>
+          this.errorHandlerService.extractExceptionMsg(errorResponse)
+      });
+  } 
 
   public onNavigatePagination(offset?: number): string | void {
     this.activatedRoute.queryParams.subscribe({
