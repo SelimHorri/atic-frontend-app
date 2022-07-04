@@ -68,7 +68,7 @@
                       <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
                           class="fa fa-upload"></i> </button>
                     -->
-                    <a href="javascript:void(0);" (click)="onUpdate(sd)"
+                    <a href="javascript:void(0);" (click)="onDisplayUpdate(sd)"
                       class="btn btn-outline-warning text-dark btn-circle btn-lg btn-circle ml-2"><i
                         class="fa fa-edit"></i></a>
                     <a href="javascript:void(0);" (click)="onDelete(sd?.id)"
@@ -86,6 +86,166 @@
 
 
 
+  
+  <div class="modal fade" id="updateServiceDetail" tabindex="-1" role="dialog"
+    aria-labelledby="updateServiceDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg " role="document">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h4 class="modal-title text-primary " id="exampleModalLabel">Service Information</h4>
+          <button onclick="document.getElementById('updateServiceDetail').click()" type="button" class="close"
+            data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body card-body">
+          <form #updateServiceDetailForm="ngForm" (ngSubmit)="onUpdate(updateServiceDetailForm)">
+            <div class="container">
+              <div class="panel-body inf-content">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div align="center">
+                      <div class="table-responsive">
+                        <table class="table ">
+                          <tbody class="table-user-information">
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Service Name
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <input type="text" name="name" ngModel="{{ serviceDetail?.name | uppercase }}" class="form-control" placeholder="name..">
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    isAvailable?
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <div class="form-check">
+                                    <input class="form-check-input"
+                                      [checked]="serviceDetail?.isAvailable"
+                                      type="radio" name="isAvailable"
+                                      id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                      {{ serviceDetail?.isAvailable }}
+                                    </label>
+                                    <br>
+                                    <input class="form-check-input"
+                                      [checked]="!serviceDetail?.isAvailable"
+                                      type="radio"
+                                      name="isAvailable"
+                                      id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                      {{ !serviceDetail?.isAvailable }}
+                                    </label>
+                                  </div>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Duration<span class="badge text-dark">(min)</span>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <input type="number" name="duration" [ngModel]="serviceDetail?.duration"
+                                    class="form-control" placeholder="duration..">
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Price Unit<span class="badge text-dark">(DT)</span>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <input type="number" name="priceUnit" [ngModel]="serviceDetail?.priceUnit"
+                                    class="form-control" placeholder="price..">
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Description
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <textarea type="number" name="description" [ngModel]="serviceDetail?.description" rows="4"
+                                    class="form-control" placeholder="description.."></textarea>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Category
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <div class="form-group">
+                                    <select ngModel name="categoryId" class="form-select" aria-label="Default select example">
+                                      <option *ngFor="let c of categories" value="{{ c?.name | uppercase }}" 
+                                          [value]="c?.id"
+                                          [selected]="c?.id === serviceDetail?.category?.id" >
+                                        {{ c?.name | uppercase }}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </span>
+                              </td>
+                            </tr>
+                            <span class=""></span>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <span>
+                <button type="button" onclick="document.getElementById('updateServiceDetail')?.click()"
+                  id="updateServiceDetail-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </span>
+              <span>
+                <button type="submit" onclick="document.getElementById('updateServiceDetail')?.click()"
+                  [disabled]="updateServiceDetailForm.invalid" class="btn btn-info">Update</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
 
 
 

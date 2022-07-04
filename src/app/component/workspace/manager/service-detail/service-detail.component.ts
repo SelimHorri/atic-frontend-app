@@ -1,9 +1,12 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Category } from 'src/app/model/category';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { ServiceDetail } from 'src/app/model/service-detail';
 import { ToastrMsg } from 'src/app/model/toastr-msg';
+import { CategoryService } from 'src/app/service/category.service';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ManagerServiceDetailService } from 'src/app/service/employee/manager/manager-service-detail.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
@@ -18,9 +21,12 @@ export class ServiceDetailComponent implements OnInit {
   
   public accountUrl!: string;
   public serviceDetails!: PageResponse;
+  public serviceDetail!: ServiceDetail;
+  public categories: Category[] = [];
   
   constructor(private credentialService: CredentialService,
     private managerServiceDetailService: ManagerServiceDetailService,
+    private categoryService: CategoryService,
     private notificationService: NotificationService,
     private errorHandlerService: ErrorHandlerService) {}
 
@@ -39,8 +45,20 @@ export class ServiceDetailComponent implements OnInit {
     });
   }
   
-  public onUpdate(serviceDetail: ServiceDetail): void {
-
+  public onDisplayUpdate(serviceDetail: ServiceDetail): void {
+    this.categoryService.findAllBySaloonId(serviceDetail?.category?.id).subscribe({
+      next: (categoryPayload: any) => {
+        this.onOpenModal('updateServiceDetail');
+        this.serviceDetail = serviceDetail;
+        this.categories = categoryPayload?.responseBody?.content;
+      },
+      error: (errorResponse: HttpErrorResponse) =>
+        this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  
+  public onUpdate(ngForm: NgForm): void {
+    console.log(JSON.stringify(ngForm.value));
   }
 
   public onDelete(serviceDetailId: number): void {
