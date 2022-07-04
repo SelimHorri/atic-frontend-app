@@ -51,6 +51,32 @@ export class ManagerWorkerAssignmentService {
     }));
   }
   
+  public searchAllLikeKey(workerId: number, key: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${workerId}/search/${key}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((payload: any) => {
+      payload.responseBody.manager.birthdate = moment(payload?.responseBody?.manager?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
+      payload.responseBody.manager.hiredate = moment(payload?.responseBody?.manager?.hiredate, DateBackendFormat.LOCAL_DATE).toDate();
+      payload.responseBody.manager.saloon.openingDate = moment(payload?.responseBody?.manager?.saloon?.openingDate, DateBackendFormat.LOCAL_DATE).toDate();
+      payload?.responseBody?.tasks?.content?.map((t: Task) => {
+        t.taskDate = moment(t?.taskDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        t.startDate = moment(t?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        t.endDate = moment(t?.endDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        t.worker.birthdate = moment(t?.worker?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
+        t.worker.hiredate = moment(t?.worker?.hiredate, DateBackendFormat.LOCAL_DATE).toDate();
+        t.reservation.startDate = moment(t?.reservation?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        t.reservation.cancelDate = (!t?.reservation?.cancelDate) ?
+          t?.reservation?.cancelDate : moment(t?.reservation?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        t.reservation.completeDate = (!t?.reservation?.completeDate) ?
+          t?.reservation?.completeDate : moment(t?.reservation?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      });
+      return payload;
+    }));
+  }
+  
   
   
 }

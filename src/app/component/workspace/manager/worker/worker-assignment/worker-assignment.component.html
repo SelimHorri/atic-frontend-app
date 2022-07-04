@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-12">
         <div>
-          <form #searchForm="ngForm">
+          <form #searchForm="ngForm" (ngSubmit)="onSearchAllLikeKey(key.value)">
             <div class="container input-group">
               <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" id="key" type="search"
                 class="form-control" placeholder="Search..">
@@ -135,35 +135,6 @@
       </div>
     </div>
   </div>
-  
-  
-  
-  
-  
-  
-  <div class="modal fade" id="assignReservation" tabindex="-1" role="dialog" aria-labelledby="assignReservationModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg " role="document">
-      <div class="modal-content card">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Assign new Reservation</h5>
-          <button onclick="document.getElementById('assignReservation').click()" type="button" class="close"
-            data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body card-body">
-          <form #assignReservationForm="ngForm" (ngSubmit)="onAssignReservation(assignReservationForm)">
-            <div class="modal-footer">
-              <button type="button" onclick="document.getElementById('assignReservation').click()" id="assignReservation-form"
-                class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  
   
   
   

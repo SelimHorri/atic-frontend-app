@@ -95,7 +95,7 @@ export class ReservationComponent implements OnInit {
         error: (errorResponse: HttpErrorResponse) =>
           this.errorHandlerService.extractExceptionMsg(errorResponse)
       });
-  } 
+  }
 
   public onNavigatePagination(offset?: number): string | void {
     this.activatedRoute.queryParams.subscribe({
