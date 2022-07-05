@@ -2,6 +2,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { Reservation } from 'src/app/model/reservation';
 import { PageResponse } from 'src/app/model/response/page/page-response';
@@ -15,7 +16,7 @@ import { SaloonService } from 'src/app/service/saloon.service';
 import { TaskService } from 'src/app/service/task.service';
 
 @Component({
-  selector: 'app-reservation',
+  selector: 'app-customer-reservation',
   templateUrl: './reservation.component.html',
   styleUrls: ['./reservation.component.scss']
 })
@@ -56,7 +57,7 @@ export class ReservationComponent implements OnInit {
         if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1 || q?.size as number < 1)
           this.router.navigateByUrl(`/workspace/${this.accountUrl}/reservations?offset=1`);
         else
-          this.customerReservationService.getReservations(new ClientPageRequest(q?.offset, q?.size)).subscribe({
+          this.customerReservationService.getReservations(new ClientPageRequest(q?.offset, q?.size, ['startDate', 'createdAt'], 'desc')).subscribe({
             next: (customerReservationPayload: any) => {
               this.reservations = customerReservationPayload?.responseBody?.reservations;
               this.pages = new Array<number>(this.reservations?.totalPages);
@@ -67,6 +68,18 @@ export class ReservationComponent implements OnInit {
           });
       }
     });
+  }
+  
+  public onSearchAllByKey(key: string): void {
+    if (key?.trim() !== '')
+      this.customerReservationService.searchAllByKey(key).subscribe({
+        next: (payload: any) => {
+          this.reservations = payload?.responseBody?.reservations;
+          this.pages = new Array<number>(this.reservations?.totalPages);
+        },
+        error: (errorResponse: HttpErrorResponse) =>
+          this.errorHandlerService.extractExceptionMsg(errorResponse)
+      });
   }
   
   public findAllTasksByReservationId(reservationId: number): void {
@@ -87,12 +100,14 @@ export class ReservationComponent implements OnInit {
   
   public searchBy(key: string): void {
     const res: Reservation[] = [];
-    this.reservations?.content.forEach(r => {
+    this.reservations?.content.forEach((r: Reservation) => {
       if (`REF-${r?.code}`.toLowerCase().indexOf(key.toLowerCase()) !== -1
-          || r.startDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
-          || r.cancelDate.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || r?.saloon?.name.toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.startDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.cancelDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.completeDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           // || r.description.toLowerCase().indexOf(key.toLowerCase()) !== -1
-          || r.status.toLowerCase().indexOf(key.toLowerCase()) !== -1)
+          || r?.status.toLowerCase().indexOf(key.toLowerCase()) !== -1)
         res.push(r);
     });
     

@@ -9,7 +9,7 @@ import { EmployeeService } from 'src/app/service/employee.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 
 @Component({
-  selector: 'app-rating',
+  selector: 'app-customer-rating',
   templateUrl: './rating.component.html',
   styleUrls: ['./rating.component.scss']
 })

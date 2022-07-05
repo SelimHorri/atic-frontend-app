@@ -20,11 +20,10 @@ import { CustomerReservationService } from 'src/app/service/customer/customer-re
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { OrderedDetailService } from 'src/app/service/ordered-detail.service';
-import { ReservationService } from 'src/app/service/reservation.service';
 import { ServiceDetailService } from 'src/app/service/service-detail.service';
 
 @Component({
-  selector: 'app-reservation-details',
+  selector: 'app-customer-reservation-details',
   templateUrl: './reservation-details.component.html',
   styleUrls: ['./reservation-details.component.scss']
 })
@@ -38,7 +37,6 @@ export class ReservationDetailsComponent implements OnInit {
   
   constructor(private customerReservationDetailService: CustomerReservationDetailService,
     private customerReservationService: CustomerReservationService,
-    private reservationService: ReservationService,
     private credentialService: CredentialService,
     private serviceDetailService: ServiceDetailService,
     private orderedDetailService: OrderedDetailService,
@@ -105,7 +103,7 @@ export class ReservationDetailsComponent implements OnInit {
     if (this.orderedServiceDetails?.serviceDetails?.content?.length > 1)
       this.orderedDetailService.deleteOrderedServiceDetail(new OrderedDetailId(reservationId, serviceDetailId)).subscribe({
         // next: (responsePayload: any) => (responsePayload?.responseBody) ? this.getOrderedServiceDetails() : alert("Unable to remove service"),
-        next: (responsePayload: any) => (responsePayload?.responseBody) ? window.location.reload() : alert("Unable to remove service"),
+        next: (responsePayload: any) => (responsePayload?.responseBody) ? this.getOrderedServiceDetails() : alert("Unable to remove service"),
         error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
       });
     else {

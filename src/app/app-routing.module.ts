@@ -32,6 +32,16 @@ import { LocationComponent } from './component/location/location.component';
 import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-detail.component';
 import { SaloonCalendarComponent } from './component/saloon/saloon-calendar/saloon-calendar/saloon-calendar.component';
 import { SaloonDetailGuard } from './guard/saloon-detail.guard';
+import { ReservationComponent as WorkerReservationComponent } from './component/workspace/worker/reservation/reservation.component';
+import { ReservationCalendarComponent as WorkerReservationCalendarComponent } from './component/workspace/worker/reservation/reservation-calendar/reservation-calendar.component';
+import { ReservationDetailsComponent as WorkerReservationDetailsComponent } from './component/workspace/worker/reservation/reservation-details/reservation-details.component';
+import { ReservationComponent as ManagerReservationComponent } from './component/workspace/manager/reservation/reservation.component';
+import { ReservationCalendarComponent as ManagerReservationCalendarComponent } from './component/workspace/manager/reservation/reservation-calendar/reservation-calendar.component';
+import { ReservationDetailComponent as ManagerReservationDetailComponent } from './component/workspace/manager/reservation/reservation-detail/reservation-detail.component';
+import { WorkerComponent as ManagerWorkerComponent } from './component/workspace/manager/worker/worker.component';
+import { WorkerAssignmentComponent as ManagerWorkerAssignmentComponent } from './component/workspace/manager/worker/worker-assignment/worker-assignment.component';
+import { CategoryComponent as ManagerCategoryComponent } from './component/workspace/manager/category/category.component';
+import { ServiceDetailComponent as ManagerServiceDetailComponent } from './component/workspace/manager/service-detail/service-detail.component';
 
 const routes: Routes = [
   
@@ -78,6 +88,9 @@ const routes: Routes = [
           { path: "", component: WorkerIndexComponent },
           { path: "index", redirectTo: "" },
           { path: "profile", component: WorkerProfileComponent },
+          { path: "reservations", component: WorkerReservationComponent },
+          { path: "reservations/calendar", component: WorkerReservationCalendarComponent },
+          { path: "reservations/:reservationId", component: WorkerReservationDetailsComponent },
         ]
       },
       {
@@ -87,6 +100,13 @@ const routes: Routes = [
           { path: "", component: ManagerIndexComponent },
           { path: "index", redirectTo: "" },
           { path: "profile", component: ManagerProfileComponent },
+          { path: "reservations", component: ManagerReservationComponent },
+          { path: "reservations/calendar", component: ManagerReservationCalendarComponent },
+          { path: "reservations/:reservationId", component: ManagerReservationDetailComponent },
+          { path: "workers", component: ManagerWorkerComponent },
+          { path: "workers/assignments/:workerId", component: ManagerWorkerAssignmentComponent },
+          { path: "categories", component: ManagerCategoryComponent },
+          { path: "services", component: ManagerServiceDetailComponent },
         ]
       },
       {

@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { DateBackendFormat } from 'src/app/model/date-backend-format';
+import { Favourite } from 'src/app/model/favourite';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { environment } from 'src/environments/environment';
 
@@ -22,7 +23,9 @@ export class CustomerFavouriteService {
     return this.http.get<any>(`${this.apiUrl}`, {
       params: {
         offset: `${clientPageRequest?.offset}`,
-        size: `${clientPageRequest?.size}`
+        size: `${clientPageRequest?.size}`,
+        sortBy: `${clientPageRequest?.sortBy?.join(`,`)}`,
+        sortDirection: `${clientPageRequest?.sortDirection}`
       },
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
@@ -31,7 +34,7 @@ export class CustomerFavouriteService {
     })
       .pipe(map(res => {
         res.responseBody.customer.birthdate = new Date(res?.responseBody?.customer?.birthdate);
-        res?.responseBody?.favourites?.content?.map((f: any) =>
+        res?.responseBody?.favourites?.content?.map((f: Favourite) =>
           f.favouriteDate = moment(f?.favouriteDate, DateBackendFormat.LOCAL_DATE_TIME).toDate());
         return res;
       }));

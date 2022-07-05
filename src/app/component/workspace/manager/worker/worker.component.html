@@ -1,0 +1,248 @@
+
+<div *ngIf="managerWorkerInfoResponse">
+  <div class="container" id="main-container">
+    <div class="row">
+      <div class="col-md-9 col-sm-7">
+        <h2>Manage Workers</h2>
+      </div>
+      <div class="col-md-3 col-sm-5">
+        <form #searchForm="ngForm" role="form" class="search-form-full">
+          <div class="form-group">
+            <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" id="key" type="search"
+              class="form-control" name="s" id="search-input" placeholder="Search...">
+            <i class="entypo-search"></i>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div *ngFor="let w of managerWorkerInfoResponse?.subWorkers?.content" class="member-entry">
+      <a (click)="getWorkerInfo(w?.id)" href="javascript:void(0);" class="member-img">
+        <img src="https://bootdey.com/img/Content/avatar/avatar4.png" class="img-rounded">
+        <i class="fa fa-forward"></i>
+      </a>
+      <div class="member-details">
+        <h4>
+          <a (click)="getWorkerInfo(w?.id)" href="javascript:void(0);">
+            {{ w?.firstname?.substring(0, 1) | uppercase }}{{ w?.firstname?.substring(1) | lowercase }}
+            {{ w?.lastname | uppercase }}
+          </a>
+        </h4>
+        <div class="row info-list">
+          <div class="col-sm-4">
+            <i class="fa fa-briefcase"></i>
+            &nbsp;<span class="text-muted"> Role occupied as</span> {{ w?.credential?.role | uppercase }}
+          </div>
+          <div class="col-sm-4">
+            <i class="fa fa-briefcase"></i>
+            &nbsp;<span class="">{{ w?.hiredate | date: 'dd-MMM-yyyy' }}</span><br>
+            &nbsp;<span class="text-muted">{{ w?.hiredate | date: 'MMMM yyyy' }}</span>
+          </div>
+          <div class="col-sm-4">
+            <i class="fa fa-phone"></i>
+            &nbsp;{{ w?.phone | lowercase }}
+          </div>
+          <div class="col-sm-4">
+            <i class="fa fa-birthday-cake"></i>
+            &nbsp;<span class="">{{ w?.birthdate | date: 'dd-MMM-yyyy' }}</span><br>
+            &nbsp;<span class="text-muted">{{ w?.birthdate | date: 'MMMM yyyy' }}</span>
+          </div>
+          <div class="clear"></div>
+          <div class="col-sm-4">
+            <i class="fa fa-location"></i>
+          </div>
+          <div class="col-sm-4">
+            <i class="fa fa-envelope"></i>
+            &nbsp;{{ w?.email | lowercase }}
+          </div>
+          <div class="col-sm-4">
+            <a routerLink="/workspace/{{ accountUrl }}/workers/assignments/{{ w?.id }}"
+              class="btn btn-outline-warning text-dark">Checkout assignments!</a>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-outline-info text-dark btn-circle btn-lg btn-circle ml-2"><i
+          class="fa fa-edit"></i> </button>
+      <button type="button" class="btn btn-outline-danger btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i>
+      </button>
+    </div>
+  </div>
+  
+  
+  
+  <div class="modal fade" id="workerInfo" tabindex="-1" role="dialog" aria-labelledby="workerInfoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl " role="document">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Worker Informations</h5>
+          <button onclick="document.getElementById('workerInfo').click()" type="button" class="close"
+            data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body card-body">
+          <form #workerInfoForm="ngForm">
+            <div class="container">
+              <div class="panel-body inf-content">
+                <div class="row">
+                  <div class="col-md-4">
+                    <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip"
+                      src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
+                    <ul title="Ratings" class="list-inline ratings text-center">
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <h4><strong>Information</strong></h4><br>
+                    <div class="table-responsive">
+                      <table class="table table-user-information">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                                OCCUPATION
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.credential?.role | uppercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-user text-primary"></span>
+                                FIRSTNAME
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.firstname?.substring(0, 1) | uppercase }}{{ workerInfo?.firstname?.substring(1) | lowercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-cloud text-primary"></span>
+                                LASTNAME
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.lastname | uppercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-bookmark text-primary"></span>
+                                BIRTHDATE
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.birthdate | date: 'dd-MMM-yyyy' }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-eye-open text-primary"></span>
+                                HIREDATE
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.hiredate | date: 'dd-MMM-yyyy' }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-envelope text-primary"></span>
+                                EMAIL
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.email | lowercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                PHONE NUMBER
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.phone | lowercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                FACILITY
+                              </strong>
+                            </td>
+                            <td class="">
+                              <a routerLink="/saloons/{{ workerInfo?.saloon?.id }}">
+                                <span>{{ workerInfo?.saloon?.name | uppercase }}</span>
+                                <span
+                                  class="badge text-muted">#{{ workerInfo?.saloon?.code?.substring(0, 8) | uppercase }}</span>
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                RATING AVEREGE
+                              </strong>
+                            </td>
+                            <td class="">
+                              ---
+                            </td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td>
+                              <br>
+                              <span class="">
+                                <a class="btn btn-info text-dark"
+                                    onclick="document.getElementById('workerInfo')?.click()"
+                                    routerLink="/workspace/{{ accountUrl }}/workers/assignments/{{ workerInfo?.id }}">
+                                  Checkout Assigned Reservations
+                                </a>
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" onclick="document.getElementById('workerInfo').click()" id="workerInfo-form"
+                class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+
+
+

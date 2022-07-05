@@ -22,9 +22,6 @@ export class CustomerReservationService {
   }
   
   public getReservations(clientPageRequest: ClientPageRequest): Observable<any> {
-    clientPageRequest.sortBy?.push("startDate");
-    clientPageRequest.sortBy?.push("cancelDate");
-    clientPageRequest.sortDirection = "desc";
     return this.http.get<any>(`${this.apiUrl}`, {
       params: {
         offset: `${clientPageRequest.offset}`,
@@ -38,9 +35,27 @@ export class CustomerReservationService {
       }
     }).pipe(map((payload: any) => {
       payload.responseBody.customer.birthdate = new Date(payload?.responseBody?.customer?.birthdate);
-      payload?.responseBody?.reservations?.content?.map((r: any) => {
+      payload?.responseBody?.reservations?.content?.map((r: Reservation) => {
         r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.completeDate = moment(r?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      });
+      return payload;
+    }));
+  }
+  
+  public searchAllByKey(key: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/search/${key.toLowerCase()}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((payload: any) => {
+      payload.responseBody.customer.birthdate = moment(payload?.responseBody?.customer?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
+      payload.responseBody.reservations?.content?.map((r: Reservation) => {
+        r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.completeDate = moment(r?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       });
       return payload;
     }));
@@ -56,16 +71,8 @@ export class CustomerReservationService {
     .pipe(map((payload: any) => {
       payload.responseBody.startDate = moment(payload?.responseBody?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
       payload.responseBody.cancelDate = moment(payload?.responseBody?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.completeDate = moment(payload?.responseBody?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
     }));
-  }
-  
-  public getCompletedReservations(reservations: Reservation[]): Reservation[] {
-    return reservations?.filter(r => r?.status === ReservationStatus.COMPLETED);
-  }
-
-  public getPendingReservations(reservations: Reservation[]): Reservation[] {
-    return reservations?.filter(r => r?.status === ReservationStatus.NOT_STARTED
-      || r?.status === ReservationStatus.IN_PROGRESS);
   }
   
   public createReservation(reservationRequest: ReservationRequest): Observable<any> {
@@ -75,6 +82,15 @@ export class CustomerReservationService {
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
     });
+  }
+  
+  public getCompletedReservations(reservations: Reservation[]): Reservation[] {
+    return reservations?.filter(r => r?.status === ReservationStatus.COMPLETED);
+  }
+
+  public getPendingReservations(reservations: Reservation[]): Reservation[] {
+    return reservations?.filter(r => r?.status === ReservationStatus.NOT_STARTED
+      || r?.status === ReservationStatus.IN_PROGRESS);
   }
   
   

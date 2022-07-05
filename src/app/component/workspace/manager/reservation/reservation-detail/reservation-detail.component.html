@@ -1,0 +1,407 @@
+
+<div *ngIf="reservationDetails">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
+  <div class="container main-container" id="main-container">
+    <div class="contentbar">
+      <!-- Start row -->
+      <div class="row">
+        <!-- Start col -->
+        <div class="col-md-12 col-lg-12 col-xl-12">
+          <div class="card m-b-30">
+            <div class="card-header">
+              <h5 class="card-title">Reservation: <span class="text-success">
+                  <u class="text-success">REF-{{ reservationDetails?.reservation?.code?.substring(0, 8) }}</u>
+                  &nbsp;&nbsp;
+                  <span *ngIf="reservationDetails?.reservation?.status === 'NOT_STARTED'"
+                    class="badge bg-danger font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                    {{ reservationDetails?.reservation?.status }}</span>
+                  <span *ngIf="reservationDetails?.reservation?.status === 'IN_PROGRESS'"
+                    class="badge bg-primary font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                    {{ reservationDetails?.reservation?.status }}</span>
+                  <span *ngIf="reservationDetails?.reservation?.status === 'COMPLETED'"
+                    class="badge bg-success font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                    {{ reservationDetails?.reservation?.status }}</span>
+                  <span *ngIf="reservationDetails?.reservation?.status === 'CANCELLED'"
+                    class="badge bg-warning font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                    {{ reservationDetails?.reservation?.status }}</span>
+                  <span *ngIf="reservationDetails?.reservation?.status === 'OUTDATED'" class="text-danger badge bg-dark font-25"><i
+                      class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                    <s>{{ reservationDetails?.reservation?.status }}</s></span></span>
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="row justify-content-center">
+                <div class="col-lg-10 col-xl-12">
+                  <div class="cart-container">
+                    <div class="cart-head">
+                      <div class="table-responsive"
+                        *ngIf="orderedServiceDetails?.serviceDetails?.content?.length !== 0">
+                        <table class="table table-borderless">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Service</th>
+                              <th scope="col">Description</th>
+                              <th scope="col">isAvailable?</th>
+                              <th scope="col">Duration</th>
+                              <th scope="col">Price</th>
+                              <!-- <th scope="col">Category</th> -->
+                              <th scope="col" class="text-right">Total</th>
+                            </tr>
+                          </thead>
+                          <tbody *ngFor="let s of orderedServiceDetails?.serviceDetails?.content">
+                            <tr>
+                              <th scope="row">#</th>
+                              <td>{{ s?.name | uppercase }}</td>
+                              <td
+                                *ngIf="s?.description === null || s?.description === undefined || s?.description === ''">
+                                <img
+                                  src="https://themesbox.in/admin-templates/olian/html/light-vertical/assets/images/ecommerce/product_01.svg"
+                                  class="img-fluid" width="35" alt="product">
+                              </td>
+                              <td
+                                *ngIf="s?.description !== null && s?.description !== undefined && s?.description !== ''">
+                                {{ s?.description }}
+                              </td>
+                              <td>{{ s?.isAvailable }}</td>
+                              <td>{{ s?.duration }} min</td>
+                              <td>{{ s?.priceUnit }} DT</td>
+                              <td class="text-right">{{ s?.priceUnit }} DT</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="row ">
+                      <div class="cart-body">
+                        <div class="row ">
+                          <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6 ">
+                            <div align="center">
+                              <table id="mytask" class="table table-hover text-center">
+                                <thead>
+                                  <tr>
+                                    <th>Begin date</th>
+                                    <th>End date</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>
+                                      <span *ngIf="!reservationBeginEndTaskResponse?.taskBegin">
+                                        -
+                                      </span>
+                                      <span *ngIf="reservationBeginEndTaskResponse?.taskBegin">
+                                        <a (click)="findWorkerInfoById(reservationBeginEndTaskResponse.taskBegin.workerId)"
+                                          href="javascript:void(0);">
+                                          {{ reservationBeginEndTaskResponse?.taskBegin?.startDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                        </a>
+                                      </span>
+                                    </td>
+                                    <td>
+                                      <span *ngIf="!reservationBeginEndTaskResponse?.taskEnd">
+                                        <a (click)="findWorkerInfoById(reservationBeginEndTaskResponse.taskEnd.workerId)"
+                                          href="javascript:void(0);">
+                                          {{ reservationBeginEndTaskResponse?.taskEnd?.endDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                        </a>
+                                      </span>
+                                      <span *ngIf="reservationBeginEndTaskResponse?.taskEnd">
+                                        <a (click)="findWorkerInfoById(reservationBeginEndTaskResponse.taskEnd.workerId)"
+                                          href="javascript:void(0);">
+                                          {{ reservationBeginEndTaskResponse?.taskEnd?.endDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                        </a>
+                                      </span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div class="order-note">
+                              <div class="" *ngIf="(reservationDetails?.reservation?.status === 'NOT_STARTED'
+                                  || reservationDetails?.reservation?.status === 'IN_PROGRESS')
+                                  && reservationSubWorkerResponse.subWorkers.content.length !== 0">
+                                <br>
+                                <form #assignWorkerForm="ngForm" (ngSubmit)="onAssignWorker(assignWorkerForm)">
+                                  <div class="form-group">
+                                    <label for="workersSwitches">
+                                      <h5><u>Assign workers</u><!-- <span class="badge text-danger">*</span> --></h5>
+                                    </label>
+                                    <div>
+                                      <div *ngFor="let item of reservationSubWorkerResponse?.subWorkers?.content"
+                                        id="workersSwitches" class="form-check form-switch">
+                                        <input name="subWorkers" ngModel [value]="item?.id"
+                                          (change)="onCheckWorker($event)" class="form-check-input" type="checkbox"
+                                          id="flexSwitchCheckDefault"
+                                          [required]="reservationAssignWorkerRequest.assignedWorkersIds.length <= 0" />
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">
+                                          {{ item?.firstname?.substring(0, 1) | uppercase }}{{ item?.firstname?.substring(1) | lowercase }}
+                                          {{ item?.lastname | uppercase }}
+                                        </label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="footer text-left">
+                                    <button 
+                                      [disabled]="assignWorkerForm.invalid" type="submit"
+                                      class="btn btn-primary">&nbsp;&nbsp;Assign&nbsp;&nbsp;</button> &nbsp;&nbsp;&nbsp;|
+                                    <a routerLink=""
+                                      class="btn text-primary ">Detailed Assignment?</a>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12 order-1 order-lg-2 col-lg-7 col-xl-6 ">
+                            <div align="center">
+                              <div align="left" id="myReservationDetails" class="order-note">
+                                <div class="form-group">
+                                  <label for="specialNotes">Special Customer Notes (eg.. expected duration)</label>
+                                  <textarea name="description" [ngModel]="reservationDetails?.reservation?.description"
+                                    class="form-control" rows="2" id="specialNotes" placeholder="-" disabled></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="order-total table-responsive ">
+                              <table class="table table-borderless text-right">
+                                <tbody>
+                                  <tr>
+                                    <td>Reference :</td>
+                                    <td><u>REF-{{ reservationDetails?.reservation?.code?.substring(0, 8) }}</u></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Requested time :</td>
+                                    <td>{{ reservationDetails?.reservation?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Expected duration :</td>
+                                    <td>{{ calculateTotalDuration() }} min</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Status :</td>
+                                    <td>{{ reservationDetails?.reservation?.status | uppercase }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="f-w-7 font-18">
+                                      <h4>Amount :</h4>
+                                    </td>
+                                    <td class="f-w-7 font-18">
+                                      <h4>{{ calculateTotalAmount() }} DT</h4>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cart-footer text-right">&nbsp;&nbsp;|&nbsp;
+                        <a routerLink="/workspace/{{ accountUrl }}/reservations" class="btn text-dark my-1">Checkout
+                          assigned
+                          reservations<i class="ri-arrow-right-line ml-2"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End col -->
+      </div>
+      <!-- End row -->
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="workerInfo" tabindex="-1" role="dialog" aria-labelledby="workerInfoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl " role="document">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Worker Informations</h5>
+          <button onclick="document.getElementById('workerInfo').click()" type="button" class="close"
+            data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body card-body">
+          <form #workerInfoForm="ngForm">
+            <div class="container bootstrap snippets bootdey">
+              <div class="panel-body inf-content">
+                <div class="row">
+                  <div class="col-md-4">
+                    <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip"
+                      src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
+                    <ul title="Ratings" class="list-inline ratings text-center">
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <h4><strong>Information</strong></h4><br>
+                    <div class="table-responsive">
+                      <table class="table table-user-information">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                                OCCUPATION
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.credential?.role | uppercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-user text-primary"></span>
+                                FIRSTNAME
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.firstname?.substring(0, 1) | uppercase }}{{ workerInfo?.firstname?.substring(1) | lowercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-cloud text-primary"></span>
+                                LASTNAME
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.lastname | uppercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-bookmark text-primary"></span>
+                                BIRTHDATE
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.birthdate | date: 'dd-MMM-yyyy' }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-eye-open text-primary"></span>
+                                HIREDATE
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.hiredate | date: 'dd-MMM-yyyy' }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-envelope text-primary"></span>
+                                EMAIL
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.email | lowercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                PHONE NUMBER
+                              </strong>
+                            </td>
+                            <td class="">
+                              <span>{{ workerInfo?.phone | lowercase }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                FACILITY
+                              </strong>
+                            </td>
+                            <td class="">
+                              <a routerLink="/saloons/{{ workerInfo?.saloon?.id }}">
+                                <span>{{ workerInfo?.saloon?.name | uppercase }}</span>
+                                <span class="badge text-muted">#{{ workerInfo?.saloon?.code?.substring(0, 8) | uppercase }}</span>
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>
+                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                RATING AVEREGE
+                              </strong>
+                            </td>
+                            <td class="">
+                              ---
+                            </td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td>
+                              <br>
+                              <span class="">
+                                <a class="btn btn-info text-dark"
+                                    onclick="document.getElementById('workerInfo')?.click()"
+                                    routerLink="/workspace/{{ accountUrl }}/workers/assignments/{{ workerInfo?.id }}">
+                                  Checkout Assigned Reservations
+                                </a>
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" onclick="document.getElementById('workerInfo').click()" id="workerInfo-form"
+                class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="assignWorker" tabindex="-1" role="dialog" aria-labelledby="assignWorkerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Assign Worker</h5>
+          <button onclick="document.getElementById('assignWorker').click()" type="button" class="close"
+            data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body card-body">
+          <form #assignWorkerForm="ngForm">
+            
+            <div class="modal-footer">
+              <button type="button" onclick="document.getElementById('assignWorker').click()" id="assignWorker-form"
+                class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

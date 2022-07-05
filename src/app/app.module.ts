@@ -15,21 +15,21 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { ContactComponent } from './component/contact/contact.component';
 import { AboutComponent } from './component/about/about.component';
 import { TagService } from './service/tag.service';
-import { IndexComponent } from './component/workspace/customer/index/index.component';
-import { ProfileComponent } from './component/workspace/customer/profile/profile.component';
+import { IndexComponent as CustomerIndexComponent } from './component/workspace/customer/index/index.component';
+import { ProfileComponent as CustomerProfileComponent } from './component/workspace/customer/profile/profile.component';
 import { LogoutComponent } from './component/logout/logout.component';
 import { CredentialService } from './service/credential.service';
 import { ErrorHandlerService } from './service/error-handler.service';
 import { CustomerService } from './service/customer.service';
-import { FavouriteComponent } from './component/workspace/customer/favourite/favourite.component';
-import { RatingComponent } from './component/workspace/customer/rating/rating.component';
-import { ReservationComponent } from './component/workspace/customer/reservation/reservation.component';
+import { FavouriteComponent as CustomerFavouriteComponent } from './component/workspace/customer/favourite/favourite.component';
+import { RatingComponent as CustomerRatingComponent } from './component/workspace/customer/rating/rating.component';
+import { ReservationComponent as CustomerReservationComponent } from './component/workspace/customer/reservation/reservation.component';
 import { ReservationService } from './service/reservation.service';
 import { SaloonService } from './service/saloon.service';
 import { DatePipe } from '@angular/common';
 import { TaskService } from './service/task.service';
-import { ReservationDetailsComponent } from './component/workspace/customer/reservation/reservation-details/reservation-details.component';
-import { AssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
+import { ReservationDetailsComponent as CustomerReservationDetailsComponent } from './component/workspace/customer/reservation/reservation-details/reservation-details.component';
+import { AssignedWorkerComponent as CustomerAssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
 import { ServiceDetailService } from './service/service-detail.service';
 import { OrderedDetailService } from './service/ordered-detail.service';
 import { HealthLivenessService } from './service/health-liveness.service';
@@ -48,6 +48,28 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { IndexComponent as WorkerIndexComponent } from './component/workspace/worker/index/index.component';
+import { ProfileComponent as WorkerProfileComponent } from './component/workspace/worker/profile/profile.component';
+import { ReservationComponent as WorkerReservationComponent } from './component/workspace/worker/reservation/reservation.component';
+import { ReservationCalendarComponent as WorkerReservationCalendarComponent } from './component/workspace/worker/reservation/reservation-calendar/reservation-calendar.component';
+import { WorkerReservationService } from './service/employee/worker/worker-reservation.service';
+import { ReservationDetailsComponent as WorkerReservationDetailsComponent } from './component/workspace/worker/reservation/reservation-details/reservation-details.component';
+import { WorkerProfileService } from './service/employee/worker/worker-profile.service';
+import { WorkerReservationDetailService } from './service/employee/worker/worker-reservation-detail.service';
+import { WorkerReservationTaskService } from './service/employee/worker/worker-reservation-task.service';
+import { ManagerProfileService } from './service/employee/manager/manager-profile.service';
+import { ProfileComponent as ManagerProfileComponent } from './component/workspace/manager/profile/profile.component';
+import { IndexComponent as ManagerIndexComponent } from './component/workspace/manager/index/index.component';
+import { IndexComponent as OwnerIndexComponent } from './component/workspace/owner/index/index.component';
+import { ProfileComponent as OwnerProfileComponent } from './component/workspace/owner/profile/profile.component';
+import { ReservationComponent as ManagerReservationComponent } from './component/workspace/manager/reservation/reservation.component';
+import { ReservationCalendarComponent as ManagerReservationCalendarComponent } from './component/workspace/manager/reservation/reservation-calendar/reservation-calendar.component';
+import { ReservationDetailComponent as ManagerReservationDetailComponent } from './component/workspace/manager/reservation/reservation-detail/reservation-detail.component';
+import { WorkerComponent as ManagerWorkerComponent } from './component/workspace/manager/worker/worker.component';
+import { ManagerReservationDetailService } from './service/employee/manager/manager-reservation-detail.service';
+import { WorkerAssignmentComponent as ManagerWorkerAssignmentComponent } from './component/workspace/manager/worker/worker-assignment/worker-assignment.component';
+import { CategoryComponent as ManagerCategoryComponent } from './component/workspace/manager/category/category.component';
+import { ServiceDetailComponent as ManagerServiceDetailComponent } from './component/workspace/manager/service-detail/service-detail.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   timeGridPlugin,
@@ -65,18 +87,35 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NavbarComponent,
     ContactComponent,
     AboutComponent,
-    IndexComponent,
-    ProfileComponent,
+    CustomerIndexComponent,
+    CustomerProfileComponent,
     LogoutComponent,
-    FavouriteComponent,
-    RatingComponent,
-    ReservationComponent,
-    ReservationDetailsComponent,
-    AssignedWorkerComponent,
+    CustomerFavouriteComponent,
+    CustomerRatingComponent,
+    CustomerReservationComponent,
+    CustomerReservationDetailsComponent,
+    CustomerAssignedWorkerComponent,
     SaloonComponent,
     LocationComponent,
     SaloonDetailComponent,
     SaloonCalendarComponent,
+    WorkerIndexComponent,
+    WorkerProfileComponent,
+    WorkerReservationComponent,
+    WorkerReservationCalendarComponent,
+    WorkerReservationDetailsComponent,
+    ManagerIndexComponent,
+    ManagerProfileComponent,
+    ManagerReservationComponent,
+    ManagerReservationCalendarComponent,
+    ManagerReservationDetailComponent,
+    ManagerWorkerComponent,
+    ManagerWorkerAssignmentComponent,
+    ManagerCategoryComponent,
+    ManagerServiceDetailComponent,
+    
+    OwnerIndexComponent,
+    OwnerProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,7 +147,13 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     EmployeeService,
     ToastrService,
     NotificationService,
+    WorkerReservationService,
+    WorkerReservationDetailService,
+    WorkerProfileService,
+    WorkerReservationTaskService,
+    ManagerProfileService,
+    ManagerReservationDetailService,
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

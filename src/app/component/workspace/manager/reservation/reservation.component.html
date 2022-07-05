@@ -1,0 +1,388 @@
+
+<div *ngIf="managerReservationResponse">
+  <div class="container">
+    <div class="">
+      <div class="row">
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-pattern">
+            <div class="card-body">
+              <div class="float-right">
+                <i class="fa fa-archive text-primary h4 ml-3"></i>
+              </div>
+              <h5 class="font-size-20 mt-0 pt-1">{{ managerReservationResponse?.reservations?.totalElements }}</h5>
+              <p class="text-muted mb-0">Total Reservations</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-pattern">
+            <div class="card-body">
+              <div class="float-right">
+                <i class="fa fa-th text-primary h4 ml-3"></i>
+              </div>
+              <h5 class="font-size-20 mt-0 pt-1">{{ getCompletedReservations()?.length }}</h5>
+              <p class="text-muted mb-0">Completed Reservations</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-pattern">
+            <div class="card-body">
+              <div class="float-right">
+                <i class="fa fa-file text-primary h4 ml-3"></i>
+              </div>
+              <h5 class="font-size-20 mt-0 pt-1">{{ getPendingReservations()?.length }}</h5>
+              <p class="text-muted mb-0">Pending Reservations</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <form #ngForm="ngForm" (ngSubmit)="onSearchAllByKey(key.value)">
+                <div class="form-group mb-0">
+                  <label>Search</label>
+                  <div class="input-group mb-0">
+                    <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" id="key" type="search"
+                      class="form-control" placeholder="Press 'Enter'..." aria-describedby="project-search-addon" required />
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit" id="project-search-addon"><i
+                          class="fa fa-search search-icon font-12"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+
+      <div class="row" *ngIf="managerReservationResponse?.reservations?.content?.length !== 0">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <div>
+                <select ngModel #size="ngModel" (change)="onSelectPageSize(size?.value)"
+                  class="form-select form-select-sm" aria-label="form-select-sm .form-select-sm example">
+                  <option selected value="">Choose how much to display</option>
+                  <option value="2">1-2</option>
+                  <option value="5">1-5</option>
+                  <option value="10">1-10</option>
+                  <option value="20">1-20</option>
+                  <option value="50">1-50</option>
+                </select>
+              </div>
+              <br>
+              <div class="table-responsive project-list">
+                <table class="table table-hover project-table table-centered table-nowrap">
+                  <thead>
+                    <tr align="center">
+                      <th scope="col">#</th>
+                      <th scope="col">Customer</th>
+                      <th scope="col">Reservation code</th>
+                      <th scope="col"><a>Start Date</a></th>
+                      <th scope="col">Cancel Date</th>
+                      <th scope="col">Complete Date</th>
+                      <th scope="col">Status</th>
+                      <!-- <th scope="col">Assigned</th> -->
+                      <th scope="col">Description</th>
+                      <th scope="col">Assign</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let r of managerReservationResponse?.reservations?.content">
+                    <tr align="center">
+                      <td scope="col"><strong>#</strong></td>
+                      <td scope="col">
+                        {{ r?.customer?.firstname?.substring(0, 1) | uppercase }}{{ r?.customer?.firstname?.substring(1) | lowercase }}
+                        {{ r?.customer?.lastname | uppercase }}
+                      </td>
+                      <td><a
+                          routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>
+                      </td>
+                      <td>{{ r?.startDate | date: "dd-MMM-yyyy HH:mm" }}</td>
+                      <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MMM-yyyy HH:mm" }}</td>
+                      <td *ngIf="r?.status !== 'CANCELLED'.toUpperCase()">-</td>
+                      <td *ngIf="r?.status === 'COMPLETED'.toUpperCase()">{{ r?.completeDate | date: "dd-MMM-yyyy HH:mm" }}</td>
+                      <td *ngIf="r?.status !== 'COMPLETED'.toUpperCase()">-</td>
+                      <td>
+                        <span *ngIf="r?.status === 'NOT_STARTED'" class="badge rounded-pill bg-danger font-25"><i
+                            class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                          {{ r?.status }}</span>
+                        <span *ngIf="r?.status === 'IN_PROGRESS'" class="badge rounded-pill bg-primary font-25"><i
+                            class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                          {{ r?.status }}</span>
+                        <span *ngIf="r?.status === 'COMPLETED'" class="badge rounded-pill bg-success font-25"><i
+                            class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                          {{ r?.status }}</span>
+                        <span *ngIf="r?.status === 'CANCELLED'" class="badge rounded-pill bg-warning font-25"><i
+                            class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                          {{ r?.status }}</span>
+                        <span *ngIf="r?.status === 'OUTDATED'" class="badge rounded-pill bg-dark font-25"><i
+                            class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                          <s>{{ r?.status }}</s></span>
+                      </td>
+                      <td *ngIf="r?.description !== null && r?.description !== undefined">
+                        <p class="mb-0">{{ r?.description }}</p>
+                      </td>
+                      <td *ngIf="r?.description === null || r?.description === undefined">
+                        <p class="mb-0">-</p>
+                      </td>
+                      <td>
+                        <span *ngIf="r?.status === 'NOT_STARTED'.toUpperCase() || r?.status === 'IN_PROGRESS'.toUpperCase()">
+                          <a class="btn text-primary" (click)="onDisplayAssignReservation(r)" href="javascript:void(0);">
+                            <i class="ri-arrow-right-line ml-2"></i> Assign
+                          </a>
+                        </span>
+                      </td>
+                      <td>
+                        <div
+                          *ngIf="r?.status === 'NOT_STARTED'.toUpperCase() || r?.status === 'IN_PROGRESS'.toUpperCase()"
+                          class="action">
+                          <!--
+                            <a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}"
+                              class="text-success mr-4" data-toggle="tooltip" data-placement="top" title=""
+                              data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                          -->
+                          <a (click)="cancelReservation(r?.id)" href="javascript:void(0);" class="text-danger"
+                            data-toggle="tooltip" data-placement="top" title="" data-original-title="Close">
+                            <i class="fa fa-remove h5 m-0"></i>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- end project-list -->
+              <div class="pt-3">
+                <ul class="pagination justify-content-end mb-0">
+                  <li class="page-item {{ (managerReservationResponse?.reservations?.first) ? 'disabled' : '' }}">
+                    <a class="page-link" (click)="onNavigatePagination(managerReservationResponse.reservations.number)"
+                      href="javascript:void(0);"
+                      tabindex="-1" aria-disabled="true">Previous</a>
+                  </li>
+                  <li *ngFor="let p of pages; let i = index"
+                    class="page-item {{ (managerReservationResponse.reservations.number === i) ? 'active' : '' }}">
+                    <a class="page-link" href="javascript:void(0);"
+                      (click)="onNavigatePagination(i + 1)">{{ i + 1 }}</a>
+                  </li>
+                  <li class="page-item {{ (managerReservationResponse?.reservations?.last) ? 'disabled' : '' }}">
+                    <a class="page-link"
+                      (click)="onNavigatePagination(managerReservationResponse.reservations.number + 2)"
+                      href="javascript:void(0);">Next</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+    </div>
+
+    <hr>
+  </div>
+
+  <br>
+
+  <div align="center">
+    <a class="btn btn-outline-warning" href="/workspace/{{ accountUrl }}/reservations/calendar"><strong
+        class="text-dark">View
+        TimeTable
+        in a seperate window</strong></a>
+  </div>
+
+  <br>
+  
+  <div>
+    <app-manager-reservation-calendar></app-manager-reservation-calendar>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <div class="modal fade" id="assignReservation" tabindex="-1" role="dialog"
+    aria-labelledby="assignReservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg " role="document">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h4 class="modal-title text-primary " id="exampleModalLabel">Assign Reservation</h4>
+          <button onclick="document.getElementById('assignReservation').click()" type="button" class="close"
+            data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body card-body">
+          <form #assignReservationForm="ngForm" (ngSubmit)="onAssignReservation(assignReservationForm)">
+            <div class="container">
+              <div class="panel-body inf-content">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div align="center">
+                      <div class="table-responsive">
+                        <table class="table ">
+                          <tbody class="table-user-information">
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    <u>Reference Code</u>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <a onclick="document.getElementById('assignReservation')?.click()"
+                                      routerLink="/workspace/{{ accountUrl }}/reservations/{{ reservationSubWorkerResponse?.reservation?.id }}">
+                                    REF-{{ reservationSubWorkerResponse?.reservation?.code?.substring(0, 8) }}
+                                  </a>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    <u>Start Date</u> <span class="badge text-dark">(requested by customer)</span>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>{{ reservationSubWorkerResponse?.reservation?.startDate | date: 'dd-MMM-yyyy HH:mm' }}</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    <u>Cancelled at</u>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span *ngIf="reservationSubWorkerResponse?.reservation?.status !== 'CANCELLED'">-</span>
+                                <span
+                                    *ngIf="reservationSubWorkerResponse?.reservation?.status === 'CANCELLED'">
+                                  {{ reservationSubWorkerResponse?.reservation?.cancelDate | date: 'dd-MMM-yyyy HH:mm' }}
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    <u>Customer</u>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>{{ reservationSubWorkerResponse?.reservation?.customer?.firstname?.substring(0, 1) | uppercase }}{{ reservationSubWorkerResponse?.reservation?.customer?.firstname?.substring(1) | lowercase }}
+                                  {{ reservationSubWorkerResponse?.reservation?.customer?.lastname | uppercase }}
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    <u>Facility</u>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <a routerLink="/saloons/{{ reservationSubWorkerResponse?.reservation?.saloon?.id }}">
+                                    {{ reservationSubWorkerResponse?.reservation?.saloon?.name | uppercase }}
+                                  </a>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    <u>Description</u>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  {{ reservationSubWorkerResponse?.reservation?.description }}
+                                </span>
+                              </td>
+                            </tr>
+                            <span class=""></span>
+                            <tr *ngFor="let w of reservationSubWorkerResponse?.subWorkers?.content">
+                              <td>
+                                <span id="workersSwitches" class="form-check form-switch">
+                                  <input name="subWorkers" ngModel [value]="w?.id" (change)="onCheckWorker($event)"
+                                    class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                                    [required]="reservationAssignWorkerRequest.assignedWorkersIds.length <= 0" />
+                                  <label class="form-check-label" for="flexSwitchCheckDefault">
+                                    {{ w?.firstname?.substring(0, 1) | uppercase }}{{ w?.firstname?.substring(1) | lowercase }}
+                                    {{ w?.lastname | uppercase }}
+                                  </label>
+                                </span>
+                              </td>
+                              <td class="">
+                                <!--
+                                  <span>
+                                    <textarea name="description" rows="2" placeholder="Comment here.."></textarea>
+                                  </span>
+                                -->
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span>
+                                  <textarea name="description" ngModel rows="4" class="col-md-12" placeholder="Comment here.."></textarea>
+                                </span>
+                              </td>
+                              <td class="">
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <span>
+                <button type="button" onclick="document.getElementById('assignReservation')?.click()"
+                  id="assignReservation-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </span>
+              <span>
+                <button type="submit" [disabled]="assignReservationForm.invalid" 
+                  class="btn btn-success">Assign</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+</div>

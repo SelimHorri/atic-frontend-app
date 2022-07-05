@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-assigned-worker',
+  selector: 'app-customer-assigned-worker',
   templateUrl: './assigned-worker.component.html',
   styleUrls: ['./assigned-worker.component.scss']
 })

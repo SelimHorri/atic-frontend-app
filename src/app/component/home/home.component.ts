@@ -48,7 +48,6 @@ export class HomeComponent implements OnInit {
     this.tagService.findAll(new ClientPageRequest()).subscribe({
       next: (payload: any) => {
         this.tags = payload?.responseBody;
-        console.log(JSON.stringify(this.tags));
       },
       error: (errorResponse: HttpErrorResponse) => {
         const exceptionMsg: ExceptionMsg = this.errorHandlerService.extractExceptionMsg(errorResponse);

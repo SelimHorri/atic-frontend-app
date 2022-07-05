@@ -11,6 +11,7 @@ import { Reservation } from 'src/app/model/reservation';
 import { ReservationStatus } from 'src/app/model/reservation-status';
 import { PageResponse } from 'src/app/model/response/page/page-response';
 import { ToastrMsg } from 'src/app/model/toastr-msg';
+import { UserRoleBasedAuthority } from 'src/app/model/user-role-based-authority';
 import { CalendarService } from 'src/app/service/calendar.service';
 import { CredentialService } from 'src/app/service/credential.service';
 import { CustomerReservationService } from 'src/app/service/customer/customer-reservation.service';
@@ -54,9 +55,10 @@ export class SaloonCalendarComponent implements OnInit {
           next: (saloonReservationsPayload: any) => {
             this.saloonReservations = saloonReservationsPayload?.responseBody;
             this.calendarOptions = this.calendarService.createSaloonCalendar();
+            const saloonsSet: Set<any> = new Set<any>();
             this.saloonReservations?.content?.forEach(r => {
-              if (r?.status !== ReservationStatus.CANCELLED && r?.status !== ReservationStatus.COMPLETED) {
-                (this.calendarOptions.events as Array<any>).push({
+              if (r?.status === ReservationStatus.NOT_STARTED || r?.status === ReservationStatus.IN_PROGRESS) {
+                saloonsSet.add({
                   title: `REF-${r?.code?.substring(0, 8)}`,
                   date: `${moment(r?.startDate).format(`yyyy-MM-DD HH:mm`)}`,
                   interactive: true,
@@ -66,10 +68,12 @@ export class SaloonCalendarComponent implements OnInit {
                 });
               }
             });
-            this.getAllServiceDetails();
+            this.calendarOptions.events = Array.from(saloonsSet);
+            const userRole = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
+            if (userRole?.toUpperCase() === UserRoleBasedAuthority.CUSTOMER)
+              this.getAllServiceDetails();
           },
-          error: (errorResponse: HttpErrorResponse) =>
-              this.errorHandlerService.extractExceptionMsg(errorResponse)
+          error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
       }
     });
@@ -124,13 +128,11 @@ export class SaloonCalendarComponent implements OnInit {
         this.reservationRequest.saloonId = p?.id;
         this.customerReservationService.createReservation(this.reservationRequest).subscribe({
           next: (reservationPayload: any) => {
-            console.log(JSON.stringify(reservationPayload?.responseBody));
             const reservation: Reservation = reservationPayload?.responseBody;
             document.getElementById('createReservation')?.click();
             this.reservationRequest.serviceDetailsIds = [];
             ngForm.reset();
             this.getAllReservationsBySaloonId();
-            // window.location.reload();
             this.notificationService.showSuccess(new ToastrMsg(`REF-${reservation?.code?.substring(0, 8)} has been created..`, 
                 "Reservation created!"));
           },

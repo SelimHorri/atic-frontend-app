@@ -57,6 +57,7 @@ export class ReservationService {
       payload?.responseBody?.content?.map((r: any) => {
         r.startDate = moment(r?.startDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         r.cancelDate = moment(r?.cancelDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
+        r.completeDate = moment(r?.completeDate, DateBackendFormat.LOCAL_DATE_TIME).toDate();
         r.iframeGoogleMap = this.domSanitizer.bypassSecurityTrustHtml(r?.iframeGoogleMap?.toString());
       });
       return payload;

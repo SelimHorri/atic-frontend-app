@@ -47,7 +47,6 @@ export class SaloonComponent implements OnInit {
           this.saloonService.findAll(new ClientPageRequest(q?.offset)).subscribe({
             next: (saloonsPayload: any) => {
               this.saloons = saloonsPayload?.responseBody;
-              console.log(JSON.stringify(this.saloons))
               this.pages = new Array<number>(this.saloons?.totalPages);
             },
             error: (errorResponse: HttpErrorResponse) => {

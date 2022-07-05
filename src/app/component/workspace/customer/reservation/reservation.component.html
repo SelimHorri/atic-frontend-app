@@ -7,7 +7,7 @@
           <div class="float-right">
             <i class="fa fa-archive text-primary h4 ml-3"></i>
           </div>
-          <h5 class="font-size-20 mt-0 pt-1">{{ reservations?.content?.length }}</h5>
+          <h5 class="font-size-20 mt-0 pt-1">{{ reservations?.totalElements }}</h5>
           <p class="text-muted mb-0">Total Reservations</p>
         </div>
       </div>
@@ -37,14 +37,14 @@
     <div class="col-xl-3 col-md-6" >
       <div class="card">
         <div class="card-body">
-          <form>
+          <form #ngForm="ngForm" (ngSubmit)="onSearchAllByKey(key.value)">
             <div class="form-group mb-0">
               <label>Search</label>
               <div class="input-group mb-0">
-                <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" type="search"
-                  class="form-control" placeholder="Search..." aria-describedby="project-search-addon" required />
+                <input (ngModelChange)="searchBy(key.value)" ngModel name="key" #key="ngModel" id="key" type="search"
+                  class="form-control" placeholder="Press 'Enter'..." aria-describedby="project-search-addon" required />
                 <div class="input-group-append">
-                    <button class="btn btn-danger" type="button" id="project-search-addon"><i
+                    <button class="btn btn-danger" type="submit" id="project-search-addon"><i
                         class="fa fa-search search-icon font-12"></i></button>
                 </div>
               </div>
@@ -81,6 +81,7 @@
                   <th scope="col">Facility</th>
                   <th scope="col"><a>Start Date</a></th>
                   <th scope="col">Cancel Date</th>
+                  <th scope="col">Complete Date</th>
                   <th scope="col">Status</th>
                   <!-- <th scope="col">Assigned</th> -->
                   <th scope="col">Description</th>
@@ -94,9 +95,11 @@
                       routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}">REF-{{ r?.code?.substring(0, 8) }}</a>
                   </td>
                   <td scope="col"><a routerLink="/saloons/{{ r?.saloon?.id }}">{{ r?.saloon?.name | uppercase }}</a></td>
-                  <td>{{ r?.startDate | date: "dd-MM-yyyy HH:mm" }}</td>
-                  <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MM-yyyy HH:mm" }}</td>
+                  <td>{{ r?.startDate | date: "dd-MMM-yyyy HH:mm" }}</td>
+                  <td *ngIf="r?.status === 'CANCELLED'.toUpperCase()">{{ r?.cancelDate | date: "dd-MMM-yyyy HH:mm" }}</td>
                   <td *ngIf="r?.status !== 'CANCELLED'.toUpperCase()">-</td>
+                  <td *ngIf="r?.status === 'COMPLETED'.toUpperCase()">{{ r?.completeDate | date: "dd-MMM-yyyy HH:mm" }}</td>
+                  <td *ngIf="r?.status !== 'COMPLETED'.toUpperCase()">-</td>
                   <td>
                     <span *ngIf="r?.status === 'NOT_STARTED'" class="badge rounded-pill bg-danger font-25"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>
@@ -108,6 +111,9 @@
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>
                       {{ r?.status }}</span>
                     <span *ngIf="r?.status === 'CANCELLED'" class="badge rounded-pill bg-warning font-25"><i
+                        class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                      {{ r?.status }}</span>
+                    <span *ngIf="r?.status === 'OUTDATED'" class="badge rounded-pill bg-dark font-25"><i
                         class="mdi mdi-checkbox-blank-circle mr-1"></i>
                       {{ r?.status }}</span>
                   </td>
@@ -129,7 +135,7 @@
                     <p class="mb-0">-</p>
                   </td>
                   <td>
-                    <div *ngIf="r?.status !== 'COMPLETED'.toUpperCase() && r?.status !== 'CANCELLED'.toUpperCase()"
+                    <div *ngIf="r?.status === 'NOT_STARTED'.toUpperCase() || r?.status === 'IN_PROGRESS'.toUpperCase()"
                       class="action">
                       <a routerLink="/workspace/{{ accountUrl }}/reservations/{{ r?.id }}" class="text-success mr-4"
                         data-toggle="tooltip" data-placement="top" title=""

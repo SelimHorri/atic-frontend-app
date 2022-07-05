@@ -22,7 +22,7 @@ export class CustomerProfileService {
 
   public getProfile(): Observable<any> {
     const clientPageRequest = new ClientPageRequest();
-    clientPageRequest.sortBy?.push("startDate");
+    clientPageRequest.sortBy?.push("createdAt");
     clientPageRequest.sortDirection = "desc";
     return this.http.get<any>(`${this.apiUrl}`, {
       params: {
@@ -65,8 +65,6 @@ export class CustomerProfileService {
     customerProfileInfoRequest.instagramUrl = customerProfileInfoRequest?.instagramUrl?.trim();
     customerProfileInfoRequest.linkedinUrl = customerProfileInfoRequest?.linkedinUrl?.trim();
     customerProfileInfoRequest.username = customerProfileInfoRequest?.username?.trim();
-    
-    console.log(JSON.stringify(customerProfileInfoRequest));
     
     return this.http.put<any>(`${this.apiUrl}`, customerProfileInfoRequest, {
       headers: {
