@@ -112,6 +112,21 @@
                               <td>
                                 <strong>
                                   <span class="text-dark">
+                                  </span>
+                                </strong>
+                              </td>
+                              <td>
+                                <strong>
+                                  <span class="">
+                                    <input type="hidden" [ngModel]="serviceDetail?.id" name="serviceDetailId" readonly />
+                                  </span>
+                                </strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
                                     Service Name
                                   </span>
                                 </strong>
@@ -134,20 +149,25 @@
                                 <span>
                                   <div class="form-check">
                                     <input class="form-check-input"
+                                      (change)="onCheckAvailability($event, updateServiceDetailForm)"
                                       [checked]="serviceDetail?.isAvailable"
-                                      type="radio" name="isAvailable"
-                                      id="flexRadioDefault1">
+                                      [value]="true"
+                                      ngModel
+                                      name="isAvailable"
+                                      type="radio">
                                     <label class="form-check-label" for="flexRadioDefault1">
-                                      {{ serviceDetail?.isAvailable }}
+                                      True
                                     </label>
                                     <br>
                                     <input class="form-check-input"
-                                      [checked]="!serviceDetail?.isAvailable"
-                                      type="radio"
+                                      (change)="onCheckAvailability($event, updateServiceDetailForm)"
+                                      [checked]="serviceDetail?.isAvailable"
+                                      [value]="false"
+                                      ngModel
                                       name="isAvailable"
-                                      id="flexRadioDefault2">
+                                      type="radio">
                                     <label class="form-check-label" for="flexRadioDefault2">
-                                      {{ !serviceDetail?.isAvailable }}
+                                      False
                                     </label>
                                   </div>
                                 </span>
