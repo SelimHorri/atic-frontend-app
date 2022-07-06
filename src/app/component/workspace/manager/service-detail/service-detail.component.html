@@ -145,29 +145,13 @@
                               <td>
                                 <strong>
                                   <span class="text-dark">
-                                  </span>
-                                </strong>
-                              </td>
-                              <td>
-                                <strong>
-                                  <span class="">
-                                    <input type="hidden" [ngModel]="serviceDetail?.id" name="serviceDetailId"
-                                      readonly />
-                                  </span>
-                                </strong>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <strong>
-                                  <span class="text-dark">
                                     Service Name
                                   </span>
                                 </strong>
                               </td>
                               <td class="">
                                 <span>
-                                  <input type="text" name="name" ngModel="{{ serviceDetail?.name | uppercase }}"
+                                  <input type="text" name="name" ngModel
                                     class="form-control" placeholder="name..">
                                 </span>
                               </td>
@@ -212,7 +196,7 @@
                               </td>
                               <td class="">
                                 <span>
-                                  <input type="number" name="duration" [ngModel]="serviceDetail?.duration"
+                                  <input type="number" name="duration" ngModel
                                     class="form-control" placeholder="duration..">
                                 </span>
                               </td>
@@ -227,7 +211,7 @@
                               </td>
                               <td class="">
                                 <span>
-                                  <input type="number" name="priceUnit" [ngModel]="serviceDetail?.priceUnit"
+                                  <input type="number" name="priceUnit" ngModel
                                     class="form-control" placeholder="price..">
                                 </span>
                               </td>
@@ -242,7 +226,7 @@
                               </td>
                               <td class="">
                                 <span>
-                                  <textarea type="number" name="description" [ngModel]="serviceDetail?.description"
+                                  <textarea type="number" name="description" ngModel
                                     rows="4" class="form-control" placeholder="description.."></textarea>
                                 </span>
                               </td>
@@ -372,7 +356,7 @@
                                     <br>
                                     <input class="form-check-input"
                                       (change)="onCheckAvailability($event, updateServiceDetailForm)"
-                                      [checked]="serviceDetail?.isAvailable"
+                                      [checked]="!serviceDetail?.isAvailable"
                                       [value]="false"
                                       ngModel
                                       name="isAvailable"
@@ -440,7 +424,8 @@
                               <td class="">
                                 <span>
                                   <div class="form-group">
-                                    <select ngModel name="categoryId" class="form-select" aria-label="Default select example">
+                                    <select [ngModel]="serviceDetail?.category?.id" name="categoryId"
+                                      class="form-select" aria-label="Default select example">
                                       <option *ngFor="let c of categories" value="{{ c?.name | uppercase }}" 
                                           [value]="c?.id"
                                           [selected]="c?.id === serviceDetail?.category?.id" >
