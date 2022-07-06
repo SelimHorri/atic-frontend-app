@@ -32,6 +32,20 @@ export class EmployeeService {
     }));
   }
   
+  public findByUsername(username: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/username/${username}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((payload: any) => {
+      payload.responseBody.birthdate = moment(payload?.responseBody?.birthdate, DateBackendFormat.LOCAL_DATE).toDate();
+      if (payload?.credential?.role !== UserRoleBasedAuthority.CUSTOMER)
+        payload.responseBody.hiredate = moment(payload?.responseBody?.hiredate, DateBackendFormat.LOCAL_DATE).toDate();
+      return payload;
+    }));
+  }
+  
   
   
 }

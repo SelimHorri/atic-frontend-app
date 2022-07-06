@@ -9,6 +9,7 @@ import { ServiceDetail } from 'src/app/model/service-detail';
 import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CategoryService } from 'src/app/service/category.service';
 import { CredentialService } from 'src/app/service/credential.service';
+import { EmployeeService } from 'src/app/service/employee.service';
 import { ManagerServiceDetailService } from 'src/app/service/employee/manager/manager-service-detail.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -28,6 +29,7 @@ export class ServiceDetailComponent implements OnInit {
   
   constructor(private credentialService: CredentialService,
     private managerServiceDetailService: ManagerServiceDetailService,
+    private employeeService: EmployeeService,
     private categoryService: CategoryService,
     private notificationService: NotificationService,
     private errorHandlerService: ErrorHandlerService) {}
@@ -47,12 +49,56 @@ export class ServiceDetailComponent implements OnInit {
     });
   }
   
+  public onDisplayAdd(): void {
+    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
+      next: (managerPayload: any) => {
+        this.categoryService.findAllBySaloonId(managerPayload?.responseBody?.saloon?.id).subscribe({
+          next: (allSaloonCategoriesPayload) => {
+            this.onOpenModal('addServiceDetail');
+            this.categories = allSaloonCategoriesPayload?.responseBody?.content;
+          },
+          error: (errorResponse: HttpErrorResponse) =>
+            this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      },
+      error: (errorResponse: HttpErrorResponse) =>
+        this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  
+  public onAdd(ngForm: NgForm): void {
+    // this.serviceDetailRequest.serviceDetailId = parseInt(ngForm?.value?.serviceDetailId);
+    this.serviceDetailRequest.name = ngForm?.value?.name;
+    this.serviceDetailRequest.description = ngForm?.value?.description;
+    this.serviceDetailRequest.isAvailable = ngForm?.value?.isAvailable;
+    this.serviceDetailRequest.duration = parseInt(ngForm?.value?.duration);
+    this.serviceDetailRequest.priceUnit = parseFloat(ngForm?.value?.priceUnit);
+    this.serviceDetailRequest.categoryId = parseInt(ngForm?.value?.categoryId);
+    console.log(JSON.stringify(this.serviceDetailRequest));
+
+    this.managerServiceDetailService.saveServiceDetail(this.serviceDetailRequest).subscribe({
+      next: (savedServiceDetailPayload: any) => {
+        this.serviceDetailRequest = new ServiceDetailRequest(0, "", true, 0.0, 0, null, 0);
+        this.getAll();
+        this.notificationService.showSuccess(new ToastrMsg(`Service added successfully..`, `Updated!`));
+      },
+      error: (errorResponse: HttpErrorResponse) =>
+        this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  
   public onDisplayUpdate(serviceDetail: ServiceDetail): void {
-    this.categoryService.findAllBySaloonId(serviceDetail?.category?.id).subscribe({
-      next: (categoryPayload: any) => {
-        this.onOpenModal('updateServiceDetail');
-        this.serviceDetail = serviceDetail;
-        this.categories = categoryPayload?.responseBody?.content;
+    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
+      next: (managerPayload: any) => {
+        this.categoryService.findAllBySaloonId(managerPayload?.responseBody?.saloon?.id).subscribe({
+          next: (allSaloonCategoriesPayload) => {
+            this.onOpenModal('updateServiceDetail');
+            this.serviceDetail = serviceDetail;
+            this.categories = allSaloonCategoriesPayload?.responseBody?.content;
+          },
+          error: (errorResponse: HttpErrorResponse) =>
+            this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
       },
       error: (errorResponse: HttpErrorResponse) =>
         this.errorHandlerService.extractExceptionMsg(errorResponse)
@@ -109,8 +155,10 @@ export class ServiceDetailComponent implements OnInit {
     button.type = "button";
     button.style.display = "none";
     button.setAttribute("data-bs-toggle", "modal");
-
-    if (action === "updateServiceDetail")
+    
+    if (action === "addServiceDetail")
+      button.setAttribute("data-bs-target", "#addServiceDetail");
+    else if (action === "updateServiceDetail")
       button.setAttribute("data-bs-target", "#updateServiceDetail");
 
     const mainContainer = document.getElementById("main-container");

@@ -43,6 +43,15 @@
           <div class="">
             <span class="text-left">
               <h5 class="card-title text-uppercase mb-0">Manage Services</h5>
+            </span>
+            <span class="text-right">
+              <h5 class="card-title text-uppercase mb-0">
+                <a class="text-success" href="javascript:void(0);" (click)="onDisplayAdd()">
+                  <strong>
+                    + Add New Service
+                  </strong>
+                </a>
+              </h5>
               <br>
             </span>
           </div>
@@ -106,6 +115,184 @@
       </div>
     </div>
   </div>
+  
+  
+  
+  
+  
+  <div class="modal fade" id="addServiceDetail" tabindex="-1" role="dialog" aria-labelledby="addServiceDetailModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg " role="document">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h4 class="modal-title text-primary " id="exampleModalLabel">Add Service Information</h4>
+          <button onclick="document.getElementById('addServiceDetail').click()" type="button" class="close"
+            data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body card-body">
+          <form #addServiceDetailForm="ngForm" (ngSubmit)="onAdd(addServiceDetailForm)">
+            <div class="container">
+              <div class="panel-body inf-content">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div align="center">
+                      <div class="table-responsive">
+                        <table class="table ">
+                          <tbody class="table-user-information">
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                  </span>
+                                </strong>
+                              </td>
+                              <td>
+                                <strong>
+                                  <span class="">
+                                    <input type="hidden" [ngModel]="serviceDetail?.id" name="serviceDetailId"
+                                      readonly />
+                                  </span>
+                                </strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Service Name
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <input type="text" name="name" ngModel="{{ serviceDetail?.name | uppercase }}"
+                                    class="form-control" placeholder="name..">
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    isAvailable?
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <div class="form-check">
+                                    <input class="form-check-input"
+                                      (change)="onCheckAvailability($event, addServiceDetailForm)"
+                                      [checked]="serviceDetail?.isAvailable" [value]="true" ngModel name="isAvailable"
+                                      type="radio">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                      True
+                                    </label>
+                                    <br>
+                                    <input class="form-check-input"
+                                      (change)="onCheckAvailability($event, addServiceDetailForm)"
+                                      [checked]="serviceDetail?.isAvailable" [value]="false" ngModel name="isAvailable"
+                                      type="radio">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                      False
+                                    </label>
+                                  </div>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Duration<span class="badge text-dark">(min)</span>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <input type="number" name="duration" [ngModel]="serviceDetail?.duration"
+                                    class="form-control" placeholder="duration..">
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Price Unit<span class="badge text-dark">(DT)</span>
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <input type="number" name="priceUnit" [ngModel]="serviceDetail?.priceUnit"
+                                    class="form-control" placeholder="price..">
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Description
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <textarea type="number" name="description" [ngModel]="serviceDetail?.description"
+                                    rows="4" class="form-control" placeholder="description.."></textarea>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Category
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <div class="form-group">
+                                    <select ngModel name="categoryId" class="form-select"
+                                      aria-label="Default select example">
+                                      <option *ngFor="let c of categories" value="{{ c?.name | uppercase }}"
+                                        [value]="c?.id" [selected]="c?.id === serviceDetail?.category?.id">
+                                        {{ c?.name | uppercase }}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </span>
+                              </td>
+                            </tr>
+                            <span class=""></span>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <span>
+                <button type="button" onclick="document.getElementById('addServiceDetail')?.click()"
+                  id="addServiceDetail-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </span>
+              <span>
+                <button type="submit" onclick="document.getElementById('addServiceDetail')?.click()"
+                  [disabled]="addServiceDetailForm.invalid" class="btn btn-info">Add</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -116,7 +303,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg " role="document">
       <div class="modal-content card">
         <div class="modal-header">
-          <h4 class="modal-title text-primary " id="exampleModalLabel">Service Information</h4>
+          <h4 class="modal-title text-primary " id="exampleModalLabel">Update Service Information</h4>
           <button onclick="document.getElementById('updateServiceDetail').click()" type="button" class="close"
             data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
