@@ -24,9 +24,7 @@ export class ServiceDetailComponent implements OnInit {
   public serviceDetails!: PageResponse;
   public serviceDetail!: ServiceDetail;
   public categories: Category[] = [];
-  public serviceDetailRequest: ServiceDetailRequest = new ServiceDetailRequest(
-    0, "", true, 0.0, 0, null, 0
-  );
+  public serviceDetailRequest: ServiceDetailRequest = new ServiceDetailRequest(0, "", true, 0.0, 0, null, 0);
   
   constructor(private credentialService: CredentialService,
     private managerServiceDetailService: ManagerServiceDetailService,
