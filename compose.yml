@@ -2,7 +2,7 @@
 version: '3.9'
 services:
   cita-frontend-app:
-    image: selimhorri/cita-frontend-app
+    image: selimhorri/cita-frontend-app:dev
     container_name: cita-frontend-app
     ports:
       - 4200:80

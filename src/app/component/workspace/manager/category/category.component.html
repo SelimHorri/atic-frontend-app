@@ -19,6 +19,15 @@
           <div class="">
             <span class="text-left">
               <h5 class="card-title text-uppercase mb-0">Manage Categories</h5>
+            </span>
+            <span class="text-right">
+              <h5 class="card-title text-uppercase mb-0">
+                <a class="text-success" href="javascript:void(0);" (click)="onDisplayAdd()">
+                  <strong>
+                    + Add New Category
+                  </strong>
+                </a>
+              </h5>
               <br>
             </span>
           </div>
@@ -44,18 +53,8 @@
                   <td>
                     <span *ngIf="!c?.parentCategory" class="">-</span><br>
                     <span *ngIf="c?.parentCategory" class="">{{ c?.parentCategory?.name }}</span>
-                    <!--
-                      <br>
-                      <span *ngIf="c?.parentCategory" class="text-muted">parent</span>
-                    -->
                   </td>
                   <td class="text-center">
-                    <!--
-                      <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i
-                          class="fa fa-key"></i> </button>
-                      <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
-                          class="fa fa-upload"></i> </button>
-                    -->
                     <a href="javascript:void(0);" 
                         (click)="onUpdate(c)"
                         class="btn btn-outline-warning text-dark btn-circle btn-lg btn-circle ml-2"><i
@@ -73,11 +72,188 @@
       </div>
     </div>
   </div>
+  
+  
+  
+  
+  <div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg " role="document">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h4 class="modal-title text-primary " id="exampleModalLabel">Add Category Information</h4>
+          <button onclick="document.getElementById('addCategory').click()" type="button" class="close"
+            data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body card-body">
+          <form #addCategoryForm="ngForm" (ngSubmit)="onAdd(addCategoryForm)">
+            <div class="container">
+              <div class="panel-body inf-content">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div align="center">
+                      <div class="table-responsive">
+                        <table class="table ">
+                          <tbody class="table-user-information">
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Category Name
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <input type="text" name="name" ngModel class="form-control" placeholder="name..">
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Parent Category
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <select ngModel name="parentCategory" class="form-select" aria-label="Default select example">
+                                    <option selected value="">-> Select Parent Category ?</option>
+                                  </select>
+                                </span>
+                              </td>
+                            </tr>
+                            <span class=""></span>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <span>
+                <button type="button" onclick="document.getElementById('addCategory')?.click()"
+                  id="addCategory-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </span>
+              <span>
+                <button type="submit" [disabled]="addCategoryForm.invalid" class="btn btn-info">Add</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
 
+
+  <div class="modal fade" id="updateCategory" tabindex="-1" role="dialog"
+    aria-labelledby="updateCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg " role="document">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h4 class="modal-title text-primary " id="exampleModalLabel">Update Category Information</h4>
+          <button onclick="document.getElementById('updateCategory').click()" type="button" class="close"
+            data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body card-body">
+          <form #updateCategoryForm="ngForm" (ngSubmit)="onUpdate(updateCategoryForm)">
+            <div class="container">
+              <div class="panel-body inf-content">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div align="center">
+                      <div class="table-responsive">
+                        <table class="table ">
+                          <tbody class="table-user-information">
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                  </span>
+                                </strong>
+                              </td>
+                              <td>
+                                <strong>
+                                  <span class="">
+                                    <input type="hidden" [ngModel]="category?.id" name="categoryId" readonly />
+                                  </span>
+                                </strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Category Name
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <input type="text" name="name" ngModel="{{ category?.name | uppercase }}" class="form-control" placeholder="name..">
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>
+                                  <span class="text-dark">
+                                    Parent Category
+                                  </span>
+                                </strong>
+                              </td>
+                              <td class="">
+                                <span>
+                                  <select ngModel name="parentCategory" class="form-select"
+                                    aria-label="Default select example">
+                                    <option selected value="">-> Select Parent Category ?</option>
+                                  </select>
+                                </span>
+                              </td>
+                            </tr>
+                            <span class=""></span>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <span>
+                <button type="button" onclick="document.getElementById('updateCategory')?.click()"
+                  id="updateCategory-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </span>
+              <span>
+                <button type="submit" onclick="document.getElementById('updateCategory')?.click()"
+                  [disabled]="updateCategoryForm.invalid" class="btn btn-info">Update</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
 
 
 
 </div>
+
+
+
+
+

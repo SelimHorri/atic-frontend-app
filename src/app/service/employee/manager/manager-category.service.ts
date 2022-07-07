@@ -43,6 +43,28 @@ export class ManagerCategoryService {
     }));
   }
   
+  public saveCategory(categoryRequest: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}`, categoryRequest, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((res: any) => {
+      return res;
+    }));
+  }
+  
+  public updateCategory(categoryRequest: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}`, categoryRequest, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map((res: any) => {
+      return res;
+    }));
+  }
+  
   public deleteCategory(categoryId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${categoryId}`, {
       headers: {

@@ -242,8 +242,7 @@
                               <td class="">
                                 <span>
                                   <div class="form-group">
-                                    <select ngModel name="categoryId" class="form-select"
-                                      aria-label="Default select example">
+                                    <select ngModel name="categoryId" class="form-select" aria-label="Default select example">
                                       <option *ngFor="let c of categories" value="{{ c?.name | uppercase }}"
                                         [value]="c?.id" [selected]="c?.id === serviceDetail?.category?.id">
                                         {{ c?.name | uppercase }}

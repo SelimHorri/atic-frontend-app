@@ -53,7 +53,7 @@ export class ServiceDetailComponent implements OnInit {
     this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
       next: (managerPayload: any) => {
         this.categoryService.findAllBySaloonId(managerPayload?.responseBody?.saloon?.id).subscribe({
-          next: (allSaloonCategoriesPayload) => {
+          next: (allSaloonCategoriesPayload: any) => {
             this.onOpenModal('addServiceDetail');
             this.categories = allSaloonCategoriesPayload?.responseBody?.content;
           },
@@ -120,7 +120,6 @@ export class ServiceDetailComponent implements OnInit {
     this.serviceDetailRequest.duration = parseInt(ngForm?.value?.duration);
     this.serviceDetailRequest.priceUnit = parseFloat(ngForm?.value?.priceUnit);
     this.serviceDetailRequest.categoryId = parseInt(ngForm?.value?.categoryId);
-    console.log(JSON.stringify(this.serviceDetailRequest));
     
     this.managerServiceDetailService.updateServiceDetail(this.serviceDetailRequest).subscribe({
       next: (updatedServiceDetailPayload: any) => {
