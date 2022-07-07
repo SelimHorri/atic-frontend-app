@@ -67,18 +67,17 @@ export class ServiceDetailComponent implements OnInit {
   }
   
   public onAdd(ngForm: NgForm): void {
-    // this.serviceDetailRequest.serviceDetailId = parseInt(ngForm?.value?.serviceDetailId);
     this.serviceDetailRequest.name = ngForm?.value?.name;
     this.serviceDetailRequest.description = ngForm?.value?.description;
     this.serviceDetailRequest.isAvailable = ngForm?.value?.isAvailable;
     this.serviceDetailRequest.duration = parseInt(ngForm?.value?.duration);
     this.serviceDetailRequest.priceUnit = parseFloat(ngForm?.value?.priceUnit);
     this.serviceDetailRequest.categoryId = parseInt(ngForm?.value?.categoryId);
-    console.log(JSON.stringify(this.serviceDetailRequest));
-
     this.managerServiceDetailService.saveServiceDetail(this.serviceDetailRequest).subscribe({
       next: (savedServiceDetailPayload: any) => {
         this.serviceDetailRequest = new ServiceDetailRequest(0, "", true, 0.0, 0, null, 0);
+        ngForm.reset();
+        document.getElementById('addServiceDetail')?.click();
         this.getAll();
         this.notificationService.showSuccess(new ToastrMsg(`Service added successfully..`, `Updated!`));
       },
