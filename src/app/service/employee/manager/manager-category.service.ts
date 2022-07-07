@@ -2,6 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { CategoryRequest } from 'src/app/model/request/category-request';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -43,7 +44,7 @@ export class ManagerCategoryService {
     }));
   }
   
-  public saveCategory(categoryRequest: any): Observable<any> {
+  public saveCategory(categoryRequest: CategoryRequest): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}`, categoryRequest, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
@@ -54,8 +55,8 @@ export class ManagerCategoryService {
     }));
   }
   
-  public updateCategory(categoryRequest: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}`, categoryRequest, {
+  public updateCategory(categoryRequest: CategoryRequest): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}`, categoryRequest, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,

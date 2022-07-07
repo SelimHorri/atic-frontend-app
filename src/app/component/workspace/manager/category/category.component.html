@@ -51,12 +51,13 @@
                     <span class="text-muted">name</span>
                   </td>
                   <td>
-                    <span *ngIf="!c?.parentCategory" class="">-</span><br>
-                    <span *ngIf="c?.parentCategory" class="">{{ c?.parentCategory?.name }}</span>
+                    <span *ngIf="c?.parentCategory" class="text-primary">
+                      <strong>{{ c?.parentCategory?.name | uppercase }}</strong>
+                    </span>
                   </td>
                   <td class="text-center">
                     <a href="javascript:void(0);" 
-                        (click)="onUpdate(c)"
+                        (click)="onDisplayUpdate(c)"
                         class="btn btn-outline-warning text-dark btn-circle btn-lg btn-circle ml-2"><i
                         class="fa fa-edit"></i></a>
                     <a href="javascript:void(0);" 
@@ -121,8 +122,9 @@
                               </td>
                               <td class="">
                                 <span>
-                                  <select ngModel name="parentCategory" class="form-select" aria-label="Default select example">
+                                  <select ngModel name="parentCategoryId" class="form-select" aria-label="Default select example">
                                     <option selected value="">-> Select Parent Category ?</option>
+                                    <option *ngFor="let c of categories?.content" [value]="c?.id">{{ c?.name | uppercase }}</option>
                                   </select>
                                 </span>
                               </td>
@@ -186,7 +188,8 @@
                               <td>
                                 <strong>
                                   <span class="">
-                                    <input type="hidden" [ngModel]="category?.id" name="categoryId" readonly />
+                                    <input type="hidden" [ngModel]="category?.id" name="categoryId"
+                                      readonly />
                                   </span>
                                 </strong>
                               </td>
@@ -215,9 +218,12 @@
                               </td>
                               <td class="">
                                 <span>
-                                  <select ngModel name="parentCategory" class="form-select"
+                                  <select [ngModel]="category?.parentCategory?.id" name="parentCategoryId" class="form-select"
                                     aria-label="Default select example">
                                     <option selected value="">-> Select Parent Category ?</option>
+                                    <option *ngFor="let c of categories?.content" [value]="c?.id">
+                                      {{ c?.name | uppercase }}
+                                    </option>
                                   </select>
                                 </span>
                               </td>
@@ -237,8 +243,7 @@
                   id="updateCategory-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               </span>
               <span>
-                <button type="submit" onclick="document.getElementById('updateCategory')?.click()"
-                  [disabled]="updateCategoryForm.invalid" class="btn btn-info">Update</button>
+                <button type="submit" [disabled]="updateCategoryForm.invalid" class="btn btn-info">Update</button>
               </span>
             </div>
           </form>

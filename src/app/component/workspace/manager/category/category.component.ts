@@ -51,35 +51,9 @@ export class CategoryComponent implements OnInit {
     this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
       next: (managerPayload: any) => {
         this.onOpenModal('addCategory');
-      },
-      error: (errorResponse: HttpErrorResponse) =>
-        this.errorHandlerService.extractExceptionMsg(errorResponse)
-    });
-  }
-
-  public onAdd(ngForm: NgForm): void {
-    this.categoryRequest.name = ngForm?.value?.name;
-    this.managerCategoryService.saveCategory(this.categoryRequest).subscribe({
-      next: (savedCategoryPayload: any) => {
-        this.categoryRequest = new CategoryRequest(0, "", null, 0);
-        ngForm.reset();
-        document.getElementById('addCategory')?.click();
-        this.getAll();
-        this.notificationService.showSuccess(new ToastrMsg(`Category added successfully..`, `Updated!`));
-      },
-      error: (errorResponse: HttpErrorResponse) =>
-        this.errorHandlerService.extractExceptionMsg(errorResponse)
-    });
-  }
-  
-  public onDisplayUpdate(category: Category): void {
-    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
-      next: (managerPayload: any) => {
         this.categoryService.findAllBySaloonId(managerPayload?.responseBody?.saloon?.id).subscribe({
           next: (allSaloonCategoriesPayload: any) => {
-            this.onOpenModal('updateServiceDetail');
-            this.category = category;
-            this.categories = allSaloonCategoriesPayload?.responseBody?.content;
+            this.categories = allSaloonCategoriesPayload?.responseBody;
           },
           error: (errorResponse: HttpErrorResponse) =>
             this.errorHandlerService.extractExceptionMsg(errorResponse)
@@ -90,23 +64,78 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  public onCheckAvailability(event: any, ngForm: NgForm): void {
-    
+  public onAdd(ngForm: NgForm): void {
+    this.categoryRequest.name = ngForm?.value?.name;
+    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
+      next: (managerPayload: any) => {
+        this.categoryRequest.parentCategoryId = ngForm?.value?.parentCategoryId;
+        this.categoryRequest.saloonId = managerPayload?.responseBody?.saloon?.id;
+        this.managerCategoryService.saveCategory(this.categoryRequest).subscribe({
+          next: (savedCategoryPayload: any) => {
+            document.getElementById('addCategory')?.click();
+            ngForm.reset();
+            this.getAll();
+            this.notificationService.showSuccess(new ToastrMsg(`Category has been added successfully..`, `Added`));
+          },
+          error: (errorResponse: HttpErrorResponse) =>
+            this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      },
+      error: (errorResponse: HttpErrorResponse) =>
+        this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
+  
+  public onDisplayUpdate(category: Category): void {
+    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
+      next: (managerPayload: any) => {
+        // this.categoryRequest.saloonId = parseInt(managerPayload?.responseBody?.saloon?.id);
+        this.categoryService.findAllBySaloonId(managerPayload?.responseBody?.saloon?.id).subscribe({
+          next: (allSaloonCategoriesPayload: any) => {
+            this.onOpenModal('updateCategory');
+            this.category = category;
+            this.categories = allSaloonCategoriesPayload?.responseBody;
+          },
+          error: (errorResponse: HttpErrorResponse) =>
+            this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      },
+      error: (errorResponse: HttpErrorResponse) =>
+        this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
   }
 
   public onUpdate(ngForm: NgForm): void {
     this.categoryRequest.categoryId = parseInt(ngForm?.value?.categoryId);
     this.categoryRequest.name = ngForm?.value?.name;
-
+    this.categoryRequest.parentCategoryId = parseInt(ngForm?.value?.parentCategoryId);
+    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
+      next: (managerPayload: any) => {
+        this.categoryRequest.saloonId = parseInt(managerPayload?.responseBody?.saloon?.id);
+        this.managerCategoryService.updateCategory(this.categoryRequest).subscribe({
+          next: (updatedCategoryPayload: any) => {
+            this.getAll();
+            this.notificationService.showSuccess(new ToastrMsg(`Category has been updated successfully..`, `Updated`));
+          },
+          error: (errorResponse: HttpErrorResponse) =>
+            this.errorHandlerService.extractExceptionMsg(errorResponse)
+        });
+      },
+      error: (errorResponse: HttpErrorResponse) =>
+        this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+    
+    /*
     this.managerCategoryService.updateCategory(this.categoryRequest).subscribe({
       next: (updatedCategoryPayload: any) => {
-        // this.categoryRequest = new CategoryRequest(0, "", true, 0.0, 0, null, 0);
+        this.categoryRequest = new CategoryRequest(0, "", null, 0);
         this.getAll();
         this.notificationService.showSuccess(new ToastrMsg(`Category updated successfully..`, `Updated!`));
       },
       error: (errorResponse: HttpErrorResponse) =>
         this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
+    */
   }
   
   public onDelete(categoryId: number): void {
