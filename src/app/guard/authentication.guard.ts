@@ -11,10 +11,6 @@ export class AuthenticationGuard implements CanActivate {
   constructor(private authenticationService: AuthenticationService) {}
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-      
-    if (this.authenticationService.isLoggedIn())
-      console.log(`You are authenticated, singout to access login page`);
-    
     return !this.authenticationService.isLoggedIn();
   }
   
