@@ -89,9 +89,9 @@ export class ReservationComponent implements OnInit {
           || r?.status.toLowerCase().indexOf(key.toLowerCase()) !== -1)
         res.push(r);
     });
-
+    
     this.managerReservationResponse.reservations.content = res;
-    if (res.length === 0 || !key)
+    if (!key)
       this.getAllPagedReservations();
   }
   

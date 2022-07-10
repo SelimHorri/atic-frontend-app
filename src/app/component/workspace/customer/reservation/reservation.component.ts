@@ -112,7 +112,7 @@ export class ReservationComponent implements OnInit {
     });
     
     this.reservations.content = res;
-    if (res.length === 0 || !key)
+    if (!key)
       this.getReservations();
   }
   
