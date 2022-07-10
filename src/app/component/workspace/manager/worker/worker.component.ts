@@ -53,7 +53,11 @@ export class WorkerComponent implements OnInit {
           || moment(w?.birthdate).format(`DD-MMM-yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(w?.birthdate).format(`MMMM-yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(w?.hiredate).format(`DD-MMM-yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
-          || moment(w?.hiredate).format(`MMMM-yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1)
+          || moment(w?.hiredate).format(`MMMM-yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(w?.birthdate).format(`DD MMM yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(w?.hiredate).format(`MMMM yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(w?.hiredate).format(`DD MMM yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(w?.hiredate).format(`MMMM yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1)
         res.push(w);
     });
     this.managerWorkerInfoResponse.subWorkers.content = res;
