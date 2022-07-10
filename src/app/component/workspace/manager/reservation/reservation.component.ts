@@ -26,11 +26,7 @@ export class ReservationComponent implements OnInit {
   public managerReservationResponse!: ManagerReservationResponse;
   public pages: number[] = [];
   public reservationSubWorkerResponse!: ReservationSubWorkerResponse;
-  public reservationAssignWorkerRequest: ReservationAssignWorkerRequest = {
-    reservationId: 0,
-    assignedWorkersIds: [],
-    managerDescription: ""
-  };
+  public reservationAssignWorkerRequest: ReservationAssignWorkerRequest = new ReservationAssignWorkerRequest(0, [], "");
 
   constructor(private credentialService: CredentialService,
     private managerReservationService: ManagerReservationService,
@@ -182,8 +178,6 @@ export class ReservationComponent implements OnInit {
     this.reservationAssignWorkerRequest?.assignedWorkersIds?.forEach(id => assignedWorkersIdsSet.add(id));
     this.reservationAssignWorkerRequest.assignedWorkersIds = Array.from(assignedWorkersIdsSet);
     this.reservationAssignWorkerRequest.managerDescription = ngForm?.value?.description;
-    console.log(JSON?.stringify(this.reservationAssignWorkerRequest));
-    
     this.managerReservationService.assignReservationWorkers(this.reservationAssignWorkerRequest).subscribe({
       next: (payload: any) => {
         this.reservationSubWorkerResponse = payload?.responseBody;

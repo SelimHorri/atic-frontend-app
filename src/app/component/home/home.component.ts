@@ -4,8 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { ExceptionMsg } from 'src/app/model/exception-msg';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { PageResponse } from 'src/app/model/response/page/page-response';
-import { Saloon } from 'src/app/model/saloon';
-import { Tag } from 'src/app/model/tag';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { SaloonService } from 'src/app/service/saloon.service';
 import { TagService } from 'src/app/service/tag.service';
