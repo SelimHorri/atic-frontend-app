@@ -70,6 +70,8 @@ import { ManagerReservationDetailService } from './service/employee/manager/mana
 import { WorkerAssignmentComponent as ManagerWorkerAssignmentComponent } from './component/workspace/manager/worker/worker-assignment/worker-assignment.component';
 import { CategoryComponent as ManagerCategoryComponent } from './component/workspace/manager/category/category.component';
 import { ServiceDetailComponent as ManagerServiceDetailComponent } from './component/workspace/manager/service-detail/service-detail.component';
+import { ManagerServiceDetailService } from './service/employee/manager/manager-service-detail.service';
+import { ManagerCategoryService } from './service/employee/manager/manager-category.service';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   timeGridPlugin,
@@ -153,6 +155,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     WorkerReservationTaskService,
     ManagerProfileService,
     ManagerReservationDetailService,
+    ManagerServiceDetailService,
+    ManagerCategoryService,
   ],
   bootstrap: [AppComponent]
 })
