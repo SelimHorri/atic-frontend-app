@@ -72,7 +72,15 @@ export class WorkerAssignmentComponent implements OnInit {
           || moment(r?.startDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.startDate).format(`MMMM-yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.cancelDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.cancelDate).format(`MMMM-yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.completeDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.completeDate).format(`MMMM-yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.startDate).format(`DD MMM yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.startDate).format(`MMM yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.cancelDate).format(`DD MMM yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.cancelDate).format(`MMM yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.completeDate).format(`DD MMM yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.completeDate).format(`MMM yyyy`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           // || r.description.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || r?.status.toLowerCase().indexOf(key.toLowerCase()) !== -1)
         res.push(r);

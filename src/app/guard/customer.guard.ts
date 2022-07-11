@@ -1,7 +1,6 @@
 
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateChild, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
 import { UserRoleBasedAuthority } from '../model/user-role-based-authority';
 import { AuthenticationService } from '../service/authentication.service';
 
@@ -18,7 +17,6 @@ export class CustomerGuard implements CanActivateChild {
     
     if (isUserLoggedIn) {
       const userRole: string = `${sessionStorage.getItem(`userRole`)}`;
-      console.log(`Herrreee is from guard: userRole => ${userRole}`);
       return userRole === UserRoleBasedAuthority.CUSTOMER;
     }
     else

@@ -134,7 +134,6 @@ export class ReservationDetailsComponent implements OnInit {
         this.workerReservationTaskService.updateDescription(p?.reservationId, newWorkerDescription).subscribe({
           next: (taskPayload: any) => {
             this.task = taskPayload?.responseBody;
-            console.log(JSON.stringify(this.task));
             this.notificationService.showSuccess(new ToastrMsg(`Your last comment has been updated successfully..`, `Updated!`));
           },
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)

@@ -46,7 +46,7 @@
                 <div class="col-sm-3 text-align-center">
                   <!-- <p class="value3 mt-sm">$9, 700</p> -->
                   <p class="fs-mini text-muted">DAILY</p>
-                  <div>
+                  <div *ngIf="accountUrl.toUpperCase() === 'CUSTOMER'">
                     <a href="javascript:void(0);">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
@@ -58,7 +58,10 @@
                     </a>
                   </div>
                   <br>
-                  <a class="btn btn-info btn-sm" routerLink="/saloons/{{ s?.id }}">Make Appointment</a>
+                  <span *ngIf="accountUrl.toUpperCase() === 'CUSTOMER'"><a class="btn btn-info btn-sm"
+                      routerLink="/saloons/{{ s?.id }}">Make Appointment</a></span>
+                  <span *ngIf="accountUrl.toUpperCase() !== 'CUSTOMER'"><a class="btn btn-info btn-sm"
+                      routerLink="/saloons/{{ s?.id }}">See details</a></span>
                 </div>
               </div>
             </div>

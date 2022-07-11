@@ -1,211 +1,222 @@
-<div class="container container-fluid">
-  <div class="row">
-    <div class="col-lg-3">
-      <div class="profile-card-4 z-depth-3">
-        <div class="card">
-          <div class="card-body text-center bg-primary rounded-top">
-            <div class="user-box">
-              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user avatar">
+
+<div *ngIf="workerProfileResponse">
+  <div class="container container-fluid">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="profile-card-4 z-depth-3">
+          <div class="card">
+            <div class="card-body text-center bg-primary rounded-top">
+              <div class="user-box">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user avatar">
+              </div>
+              <h5 class="mb-1 text-white">
+                {{ workerProfileResponse?.worker?.firstname?.charAt(0) | uppercase }}{{ workerProfileResponse?.worker?.firstname?.substring(1) | lowercase }}
+                {{ workerProfileResponse?.worker?.lastname | uppercase }}
+              </h5>
+              <h6 class="text-light"><i>{{ workerProfileResponse?.credential?.role }}</i></h6>
+              <h6 class="text-light"><i>{{ workerProfileResponse?.worker?.saloon?.name }}</i></h6>
             </div>
-            <h5 class="mb-1 text-white">
-              {{ workerProfileResponse?.worker?.firstname?.charAt(0) | uppercase }}{{ workerProfileResponse?.worker?.firstname?.substring(1) | lowercase }}
-              {{ workerProfileResponse?.worker?.lastname | uppercase }}
-            </h5>
-            <h6 class="text-light"><i>{{ workerProfileResponse?.credential?.role }}</i></h6>
-            <h6 class="text-light"><i>{{ workerProfileResponse?.worker?.saloon?.name }}</i></h6>
-          </div>
-          <div class="card-body">
-            <ul class="list-group shadow-none">
-              <li class="list-group-item">
-                <div class="list-icon">
-                  <i class="fa fa-phone-square"></i>
+            <div class="card-body">
+              <ul class="list-group shadow-none">
+                <li class="list-group-item">
+                  <div class="list-icon">
+                    <i class="fa fa-phone-square"></i>
+                  </div>
+                  <div class="list-details">
+                    <span>{{ workerProfileResponse?.worker?.phone }}</span>
+                    <small>Mobile Number</small>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="list-icon">
+                    <i class="fa fa-envelope"></i>
+                  </div>
+                  <div class="list-details">
+                    <span>{{ workerProfileResponse?.worker?.email }}</span>
+                    <small>Email Address</small>
+                  </div>
+                </li>
+                <li class="list-group-item" *ngIf="workerProfileResponse?.worker?.birthdate !== null">
+                  <div class="list-icon">
+                    <i class="fa fa-birthday-cake"></i>
+                  </div>
+                  <div class="list-details">
+                    <span>{{ workerProfileResponse?.worker?.birthdate | date: 'dd-MMM-yyyy' }}</span>
+                    <small>Birthdate</small>
+                  </div>
+                </li>
+              </ul>
+              <div class="row text-center mt-4">
+                <div class="col p-2">
+                  <h4 class="mb-1 line-height-5">{{ workerProfileResponse?.tasks?.totalElements }}</h4>
+                  <small class="mb-0 font-weight-bold">Assigned Tasks</small>
                 </div>
-                <div class="list-details">
-                  <span>{{ workerProfileResponse?.worker?.phone }}</span>
-                  <small>Mobile Number</small>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="list-icon">
-                  <i class="fa fa-envelope"></i>
-                </div>
-                <div class="list-details">
-                  <span>{{ workerProfileResponse?.worker?.email }}</span>
-                  <small>Email Address</small>
-                </div>
-              </li>
-              <li class="list-group-item" *ngIf="workerProfileResponse?.worker?.birthdate !== null">
-                <div class="list-icon">
-                  <i class="fa fa-birthday-cake"></i>
-                </div>
-                <div class="list-details">
-                  <span>{{ workerProfileResponse?.worker?.birthdate | date: 'dd-MMM-yyyy' }}</span>
-                  <small>Birthdate</small>
-                </div>
-              </li>
-            </ul>
-            <div class="row text-center mt-4">
-              <div class="col p-2">
-                <h4 class="mb-1 line-height-5">{{ workerProfileResponse?.tasks?.totalElements }}</h4>
-                <small class="mb-0 font-weight-bold">Assigned tasks</small>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-8">
-      <div class="card z-depth-3">
-        <div class="card-body">
-          <ul class="nav nav-pills nav-pills-primary nav-justified">
-            <li class="nav-item">
-              <a href="javascript:void(0);" data-bs-target="#profile" data-bs-toggle="pill"
-                class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
-            </li>
-            <!--
+      <div class="col-lg-8">
+        <div class="card z-depth-3">
+          <div class="card-body">
+            <ul class="nav nav-pills nav-pills-primary nav-justified">
+              <li class="nav-item">
+                <a href="javascript:void(0);" data-bs-target="#profile" data-bs-toggle="pill"
+                  class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
+              </li>
+              <!--
                 <li class="nav-item">
                   <a href="javascript:void(0);" data-bs-target="#edit" data-bs-toggle="pill" class="nav-link"><i
                       class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
                 </li>
                 -->
-          </ul>
-          <div class="tab-content p-4">
-            <div class="tab-pane active show" id="profile">
-              <!---->
-              <h5 class="mb-3">User Profile</h5>
-              <div class="row">
-                <div class="col-md-6">
-                  <h6>About</h6>
-                  <p>
-                    Web Designer, UI/UX Engineer
-                  </p>
-                  <h6>Hobbies</h6>
-                  <p>
-                    Indie music, skiing and hiking. I love the great outdoors.
-                  </p>
-                </div>
+            </ul>
+            <div class="tab-content p-4">
+              <div class="tab-pane active show" id="profile">
+                <!---->
+                <h5 class="mb-3">User Profile</h5>
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6>About</h6>
+                    <p>
+                      Web Designer, UI/UX Engineer
+                    </p>
+                    <h6>Hobbies</h6>
+                    <p>
+                      Indie music, skiing and hiking. I love the great outdoors.
+                    </p>
+                  </div>
 
-                <hr>
-
-
-                <div class="col-md-12">
+                  <hr>
 
 
-                  <form #userForm="ngForm" (ngSubmit)="onProfileUpdate(userForm.value)" class="">
-                    <div class="form-group row">
+                  <div class="col-md-12">
 
-                      <label class="col-lg-3 col-form-label form-control-label">First name <span
-                          class="text-danger">*</span></label>
-                      <div class="col-lg-9">
-                        <input name="firstname" [ngModel]="workerProfileResponse?.worker?.firstname"
-                          class="form-control" type="text" placeholder="Mark">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Last name <span
-                          class="text-danger">*</span></label>
-                      <div class="col-lg-9">
-                        <input name="lastname" [ngModel]="workerProfileResponse?.worker?.lastname"
-                          class="form-control" type="text" placeholder="Jhonsan">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Email <span
-                          class="text-danger">*</span></label>
-                      <div class="col-lg-9">
-                        <input name="email" [ngModel]="workerProfileResponse?.worker?.email" class="form-control"
-                          type="email" placeholder="mark@example.com">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Phone <span
-                          class="text-danger">*</span></label>
-                      <div class="col-lg-9">
-                        <input name="phone" [ngModel]="workerProfileResponse?.worker?.phone" class="form-control"
-                          type="text" placeholder="22125144">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Birthdate</label>
-                      <div class="col-lg-9">
-                        <input name="birthdate"
-                          [ngModel]="workerProfileResponse?.worker?.birthdate | date: 'yyyy-MM-dd'"
-                          class="form-control" type="date">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Hiredate</label>
-                      <div class="col-lg-9">
-                        <input name="hiredate"
-                          [ngModel]="workerProfileResponse?.worker?.hiredate | date: 'yyyy-MM-dd'" class="form-control"
-                          type="date">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Username <span
-                          class="text-danger">*</span></label>
-                      <div class="col-lg-9">
-                        <input name="username" [ngModel]="workerProfileResponse?.worker?.credential?.username"
-                          class="form-control" type="text" placeholder="jhonsanmark">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Password <span
-                          class="text-danger">*</span></label>
-                      <div class="col-lg-9">
-                        <input ngModel name="password" class="form-control" type="password" placeholder="..." required>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label">Confirm password <span
-                          class="text-danger">*</span></label>
-                      <div class="col-lg-9">
-                        <input ngModel name="confirmPassword" class="form-control" type="password" placeholder="..."
-                          required>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label"></label>
-                      <div class="col-lg-9">
-                        <input type="reset" class="btn btn-secondary" value="Cancel">&nbsp;
-                        <input type="submit" [disabled]="userForm.invalid" class="btn btn-primary" value="Save Changes">
-                      </div>
-                    </div>
-                  </form>
 
-                  <div *ngIf="workerProfileResponse?.tasks?.content?.length !== 0">
-                    <br>
-                    <hr>
-                    <br>
+                    <form #userForm="ngForm" (ngSubmit)="onProfileUpdate(userForm.value)" class="">
+                      <div class="form-group row">
 
-                    <!---->
-                    <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Some
-                      Tasks
-                      notifs: </h5>
-                    <table *ngFor="let t of workerProfileResponse?.tasks?.content" class="table table-hover ">
-                      <tbody>
-                        <tr>
-                          <td>
-                            <strong>{{ workerProfileResponse?.worker?.firstname?.charAt(0) | uppercase}}{{ workerProfileResponse?.worker?.firstname?.substring(1) | lowercase}}</strong>
-                            has began a task reservation at: <u>{{ t?.startDate | date: 'dd-MMM-yyyy HH:mm' }}</u>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                        <label class="col-lg-3 col-form-label form-control-label">First name <span
+                            class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                          <input name="firstname" [ngModel]="workerProfileResponse?.worker?.firstname"
+                            class="form-control" type="text" placeholder="Mark">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-lg-3 col-form-label form-control-label">Last name <span
+                            class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                          <input name="lastname" [ngModel]="workerProfileResponse?.worker?.lastname"
+                            class="form-control" type="text" placeholder="Jhonsan">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-lg-3 col-form-label form-control-label">Email <span
+                            class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                          <input name="email" [ngModel]="workerProfileResponse?.worker?.email" class="form-control"
+                            type="email" placeholder="mark@example.com">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-lg-3 col-form-label form-control-label">Phone <span
+                            class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                          <input name="phone" [ngModel]="workerProfileResponse?.worker?.phone" class="form-control"
+                            type="text" placeholder="22125144">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-lg-3 col-form-label form-control-label">Birthdate</label>
+                        <div class="col-lg-9">
+                          <input name="birthdate"
+                            [ngModel]="workerProfileResponse?.worker?.birthdate | date: 'yyyy-MM-dd'"
+                            class="form-control" type="date">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-lg-3 col-form-label form-control-label">Hiredate</label>
+                        <div class="col-lg-9">
+                          <input name="hiredate"
+                            [ngModel]="workerProfileResponse?.worker?.hiredate | date: 'yyyy-MM-dd'"
+                            class="form-control" type="date">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-lg-3 col-form-label form-control-label">Username <span
+                            class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                          <input name="username" [ngModel]="workerProfileResponse?.worker?.credential?.username"
+                            class="form-control" type="text" placeholder="jhonsanmark">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-lg-3 col-form-label form-control-label">Password <span
+                            class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                          <input ngModel name="password" class="form-control" type="password" placeholder="..."
+                            required>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-lg-3 col-form-label form-control-label">Confirm password <span
+                            class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                          <input ngModel name="confirmPassword" class="form-control" type="password" placeholder="..."
+                            required>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="form-group row">
+                        <label class="col-lg-3 col-form-label form-control-label"></label>
+                        <div class="col-lg-9">
+                          <input type="reset" class="btn btn-secondary" value="Cancel">&nbsp;
+                          <input type="submit" [disabled]="userForm.invalid" class="btn btn-primary"
+                            value="Save Changes">
+                        </div>
+                      </div>
+                    </form>
+
+                    <div *ngIf="workerProfileResponse?.tasks?.content?.length !== 0">
+                      <br>
+                      <hr>
+                      <br>
+
+                      <!---->
+                      <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Some
+                        Tasks
+                        notifs: </h5>
+                      <table *ngFor="let t of workerProfileResponse?.tasks?.content" class="table table-hover ">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <strong>{{ workerProfileResponse?.worker?.firstname?.charAt(0) | uppercase}}{{ workerProfileResponse?.worker?.firstname?.substring(1) | lowercase}}</strong>
+                              has began a task reservation at: <u>{{ t?.startDate | date: 'dd-MMM-yyyy HH:mm' }}</u>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
+                <!--/row-->
               </div>
-              <!--/row-->
-            </div>
 
-            <div class="tab-pane" id="edit">
+              <div class="tab-pane" id="edit">
 
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
+
 </div>
+
+
+
+
+

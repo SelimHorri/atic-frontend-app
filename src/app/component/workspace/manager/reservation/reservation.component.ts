@@ -26,11 +26,7 @@ export class ReservationComponent implements OnInit {
   public managerReservationResponse!: ManagerReservationResponse;
   public pages: number[] = [];
   public reservationSubWorkerResponse!: ReservationSubWorkerResponse;
-  public reservationAssignWorkerRequest: ReservationAssignWorkerRequest = {
-    reservationId: 0,
-    assignedWorkersIds: [],
-    managerDescription: ""
-  };
+  public reservationAssignWorkerRequest: ReservationAssignWorkerRequest = new ReservationAssignWorkerRequest(0, [], "");
 
   constructor(private credentialService: CredentialService,
     private managerReservationService: ManagerReservationService,
@@ -85,13 +81,16 @@ export class ReservationComponent implements OnInit {
           || moment(r?.startDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.cancelDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           || moment(r?.completeDate).format(`DD-MMM-yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.startDate).format(`DD MMM yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.cancelDate).format(`DD MMM yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
+          || moment(r?.completeDate).format(`DD MMM yyyy HH:mm`).toLowerCase().indexOf(key.toLowerCase()) !== -1
           // || r?.description.toLowerCase().indexOf(key.toLowerCase()) !== -1
           || r?.status.toLowerCase().indexOf(key.toLowerCase()) !== -1)
         res.push(r);
     });
-
+    
     this.managerReservationResponse.reservations.content = res;
-    if (res.length === 0 || !key)
+    if (!key)
       this.getAllPagedReservations();
   }
   
@@ -182,8 +181,6 @@ export class ReservationComponent implements OnInit {
     this.reservationAssignWorkerRequest?.assignedWorkersIds?.forEach(id => assignedWorkersIdsSet.add(id));
     this.reservationAssignWorkerRequest.assignedWorkersIds = Array.from(assignedWorkersIdsSet);
     this.reservationAssignWorkerRequest.managerDescription = ngForm?.value?.description;
-    console.log(JSON?.stringify(this.reservationAssignWorkerRequest));
-    
     this.managerReservationService.assignReservationWorkers(this.reservationAssignWorkerRequest).subscribe({
       next: (payload: any) => {
         this.reservationSubWorkerResponse = payload?.responseBody;

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { PageResponse } from 'src/app/model/response/page/page-response';
+import { CredentialService } from 'src/app/service/credential.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { LocationService } from 'src/app/service/location.service';
 import { SaloonService } from 'src/app/service/saloon.service';
@@ -15,6 +16,7 @@ import { SaloonService } from 'src/app/service/saloon.service';
 })
 export class SaloonComponent implements OnInit {
   
+  public accountUrl!: string;
   public saloons!: PageResponse;
   public locations!: PageResponse;
   public pages!: Array<number>;
@@ -23,9 +25,11 @@ export class SaloonComponent implements OnInit {
     private locationService: LocationService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private credentialService: CredentialService,
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
+    this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
     this.findAllSaloons();
     this.pages = new Array<number>(this.saloons?.totalPages);
   }
