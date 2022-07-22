@@ -114,7 +114,7 @@
                           {{ r?.status }}</span>
                         <span *ngIf="r?.status === 'OUTDATED'" class="badge rounded-pill bg-dark font-25"><i
                             class="mdi mdi-checkbox-blank-circle mr-1"></i>
-                          <s>{{ r?.status }}</s></span>
+                          <s class="text-danger">{{ r?.status }}</s></span>
                       </td>
                       <td *ngIf="r?.description !== null && r?.description !== undefined">
                         <p class="mb-0">{{ r?.description }}</p>
