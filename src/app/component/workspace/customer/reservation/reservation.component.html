@@ -121,6 +121,9 @@
                       <span *ngIf="r?.status === 'OUTDATED'" class="badge rounded-pill bg-dark font-25"><i
                           class="mdi mdi-checkbox-blank-circle mr-1"></i>
                         <s class="text-danger">{{ r?.status }}</s></span>
+                      <span *ngIf="r?.status === 'NOT_CLOSED'" class="badge rounded-pill bg-dark font-25"><i
+                          class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                        <s class="text-info">{{ r?.status }}</s></span>
                     </td>
                     <!--
                   <td>

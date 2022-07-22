@@ -92,6 +92,8 @@
                     <span *ngIf="r?.status === 'COMPLETED'" class="badge text-success">{{ r?.status | uppercase }}</span>
                     <span *ngIf="r?.status === 'CANCELLED'" class="badge text-warning">{{ r?.status | uppercase }}</span>
                     <span *ngIf="r?.status === 'OUTDATED'" class="badge text-dark"><s>{{ r?.status | uppercase }}</s></span>
+                    <span *ngIf="r?.status === 'NOT_CLOSED'"
+                      class="badge text-dark"><s>{{ r?.status | uppercase }}</s></span>
                     <br>
                     <span class="text-muted"></span>
                   </td>

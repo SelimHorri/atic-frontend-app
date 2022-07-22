@@ -26,7 +26,11 @@
                   {{ reservationDetails?.reservation?.status }}</span>
                 <span *ngIf="reservationDetails?.reservation?.status === 'OUTDATED'"
                   class="text-danger badge bg-dark font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
-                  <s>{{ reservationDetails?.reservation?.status }}</s></span></span>
+                  <s>{{ reservationDetails?.reservation?.status }}</s></span>
+                <span *ngIf="reservationDetails?.reservation?.status === 'NOT_CLOSED'"
+                  class="text-info badge bg-dark font-25"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                  <s>{{ reservationDetails?.reservation?.status }}</s></span>
+                </span>
             </h5>
           </div>
           <div class="card-body">
