@@ -19,7 +19,7 @@ export class ManagerReservationDetailService {
     this.apiUrl = `${this.apiUrl}/employees/managers/reservations/details`;
   }
 
-  public getReservationDetails(reservationId: number): Observable<any> {
+  public fetchReservationDetails(reservationId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${reservationId}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
@@ -38,7 +38,7 @@ export class ManagerReservationDetailService {
     }));
   }
   
-  public getBeginEndTask(reservationId: number): Observable<any> {
+  public fetchBeginEndTask(reservationId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${reservationId}/tasks/info/beginEnd`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
@@ -55,7 +55,7 @@ export class ManagerReservationDetailService {
     }));
   }
   
-  public getAllUnassignedSubWorkers(reservationId: number): Observable<any> {
+  public fetchAllUnassignedSubWorkers(reservationId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${reservationId}/tasks/unassigned`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

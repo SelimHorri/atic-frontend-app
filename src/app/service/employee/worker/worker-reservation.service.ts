@@ -21,7 +21,7 @@ export class WorkerReservationService {
     this.apiUrl = `${this.apiUrl}/employees/workers/reservations`;
   }
   
-  public getAllPagedReservations(clientPageRequest: ClientPageRequest): Observable<any> {
+  public fetchAllPagedReservations(clientPageRequest: ClientPageRequest): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/paged`, {
       params: {
         offset: `${clientPageRequest?.offset}`,
@@ -48,7 +48,7 @@ export class WorkerReservationService {
     }));
   }
   
-  public getAllReservations(): Observable<any> {
+  public fetchAllReservations(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/all`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

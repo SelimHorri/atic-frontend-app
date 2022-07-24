@@ -19,7 +19,7 @@ export class WorkerReservationTaskService {
     this.apiUrl = `${this.apiUrl}/employees/workers/reservations/tasks`;
   }
   
-  public getAssignedTask(reservationId: number): Observable<any> {
+  public fetchAssignedTask(reservationId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${reservationId}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

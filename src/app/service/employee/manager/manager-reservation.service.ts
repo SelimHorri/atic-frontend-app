@@ -22,7 +22,7 @@ export class ManagerReservationService {
     this.apiUrl = `${this.apiUrl}/employees/managers/reservations`;
   }
 
-  public getAllPagedReservations(clientPageRequest: ClientPageRequest): Observable<any> {
+  public fetchAllPagedReservations(clientPageRequest: ClientPageRequest): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/paged`, {
       params: {
         offset: `${clientPageRequest?.offset}`,
@@ -46,7 +46,7 @@ export class ManagerReservationService {
     }));
   }
   
-  public getAllReservations(): Observable<any> {
+  public fetchAllReservations(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/all`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
@@ -104,7 +104,7 @@ export class ManagerReservationService {
     }));
   }
   
-  public getAllUnassignedSubWorkers(reservationId: number): Observable<any> {
+  public fetchAllUnassignedSubWorkers(reservationId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${reservationId}/unassigned`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

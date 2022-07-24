@@ -30,11 +30,11 @@ export class ReservationCalendarComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getAllReservations();
+    this.fetchAllReservations();
   }
   
-  public getAllReservations(): void {
-    this.workerReservationService.getAllReservations().subscribe({
+  public fetchAllReservations(): void {
+    this.workerReservationService.fetchAllReservations().subscribe({
       next: (tasksPayload: any) => {
         this.calendarOptions = this.calendarService.createSaloonCalendar();
         const tasks: PageResponse = tasksPayload?.responseBody;

@@ -15,7 +15,7 @@ export class ServiceDetailService {
     this.apiUrl = `${this.apiUrl}/service-details`;
   }
   
-  public getOrderedServiceDetailsByReservationId(reservationId: number): Observable<any> {
+  public fetchOrderedServiceDetails(reservationId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/reservationId/${reservationId}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

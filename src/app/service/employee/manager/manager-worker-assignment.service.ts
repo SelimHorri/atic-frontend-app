@@ -19,7 +19,7 @@ export class ManagerWorkerAssignmentService {
     this.apiUrl = `${this.apiUrl}/employees/managers/workers/assignments`;
   }
   
-  public getAllWorkerTasks(workerId: number, clientPageRequest: ClientPageRequest): Observable<any> {
+  public fetchAllWorkerTasks(workerId: number, clientPageRequest: ClientPageRequest): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${workerId}`, {
       params: {
         offset: `${clientPageRequest?.offset}`,

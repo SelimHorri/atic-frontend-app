@@ -29,11 +29,11 @@ export class LocationService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
   
-  public getAllCities(): Observable<any> {
+  public fetchAllCities(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/cities`);
   }
   
-  public getAllStates(): Observable<any> {
+  public fetchAllStates(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/states`);
   }
   

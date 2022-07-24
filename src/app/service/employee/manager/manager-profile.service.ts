@@ -18,7 +18,7 @@ export class ManagerProfileService {
     this.apiUrl = `${this.apiUrl}/employees/managers/profile`;
   }
 
-  public getProfile(): Observable<any> {
+  public fetchProfile(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

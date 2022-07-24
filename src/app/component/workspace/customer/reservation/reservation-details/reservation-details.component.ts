@@ -46,8 +46,8 @@ export class ReservationDetailsComponent implements OnInit {
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getReservationDetails();
-    this.getOrderedServiceDetails();
+    this.fetchReservationDetails();
+    this.fetchOrderedServiceDetails();
     // this.calculateReservationEndDate();
   }
   
@@ -69,10 +69,10 @@ export class ReservationDetailsComponent implements OnInit {
     return totalDuration;
   }
   
-  public getReservationDetails(): void {
+  public fetchReservationDetails(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) =>
-        this.customerReservationDetailService.getReservationDetails(p.reservationId).subscribe({
+        this.customerReservationDetailService.fetchReservationDetails(p.reservationId).subscribe({
           next: (reservationDetailsPayload: any) =>
               this.reservationDetails = reservationDetailsPayload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
@@ -80,10 +80,10 @@ export class ReservationDetailsComponent implements OnInit {
     });
   }
   
-  public getOrderedServiceDetails(): void {
+  public fetchOrderedServiceDetails(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        this.serviceDetailService.getOrderedServiceDetailsByReservationId(p.reservationId).subscribe({
+        this.serviceDetailService.fetchOrderedServiceDetails(p.reservationId).subscribe({
           next: (orderedServiceDetailsPayload: any) => {
             this.orderedServiceDetails = orderedServiceDetailsPayload?.responseBody;
           },
@@ -103,7 +103,7 @@ export class ReservationDetailsComponent implements OnInit {
     if (this.orderedServiceDetails?.serviceDetails?.content?.length > 1)
       this.orderedDetailService.deleteOrderedServiceDetail(new OrderedDetailId(reservationId, serviceDetailId)).subscribe({
         // next: (responsePayload: any) => (responsePayload?.responseBody) ? this.getOrderedServiceDetails() : alert("Unable to remove service"),
-        next: (responsePayload: any) => (responsePayload?.responseBody) ? this.getOrderedServiceDetails() : alert("Unable to remove service"),
+        next: (responsePayload: any) => (responsePayload?.responseBody) ? this.fetchOrderedServiceDetails() : alert("Unable to remove service"),
         error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
       });
     else {
@@ -121,8 +121,8 @@ export class ReservationDetailsComponent implements OnInit {
     this.customerReservationService.cancelReservation(reservationId).subscribe({
       next: (reservationPayload: any) => {
         this.notificationService.showWarning(new ToastrMsg(`Reservation has been cancelled`, "Reservation cancelled!"));
-        this.getReservationDetails();
-        this.getOrderedServiceDetails();
+        this.fetchReservationDetails();
+        this.fetchOrderedServiceDetails();
       },
       error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
@@ -172,7 +172,7 @@ export class ReservationDetailsComponent implements OnInit {
         ngForm.value.reservationId = p?.reservationId;
         this.orderedDetailService.save(ngForm.value as OrderedDetailRequest).subscribe({
           next: (savedOrderedDetail: any) => {
-            this.getOrderedServiceDetails();
+            this.fetchOrderedServiceDetails();
             ngForm.reset();
             document.getElementById("addServiceDetail")?.click();
             this.notificationService.showSuccess(new ToastrMsg("Service has been added successfully...", "Service added!"));

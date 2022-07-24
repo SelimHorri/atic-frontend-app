@@ -21,7 +21,7 @@ export class CustomerReservationService {
     this.apiUrl = `${this.apiUrl}/customers/reservations`;
   }
   
-  public getReservations(clientPageRequest: ClientPageRequest): Observable<any> {
+  public fetchAllReservations(clientPageRequest: ClientPageRequest): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}`, {
       params: {
         offset: `${clientPageRequest.offset}`,

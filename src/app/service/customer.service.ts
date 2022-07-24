@@ -1,12 +1,8 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { DateBackendFormat } from '../model/date-backend-format';
-import { ClientPageRequest } from '../model/request/client-page-request';
-import { Reservation } from '../model/reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +15,7 @@ export class CustomerService {
     this.apiUrl = `${this.apiUrl}/customers`;
   }
   
-  public getRatings(): Observable<any> {
+  public fetchRatings(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/ratings`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

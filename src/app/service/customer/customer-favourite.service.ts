@@ -19,7 +19,7 @@ export class CustomerFavouriteService {
     this.apiUrl = `${this.apiUrl}/customers/favourites`;
   }
   
-  public getFavourites(clientPageRequest: ClientPageRequest): Observable<any> {
+  public fetchAllFavourites(clientPageRequest: ClientPageRequest): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}`, {
       params: {
         offset: `${clientPageRequest?.offset}`,

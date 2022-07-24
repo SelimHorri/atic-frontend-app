@@ -32,7 +32,7 @@ export class EmployeeService {
     }));
   }
   
-  public findByUsername(username: string): Observable<any> {
+  public findByCredentialUsername(username: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/username/${username}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

@@ -16,7 +16,7 @@ export class ManagerServiceDetailService {
     this.apiUrl = `${this.apiUrl}/employees/managers/service-details`;
   }
   
-  public getAll(): Observable<any> {
+  public fetchAll(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
@@ -27,7 +27,7 @@ export class ManagerServiceDetailService {
     }));
   }
   
-  public getById(serviceDetailId: number): Observable<any> {
+  public fetchById(serviceDetailId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${serviceDetailId}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

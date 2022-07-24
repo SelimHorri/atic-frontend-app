@@ -19,7 +19,7 @@ export class WorkerProfileService {
     this.apiUrl = `${this.apiUrl}/employees/workers/profile`;
   }
   
-  public getProfile(): Observable<any> {
+  public fetchProfile(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

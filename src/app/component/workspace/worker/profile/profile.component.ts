@@ -28,11 +28,11 @@ export class ProfileComponent implements OnInit {
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getProfile();
+    this.fetchProfile();
   }
   
-  private getProfile(): void {
-    this.workerProfileService.getProfile().subscribe({
+  private fetchProfile(): void {
+    this.workerProfileService.fetchProfile().subscribe({
       next: (responsePayload: any) => this.workerProfileResponse = responsePayload?.responseBody,
       error: (errorResponse: HttpErrorResponse) =>
           this.errorHandlerService.extractExceptionMsg(errorResponse)

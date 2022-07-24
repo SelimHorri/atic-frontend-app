@@ -20,7 +20,7 @@ export class CustomerProfileService {
     this.apiUrl = `${this.apiUrl}/customers/profile`;
   }
 
-  public getProfile(): Observable<any> {
+  public fetchProfile(): Observable<any> {
     const clientPageRequest = new ClientPageRequest();
     clientPageRequest.sortBy?.push("createdAt");
     clientPageRequest.sortDirection = "desc";

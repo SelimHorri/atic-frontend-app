@@ -30,7 +30,7 @@ export class RatingComponent implements OnInit {
   }
   
   public getRatings(): void {
-    this.customerService.getRatings().subscribe({
+    this.customerService.fetchRatings().subscribe({
       next: (customerRatingPayload: any) => {
         this.ratings = customerRatingPayload?.responseBody?.ratings;
         this.ratings?.content.forEach(r => {

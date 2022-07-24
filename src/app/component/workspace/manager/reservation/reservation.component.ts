@@ -37,7 +37,7 @@ export class ReservationComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getAllPagedReservations();
+    this.fetchAllPagedReservations();
   }
 
   public getCompletedReservations(): Reservation[] {
@@ -48,14 +48,14 @@ export class ReservationComponent implements OnInit {
     return this.managerReservationService.getPendingReservations(this.managerReservationResponse?.reservations?.content);
   }
 
-  public getAllPagedReservations(): void {
+  public fetchAllPagedReservations(): void {
     this.activatedRoute.queryParams.subscribe({
       next: (q: any) => {
         if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1 || q?.size as number < 1)
           this.router.navigateByUrl(`/workspace/${this.accountUrl}/reservations?offset=1`);
         else
           this.managerReservationService
-            .getAllPagedReservations(new ClientPageRequest(q?.offset, q?.size, ['startDate', 'createdAt'], 'desc')).subscribe({
+            .fetchAllPagedReservations(new ClientPageRequest(q?.offset, q?.size, ['startDate', 'createdAt'], 'desc')).subscribe({
               next: (payload: any) => {
                 this.managerReservationResponse = payload?.responseBody;
                 const reservationsSet: Set<Reservation> = new Set<Reservation>();
@@ -91,7 +91,7 @@ export class ReservationComponent implements OnInit {
     
     this.managerReservationResponse.reservations.content = res;
     if (!key)
-      this.getAllPagedReservations();
+      this.fetchAllPagedReservations();
   }
   
   public onSearchAllByKey(key: string): void {
@@ -133,7 +133,7 @@ export class ReservationComponent implements OnInit {
     if (confirm(`Cancel this reservation ?`))
       this.managerReservationService.cancelReservation(reservationId).subscribe({
         next: (reservationPayload: any) => {
-          this.getAllPagedReservations();
+          this.fetchAllPagedReservations();
           this.notificationService.showWarning(new ToastrMsg(`Reservation has been cancelled`, "Reservation cancelled!"));
         },
         error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
@@ -156,7 +156,7 @@ export class ReservationComponent implements OnInit {
 
   public onDisplayAssignReservation(reservation: Reservation): void {
     this.onOpenModal('assignReservation');
-    this.managerReservationService.getAllUnassignedSubWorkers(reservation?.id).subscribe({
+    this.managerReservationService.fetchAllUnassignedSubWorkers(reservation?.id).subscribe({
       next: (reservationSubWorkerResponsePayload: any) => {
         this.reservationSubWorkerResponse = reservationSubWorkerResponsePayload?.responseBody;
         this.reservationAssignWorkerRequest.reservationId = reservation?.id;

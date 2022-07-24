@@ -26,7 +26,7 @@ export class LocationComponent implements OnInit {
   }
   
   public getAllStates(): void {
-    this.locationService.getAllStates().subscribe({
+    this.locationService.fetchAllStates().subscribe({
       next: (locationStatesPayload: any) => {
         this.locationStates = locationStatesPayload?.responseBody;
       },

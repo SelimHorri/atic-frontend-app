@@ -34,11 +34,11 @@ export class CategoryComponent implements OnInit {
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getAll();
+    this.fetchAll();
   }
   
-  private getAll(): void {
-    this.managerCategoryService.getAll().subscribe({
+  private fetchAll(): void {
+    this.managerCategoryService.fetchAll().subscribe({
       next: (payload: any) => {
         this.categories = payload?.responseBody;
       },
@@ -48,7 +48,7 @@ export class CategoryComponent implements OnInit {
   }
   
   public onDisplayAdd(): void {
-    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
+    this.employeeService.findByCredentialUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
       next: (managerPayload: any) => {
         this.onOpenModal('addCategory');
         this.categoryService.findAllBySaloonId(managerPayload?.responseBody?.saloon?.id).subscribe({
@@ -66,7 +66,7 @@ export class CategoryComponent implements OnInit {
 
   public onAdd(ngForm: NgForm): void {
     this.categoryRequest.name = ngForm?.value?.name;
-    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
+    this.employeeService.findByCredentialUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
       next: (managerPayload: any) => {
         this.categoryRequest.parentCategoryId = ngForm?.value?.parentCategoryId;
         this.categoryRequest.saloonId = managerPayload?.responseBody?.saloon?.id;
@@ -74,7 +74,7 @@ export class CategoryComponent implements OnInit {
           next: (savedCategoryPayload: any) => {
             document.getElementById('addCategory')?.click();
             ngForm.reset();
-            this.getAll();
+            this.fetchAll();
             this.notificationService.showSuccess(new ToastrMsg(`Category has been added successfully..`, `Added`));
           },
           error: (errorResponse: HttpErrorResponse) =>
@@ -87,7 +87,7 @@ export class CategoryComponent implements OnInit {
   }
   
   public onDisplayUpdate(category: Category): void {
-    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
+    this.employeeService.findByCredentialUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
       next: (managerPayload: any) => {
         // this.categoryRequest.saloonId = parseInt(managerPayload?.responseBody?.saloon?.id);
         this.categoryService.findAllBySaloonId(managerPayload?.responseBody?.saloon?.id).subscribe({
@@ -109,12 +109,12 @@ export class CategoryComponent implements OnInit {
     this.categoryRequest.categoryId = parseInt(ngForm?.value?.categoryId);
     this.categoryRequest.name = ngForm?.value?.name;
     this.categoryRequest.parentCategoryId = parseInt(ngForm?.value?.parentCategoryId);
-    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
+    this.employeeService.findByCredentialUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
       next: (managerPayload: any) => {
         this.categoryRequest.saloonId = parseInt(managerPayload?.responseBody?.saloon?.id);
         this.managerCategoryService.updateCategory(this.categoryRequest).subscribe({
           next: (updatedCategoryPayload: any) => {
-            this.getAll();
+            this.fetchAll();
             this.notificationService.showSuccess(new ToastrMsg(`Category has been updated successfully..`, `Updated`));
           },
           error: (errorResponse: HttpErrorResponse) =>
@@ -129,7 +129,7 @@ export class CategoryComponent implements OnInit {
     this.managerCategoryService.updateCategory(this.categoryRequest).subscribe({
       next: (updatedCategoryPayload: any) => {
         this.categoryRequest = new CategoryRequest(0, "", null, 0);
-        this.getAll();
+        this.fetchAll();
         this.notificationService.showSuccess(new ToastrMsg(`Category updated successfully..`, `Updated!`));
       },
       error: (errorResponse: HttpErrorResponse) =>
@@ -145,7 +145,7 @@ export class CategoryComponent implements OnInit {
           if (payload?.responseBody && payload?.responseBody === false)
             this.notificationService.showInfo(new ToastrMsg(`Not able to delete this category`, `Not Successfull!`));
           else {
-            this.getAll();
+            this.fetchAll();
             this.notificationService.showSuccess(new ToastrMsg(`Category has been deleted successfully..`, `Removed!`));
           }
         },
@@ -181,7 +181,7 @@ export class CategoryComponent implements OnInit {
     });
     this.categories.content = res;
     if (!key)
-      this.getAll();
+      this.fetchAll();
   }
   
   

@@ -28,11 +28,11 @@ export class ProfileComponent implements OnInit {
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem(`userRole`)}`);
-    this.getProfile();
+    this.fetchProfile();
   }
   
-  public getProfile(): void {
-    this.customerProfileService.getProfile().subscribe({
+  public fetchProfile(): void {
+    this.customerProfileService.fetchProfile().subscribe({
       next: (responsePayload: any) => {
         this.customerProfileResponse = responsePayload?.responseBody;
       },

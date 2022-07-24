@@ -35,24 +35,24 @@ export class FavouriteComponent implements OnInit {
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
     this.getAllStates();
-    this.getFavourites();
+    this.fetchAllFavourites();
   }
   
   public getAllStates(): void {
-    this.locationService.getAllStates().subscribe({
+    this.locationService.fetchAllStates().subscribe({
       next: (statesPayload: any) => {
         this.states = statesPayload?.responseBody;
       }
     });
   }
   
-  public getFavourites():void {
+  public fetchAllFavourites():void {
     this.activatedRoute.queryParams.subscribe({
       next: (q: any) => {
         if (q?.offset === undefined || q?.offset === null || q?.offset as number === 1)
           this.router.navigateByUrl(`/workspace/${this.accountUrl}/favourites?offset=1`);
         else {
-          this.customerFavouriteService.getFavourites(new ClientPageRequest(q?.offset, q?.size, ['favouriteDate'], 'desc')).subscribe({
+          this.customerFavouriteService.fetchAllFavourites(new ClientPageRequest(q?.offset, q?.size, ['favouriteDate'], 'desc')).subscribe({
             next: (customerFavouritePayload: any) => {
               this.customerFavouriteResponse = customerFavouritePayload?.responseBody;
               this.pages = new Array<number>(this.customerFavouriteResponse?.favourites?.totalPages);
@@ -105,7 +105,7 @@ export class FavouriteComponent implements OnInit {
   public removeFavourite(saloonId: number): void {
     if (confirm(`Remove from favourite ?`))
       this.customerFavouriteService.deleteFavourite(saloonId).subscribe({
-        next: (payload: any) => (payload?.responseBody) ? this.getFavourites() : alert("Unable to delete favourite!"),
+        next: (payload: any) => (payload?.responseBody) ? this.fetchAllFavourites() : alert("Unable to delete favourite!"),
         error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
       });
   }
@@ -124,7 +124,7 @@ export class FavouriteComponent implements OnInit {
     
     this.saloons = res;
     if (res.length === 0 || !key)
-      this.getFavourites();
+      this.fetchAllFavourites();
   }
   
   

@@ -36,11 +36,11 @@ export class ServiceDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getAll();
+    this.fetchAll();
   }
   
-  private getAll(): void {
-    this.managerServiceDetailService.getAll().subscribe({
+  private fetchAll(): void {
+    this.managerServiceDetailService.fetchAll().subscribe({
       next: (payload: any) => {
         this.serviceDetails = payload?.responseBody;
       },
@@ -50,7 +50,7 @@ export class ServiceDetailComponent implements OnInit {
   }
   
   public onDisplayAdd(): void {
-    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
+    this.employeeService.findByCredentialUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
       next: (managerPayload: any) => {
         this.categoryService.findAllBySaloonId(managerPayload?.responseBody?.saloon?.id).subscribe({
           next: (allSaloonCategoriesPayload: any) => {
@@ -78,7 +78,7 @@ export class ServiceDetailComponent implements OnInit {
         this.serviceDetailRequest = new ServiceDetailRequest(0, "", true, 0.0, 0, null, 0);
         ngForm.reset();
         document.getElementById('addServiceDetail')?.click();
-        this.getAll();
+        this.fetchAll();
         this.notificationService.showSuccess(new ToastrMsg(`Service added successfully..`, `Updated!`));
       },
       error: (errorResponse: HttpErrorResponse) =>
@@ -87,7 +87,7 @@ export class ServiceDetailComponent implements OnInit {
   }
   
   public onDisplayUpdate(serviceDetail: ServiceDetail): void {
-    this.employeeService.findByUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
+    this.employeeService.findByCredentialUsername(`${sessionStorage.getItem(`username`)}`).subscribe({
       next: (managerPayload: any) => {
         this.categoryService.findAllBySaloonId(managerPayload?.responseBody?.saloon?.id).subscribe({
           next: (allSaloonCategoriesPayload) => {
@@ -124,7 +124,7 @@ export class ServiceDetailComponent implements OnInit {
     this.managerServiceDetailService.updateServiceDetail(this.serviceDetailRequest).subscribe({
       next: (updatedServiceDetailPayload: any) => {
         this.serviceDetailRequest = new ServiceDetailRequest(0, "", true, 0.0, 0, null, 0);
-        this.getAll();
+        this.fetchAll();
         this.notificationService.showSuccess(new ToastrMsg(`Service updated successfully..`, `Updated!`));
       },
       error: (errorResponse: HttpErrorResponse) =>
@@ -139,7 +139,7 @@ export class ServiceDetailComponent implements OnInit {
           if (payload?.responseBody && payload?.responseBody === false)
             this.notificationService.showInfo(new ToastrMsg(`Not able to delete this service`, `Not Successfull!`));
           else {
-            this.getAll();
+            this.fetchAll();
             this.notificationService.showSuccess(new ToastrMsg(`Service has been deleted successfully..`, `Removed!`));
           }
         },
@@ -179,7 +179,7 @@ export class ServiceDetailComponent implements OnInit {
     });
     this.serviceDetails.content = res;
     if (!key)
-      this.getAll();
+      this.fetchAll();
   }
   
   

@@ -18,7 +18,7 @@ export class ManagerWorkerServiceService {
     this.apiUrl = `${this.apiUrl}/employees/managers/workers`;
   }
   
-  public getAllSubWorkers(): Observable<any> {
+  public fetchAllSubWorkers(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
@@ -39,7 +39,7 @@ export class ManagerWorkerServiceService {
     }));;
   }
   
-  public getWorkerInfo(workerId: number): Observable<any> {
+  public fetchWorkerInfo(workerId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${workerId}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

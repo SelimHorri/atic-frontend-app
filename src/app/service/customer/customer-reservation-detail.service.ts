@@ -20,7 +20,7 @@ export class CustomerReservationDetailService {
     this.apiUrl = `${this.apiUrl}/customers/reservations/details`;
   }
   
-  public getReservationDetails(reservationId: number): Observable<any> {
+  public fetchReservationDetails(reservationId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${reservationId}`, {
       headers: {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,

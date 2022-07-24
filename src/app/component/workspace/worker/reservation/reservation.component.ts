@@ -31,7 +31,7 @@ export class ReservationComponent implements OnInit {
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getAllPagedReservations();
+    this.fetchAllPagedReservations();
   }
   
   public getCompletedReservations(): Reservation[] {
@@ -42,13 +42,13 @@ export class ReservationComponent implements OnInit {
     return this.workerReservationService.getPendingReservations(this.reservations);
   }
   
-  public getAllPagedReservations(): void {
+  public fetchAllPagedReservations(): void {
     this.activatedRoute.queryParams.subscribe({
       next: (q: any) => {
         if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1 || q?.size as number < 1)
           this.router.navigateByUrl(`/workspace/${this.accountUrl}/reservations?offset=1`);
         else
-          this.workerReservationService.getAllPagedReservations(new ClientPageRequest
+          this.workerReservationService.fetchAllPagedReservations(new ClientPageRequest
                         (q?.offset, q?.size, ['reservation.startDate', 'reservation.createdAt'], 'desc')).subscribe({
             next: (payload: any) => {
               const reservationsSet: Set<Reservation> = new Set<Reservation>();
@@ -82,7 +82,7 @@ export class ReservationComponent implements OnInit {
 
     this.reservations = res;
     if (!key)
-      this.getAllPagedReservations();
+      this.fetchAllPagedReservations();
   }
   
   public onSearchAllLikeKey(key: string): void {

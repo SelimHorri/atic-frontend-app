@@ -53,10 +53,10 @@ export class ReservationDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getReservationDetails();
-    this.getOrderedServiceDetails();
-    this.getBeginEndTask();
-    this.getAllUnassignedSubWorkers();
+    this.fetchReservationDetails();
+    this.fetchOrderedServiceDetails();
+    this.fetchBeginEndTask();
+    this.fetchAllUnassignedSubWorkers();
   }
 
   public calculateTotalAmount(): number {
@@ -77,10 +77,10 @@ export class ReservationDetailComponent implements OnInit {
     return totalDuration;
   }
 
-  public getReservationDetails(): void {
+  public fetchReservationDetails(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) =>
-        this.managerReservationDetailService.getReservationDetails(p.reservationId).subscribe({
+        this.managerReservationDetailService.fetchReservationDetails(p.reservationId).subscribe({
           next: (reservationDetailsPayload: any) =>
             this.reservationDetails = reservationDetailsPayload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
@@ -88,10 +88,10 @@ export class ReservationDetailComponent implements OnInit {
     });
   }
 
-  public getOrderedServiceDetails(): void {
+  public fetchOrderedServiceDetails(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        this.serviceDetailService.getOrderedServiceDetailsByReservationId(p.reservationId).subscribe({
+        this.serviceDetailService.fetchOrderedServiceDetails(p.reservationId).subscribe({
           next: (orderedServiceDetailsPayload: any) => {
             this.orderedServiceDetails = orderedServiceDetailsPayload?.responseBody;
           },
@@ -101,10 +101,10 @@ export class ReservationDetailComponent implements OnInit {
     });
   }
   
-  private getBeginEndTask(): void {
+  private fetchBeginEndTask(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        this.managerReservationDetailService.getBeginEndTask(p?.reservationId).subscribe({
+        this.managerReservationDetailService.fetchBeginEndTask(p?.reservationId).subscribe({
           next: (payload: any) => this.reservationBeginEndTaskResponse = payload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
@@ -145,10 +145,10 @@ export class ReservationDetailComponent implements OnInit {
     });
   }
   
-  private getAllUnassignedSubWorkers(): void {
+  private fetchAllUnassignedSubWorkers(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        this.managerReservationDetailService.getAllUnassignedSubWorkers(p?.reservationId).subscribe({
+        this.managerReservationDetailService.fetchAllUnassignedSubWorkers(p?.reservationId).subscribe({
           next: (payload: any) => this.reservationSubWorkerResponse = payload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
@@ -177,7 +177,7 @@ export class ReservationDetailComponent implements OnInit {
             this.notificationService.showSuccess(new ToastrMsg(
                 `Workers assigned to this reservation REF-${this.reservationSubWorkerResponse?.reservation?.code?.substring(0, 8)} successfully..`, 
                 `Assigned!`));
-            this.getAllUnassignedSubWorkers();
+            this.fetchAllUnassignedSubWorkers();
           },
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });

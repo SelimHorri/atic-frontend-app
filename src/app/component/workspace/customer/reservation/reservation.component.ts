@@ -39,7 +39,7 @@ export class ReservationComponent implements OnInit {
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getReservations();
+    this.fetchAllReservations();
     // this.findAllByReservationId();
   }
   
@@ -51,13 +51,13 @@ export class ReservationComponent implements OnInit {
     return this.customerReservationService.getPendingReservations(this.reservations?.content);
   }
   
-  public getReservations(): void {
+  public fetchAllReservations(): void {
     this.activatedRoute.queryParams.subscribe({
       next: (q: any) => {
         if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1 || q?.size as number < 1)
           this.router.navigateByUrl(`/workspace/${this.accountUrl}/reservations?offset=1`);
         else
-          this.customerReservationService.getReservations(new ClientPageRequest(q?.offset, q?.size, ['startDate', 'createdAt'], 'desc')).subscribe({
+          this.customerReservationService.fetchAllReservations(new ClientPageRequest(q?.offset, q?.size, ['startDate', 'createdAt'], 'desc')).subscribe({
             next: (customerReservationPayload: any) => {
               this.reservations = customerReservationPayload?.responseBody?.reservations;
               this.pages = new Array<number>(this.reservations?.totalPages);
@@ -116,7 +116,7 @@ export class ReservationComponent implements OnInit {
     
     this.reservations.content = res;
     if (!key)
-      this.getReservations();
+      this.fetchAllReservations();
   }
   
   public onNavigatePagination(offset?: number): string | void {
@@ -147,7 +147,7 @@ export class ReservationComponent implements OnInit {
     if (confirm(`Cancel this reservation ?`))
       this.customerReservationService.cancelReservation(reservationId).subscribe({
         next: (reservationPayload: any) => {
-          this.getReservations();
+          this.fetchAllReservations();
           this.notificationService.showWarning(new ToastrMsg(`Reservation has been cancelled`, "Reservation cancelled!"));
         },
         error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)

@@ -40,9 +40,9 @@ export class ReservationDetailsComponent implements OnInit {
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getAssignedTask();
-    this.getReservationDetails();
-    this.getOrderedServiceDetails();
+    this.fetchAssignedTask();
+    this.fetchReservationDetails();
+    this.fetchOrderedServiceDetails();
   }
   
   public calculateTotalAmount(): number {
@@ -63,10 +63,10 @@ export class ReservationDetailsComponent implements OnInit {
     return totalDuration;
   }
 
-  public getReservationDetails(): void {
+  public fetchReservationDetails(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) =>
-        this.workerReservationDetailService.getReservationDetails(p.reservationId).subscribe({
+        this.workerReservationDetailService.fetchReservationDetails(p.reservationId).subscribe({
           next: (reservationDetailsPayload: any) =>
             this.reservationDetails = reservationDetailsPayload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
@@ -74,10 +74,10 @@ export class ReservationDetailsComponent implements OnInit {
     });
   }
 
-  public getOrderedServiceDetails(): void {
+  public fetchOrderedServiceDetails(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        this.serviceDetailService.getOrderedServiceDetailsByReservationId(p.reservationId).subscribe({
+        this.serviceDetailService.fetchOrderedServiceDetails(p.reservationId).subscribe({
           next: (orderedServiceDetailsPayload: any) => {
             this.orderedServiceDetails = orderedServiceDetailsPayload?.responseBody;
           },
@@ -109,10 +109,10 @@ export class ReservationDetailsComponent implements OnInit {
     button.click();
   }
   
-  private getAssignedTask(): void {
+  private fetchAssignedTask(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
-        this.workerReservationTaskService.getAssignedTask(p?.reservationId).subscribe({
+        this.workerReservationTaskService.fetchAssignedTask(p?.reservationId).subscribe({
           next: (taskPayload: any) => this.task = taskPayload?.responseBody,
           error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
         });
@@ -149,7 +149,7 @@ export class ReservationDetailsComponent implements OnInit {
         this.workerReservationTaskService.beginTask(p?.reservationId, ngForm?.value?.workerDescription).subscribe({
           next: (taskPayload: any) => {
             this.task = taskPayload?.responseBody;
-            this.getReservationDetails();
+            this.fetchReservationDetails();
             this.notificationService.showSuccess(new ToastrMsg(`My Task has been initiated successfully..`, `Task Started!`));
             if (this.task?.reservation?.status === ReservationStatus.IN_PROGRESS)
               this.notificationService.showInfo(new ToastrMsg(`Reservation is IN_PROGRESS`, `Reservation Updated!`));
@@ -169,7 +169,7 @@ export class ReservationDetailsComponent implements OnInit {
           this.workerReservationTaskService.endTask(p?.reservationId, ngForm?.value?.workerDescription).subscribe({
             next: (taskPayload: any) => {
               this.task = taskPayload?.responseBody;
-              this.getReservationDetails();
+              this.fetchReservationDetails();
               this.notificationService.showSuccess(new ToastrMsg(`My Task has been ended successfully..`, `Task Ended!`));
               if (this.task?.reservation?.status === ReservationStatus.COMPLETED)
                 this.notificationService.showInfo(new ToastrMsg(`Reservation is COMPLETED`, `Reservation Updated!`));

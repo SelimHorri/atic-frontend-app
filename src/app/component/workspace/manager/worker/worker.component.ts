@@ -25,11 +25,11 @@ export class WorkerComponent implements OnInit {
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getAllSubWorkers();
+    this.fetchAllSubWorkers();
   }
   
-  private getAllSubWorkers(): void {
-    this.managerWorkerService.getAllSubWorkers().subscribe({
+  private fetchAllSubWorkers(): void {
+    this.managerWorkerService.fetchAllSubWorkers().subscribe({
       next: (payload: any) => {
         this.managerWorkerInfoResponse = payload?.responseBody;
       },
@@ -62,7 +62,7 @@ export class WorkerComponent implements OnInit {
     });
     this.managerWorkerInfoResponse.subWorkers.content = res;
     if (!key)
-      this.getAllSubWorkers();
+      this.fetchAllSubWorkers();
   }
   
   public onOpenModal(action: string): void {
@@ -79,8 +79,8 @@ export class WorkerComponent implements OnInit {
     button.click();
   }
   
-  public getWorkerInfo(workerId: number): void {
-    this.managerWorkerService.getWorkerInfo(workerId).subscribe({
+  public fetchWorkerInfo(workerId: number): void {
+    this.managerWorkerService.fetchWorkerInfo(workerId).subscribe({
       next: (payload: any) => {
         this.workerInfo = payload?.responseBody;
         this.onOpenModal('workerInfo');

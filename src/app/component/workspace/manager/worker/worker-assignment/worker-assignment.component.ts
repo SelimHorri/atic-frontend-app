@@ -31,10 +31,10 @@ export class WorkerAssignmentComponent implements OnInit {
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem("userRole")}`);
-    this.getAllWorkerTasks();
+    this.fetchAllWorkerTasks();
   }
   
-  private getAllWorkerTasks(): void {
+  private fetchAllWorkerTasks(): void {
     this.activatedRoute.params.subscribe({
       next: (p: any) => {
         this.activatedRoute.queryParams.subscribe({
@@ -42,7 +42,7 @@ export class WorkerAssignmentComponent implements OnInit {
             if (q?.offset === undefined || q?.offset === null || q?.offset as number < 1 || q?.size as number < 1)
               this.router.navigateByUrl(`/workspace/${this.accountUrl}/workers/assignments/${p?.workerId}?offset=1`);
             else
-              this.managerWorkerAssignmentService.getAllWorkerTasks(p?.workerId,
+              this.managerWorkerAssignmentService.fetchAllWorkerTasks(p?.workerId,
                 new ClientPageRequest(q?.offset, q?.size, ['reservation.startDate', 'reservation.createdAt'], 'desc')).subscribe({
                   next: (payload: any) => {
                     this.managerWorkerAssignmentResponse = payload?.responseBody;
@@ -87,7 +87,7 @@ export class WorkerAssignmentComponent implements OnInit {
     });
     this.reservations = res;
     if (!key)
-      this.getAllWorkerTasks();
+      this.fetchAllWorkerTasks();
   }
   
   public onSearchAllLikeKey(key: string): void {
