@@ -49,6 +49,18 @@ export class CustomerFavouriteService {
     });
   }
   
+  public addFavourite(saloonId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}`, null, {
+      params: {
+        saloonId: saloonId
+      },
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    });
+  }
+  
   
   
 }

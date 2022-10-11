@@ -4,9 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientPageRequest } from 'src/app/model/request/client-page-request';
 import { PageResponse } from 'src/app/model/response/page/page-response';
+import { ToastrMsg } from 'src/app/model/toastr-msg';
 import { CredentialService } from 'src/app/service/credential.service';
+import { CustomerFavouriteService } from 'src/app/service/customer/customer-favourite.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
 import { LocationService } from 'src/app/service/location.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { SaloonService } from 'src/app/service/saloon.service';
 
 @Component({
@@ -22,10 +25,12 @@ export class SaloonComponent implements OnInit {
   public pages!: Array<number>;
   
   constructor(private saloonService: SaloonService,
+    private customerFavouriteService: CustomerFavouriteService,
     private locationService: LocationService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private credentialService: CredentialService,
+    private notificationService: NotificationService,
     private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit(): void {
@@ -121,6 +126,16 @@ export class SaloonComponent implements OnInit {
           this.pages = new Array<number>(newTotalPages);
         return url;
       }
+    });
+  }
+  
+  public onAddFavourite(saloonId: number): void {
+    this.customerFavouriteService.addFavourite(saloonId).subscribe({
+      next: (favouritePayload: any) => {
+        console.error(JSON.stringify(favouritePayload?.responseBody));
+        this.notificationService.showSuccess(new ToastrMsg(`Saloon added successfully to your favourite list..`, `Added!`));
+      },
+      error: (errorResponse: HttpErrorResponse) => this.errorHandlerService.extractExceptionMsg(errorResponse)
     });
   }
   
