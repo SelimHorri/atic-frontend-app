@@ -7,6 +7,7 @@ export class Reservation {
 
   constructor(
     public id: number,
+    public identifier: string,
     public code: string,
     public description: string,
     public startDate: Date | string,

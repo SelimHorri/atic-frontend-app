@@ -8,6 +8,7 @@ export class OrderedDetail {
     public reservationId: number,
     public serviceDetailId: number,
     public orderedDate: Date | string,
+    public identifier: string,
     public reservation: Reservation,
     public serviceDetail: ServiceDetail) {
   }

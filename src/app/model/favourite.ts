@@ -8,6 +8,7 @@ export class Favourite {
     public customerId: number,
     public saloonId: number,
     public favouriteDate: Date | string,
+    public identifier: string,
     public customer: Customer,
     public saloon: Saloon) {
   }

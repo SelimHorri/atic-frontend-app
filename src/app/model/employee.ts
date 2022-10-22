@@ -7,8 +7,11 @@ export class Employee {
   
   constructor(
     public id: number,
+    public identifier: string,
+    public ssn: string | null | undefined,
     public firstname: string,
     public lastname: string,
+    public isMale: boolean,
     public email: string,
     public phone: string,
     public birthdate: Date | string,

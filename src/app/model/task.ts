@@ -8,6 +8,7 @@ export class Task {
     public workerId: number,
     public reservationId: number,
     public taskDate: Date | string,
+    public identifier: string,
     public startDate: Date | string | null | undefined,
     public endDate: Date | string | null | undefined,
     public workerDescription: string | null | undefined,

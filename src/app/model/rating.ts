@@ -6,6 +6,7 @@ import { UserRating } from "./user-rating";
 export class Rating {
 
   constructor(
+    public identifier: string,
     public workerId: number,
     public customerId: number,
     public rateDate: Date | string,

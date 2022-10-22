@@ -8,6 +8,7 @@ export class SaloonTag {
     public saloonId: number,
     public tagId: number,
     public taggedDate: Date | string,
+    public identifier: string,
     public saloon: Saloon,
     public tag: Tag) {
   }

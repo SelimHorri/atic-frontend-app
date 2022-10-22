@@ -5,7 +5,8 @@ export enum ReservationStatus {
   IN_PROGRESS = "IN_PROGRESS",
   COMPLETED = "COMPLETED",
   CANCELLED = "CANCELLED",
-  OUTDATED = "OUTDATED"
+  OUTDATED = "OUTDATED",
+  NOT_CLOSED = "NOT_CLOSED"
   
 }
 
