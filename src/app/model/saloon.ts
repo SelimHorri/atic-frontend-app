@@ -8,6 +8,7 @@ export class Saloon {
     public id: number,
     public identifier: string,
     public code: string,
+    public taxRef: string,
     public name: string,
     public isPrimary: boolean,
     public openingDate: Date | string,
