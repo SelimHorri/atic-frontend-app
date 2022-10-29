@@ -59,8 +59,9 @@ const routes: Routes = [
       
       { path: "saloons", component: SaloonComponent },
       { path: "saloons/:id", component: SaloonDetailComponent, canActivate: [SaloonDetailGuard] },
+      { path: "saloons/:identifier", component: SaloonDetailComponent, canActivate: [SaloonDetailGuard] }, // ************
       { path: "saloons/:id/calendar", component: SaloonCalendarComponent, canActivate: [SaloonDetailGuard] },
-      // { path: "saloons/code/:code", component: SaloonComponent, canActivate: [SaloonDetailGuard] },
+      { path: "saloons/:identifier/calendar", component: SaloonCalendarComponent, canActivate: [SaloonDetailGuard] }, // ************
       
       { path: "logout", component: LogoutComponent },
       { path: "authenticate", component: AuthenticationComponent, canActivate: [AuthenticationGuard] },
@@ -76,9 +77,9 @@ const routes: Routes = [
           { path: "profile", component: CustomerProfileComponent },
           { path: "reservations", component: CustomerReservationComponent },
           { path: "reservations/:reservationId", component: CustomerReservationDetailsComponent },
-          { path: "reservations/:reservationIdentifier", component: CustomerReservationDetailsComponent },
-          // { path: "reservations/:code", component: CustomerReservationDetailsComponent },
+          { path: "reservations/:reservationIdentifier", component: CustomerReservationDetailsComponent }, // ************
           { path: "reservations/assigned/:workerId", component: CustomerAssignedWorkerComponent },
+          { path: "reservations/assigned/:workerIdentifier", component: CustomerAssignedWorkerComponent }, // ************
           { path: "favourites", component: CustomerFavouriteComponent },
           { path: "ratings", component: CustomerRatingComponent },
         ]
@@ -93,6 +94,7 @@ const routes: Routes = [
           { path: "reservations", component: WorkerReservationComponent },
           { path: "reservations/calendar", component: WorkerReservationCalendarComponent },
           { path: "reservations/:reservationId", component: WorkerReservationDetailsComponent },
+          { path: "reservations/:reservationIdentifier", component: WorkerReservationDetailsComponent }, // ************
         ]
       },
       {
@@ -105,8 +107,10 @@ const routes: Routes = [
           { path: "reservations", component: ManagerReservationComponent },
           { path: "reservations/calendar", component: ManagerReservationCalendarComponent },
           { path: "reservations/:reservationId", component: ManagerReservationDetailComponent },
+          { path: "reservations/:reservationIdentifier", component: ManagerReservationDetailComponent }, // ************
           { path: "workers", component: ManagerWorkerComponent },
           { path: "workers/assignments/:workerId", component: ManagerWorkerAssignmentComponent },
+          { path: "workers/assignments/:workerIdentifier", component: ManagerWorkerAssignmentComponent }, // ************
           { path: "categories", component: ManagerCategoryComponent },
           { path: "services", component: ManagerServiceDetailComponent },
         ]
@@ -132,4 +136,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
