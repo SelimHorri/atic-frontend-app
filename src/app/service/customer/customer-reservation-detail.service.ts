@@ -26,20 +26,38 @@ export class CustomerReservationDetailService {
         UsernameAuth: `${sessionStorage.getItem(`username`)}`,
         Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
       }
-    })
-      .pipe(map(payload => {
-        payload?.responseBody?.orderedDetails?.content?.map((o: any) =>
-          o.orderedDate = moment(o?.orderedDate, DateBackendFormat.LOCAL_DATE_TIME).toDate());
-        payload.responseBody.reservation.startDate = moment(payload?.responseBody?.reservation?.startDate,
-          DateBackendFormat.LOCAL_DATE_TIME).toDate();
-        payload.responseBody.reservation.cancelDate = moment(payload?.responseBody?.reservation?.cancelDate,
-          DateBackendFormat.LOCAL_DATE_TIME).toDate();
-        payload.responseBody.reservation.completeDate = moment(payload?.responseBody?.reservation?.completeDate,
-          DateBackendFormat.LOCAL_DATE_TIME).toDate();
-        return payload;
-      }));
+    }).pipe(map(payload => {
+      payload?.responseBody?.orderedDetails?.content?.map((o: any) =>
+        o.orderedDate = moment(o?.orderedDate, DateBackendFormat.LOCAL_DATE_TIME).toDate());
+      payload.responseBody.reservation.startDate = moment(payload?.responseBody?.reservation?.startDate,
+        DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.cancelDate = moment(payload?.responseBody?.reservation?.cancelDate,
+        DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.completeDate = moment(payload?.responseBody?.reservation?.completeDate,
+        DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      return payload;
+    }));
   }
-
+  
+  public fetchReservationDetailsWithIdentifier(reservationIdentifier: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/identifier/${reservationIdentifier}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    }).pipe(map(payload => {
+      payload?.responseBody?.orderedDetails?.content?.map((o: any) =>
+        o.orderedDate = moment(o?.orderedDate, DateBackendFormat.LOCAL_DATE_TIME).toDate());
+      payload.responseBody.reservation.startDate = moment(payload?.responseBody?.reservation?.startDate,
+        DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.cancelDate = moment(payload?.responseBody?.reservation?.cancelDate,
+        DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      payload.responseBody.reservation.completeDate = moment(payload?.responseBody?.reservation?.completeDate,
+        DateBackendFormat.LOCAL_DATE_TIME).toDate();
+      return payload;
+    }));
+  }
+  
   public updateReservationDetails(reservationDetailRequest: ReservationDetailRequest): Observable<any> {
     reservationDetailRequest.description = reservationDetailRequest.description?.trim();
     return this.http.put<any>(`${this.apiUrl}`, reservationDetailRequest, {

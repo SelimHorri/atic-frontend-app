@@ -76,6 +76,8 @@ const routes: Routes = [
           { path: "profile", component: CustomerProfileComponent },
           { path: "reservations", component: CustomerReservationComponent },
           { path: "reservations/:reservationId", component: CustomerReservationDetailsComponent },
+          { path: "reservations/:reservationIdentifier", component: CustomerReservationDetailsComponent },
+          // { path: "reservations/:code", component: CustomerReservationDetailsComponent },
           { path: "reservations/assigned/:workerId", component: CustomerAssignedWorkerComponent },
           { path: "favourites", component: CustomerFavouriteComponent },
           { path: "ratings", component: CustomerRatingComponent },

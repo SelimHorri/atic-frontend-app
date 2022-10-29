@@ -24,6 +24,15 @@ export class ServiceDetailService {
     });
   }
   
+  public fetchOrderedServiceDetailsWithIdentifier(reservationIdentifier: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/reservationIdentifier/${reservationIdentifier}`, {
+      headers: {
+        UsernameAuth: `${sessionStorage.getItem(`username`)}`,
+        Authorization: `Bearer ${sessionStorage.getItem(`jwtToken`)}`,
+      }
+    });
+  }
+  
   public findAllByCategorySaloonId(saloonId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/saloonId/${saloonId}`);
   }
