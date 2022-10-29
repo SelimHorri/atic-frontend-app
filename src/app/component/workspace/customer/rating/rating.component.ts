@@ -26,10 +26,11 @@ export class RatingComponent implements OnInit {
   
   ngOnInit(): void {
     this.accountUrl = this.credentialService.getUserRole(`${sessionStorage.getItem(`userRole`)}`);
-    this.getRatings();
+    this.fetchRatings();
   }
   
-  public getRatings(): void {
+  public fetchRatings(): void {
+    /*
     this.customerService.fetchRatings().subscribe({
       next: (customerRatingPayload: any) => {
         this.ratings = customerRatingPayload?.responseBody?.ratings;
@@ -44,6 +45,7 @@ export class RatingComponent implements OnInit {
       },
       
     });
+    */
   }
   
   public calculateEmployeeRatings(employee: Employee): void {
