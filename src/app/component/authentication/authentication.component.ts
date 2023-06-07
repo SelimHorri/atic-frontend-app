@@ -6,6 +6,7 @@ import { LoginRequest } from 'src/app/model/request/login-request';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CredentialService } from 'src/app/service/credential.service';
 import { ErrorHandlerService } from 'src/app/service/error-handler.service';
+import { RegistrationService } from 'src/app/service/registration.service';
 
 @Component({
   selector: 'app-authentication',
@@ -19,6 +20,7 @@ export class AuthenticationComponent implements OnInit {
   public registeredUsername!: string;
   
   constructor(private authenticationService: AuthenticationService,
+    private registrationService: RegistrationService,
     private credentialService: CredentialService,
     private  activatedRoute: ActivatedRoute,
     private errorHandlerService: ErrorHandlerService) {}
@@ -83,7 +85,16 @@ export class AuthenticationComponent implements OnInit {
     });
   }
   
-  
+  public onResendLink(username: string): void {
+    this.registrationService.resendToken(username).subscribe({
+      next: (registerResponsePayload: any) => {
+        const registerResponse = registerResponsePayload?.responseBody;
+        alert(`${registerResponse?.msg}`);
+      },
+      error: (errorResponse: HttpErrorResponse) =>
+        this.errorHandlerService.extractExceptionMsg(errorResponse)
+    });
+  }
   
 }
 

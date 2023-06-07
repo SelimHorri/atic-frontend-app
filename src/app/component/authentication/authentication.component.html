@@ -35,6 +35,8 @@
                     placeholder="password.." required>
                 </div>
                 <div class="modal-footer">
+                  <a *ngIf="registeredUsername" href="javascript:void(0);" class=""
+                      (click)="onResendLink(registeredUsername)">Resend link</a>
                   <button [disabled]="loginForm.invalid" (click)="onLogin(loginForm.value)" type="submit"
                     class="btn btn-info">Login</button>
                 </div>

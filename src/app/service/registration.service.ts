@@ -24,15 +24,15 @@ export class RegistrationService {
     return this.http.post<any>(`${this.apiUrl}`, registerRequest);
   }
   
-  
+  public resendToken(username: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/resend`, {
+      params: {
+        username: `${username}`
+      }
+    });
+  }
   
 }
-
-
-
-
-
-
 
 
 
